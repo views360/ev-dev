@@ -1,5 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
+.collapsible-section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin: 0 15px 15px 15px;
+    /*margin-bottom: 15px;*/
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.collapsible-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: var(--panel-alt);
+    user-select: none;
+}
+
+.collapsible-header h2, .collapsible-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.toggle-icon {
+    font-size: 1.5rem;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.collapsible-content {
+    max-height: 0;
+    padding: 0 20px;
+    opacity: 0;
+    transition: all 0.3s ease-out;
+    visibility: hidden;
+}
+
+/* When active, show content */
+.collapsible-section.active .collapsible-content {
+    max-height: 2000px; /* Large enough for content */
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.collapsible-section.active {
+    border-color: var(--accent);
+    box-shadow: var(--glow);
+}
+
 #floatingTooltip {
     visibility: hidden;
     position: fixed;
@@ -298,7 +351,6 @@ input, select {
 input:focus, select:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 .btn-row {
@@ -485,12 +537,12 @@ tr.bad td { color: var(--danger); }
     margin-bottom: 20px !important;
 }
 
-. {
+/*. {
     width: 100%;
     margin: 15px 0 20px 0;
     display: flex;
     justify-content: center;
-}
+}*/
 
 .toggle-wrapper {
     display: flex;
@@ -526,7 +578,7 @@ tr.bad td { color: var(--danger); }
     display: flex;
     border-bottom: 2px solid var(--border);
     max-width: 410px;
-    margin: 0 auto 20px auto;
+    margin: 30px auto 30px auto;
 }
 
 .calc-tab {
@@ -722,14 +774,14 @@ tr.bad td { color: var(--danger); }
 
 .help-slides {
     display: flex;
-    width: 700%;
+    width: 800%; /* Changed from 700% */
     transition: transform 0.4s ease-in-out;
 }
 
 .help-slide {
-    width: 14.285714%; /* Exactly 1/7th */
+    width: 12.5%; /* Changed from 14.285714% */
     flex-shrink: 0;
-    overflow: hidden; /* This prevents the image from spilling into the next slide */
+    overflow: hidden;
     position: relative;
     box-sizing: border-box;
 }
@@ -1209,7 +1261,7 @@ body {
         transform: translateX(0); 
     }
     100% { 
-        transform: translateX(-28.5714285714%); 
+        transform: translateX(-25%); 
     }
 }
 
@@ -1293,6 +1345,7 @@ body {
 
 /* Desktop sidebar ad — hidden on mobile, visible on desktop */
 .desktop-sidebar-ad {
+    display: none;
     position: absolute;
     visibility: hidden;
     pointer-events: none;
@@ -1384,6 +1437,135 @@ body {
         visibility: visible;
     }
 
+}
+
+/* AI Floating Widget - Icon Only on Edge */
+.ai-widget-container {
+    position: fixed;
+    /* Adjusted to only show the icon area on the screen edge */
+    left: -138px; 
+    top: calc(50% + 100px); 
+    transform: translateY(-50%);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--panel);
+    border: 2px solid var(--accent);
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+    padding: 10px 5px 10px 10px;
+    box-shadow: var(--glow);
+    cursor: pointer;
+}
+
+/* Slide widget in on hover or click (mobile) */
+.ai-widget-container:hover, 
+.ai-widget-container:active {
+    left: 0;
+}
+
+.ai-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ai-icon-wrapper {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The Robot Icon SVG - Styled like menu icons */
+.ai-robot-icon {
+    stroke: var(--muted);
+    transition: stroke 0.3s ease;
+}
+
+.ai-widget-container:hover .ai-robot-icon {
+    stroke: var(--accent); /* Glows when widget slides out */
+}
+
+/* Button hidden until expanded */
+.ai-button {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: all 0.3s ease 0.1s; /* Slight delay for smoother appearance */
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ai-widget-container:hover .ai-button,
+.ai-widget-container:active .ai-button {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+/* --- ITINERARY TABS --- */
+
+#itineraryTabs {
+    margin-top: 10px;
+}
+
+.itinerary-tab-buttons {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+}
+
+.itinerary-tab-buttons::-webkit-scrollbar {
+    height: 6px;
+}
+.itinerary-tab-buttons::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+.itinerary-tab-btn {
+    padding: 6px 14px;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    background: var(--bg-secondary);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    transition: 0.2s ease;
+}
+
+.itinerary-tab-btn.active {
+    background: var(--bg);
+    border-color: var(--accent);
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    font-weight: bold;
+}
+
+.itinerary-tab-content {
+    padding-top: 10px;
+}
+
+.itinerary-note {
+    font-size: 0.85rem;
+    margin-top: 12px;
+    opacity: 0.8;
 }
 
 
