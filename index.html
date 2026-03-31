@@ -2,8 +2,18 @@
 <html lang="en">
 <head>
     <script src="menu-utils.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015"
-     crossorigin="anonymous"></script>
+	<script>
+	    // Only load AdSense if we are on the live production domain
+	    if (window.location.hostname === 'yourlivedomain.com') {
+	        const script = document.createElement('script');
+	        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015";
+	        script.async = true;
+	        script.crossOrigin = "anonymous";
+	        document.head.appendChild(script);
+	    } else {
+	        console.log("AdSense disabled on DEV environment.");
+	    }
+	</script>
     <meta charset="UTF-8">
 	<meta name="google-adsense-account" content="ca-pub-2944414800646015">
     <title>EV Subs (UK)</title>
