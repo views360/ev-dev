@@ -34,16 +34,17 @@
 
 .collapsible-content {
     max-height: 0;
-    padding: 0 20px;
+    padding: 0 20px; /* CHANGE THIS TO: padding: 0; */
     opacity: 0;
     transition: all 0.3s ease-out;
     visibility: hidden;
+    overflow: hidden; /* Add this to prevent content bleed */
 }
 
 /* When active, show content */
 .collapsible-section.active .collapsible-content {
-    max-height: 2000px; /* Large enough for content */
-    padding: 20px;
+    max-height: 2000px; 
+    padding: 20px; /* This adds the padding back only when open */
     opacity: 1;
     visibility: visible;
 }
