@@ -6,9 +6,17 @@ function renderTripResults(inputs, context) {
         return;
     }
 
-    // 2. Calculate PAYG specifics
+    // 2. How far can we drive before we hit the recharge limit?
     const mainInitialRange = ((inputs.soc - inputs.rechargeAt) / 100) * inputs.batteryKwh * inputs.efficiency;
-    const { totalAdhocCost, totalPreJourneyCost, publicKwh } = updatePaygSummaryUI(inputs, mainInitialRange);
+
+    // COST: How much did we pay to get from Pre-Charge to Departure level?
+    // We fetch "prechargesoc" directly from the input ID you provided
+    const preChargeSocValue = parseFloat(document.getElementById("prechargesoc").value) || 0;
+    const preJourneyKwh = Math.max(0, (inputs.soc - preChargeSocValue) / 100) * inputs.batteryKwh;
+    const preJourneyCost = preJourneyKwh * (inputs.startChargeRate / 100);
+
+    // Update UI using a modified version of your helper
+    const { totalAdhocCost, totalPreJourneyCost, publicKwh } = updatePaygSummaryUI(inputs, mainInitialRange, preJourneyCost, preChargeSocValue);
     
     // 3. Process the list of providers
     const providers = processProviderData(providerBoxes, inputs, totalAdhocCost, totalPreJourneyCost, mainInitialRange);
@@ -150,11 +158,11 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
 
 function updatePaygSummaryUI(inputs, mainInitialRange) {
     const rangeData = calculateRangeHtml(inputs, mainInitialRange);
-    const mainTopUpKwh = Math.max(0, ((inputs.soc - inputs.rechargeAt) / 100) * inputs.batteryKwh);
-    const mainTopUpCost = mainTopUpKwh * (inputs.startChargeRate / 100);
+    const mainTopUpKwh = Math.max(0, ((inputs.soc - customPreSoc) / 100) * inputs.batteryKwh);
+    const mainTopUpCost = customPreCost; // Use the calculated cost passed from renderTripResults
 
-    const paygData = generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTopUpCost);
-    
+    // Update the summary generator to use the new "From %"
+    const paygData = generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTopUpCost, customPreSoc);
     document.getElementById("preChargeLine").innerHTML = `<div class="guide-section" id="payg-summary">${paygData.preChargeHtml}</div>`;
 
     const kwhData = generateKwhBreakoutHtml(inputs, paygData.journey1PublicMiles);
@@ -485,11 +493,11 @@ function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTop
         </div>`;
 
         inputs.additionalJourneys.forEach((j, index) => {
-            const extraKwh = Math.max(0, ((j.soc - inputs.rechargeAt) / 100) * inputs.batteryKwh);
+            const extraKwh = Math.max(0, ((j.soc - inputs.prechargesoc) / 100) * inputs.batteryKwh);
             const extraCost = extraKwh * (j.rate / 100);
             totalPreJourneyCost += extraCost;
             preChargeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
-                Journey ${index + 2} pre-charge cost (${inputs.rechargeAt}%→${j.soc}%, ${extraKwh.toFixed(1)} kWh x ${j.rate}p): £${extraCost.toFixed(2)}
+                Journey ${index + 2} pre-charge cost (${inputs.prechargesoc}%→${j.soc}%, ${extraKwh.toFixed(1)} kWh x ${j.rate}p): £${extraCost.toFixed(2)}
             </div>`;
         });
 
