@@ -449,23 +449,29 @@
 	        </div>
 		</div>
 
-		<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
-            <h3>2. Providers &amp; Subscriptions</h3>
-			<label for="sortResults">Sort results</label>
-            <select id="sortResults" onchange="calculate()">
-                <option value="cheapest">Cheapest first</option>
-                <option value="breakeven">Break-even PAYG public charging miles (low to high)</option>
-                <option value="az">A → Z</option>
-                <option value="za">Z → A</option>
-            </select>
-        </div>
-
-        <div class="guide-section" id="providerResults"></div>
-        <div id="conclusionsBox"></div>
-		<div id="realWorldAssessment"></div>
-        <div id="summaryBox" class="summary"></div>
+		<div style="border: solid red 5px">
+			<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
+	            <h3>2. Providers &amp; Subscriptions</h3>
+				<label for="sortResults">Sort results</label>
+	            <select id="sortResults" onchange="calculate()">
+	                <option value="cheapest">Cheapest first</option>
+	                <option value="az">A → Z</option>
+	                <option value="za">Z → A</option>
+	            </select>
+	        </div>
+	        <div class="guide-section" id="providerResults"></div>
+		</div>
+		<div style="border: solid pink 5px">
+        	<div id="conclusionsBox"></div>
+		</div>
+		<div style="border: solid blue 5px">
+			<div id="realWorldAssessment"></div>
+		</div>
+		<div style="border: solid orange 5px">
+        	<div id="summaryBox" class="summary"></div>
+		</div>
 		
-        <div class="chart-wrapper guide-section" id="graph-section">
+        <div class="chart-wrapper guide-section" id="graph-section" style="border: solid red 5px">
 			<h3>6. Subscriptions Break-Even Graph</h3>
             Click a legend box/text to show/hide line
             <canvas id="costChart" height="220"></canvas>
