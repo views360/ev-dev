@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
-
 #floatingTooltip {
     visibility: hidden;
     position: fixed;
@@ -485,12 +484,12 @@ tr.bad td { color: var(--danger); }
     margin-bottom: 20px !important;
 }
 
-/*. {
+. {
     width: 100%;
     margin: 15px 0 20px 0;
     display: flex;
     justify-content: center;
-}*/
+}
 
 .toggle-wrapper {
     display: flex;
@@ -526,7 +525,7 @@ tr.bad td { color: var(--danger); }
     display: flex;
     border-bottom: 2px solid var(--border);
     max-width: 410px;
-    margin: 30px auto 30px auto;
+    margin: 0 auto 20px auto;
 }
 
 .calc-tab {
@@ -722,14 +721,14 @@ tr.bad td { color: var(--danger); }
 
 .help-slides {
     display: flex;
-    width: 800%; /* Changed from 700% */
+    width: 700%;
     transition: transform 0.4s ease-in-out;
 }
 
 .help-slide {
-    width: 12.5%; /* Changed from 14.285714% */
+    width: 14.285714%; /* Exactly 1/7th */
     flex-shrink: 0;
-    overflow: hidden;
+    overflow: hidden; /* This prevents the image from spilling into the next slide */
     position: relative;
     box-sizing: border-box;
 }
@@ -1209,7 +1208,7 @@ body {
         transform: translateX(0); 
     }
     100% { 
-        transform: translateX(-25%); 
+        transform: translateX(-28.5714285714%); 
     }
 }
 
@@ -1384,6 +1383,7 @@ body {
         z-index: 2001;
         visibility: visible;
     }
+
 }
 
 /* AI Floating Widget - Icon Only on Edge */
@@ -1462,58 +1462,7 @@ body {
     transform: translateX(0);
 }
 
-/* --- ITINERARY TABS --- */
 
-#itineraryTabs {
-    margin-top: 10px;
-}
-
-.itinerary-tab-buttons {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--border);
-}
-
-.itinerary-tab-buttons::-webkit-scrollbar {
-    height: 6px;
-}
-.itinerary-tab-buttons::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 4px;
-}
-
-.itinerary-tab-btn {
-    padding: 6px 14px;
-    border-radius: 6px 6px 0 0;
-    cursor: pointer;
-    white-space: nowrap;
-    font-size: 0.85rem;
-    background: var(--bg-secondary);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-bottom: none;
-    transition: 0.2s ease;
-}
-
-.itinerary-tab-btn.active {
-    background: var(--bg);
-    border-color: var(--accent);
-    color: var(--accent);
-    border-bottom: 2px solid var(--accent);
-    font-weight: bold;
-}
-
-.itinerary-tab-content {
-    padding-top: 10px;
-}
-
-.itinerary-note {
-    font-size: 0.85rem;
-    margin-top: 12px;
-    opacity: 0.8;
-}
 
 
 
