@@ -156,7 +156,7 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
     conclusionsBox.innerHTML = conclusionHTML + itineraryData.assessmentBoxHTML;
 }
 
-function updatePaygSummaryUI(inputs, mainInitialRange) {
+function updatePaygSummaryUI(inputs, mainInitialRange, customPreCost, customPreSoc) {
     const rangeData = calculateRangeHtml(inputs, mainInitialRange);
     const mainTopUpKwh = Math.max(0, ((inputs.soc - customPreSoc) / 100) * inputs.batteryKwh);
     const mainTopUpCost = customPreCost; // Use the calculated cost passed from renderTripResults
@@ -493,7 +493,7 @@ function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTop
         </div>`;
 
         inputs.additionalJourneys.forEach((j, index) => {
-            const extraKwh = Math.max(0, ((j.soc - inputs.prechargesoc) / 100) * inputs.batteryKwh);
+            const extraKwh = Math.max(0, ((j.soc - j.prechargesoc) / 100) * inputs.batteryKwh);
             const extraCost = extraKwh * (j.rate / 100);
             totalPreJourneyCost += extraCost;
             preChargeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
@@ -504,7 +504,7 @@ function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTop
         preChargeHtml += `<p style="margin: 0px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
             <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the combined cost for pre-charging your battery before each journey defined above.</span></span></span>Total battery pre-charge cost for all journeys: £${totalPreJourneyCost.toFixed(2)}</p>`;
     } else {
-        preChargeHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the cost of pre-charging your battery at your start/departure location before your journey.</span></span></span>Pre-journey battery charge (${inputs.rechargeAt}%→${inputs.soc}%, ${mainTopUpKwh.toFixed(1)} kWh x ${inputs.startChargeRate}p): 
+        preChargeHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the cost of pre-charging your battery at your start/departure location before your journey.</span></span></span>Pre-journey battery charge (${customPreSoc}%→${inputs.soc}%, ${mainTopUpKwh.toFixed(1)} kWh x ${inputs.startChargeRate}p): 
             <strong>£${mainTopUpCost.toFixed(2)}</strong></p>`;
     }
 
