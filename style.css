@@ -1,5 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
+.app p {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.results-instruction {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin: 10px 0 20px 0;
+    color: var(--muted);
+}
+
 .collapsible-section {
     background: var(--panel);
     border: 1px solid var(--border);
