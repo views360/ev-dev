@@ -442,7 +442,7 @@ body.light-mode #providerResults th:nth-child(even) {
 
 .speed-comparison-container {
     margin-top: 20px;
-    max-width: 400px;
+    width: 100%;
 }
 
 .mini-table {
@@ -1293,7 +1293,6 @@ body {
 
 /* Desktop sidebar ad — hidden on mobile, visible on desktop */
 .desktop-sidebar-ad {
-    display: none;
     position: absolute;
     visibility: hidden;
     pointer-events: none;
