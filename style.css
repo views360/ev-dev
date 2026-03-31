@@ -607,7 +607,7 @@ tr.bad td { color: var(--danger); }
 }
 
 @keyframes tabBorderPulse {
-    0%, 100% { border-bottom-color: var(--accent); }
+    /*0%, 100% { border-bottom-color: var(--accent); }*/
     /*50% { border-bottom-color: var(--neon-green); }*/
 }
 
