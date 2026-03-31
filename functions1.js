@@ -422,18 +422,3 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
 
     return rows;
 }
-
-function toggleCollapsible(contentId, btn) {
-    const content = document.getElementById(contentId);
-    if (!content) return;
-
-    // Toggle the "active" class on the button for CSS styling
-    btn.classList.toggle("active");
-
-    // Toggle display between block and none
-    if (content.style.display === "block") {
-        content.style.display = "none";
-    } else {
-        content.style.display = "block";
-    }
-}
