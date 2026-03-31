@@ -53,7 +53,9 @@ function getModeContext() {
         isTripMode,
         uiResults: document.getElementById("results"),
         uiPreText: document.getElementById("preConclusionsText"),
-        conclusionsBox: document.getElementById("conclusionsBox"),
+        // If 'conclusionsBox' no longer exists, map it to one of your new containers 
+        // or ensure the functions using it handle 'null' gracefully as shown in Step 2.
+        conclusionsBox: document.getElementById("conclusionsBox"), 
         resultsHeader: document.getElementById("resultsHeader"),
         uiShare: document.getElementById("shareBtn"),
         uiPdf: document.getElementById("pdfBtn")
