@@ -484,15 +484,42 @@
         		<div id="conclusionsBox"></div>
 			</div>
 		</div>
+
+		<div class="collapsible-section">
+			<div class="collapsible-header" onclick="toggleSection(this)">
+				<h3>4. Charging Durations</h3>
+				<span class="toggle-icon">+</span>
+			</div>
+			<div class="collapsible-content">
+        		<div id="realWorldAssessment"></div>
+			</div>
+		</div>
 		
-		<div id="realWorldAssessment"></div>
-        <div id="summaryBox" class="summary"></div>
+		<div class="collapsible-section">
+			<div class="collapsible-header" onclick="toggleSection(this)">
+				<h3>5. Real-Word Charging Itinerary</h3>
+				<span class="toggle-icon">+</span>
+			</div>
+			<div class="collapsible-content">
+        		<div id="summaryBox" class="summary"></div>
+			</div>
+		</div>		
+        
+		<div class="collapsible-section">
+			<div class="collapsible-header" onclick="toggleSection(this)">
+				<h3>6. Subscriptions Break-Even Graph</h3>
+				<span class="toggle-icon">+</span>
+			</div>
+			<div class="collapsible-content">
+        		<div class="chart-wrapper guide-section" id="graph-section">
+					<h3>6. Subscriptions Break-Even Graph</h3>
+		            Click a legend box/text to show/hide line
+		            <canvas id="costChart" height="220"></canvas>
+		        </div>
+			</div>
+		</div>
 		
-        <div class="chart-wrapper guide-section" id="graph-section">
-			<h3>6. Subscriptions Break-Even Graph</h3>
-            Click a legend box/text to show/hide line
-            <canvas id="costChart" height="220"></canvas>
-        </div>
+
     </div>
 </div>
 </div><!-- end content-wrap -->
