@@ -438,7 +438,7 @@
     <div id="preConclusionsText">Please complete all fields in the <strong>Journey & Vehicle</strong> section</div>
     <div id="results" class="results">
 
-	
+		<p>Expand and collapse the sections of interest.</p>	
 		<div class="collapsible-section">
     		<div class="collapsible-header" onclick="toggleSection(this)">
         		<h3 id="paygSummaryTitle" style="margin-bottom: 0px; padding-bottom: 0px">1. PAYG Summary</h3>
@@ -456,27 +456,65 @@
 			</div>
 		</div>
 
-		<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
-            <h3>2. Providers &amp; Subscriptions</h3>
-			<label for="sortResults">Sort results</label>
-            <select id="sortResults" onchange="calculate()">
-                <option value="cheapest">Cheapest first</option>
-                <option value="breakeven">Break-even PAYG public charging miles (low to high)</option>
-                <option value="az">A → Z</option>
-                <option value="za">Z → A</option>
-            </select>
-        </div>
+		<div class="collapsible-section">
+    		<div class="collapsible-header" onclick="toggleSection(this)">
+        		<h3>2. Providers &amp; Subscriptions</h3>
+        		<span class="toggle-icon">+</span>
+    		</div>
+		    <div class="collapsible-content" style="align: center; margin: auto">
+				<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">  
+					<label for="sortResults">Sort results</label>
+		            <select id="sortResults" onchange="calculate()">
+		                <option value="cheapest">Cheapest first</option>
+		                <option value="az">A → Z</option>
+		                <option value="za">Z → A</option>
+		            </select>
+		        </div>
+	        	<div class="guide-section" id="providerResults"></div>
+			</div>
+		</div>
 
-        <div class="guide-section" id="providerResults"></div>
-        <div id="conclusionsBox"></div>
-		<div id="realWorldAssessment"></div>
-        <div id="summaryBox" class="summary"></div>
+		<div class="collapsible-section">
+    		<div class="collapsible-header" onclick="toggleSection(this)">
+        		<h3>3. PAYG vs Subscription Conclusion</h3>
+        		<span class="toggle-icon">+</span>
+    		</div>
+		    <div class="collapsible-content" style="align: center; margin: auto">
+        		<div id="conclusionsBox"></div>
+			</div>
+		</div>
+
+		<div class="collapsible-section">
+    		<div class="collapsible-header" onclick="toggleSection(this)">
+        		<h3>5. Real-World Charging Itinerary</h3>
+        		<span class="toggle-icon">+</span>
+    		</div>
+		    <div class="collapsible-content" style="align: center; margin: auto">
+        		<div id="realWorldAssessment"></div>
+			</div>
+		</div>
 		
-        <div class="chart-wrapper guide-section" id="graph-section">
-			<h3>6. Subscriptions Break-Even Graph</h3>
-            Click a legend box/text to show/hide line
-            <canvas id="costChart" height="220"></canvas>
-        </div>
+		<div class="collapsible-section">
+    		<div class="collapsible-header" onclick="toggleSection(this)">
+        		<h3>Summary?</h3>
+        		<span class="toggle-icon">+</span>
+    		</div>
+		    <div class="collapsible-content" style="align: center; margin: auto">
+        		<div id="summaryBox" class="summary"></div>
+			</div>
+		</div>				
+		
+  		<div class="collapsible-section">
+    		<div class="collapsible-header" onclick="toggleSection(this)">
+        		<h3>6. Subscriptions Break-Even Graph</h3>
+        		<span class="toggle-icon">+</span>
+    		</div>
+		    <div class="collapsible-content" style="align: center; margin: auto">
+        		Click a legend box/text to show/hide line
+            	<canvas id="costChart" height="220"></canvas>
+			</div>
+		</div>      
+
     </div>
 </div>
 </div><!-- end content-wrap -->
