@@ -104,31 +104,32 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
 
     const itineraryData = generateRealWorldItineraryHtml(inputs, publicKwh, formatChargingTime);
 
-    const contentsBox = document.getElementById("contentsBox");
+    // --- 1. HANDLE SECTION 3: CONCLUSION ---
+    let conclusionHTML = `<div class="conclusion-white-border guide-section" id="payg-vs-subscription">`; 
+    const journeyCount = 1 + inputs.additionalJourneys.length;
+    const totalMiles = inputs.journeyMiles + inputs.additionalJourneys.reduce((sum, j) => sum + j.miles, 0);
+    let journeyIntro = (journeyCount === 1) ? `For a journey of <strong>${inputs.journeyMiles} miles</strong>` : `For ${journeyCount} journeys totalling <strong>${totalMiles} miles</strong>`;
     
-    // In Cost Reduction (isTripMode), we hide the TOC
-    if (inputs.isTripMode) {
-        contentsBox.style.display = "none";
-        contentsBox.innerHTML = "";
+    if (bestProvider.savings > 0) {
+        conclusionHTML += `<h3>3. PAYG vs Subscription Conclusion</h3><p class="main-result">${journeyIntro}, a one-month subscription with <strong>${bestProvider.name}</strong> works out cheaper...</p>`;
     } else {
-        contentsBox.style.display = "block";
-        // Define and assign innerHTML inside the block to avoid scope errors
-        contentsBox.innerHTML = `
-           <div id="toc" class="conclusion-white-border">
-               <h3>RESULTS CONTENTS</h3>
-               <ul style="margin:0; padding-left:20px; font-size:0.95rem;">
-                   <li><a href="#payg-summary" style="color: var(--accent); text-decoration:none;">1. PAYG Summary (Based on ${inputs.adhoc}p/kWh)</a></li>
-                   <li><a href="#providerResults" style="color: var(--accent); text-decoration:none;">2. Providers & Subscriptions</a></li>
-                   <li><a href="#payg-vs-subscription" style="color: var(--accent); text-decoration:none;">3. PAYG vs Subscription Conclusion</a></li>
-                   <li><a href="#charging-times-section" style="color: var(--accent); text-decoration:none;">4. Charging Durations</a></li>
-                   <li><a href="#real-world-assessment" style="color: var(--accent); text-decoration:none;">5. Real-World Charging Itinerary</a></li>
-                   <li><a href="#graph-section" style="color: var(--accent); text-decoration:none;">6. Subscriptions Break-Even Graph</a></li>
-               </ul>
-           </div>       
-           `;
+        conclusionHTML += `<h3>3. PAYG vs SUBSCRIPTION CONCLUSION</h3><p class="main-result">${journeyIntro}, a <strong>${inputs.adhoc}p PAYG rate</strong> is cheaper...</p>`;
     }
-    
-    // REMOVED: document.getElementById("contentsBox").innerHTML = contentsHTML; (This was the line causing the break)
+    conclusionHTML += `</div>`;
+    conclusionsBox.innerHTML = conclusionHTML; // Only inject the conclusion here
+
+    // --- 2. HANDLE SECTION 4: CHARGING DURATIONS ---
+    const chargingTimesContainer = document.getElementById("chargingTimesSection");
+    if (chargingTimesContainer) {
+        chargingTimesContainer.innerHTML = speedData.html;
+    }
+
+    // --- 3. HANDLE SECTION 5: REAL-WORLD ITINERARY ---
+    const itineraryContainer = document.getElementById("realWorldAssessment");
+    if (itineraryContainer) {
+        itineraryContainer.innerHTML = itineraryData.html;
+    }
+}
     
     let conclusionHTML = `<div class="conclusion-white-border guide-section" id="payg-vs-subscription">`; 
     const journeyCount = 1 + inputs.additionalJourneys.length;
