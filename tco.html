@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="menu-utils.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-2944414800646015">
+    <title>The Cost of Going Electric - EV Subs Compare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Page reset ── */
+        body {
+            padding: 0 !important;
+            margin: 0;
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+		/* ── Parallax hero ── */
+		.hero-parallax {
+		    position: relative;
+		    height: 350px; /* Changed from 480px */
+		    overflow: hidden;
+		    margin-top: 48px; /* Changed from 0px */
+		}
+		
+		.hero-bg {
+		    position: absolute;
+		    inset: -80px 0 -80px 0;
+		    background-image: url('images/tco.webp');
+		    background-size: cover;
+		    background-position: right center; /* Changed from right bottom */
+		    will-change: transform;
+		    filter: brightness(0.75);
+		}
+
+        /* dark gradient over the image */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(2, 6, 23, 0.15) 0%,
+                rgba(2, 6, 23, 0.40) 55%,
+                rgba(2, 6, 23, 0.82) 100%
+            );
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0 40px 48px;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-shadow: var(--glow);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.4rem, 7vw, 4.8rem);
+            font-weight: 800;
+            color: #f1f5f9;
+            line-height: 1.05;
+            margin: 0 0 14px;
+            text-shadow: 0 2px 40px rgba(0,0,0,0.7);
+        }
+
+        .hero-title span {
+            color: var(--accent);
+            text-shadow: var(--glow-strong);
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: rgba(241,245,249,0.78);
+            max-width: 100%;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* ── Scan-line accent strip ── */
+        .hero-strip {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            box-shadow: var(--glow);
+        }
+
+        /* ── Page body layout ── */
+        .guide-wrap {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 56px 40px 120px;
+        }
+
+        /* ── Guide card ── */
+        .guide-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3), var(--glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtle corner accent */
+        .guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle at top right, rgba(57, 255, 20, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .guide-card h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0 0 8px;
+        }
+
+        .guide-subtitle {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0 0 36px;
+        }
+
+        /* ── Section blocks ── */
+        .guide-section {
+            margin-bottom: 36px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .guide-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .guide-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .guide-icon-box {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(57, 255, 20, 0.12);
+            border: 1px solid #480dc0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.35);
+        }
+
+        .guide-icon-box svg {
+            width: 18px;
+            height: 18px;
+            stroke: #480dc0;
+        }
+
+        .guide-section h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .guide-section p,
+        .guide-section li {
+            color: var(--muted);
+            font-size: 0.93rem;
+            line-height: 1.75;
+            margin: 0 0 10px;
+        }
+
+        .guide-section ul {
+            padding-left: 20px;
+            margin: 10px 0 0;
+        }
+
+        .guide-section li {
+            margin-bottom: 10px;
+        }
+
+        .guide-section strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ── Light mode overrides ── */
+        .light-mode .hero-bg::after {
+            background: linear-gradient(
+                to bottom,
+                rgba(248,250,252,0.10) 0%,
+                rgba(248,250,252,0.38) 55%,
+                rgba(248,250,252,0.82) 100%
+            );
+        }
+
+        .light-mode .hero-title { color: #0f172a; text-shadow: none; }
+        .light-mode .hero-sub   { color: rgba(15,23,42,0.75); }
+
+        /* ── Desktop ad offset ── */
+        @media (min-width: 700px) {
+            body {
+                margin-right: 160px !important;
+            }
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .hero-parallax { height: 360px; margin-top: 48px; }
+            .hero-text { padding: 0 24px 36px; }
+            .guide-wrap { padding: 36px 20px 110px; }
+            .guide-card { padding: 24px; } 
+        }
+    
+        /* ── Table of contents ── */
+        .toc {
+            margin: 0 0 36px;
+            padding: 20px 24px;
+            background: rgba(0, 191, 165, 0.05);
+            border: 1px solid rgba(0, 191, 165, 0.25);
+            border-radius: 12px;
+        }
+
+        .toc-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 12px;
+        }
+
+        .toc ol {
+            margin: 0;
+            padding: 0 0 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .toc li {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .toc a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+        }
+
+        </style>
+    <script>
+        (function() {
+            const getCookie = (name) => {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i].trim();
+                    if (c.indexOf(nameEQ) === 0) {
+                        try { return JSON.parse(decodeURIComponent(c.substring(nameEQ.length))); }
+                        catch (e) { return decodeURIComponent(c.substring(nameEQ.length)).replace(/"/g, ''); }
+                    }
+                }
+                return null;
+            };
+            const theme = getCookie('themePref');
+            if (theme === 'light') document.documentElement.classList.add('light-mode');
+        })();
+    </script>
+</head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6B2B03YZ17');
+</script>
+<body>
+
+    <div class="android-header-full">
+        <h1 class="android-title-clean">EV Subs Compare (UK)</h1>
+        <div class="android-dots-trigger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <div id="menu-placeholder"></div>
+    
+    <div class="hero-parallax" id="heroParallax">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-text">
+            <p class="hero-eyebrow">&#x26A1; EV Subs Compare &mdash; UK</p>
+            <h1 class="hero-title">Cost <span>of Ownership</span></h1>
+            <p class="hero-sub">Beyond the sticker price: why electric vehicles are winning the long-term financial race.</p>
+        </div>
+    </div>
+    <div class="hero-strip"></div>
+
+    <div class="guide-wrap">
+        <div class="guide-card">
+
+            <h2>The Real Cost of Going Electric</h2>
+            <p class="guide-subtitle">While EVs often carry a higher upfront price, the Total Cost of Ownership (TCO) tells a very different story for the savvy driver. Understanding <a href="battery.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">battery</a> longevity is key to predicting long-term residual values.</p>
+            <nav class="toc">
+                <p class="toc-title">Contents</p>
+                <ol>
+                    <li><a href="#sec-fuel">The Energy Gap: Fuel vs. Electrons</a></li>
+                    <li><a href="#sec-maintenance">Maintenance: The 'Moving Parts' Advantage</a></li>
+                    <li><a href="#sec-tax">Tax Perks &amp; 2% BiK</a></li>
+                    <li><a href="#sec-calc">Calculate Your Savings</a></li>
+                </ol>
+            </nav>
+
+            <div class="guide-section" id="sec-fuel">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 14h13l4-4"/><path d="M16 14l4 4"/><circle cx='5.5' cy='18.5' r='2.5'/><circle cx='18.5' cy='18.5' r='2.5'/>
+                        </svg>
+                    </div>
+                    <h3>The Energy Gap: Fuel vs. Electrons</h3>
+                </div>
+                <p>The most immediate saving is found at the 'pump.' While petrol and diesel prices fluctuate based on global markets, electricity allows for unprecedented control over your costs per mile. With <a href="home-charging.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">home charging</a> on a smart tariff, you can minimize costs significantly.</p>
+                <ul>
+                    <li><strong>Petrol/Diesel:</strong> Expect to pay between 15p and 20p per mile.</li>
+                    <li><strong>EV (Public Charging):</strong> Roughly 10p to 14p per mile.</li>
+                    <li><strong>EV (Home Charging):</strong> On a smart off-peak tariff (e.g., 7p/kWh), costs can drop to as low as <strong>2p per mile</strong>.</li>
+                </ul>
+                <p>For a driver doing 10,000 miles a year, swapping petrol for off-peak home charging can save over £1,500 annually in fuel alone.</p>
+            </div>
+
+            <div class="guide-section" id="sec-maintenance">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <h3>Maintenance: Fewer Moving Parts</h3>
+                </div>
+                <p>An internal combustion engine (ICE) is a complex machine with hundreds of moving parts, all requiring lubrication and regular replacement. An electric drivetrain is remarkably simple. Beyond maintenance, <a href="insurance.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">insurance costs</a> for EVs are also typically lower than comparable petrol vehicles.</p>
+                <ul>
+                    <li><strong>No oil changes:</strong> No filters, no spark plugs, and no timing belts.</li>
+                    <li><strong>Brake Longevity:</strong> Thanks to regenerative braking, EV brake pads and discs often last two to three times longer than those on traditional cars.</li>
+                    <li><strong>Reliability:</strong> Fewer components mean fewer potential points of failure, leading to lower long-term repair bills.</li>
+                </ul>
+            </div>
+
+            <div class="guide-section" id="sec-tax">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3>Tax Perks &amp; 2% BiK</h3>
+                </div>
+                <p>For company car drivers, the financial argument for EVs is overwhelming. The <strong>Benefit-in-Kind (BiK)</strong> rate for a pure electric vehicle is currently set at just <strong>2%</strong> (fixed until April 2025, rising by 1% annually thereafter).</p>
+                <p>Compared to a petrol car which might carry a 25-35% BiK rate, an EV can save a higher-rate taxpayer hundreds of pounds <i>every single month</i> in take-home pay.</p>
+            </div>
+
+            <div class="guide-section" id="sec-calc">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/>
+                        </svg>
+                    </div>
+                    <h3>Run Your Own Numbers</h3>
+                </div>
+                <p>Generic averages are helpful, but the best way to see the impact on your wallet is to calculate based on your specific mileage and energy costs. Understanding your local <a href="public-network.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">charging options</a> is essential for accurate cost modeling.</p>
+                <p>We recommend using a <a href="https://www.zap-map.com/tools/journey-cost-calculator" target="_blank" style="color: var(--accent); font-weight: 600;">Total Cost of Ownership Calculator</a> to compare your current vehicle against a potential EV upgrade. You may find that even with a higher monthly subscription or lease payment, the "all-in" monthly cost is significantly lower.</p>
+            </div>
+
+            <div class="guide-section">
+                <p>Ready to see how public charging costs stack up against your potential savings? Head back to the <a href="index.html" style="color: var(--accent); font-weight: 600;">Subscription Calculator</a> to find the best deals on electrons.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="desktop-sidebar-ad">
+        <div class="ad-tab-vertical">Ads Area</div>
+        <div id="desktop-ad-slot" style="width: 160px; height: 600px; display: flex; align-items: center; justify-content: center;">
+            <ins class="adsbygoogle" style="display:block; width:160px; height:600px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="3754204567" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+        </div>
+    </div>
+	
+    <div class="mobile-bottom-ad">
+        <div class="ad-tab">Ads Area</div>
+        <div id="mobile-ad-slot" style="width: 100%; height: 90px; display: flex; align-items: center; justify-content: center;">
+            <ins class="adsbygoogle" style="display:block; width:100%; height:90px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="5310470020" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+        </div>
+    </div>
+
+	<div class="ai-widget-container">
+	    <div class="ai-content">
+	        <a href="assistant.html" class="ai-button">Chat with AI</a>
+			<div class="ai-icon-wrapper">
+	            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ai-robot-icon">
+	                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+	                <circle cx="12" cy="5" r="2"></circle>
+	                <path d="M12 7v4"></path>
+	                <line x1="8" y1="16" x2="8" y2="16"></line>
+	                <line x1="16" y1="16" x2="16" y2="16"></line>
+	            </svg>
+			</div>	        
+	    </div>
+	</div>
+
+<script>
+function loadAdSense() {
+    setTimeout(() => {
+        try {
+            const desktopSlot = document.getElementById('desktop-ad-slot');
+            const mobileSlot = document.getElementById('mobile-ad-slot');
+            if (typeof adsbygoogle !== 'undefined') {
+                if (desktopSlot && desktopSlot.offsetWidth > 0) { (adsbygoogle = window.adsbygoogle || []).push({}); }
+                if (mobileSlot && mobileSlot.offsetWidth > 0) { (adsbygoogle = window.adsbygoogle || []).push({}); }
+            }
+        } catch (e) { console.warn('AdSense processing:', e.message); }
+    }, 1500);
+}
+
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', loadAdSense); } else { loadAdSense(); }
+
+let resizeTimer;
+if (window.matchMedia('(min-width: 700px)').matches) {
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            try { if (typeof adsbygoogle !== 'undefined') { (adsbygoogle = window.adsbygoogle || []).push({}); } } catch (e) {}
+        }, 500);
+    });
+}
+</script>
+
+<script>
+async function loadMenu() {
+    try {
+        const response = await fetch('menu.html');
+        if (!response.ok) throw new Error('Menu fetch failed');
+        const menuHtml = await response.text();
+        document.getElementById('menu-placeholder').innerHTML = menuHtml;
+        setTimeout(() => { expandActiveSections(); }, 50);
+    } catch (error) { console.error('Menu load failed:', error); }
+}
+
+function expandActiveSections() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const activeItem = document.querySelector(`a[href="${currentPage}"]`);
+    if (activeItem) {
+        activeItem.classList.add('active-page');
+        let parent = activeItem.closest('.menu-section-items');
+        if (parent) {
+            const toggle = parent.previousElementSibling;
+            if (toggle && toggle.classList.contains('menu-section-toggle')) {
+                toggle.classList.add('open');
+                parent.classList.add('open');
+            }
+        }
+    }
+}
+
+function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+        if (menu.classList.contains('active')) { expandActiveSections(); }
+    }
+}
+
+function toggleMenuSection(toggleId, itemsId) {
+    const toggle = document.getElementById(toggleId);
+    const items = document.getElementById(itemsId);
+    if (toggle && items) {
+        toggle.classList.toggle('open');
+        items.classList.toggle('open');
+    }
+}
+
+loadMenu();
+
+
+
+// ── Parallax hero effect ──
+const heroBg = document.getElementById('heroBg');
+const heroParallax = document.getElementById('heroParallax');
+
+if (heroBg && heroParallax) {
+    window.addEventListener('scroll', () => {
+        const parallaxContainer = heroParallax.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset;
+        
+        // Only apply parallax while hero is in/near viewport
+        if (parallaxContainer.bottom > 0 && parallaxContainer.top < window.innerHeight) {
+            const yOffset = scrollPosition * 0.5; // 50% parallax speed
+            heroBg.style.transform = `translateY(${yOffset}px)`;
+        }
+    }, { passive: true });
+}
+
+function toggleTheme() {
+    const setCookie = (name, value) => {
+        const date = new Date();
+        date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))};expires=${date.toUTCString()};path=/;SameSite=Lax`;
+    };
+    const isLight = document.documentElement.classList.toggle('light-mode');
+    setCookie('themePref', isLight ? 'light' : 'dark');
+}
+</script>
+</body>
+</html>

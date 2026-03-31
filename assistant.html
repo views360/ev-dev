@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="menu-utils.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-2944414800646015">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV AI Assistant - Get Instant UK EV Advice</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Page reset ── */
+        body {
+            padding: 0 !important;
+            margin: 0;
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+		/* ── Parallax hero ── */
+		.hero-parallax {
+		    position: relative;
+		    height: 350px; /* Changed from 480px */
+		    overflow: hidden;
+		    margin-top: 48px; /* Changed from 0px */
+		}
+		
+		.hero-bg {
+		    position: absolute;
+		    inset: -80px 0 -80px 0;
+		    background-image: url('images/assistant.webp');
+		    background-size: cover;
+		    background-position: right center; /* Changed from right bottom */
+		    will-change: transform;
+		    filter: brightness(0.75);
+		}
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(2, 6, 23, 0.15) 0%,
+                rgba(2, 6, 23, 0.40) 55%,
+                rgba(2, 6, 23, 0.82) 100%
+            );
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0 40px 48px;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-shadow: var(--glow);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.4rem, 7vw, 4.8rem);
+            font-weight: 800;
+            color: #f1f5f9;
+            line-height: 1.05;
+            margin: 0 0 8px;
+            text-shadow: 0 2px 40px rgba(0,0,0,0.7);
+        }
+
+        .hero-title span {
+            color: var(--accent);
+            text-shadow: var(--glow-strong);
+        }
+
+        .hero-sub {
+            font-size: 0.9rem;
+            color: rgba(241,245,249,0.78);
+            max-width: 100%;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .hero-strip {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            box-shadow: var(--glow);
+        }
+
+        .guide-wrap {
+            max-width: 860px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 32px 20px 80px;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 700px) {
+            body { margin-right: 160px !important; }
+            .guide-wrap { max-width: calc(860px - 160px); }
+        }
+
+        .guide-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3), var(--glow);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 450px;
+            max-height: 600px;
+        }
+
+        .guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle at top right, var(--accent-soft), transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .guide-card > h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 16px 24px 4px 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .guide-card > p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin: 0 24px 16px 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            animation: fadeIn 0.3s ease-in;
+            max-width: 85%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user { align-self: flex-end; align-items: flex-end; }
+        .message.assistant { align-self: flex-start; align-items: flex-start; }
+
+        .message-content {
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+        }
+
+        .message.assistant .message-content {
+            background: var(--panel-alt);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 4px 12px 12px 12px;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, var(--accent), #0ea5e9);
+            color: #ffffff;
+            border-radius: 12px 12px 4px 12px;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 4px;
+            padding-left: 4px;
+        }
+
+        .action-btn {
+            font-size: 0.75rem;
+            color: var(--muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .action-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--accent);
+        }
+
+        .action-btn.rated {
+            color: var(--accent);
+            pointer-events: none;
+        }
+
+        .loading { display: flex; gap: 4px; align-items: center; padding: 12px 16px; }
+        .loading-dot {
+            width: 8px; height: 8px; background: var(--accent);
+            border-radius: 50%; animation: loading 1.4s infinite;
+        }
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes loading {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+
+        .input-area {
+            padding: 16px 20px;
+            background: var(--panel-alt);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+            border-top: 1px solid var(--border);
+        }
+
+        .input-row {
+            display: flex;
+            width: 100%;
+        }
+
+        input {
+            flex: 1;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px;
+            font-size: 1rem;
+            outline: none;
+            font-family: 'Sora', sans-serif;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        input:focus { border-color: var(--accent); }
+
+        .button-row {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn-send {
+            flex: 2;
+            height: 48px;
+            border: none;
+            border-radius: 10px;
+            background: var(--accent);
+            color: var(--bg);
+            font-family: 'Sora', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: opacity 0.2s, box-shadow 0.2s, transform 0.15s;
+            box-shadow: var(--glow);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-send:hover {
+            opacity: 0.88;
+            box-shadow: var(--glow-strong);
+            transform: translateY(-1px);
+        }
+
+        .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-clear {
+            flex: 1;
+            height: 48px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 10px;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .btn-clear:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .welcome-message { text-align: center; color: var(--muted); padding: 20px 12px; border-top: 1px solid var(--border); margin-top: 20px;}
+        .example-queries { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin-top: 12px; }
+        .example-query {
+            padding: 10px; background: var(--panel-alt); border: 1px solid var(--border);
+            border-radius: 8px; cursor: pointer; font-size: 0.8rem; color: var(--muted); text-align: center;
+        }
+        .example-query:hover { border-color: var(--accent); color: var(--text); }
+
+        .footer-text { text-align: center; margin-top: 20px; font-size: 0.8rem; color: var(--muted); padding: 0 40px; }
+        .footer-disclaimer { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+
+        @media (max-width: 700px) {
+            .guide-wrap { max-width: 100%; padding: 16px; }
+            .message-content { max-width: 95%; }
+            .example-queries { grid-template-columns: 1fr; }
+            .button-row { 
+                flex-direction: column; 
+                gap: 10px;
+            }
+            .btn-clear, .btn-send { 
+                width: 100%; 
+                height: 48px; /* Force consistent desktop height */
+                flex: none;   /* Disable flex grow to prevent squashing */
+            }
+        }
+
+        /* ── Warning Modal Styling ── */
+        .warning-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .warning-modal {
+            background: var(--panel);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 32px 28px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), var(--glow-strong);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .warning-icon {
+            font-size: 2.8rem;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .warning-modal h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0 0 12px;
+            line-height: 1.3;
+        }
+
+        .warning-modal > p {
+            color: var(--text);
+            line-height: 1.6;
+            margin: 12px 0;
+            font-size: 0.95rem;
+        }
+
+        .warning-modal .warning-list {
+            background: var(--panel-alt);
+            border-left: 4px solid var(--accent);
+            padding: 14px 16px;
+            border-radius: 6px;
+            margin: 16px 0;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .warning-modal .warning-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .warning-modal .warning-list li {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .btn-understand {
+            width: 100%;
+            height: 48px;
+            margin-top: 20px;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 10px;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-understand:hover {
+            opacity: 0.88;
+            box-shadow: var(--glow-strong);
+            transform: translateY(-2px);
+        }
+
+        .btn-understand:active {
+            transform: translateY(0);
+        }
+
+        /* Prevent closing by clicking outside the modal */
+        .warning-overlay {
+            pointer-events: auto;
+        }
+
+        .warning-modal {
+            pointer-events: auto;
+        }
+
+        @media (max-width: 700px) {
+            .warning-modal {
+                padding: 24px;
+                width: 95%;
+                max-width: 100%;
+            }
+
+            .warning-modal h2 {
+                font-size: 1.3rem;
+            }
+
+            .warning-modal > p {
+                font-size: 0.9rem;
+            }
+
+            .warning-modal .warning-list {
+                font-size: 0.85rem;
+                padding: 12px 14px;
+            }
+
+            .btn-understand {
+                height: 44px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="android-header-full">
+        <h1 class="android-title-clean">EV Subs Compare (UK)</h1>
+        <div class="android-dots-trigger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <div id="menu-placeholder"></div>
+
+    <div class="hero-parallax">
+        <div class="hero-bg"></div>
+        <div class="hero-text">
+            <div class="hero-eyebrow">⚡ Finding the answers you need</div>
+            <h1 class="hero-title">EV AI <span>Assistant</span></h1>
+            <p class="hero-sub">Expert UK advice on grants, benefit-in-kind (BiK) rates, used EV buying, and general day-to-day issues.</p>
+        </div>
+    </div>
+    <div class="hero-strip"></div>
+
+    <div class="guide-wrap">
+        <div class="guide-card">
+            <h2>Live Assistant</h2>
+            <p>Expert UK EV Guidance • <span id="date"></span></p>
+
+            <div class="messages" id="messages">
+                <div class="message assistant">
+                    <div class="message-content">👋 Hello! I'm your UK EV specialist. I'm up to speed on car grants, current BiK rates, used market valuations, and pretty much everything EV-oriented. How can I help you today?</div>
+                </div>
+
+                <div class="welcome-message" id="welcomePanel">
+                    <div class="example-queries">
+                        <div class="example-query" onclick="sendExampleQuery('Explain the 2026 UK Electric Car Grant bands')">£3,750 EV Grant</div>
+                        <div class="example-query" onclick="sendExampleQuery('What is the 2026/27 Benefit-in-Kind rate for an EV?')">2026 BiK Tax</div>
+                        <div class="example-query" onclick="sendExampleQuery('How much is a used 2023 MG4 worth in 2026?')">Used MG4 Value</div>
+                        <div class="example-query" onclick="sendExampleQuery('What are the best UK charging networks right now?')">Charging Tips</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-row">
+                    <input type="text" id="userInput" placeholder="Ask about EVs..." onkeypress="handleKeyPress(event)">
+                </div>
+                <div class="button-row">
+                    <button class="btn-clear" onclick="clearChat()">Clear Chat History</button>
+                    <button class="btn-send" onclick="sendMessage()" id="sendBtn">Send Message</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-text">
+            <p class="footer-disclaimer">Before acting on any guidance offered by this AI assistant, <strong>always double-check with secondary sources of information</strong>.</p>
+        </div>
+    </div>
+
+    <div class="desktop-sidebar-ad">
+        <div class="ad-tab-vertical">Ads Area</div>
+        <div id="desktop-ad-slot" style="width: 160px; height: 600px; display: flex; align-items: center; justify-content: center;">
+            <ins class="adsbygoogle" style="display:block; width:160px; height:600px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="3754204567" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+        </div>
+    </div>
+        
+    <div class="mobile-bottom-ad">
+        <div class="ad-tab">Ads Area</div>
+        <div id="mobile-ad-slot" style="width: 100%; height: 90px; display: flex; align-items: center; justify-content: center;">
+            <ins class="adsbygoogle" style="display:block; width:100%; height:90px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="5310470020" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+        </div>
+    </div>
+
+    <!-- Warning Modal -->
+    <div id="warningOverlay" class="warning-overlay">
+        <div class="warning-modal">
+            <div class="warning-icon">⚠️</div>
+            <h2>Important Notice</h2>
+            <p>This AI assistant provides <strong>general information only</strong> and is not a substitute for professional advice.</p>
+            <div class="warning-list">
+                <ul>
+                    <li>Alway verify information with secondary sources.</li>
+                    <li>Always check your vehicle's manual for technical specifications.</li>
+                    <li>Always consult a financial advisor for personal tax implications.</li>
+                    <li>Always bear in mind that AI often makes stuff up.</li>
+                </ul>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--muted); margin-top: 16px;">By continuing, you acknowledge that you've read this disclaimer.</p>
+            <button class="btn-understand" onclick="closeWarningModal()">I Understand</button>
+        </div>
+    </div>
+
+    <script>
+		document.getElementById('date').innerText = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+        const messagesContainer = document.getElementById('messages');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const welcomePanel = document.getElementById('welcomePanel');
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            if (welcomePanel) welcomePanel.style.display = 'none';
+
+            addMessage(message, 'user');
+            userInput.value = '';
+            sendBtn.disabled = true;
+
+            const loadingMsg = addLoadingMessage();
+
+            try {
+                const response = await fetch('/api/groq', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                loadingMsg.remove();
+                
+                if (response.ok) {
+                    addMessage(data.response, 'assistant');
+                } else {
+                    addMessage('❌ Error: ' + (data.error || 'AI service is currently busy.'), 'assistant');
+                }
+            } catch (error) {
+                loadingMsg.remove();
+                addMessage('❌ Connection error. Please try again.', 'assistant');
+            }
+
+            sendBtn.disabled = false;
+            userInput.focus();
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = text;
+            messageDiv.appendChild(contentDiv);
+
+            if (sender === 'assistant') {
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'message-actions';
+
+                const copyBtn = document.createElement('button');
+                copyBtn.className = 'action-btn';
+                copyBtn.innerHTML = '📋 Copy';
+                copyBtn.onclick = () => {
+                    navigator.clipboard.writeText(text);
+                    copyBtn.innerHTML = '✅ Copied';
+                    setTimeout(() => copyBtn.innerHTML = '📋 Copy', 2000);
+                };
+
+                const upBtn = document.createElement('button');
+                upBtn.className = 'action-btn';
+                upBtn.innerHTML = '👍';
+                upBtn.onclick = () => {
+                    upBtn.innerHTML = '👍 Thanks!';
+                    upBtn.classList.add('rated');
+                    downBtn.style.display = 'none';
+                };
+
+                const downBtn = document.createElement('button');
+                downBtn.className = 'action-btn';
+                downBtn.innerHTML = '👎';
+                downBtn.onclick = () => {
+                    downBtn.innerHTML = '👎 Noted';
+                    downBtn.classList.add('rated');
+                    upBtn.style.display = 'none';
+                };
+
+                actionsDiv.appendChild(copyBtn);
+                actionsDiv.appendChild(upBtn);
+                actionsDiv.appendChild(downBtn);
+                messageDiv.appendChild(actionsDiv);
+            }
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            return messageDiv;
+        }
+
+        function addLoadingMessage() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message assistant';
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'loading';
+            contentDiv.innerHTML = '<div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div>';
+            messageDiv.appendChild(contentDiv);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            return messageDiv;
+        }
+
+        function clearChat() {
+            messagesContainer.innerHTML = `
+                <div class="message assistant">
+                    <div class="message-content">👋 Chat cleared. I'm ready for your next UK EV question!</div>
+                </div>
+            `;
+            if (welcomePanel) {
+                welcomePanel.style.display = 'block';
+                messagesContainer.appendChild(welcomePanel);
+            }
+        }
+
+        function sendExampleQuery(query) {
+            userInput.value = query;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') sendMessage();
+        }
+
+        async function loadMenu() {
+            try {
+                const response = await fetch('menu.html');
+                if (!response.ok) throw new Error('Menu fetch failed');
+                
+                const menuHtml = await response.text();
+                const placeholder = document.getElementById('menu-placeholder');
+                
+                placeholder.innerHTML = menuHtml;
+                
+                setTimeout(() => {
+                    expandActiveSections();
+                }, 50);
+
+            } catch (error) {
+                console.error('Menu load failed:', error);
+            }
+        }
+
+        function expandActiveSections() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const activeItem = document.querySelector(`a[href="${currentPage}"]`);
+            
+            if (activeItem) {
+                activeItem.classList.add('active-page');
+                
+                let parent = activeItem.closest('.menu-section-items');
+                if (parent) {
+                    const toggle = parent.previousElementSibling;
+                    if (toggle && toggle.classList.contains('menu-section-toggle')) {
+                        toggle.classList.add('open');
+                        parent.classList.add('open');
+                    }
+                }
+            }
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            if (menu) {
+                menu.classList.toggle('active');
+                if (menu.classList.contains('active')) {
+                    expandActiveSections();
+                }
+            }
+        }
+
+        function toggleMenuSection(toggleId, itemsId) {
+            const toggle = document.getElementById(toggleId);
+            const items = document.getElementById(itemsId);
+            if (toggle && items) {
+                toggle.classList.toggle('open');
+                items.classList.toggle('open');
+            }
+        }
+
+        function loadAdSense() {
+            setTimeout(() => {
+                try {
+                    const desktopSlot = document.getElementById('desktop-ad-slot');
+                    const mobileSlot = document.getElementById('mobile-ad-slot');
+                    if (typeof adsbygoogle !== 'undefined') {
+                        if (desktopSlot && desktopSlot.offsetWidth > 0) (adsbygoogle = window.adsbygoogle || []).push({});
+                        if (mobileSlot && mobileSlot.offsetWidth > 0) (adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                } catch (e) {}
+            }, 1500);
+        }
+
+        window.onload = () => {
+            loadMenu();
+            loadAdSense();
+        };
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('sideMenu');
+            const trigger = document.querySelector('.android-dots-trigger');
+            if (menu && trigger && !menu.contains(e.target) && !trigger.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Warning Modal Functions
+        function closeWarningModal() {
+            const overlay = document.getElementById('warningOverlay');
+            if (overlay) {
+                overlay.style.animation = 'fadeOut 0.3s ease-out forwards';
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        // Show warning modal after 2 seconds on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const overlay = document.getElementById('warningOverlay');
+                if (overlay) {
+                    overlay.style.display = 'flex';
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

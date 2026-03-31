@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="menu-utils.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-2944414800646015">
+    <title>Privacy Policy - EV Subs Compare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Page reset ── */
+        body {
+            padding: 0 !important;
+            margin: 0;
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+		/* ── Parallax hero ── */
+		.hero-parallax {
+		    position: relative;
+		    height: 350px; /* Changed from 480px */
+		    overflow: hidden;
+		    margin-top: 48px; /* Changed from 0px */
+		}
+		
+		.hero-bg {
+		    position: absolute;
+		    inset: -80px 0 -80px 0;
+		    background-image: url('images/privacy.webp');
+		    background-size: cover;
+		    background-position: right center; /* Changed from right bottom */
+		    will-change: transform;
+		    filter: brightness(0.75);
+		}
+
+        /* dark gradient over the image */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(2, 6, 23, 0.15) 0%,
+                rgba(2, 6, 23, 0.40) 55%,
+                rgba(2, 6, 23, 0.82) 100%
+            );
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0 40px 48px;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-shadow: var(--glow);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.4rem, 7vw, 4.8rem);
+            font-weight: 800;
+            color: #f1f5f9;
+            line-height: 1.05;
+            margin: 0 0 14px;
+            text-shadow: 0 2px 40px rgba(0,0,0,0.7);
+        }
+
+        .hero-title span {
+            color: var(--accent);
+            text-shadow: var(--glow-strong);
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: rgba(241,245,249,0.78);
+            max-width: 100%;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* ── Scan-line accent strip ── */
+        .hero-strip {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            box-shadow: var(--glow);
+        }
+
+        /* ── Page body layout ── */
+        .privacy-wrap {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 56px 40px 120px;
+        }
+
+        /* ── Policy card ── */
+        .policy-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3), var(--glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtle corner accent */
+        .policy-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle at top right, var(--accent-soft), transparent 70%);
+            pointer-events: none;
+        }
+
+        .policy-card h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0 0 8px;
+        }
+
+        .policy-last-updated {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin: 0 0 36px;
+        }
+
+        /* ── Section blocks ── */
+        .policy-section {
+            margin-bottom: 36px;
+            padding-bottom: 36px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .policy-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .policy-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .policy-icon-box {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 0, 153, 0.15);
+            border: 1px solid #ff0099;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(255, 0, 153, 0.4);
+        }
+
+        .policy-icon-box svg {
+            width: 18px;
+            height: 18px;
+            stroke: #ff0099;
+        }
+
+        .policy-section h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .policy-section p,
+        .policy-section li {
+            color: var(--muted);
+            font-size: 0.93rem;
+            line-height: 1.75;
+            margin: 0 0 10px;
+        }
+
+        .policy-section ul {
+            padding-left: 20px;
+            margin: 10px 0 0;
+        }
+
+        .policy-section li {
+            margin-bottom: 6px;
+        }
+
+        .policy-section strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ── Light mode overrides ── */
+        .light-mode .hero-bg::after {
+            background: linear-gradient(
+                to bottom,
+                rgba(248,250,252,0.10) 0%,
+                rgba(248,250,252,0.38) 55%,
+                rgba(248,250,252,0.82) 100%
+            );
+        }
+
+        .light-mode .hero-title { color: #0f172a; text-shadow: none; }
+        .light-mode .hero-sub   { color: rgba(15,23,42,0.75); }
+
+        /* ── Desktop ad offset ── */
+        @media (min-width: 700px) {
+            body {
+                margin-right: 160px !important;
+            }
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .hero-parallax { height: 360px; margin-top: 48px; }
+            .hero-text { padding: 0 24px 36px; }
+            .privacy-wrap { padding: 36px 20px 110px; }
+            .policy-card { padding: 24px; }
+        }
+    </style>
+    <script>
+        (function() {
+            const getCookie = (name) => {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i].trim();
+                    if (c.indexOf(nameEQ) === 0) {
+                        try { return JSON.parse(decodeURIComponent(c.substring(nameEQ.length))); }
+                        catch (e) { return decodeURIComponent(c.substring(nameEQ.length)).replace(/"/g, ''); }
+                    }
+                }
+                return null;
+            };
+            const theme = getCookie('themePref');
+            if (theme === 'light') document.documentElement.classList.add('light-mode');
+        })();
+    </script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6B2B03YZ17');
+</script>
+<body>
+
+    <!-- Fixed top header -->
+    <div class="android-header-full">
+        <h1 class="android-title-clean">EV Subs Compare (UK)</h1>
+        <div class="android-dots-trigger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- Slide-out menu -->
+    <div id="menu-placeholder"></div>
+    
+    <!-- ── Parallax hero banner ── -->
+    <div class="hero-parallax" id="heroParallax">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-text">
+            <p class="hero-eyebrow">&#x26A1; EV Subs Compare &mdash; UK</p>
+            <h1 class="hero-title">Privacy <span>Policy</span></h1>
+            <p class="hero-sub">This tool has a privacy-first philosophy. Here's exactly what we do <i>and don't</i> store about you.</p>
+        </div>
+    </div>
+    <div class="hero-strip"></div>
+
+    <!-- ── Page content ── -->
+    <div class="privacy-wrap">
+        <div class="policy-card">
+
+            <h2>Privacy Policy</h2>
+            <p class="policy-last-updated">Last updated: March 2026</p>
+
+            <!-- 1. Overview -->
+            <div class="policy-section">
+                <div class="policy-section-header">
+                    <div class="policy-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>Our Commitment</h3>
+                </div>
+                <p><strong>EV Subs Compare</strong> is a free, enthusiast-built tool for EV drivers in the UK. We are committed to handling your data with transparency and respect. This policy explains precisely what information is stored, how it is stored, and why.</p>
+                <p>The short version: <strong>we do not collect, transmit, or store any personally identifiable information.</strong> Everything that makes the calculator work is kept locally in your own browser.</p>
+            </div>
+
+            <!-- 2. Cookies -->
+            <div class="policy-section">
+                <div class="policy-section-header">
+                    <div class="policy-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+                        </svg>
+                    </div>
+                    <h3>What We Store in Cookies</h3>
+                </div>
+                <p>We use browser cookies <strong>solely to remember the values you enter into the calculator's input fields</strong> between visits. This means when you return to the tool, your vehicle efficiency, PAYG rate, and other preferences are already populated and ready to use — saving you from re-entering them each time.</p>
+                <p>The following calculator inputs may be saved:</p>
+                <ul>
+                    <li>Vehicle efficiency (miles per kWh)</li>
+                    <li>Your average PAYG charging rate (p/kWh)</li>
+                    <li>Trip distance and other calculation preferences</li>
+                    <li>Your light/dark mode display preference</li>
+                </ul>
+                <p>These cookies are stored locally on your device only. They are <strong>never</strong> shared with any third party.</p>
+            </div>
+
+            <!-- 3. What we do NOT store -->
+            <div class="policy-section">
+                <div class="policy-section-header">
+                    <div class="policy-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3>What We Do Not Store</h3>
+                </div>
+                <p>We do not collect, store, or process any of the following:</p>
+                <ul>
+                    <li>Your name, email address, or any contact details</li>
+                    <li>Your location or IP address</li>
+                    <li>Your vehicle registration, make, or model</li>
+                    <li>Any payment or financial information</li>
+                    <li>Any data that could be used to identify you personally</li>
+                </ul>
+            </div>
+
+            <!-- 4. Analytics -->
+            <div class="policy-section">
+                <div class="policy-section-header">
+                    <div class="policy-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <h3>Analytics</h3>
+                </div>
+                <p>This site uses <strong>Google Analytics</strong> to collect anonymous, aggregated usage statistics — for example, how many visitors the site receives and which pages are most popular. This data contains no personally identifiable information and is used solely to understand how the tool is being used so we can improve it.</p>
+                <p>Google Analytics may set its own cookies in accordance with <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" style="color: var(--accent);">Google's Privacy Policy</a>. You can opt out of Google Analytics tracking using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" style="color: var(--accent);">Google Analytics Opt-out Browser Add-on</a>.</p>
+            </div>
+
+            <!-- 5. Advertising -->
+            <div class="policy-section">
+                <div class="policy-section-header">
+                    <div class="policy-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+                        </svg>
+                    </div>
+                    <h3>Advertising</h3>
+                </div>
+                <p>This site displays adverts served by <strong>Google AdSense</strong> with a view to recouping hosting costs. Google may use cookies to serve ads based on your prior visits to this and other websites. You can opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" style="color: var(--accent);">Google's Ad Settings</a>.</p>
+            </div>
+
+            <!-- 6. Managing cookies -->
+            <div class="policy-section">
+                <div class="policy-section-header">
+                    <div class="policy-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+                        </svg>
+                    </div>
+                    <h3>Managing &amp; Clearing Cookies</h3>
+                </div>
+                <p>You can clear all cookies set by this site at any time using the <strong>Reset All</strong> option in the settings menu on the calculator page — or by clearing your browser's cookies and site data through your browser settings.</p>
+                <p>Clearing the calculator cookies will simply mean your input values are no longer pre-loaded on your next visit — there are no other consequences.</p>
+            </div>
+
+            <!-- 7. Contact -->
+            <div class="policy-section">
+                <div class="policy-section-header">
+                    <div class="policy-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/>
+                        </svg>
+                    </div>
+                    <h3>Questions or Concerns</h3>
+                </div>
+                <p>If you have any questions about this privacy policy or how your data is handled, please <a href="contact.html" style="color: var(--accent); font-weight: 600;">get in touch</a> and we'll be happy to help.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Ad slots -->
+    <div class="desktop-sidebar-ad">
+    <div class="ad-tab-vertical">Ads Area</div>
+    <div id="desktop-ad-slot" style="width: 160px; height: 600px; display: flex; align-items: center; justify-content: center;">
+        <ins class="adsbygoogle" style="display:block; width:160px; height:600px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="3754204567" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+    </div>
+</div>
+	
+<div class="mobile-bottom-ad">
+    <div class="ad-tab">Ads Area</div>
+    <div id="mobile-ad-slot" style="width: 100%; height: 90px; display: flex; align-items: center; justify-content: center;">
+        <ins class="adsbygoogle" style="display:block; width:100%; height:90px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="5310470020" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+    </div>
+</div>
+
+	<div class="ai-widget-container">
+	    <div class="ai-content">
+	        <a href="assistant.html" class="ai-button">Chat with AI</a>
+			<div class="ai-icon-wrapper">
+	            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ai-robot-icon">
+	                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+	                <circle cx="12" cy="5" r="2"></circle>
+	                <path d="M12 7v4"></path>
+	                <line x1="8" y1="16" x2="8" y2="16"></line>
+	                <line x1="16" y1="16" x2="16" y2="16"></line>
+	            </svg>
+			</div>	        
+	    </div>
+	</div>
+
+<script>
+// Load ads only when visible
+function loadAdSense() {
+    setTimeout(() => {
+        try {
+            // Only push ads that are actually visible
+            const desktopSlot = document.getElementById('desktop-ad-slot');
+            const mobileSlot = document.getElementById('mobile-ad-slot');
+            
+            if (typeof adsbygoogle !== 'undefined') {
+                // Check desktop ad
+                if (desktopSlot && desktopSlot.offsetWidth > 0) {
+                    try {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    } catch (e) {
+                        // Silently fail for desktop
+                    }
+                }
+                
+                // Check mobile ad separately
+                if (mobileSlot && mobileSlot.offsetWidth > 0) {
+                    try {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    } catch (e) {
+                        // Silently fail for mobile
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('AdSense processing:', e.message);
+        }
+    }, 1500); // Wait 1.5 seconds for full layout and measurement
+}
+
+// Load ads when page is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadAdSense);
+} else {
+    loadAdSense();
+}
+
+// Reload ads if window is resized - desktop only
+let resizeTimer;
+if (window.matchMedia('(min-width: 700px)').matches) {
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            try {
+                if (typeof adsbygoogle !== 'undefined') {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            } catch (e) {
+                // Silently fail on resize
+            }
+        }, 500);
+    });
+}
+</script>
+<script>
+async function loadMenu() {
+    try {
+        const response = await fetch('menu.html');
+        if (!response.ok) throw new Error('Menu fetch failed');
+        
+        const menuHtml = await response.text();
+        const placeholder = document.getElementById('menu-placeholder');
+        
+        placeholder.innerHTML = menuHtml;
+        
+        setTimeout(() => {
+            expandActiveSections();
+        }, 50);
+
+    } catch (error) {
+        console.error('Menu load failed:', error);
+    }
+}
+
+function expandActiveSections() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const activeItem = document.querySelector(`a[href="${currentPage}"]`);
+    
+    if (activeItem) {
+        activeItem.classList.add('active-page');
+        
+        let parent = activeItem.closest('.menu-section-items');
+        if (parent) {
+            const toggle = parent.previousElementSibling;
+            if (toggle && toggle.classList.contains('menu-section-toggle')) {
+                toggle.classList.add('open');
+                parent.classList.add('open');
+            }
+        }
+    }
+}
+
+function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+        if (menu.classList.contains('active')) {
+            expandActiveSections();
+        }
+    }
+}
+
+function toggleMenuSection(toggleId, itemsId) {
+    const toggle = document.getElementById(toggleId);
+    const items = document.getElementById(itemsId);
+    if (toggle && items) {
+        toggle.classList.toggle('open');
+        items.classList.toggle('open');
+    }
+}
+
+loadMenu();
+
+
+
+// ── Parallax hero effect ──
+const heroBg = document.getElementById('heroBg');
+const heroParallax = document.getElementById('heroParallax');
+
+if (heroBg && heroParallax) {
+    window.addEventListener('scroll', () => {
+        const parallaxContainer = heroParallax.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset;
+        
+        // Only apply parallax while hero is in/near viewport
+        if (parallaxContainer.bottom > 0 && parallaxContainer.top < window.innerHeight) {
+            const yOffset = scrollPosition * 0.5; // 50% parallax speed
+            heroBg.style.transform = `translateY(${yOffset}px)`;
+        }
+    }, { passive: true });
+}
+
+function toggleTheme() {
+    const setCookie = (name, value) => {
+        const date = new Date();
+        date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))};expires=${date.toUTCString()};path=/;SameSite=Lax`;
+    };
+    const isLight = document.documentElement.classList.toggle('light-mode');
+    setCookie('themePref', isLight ? 'light' : 'dark');
+}
+</script>
+</body>
+</html>

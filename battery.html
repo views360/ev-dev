@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="menu-utils.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-2944414800646015">
+    <title>Maximising Your Battery Life - EV Subs Compare</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ── Page reset ── */
+        body {
+            padding: 0 !important;
+            margin: 0;
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+		/* ── Parallax hero ── */
+		.hero-parallax {
+		    position: relative;
+		    height: 350px; /* Changed from 480px */
+		    overflow: hidden;
+		    margin-top: 48px; /* Changed from 0px */
+		}
+		
+		.hero-bg {
+		    position: absolute;
+		    inset: -80px 0 -80px 0;
+		    background-image: url('images/battery.webp');
+		    background-size: cover;
+		    background-position: right center; /* Changed from right bottom */
+		    will-change: transform;
+		    filter: brightness(0.75);
+		}
+
+        /* dark gradient over the image */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(2, 6, 23, 0.40) 0%,
+                rgba(2, 6, 23, 0.65) 55%,
+                rgba(2, 6, 23, 1.00) 100%
+            );
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0 40px 48px;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-shadow: var(--glow);
+            margin-bottom: 10px;
+        }
+
+        .hero-title {
+            font-family: 'Sora', sans-serif;
+            font-size: clamp(2.4rem, 7vw, 4.8rem);
+            font-weight: 800;
+            color: #f1f5f9;
+            line-height: 1.05;
+            margin: 0 0 14px;
+            text-shadow: 0 2px 40px rgba(0,0,0,0.7);
+        }
+
+        .hero-title span {
+            color: var(--accent);
+            text-shadow: var(--glow-strong);
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: rgba(241,245,249,0.78);
+            max-width: 100%;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* ── Scan-line accent strip ── */
+        .hero-strip {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            box-shadow: var(--glow);
+        }
+
+        /* ── Page body layout ── */
+        .guide-wrap {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 56px 40px 120px;
+        }
+
+        /* ── Guide card ── */
+        .guide-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3), var(--glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtle corner accent */
+        .guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle at top right, rgba(255, 179, 0, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .guide-card h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin: 0 0 8px;
+        }
+
+        .guide-subtitle {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0 0 36px;
+        }
+
+        /* ── Section blocks ── */
+        .guide-section {
+            margin-bottom: 36px;
+            padding-bottom: 36px;
+            scroll-margin-top: 68px;
+        }
+
+        .guide-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .guide-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .guide-icon-box {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255, 179, 0, 0.12);
+            border: 1px solid #803563;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(255, 179, 0, 0.35);
+        }
+
+        .guide-icon-box svg {
+            width: 18px;
+            height: 18px;
+            stroke: #803563;
+        }
+
+        .guide-section h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .guide-section p,
+        .guide-section li {
+            color: var(--muted);
+            font-size: 0.93rem;
+            line-height: 1.75;
+            margin: 0 0 10px;
+        }
+
+        .guide-section ul {
+            padding-left: 20px;
+            margin: 10px 0 0;
+        }
+
+        .guide-section li {
+            margin-bottom: 10px;
+        }
+
+        .guide-section strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ── Callout box ── */
+        .guide-callout {
+            margin: 16px 0 6px;
+            padding: 14px 18px;
+            background: rgba(255, 179, 0, 0.07);
+            border-left: 3px solid #803563;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .guide-callout strong {
+            color: #803563;
+        }
+
+        /* ── Table of contents ── */
+        .toc {
+            margin: 0 0 36px;
+            padding: 20px 24px;
+            background: rgba(0, 191, 165, 0.05);
+            border: 1px solid rgba(0, 191, 165, 0.25);
+            border-radius: 12px;
+        }
+
+        .toc-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 12px;
+        }
+
+        .toc ol {
+            margin: 0;
+            padding: 0 0 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .toc li {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .toc a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+        }
+
+        /* ── Desktop ad offset ── */
+        @media (min-width: 700px) {
+            body {
+                margin-right: 160px !important;
+            }
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .hero-parallax { height: 360px; margin-top: 48px; }
+            .hero-text { padding: 0 24px 36px; }
+            .guide-wrap { padding: 36px 20px 110px; }
+            .guide-card { padding: 24px; }
+        }
+    </style>
+    <script>
+        (function() {
+            const getCookie = (name) => {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i].trim();
+                    if (c.indexOf(nameEQ) === 0) {
+                        try { return JSON.parse(decodeURIComponent(c.substring(nameEQ.length))); }
+                        catch (e) { return decodeURIComponent(c.substring(nameEQ.length)).replace(/"/g, ''); }
+                    }
+                }
+                return null;
+            };
+            const theme = getCookie('themePref');
+            if (theme === 'light') document.documentElement.classList.add('light-mode');
+        })();
+    </script>
+</head>
+<body>
+
+    <div class="android-header-full">
+        <h1 class="android-title-clean">EV Subs Compare (UK)</h1>
+        <div class="android-dots-trigger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <div id="menu-placeholder"></div>
+
+    <div class="hero-parallax" id="heroParallax">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-text">
+            <p class="hero-eyebrow">&#x26A1; EV Subs Compare &mdash; UK</p>
+            <h1 class="hero-title">Battery <span>The Long Game</span></h1>
+            <p class="hero-sub">While the 80-20 rule is fine for the daily commute, preserving long-term battery health is essential for resale value and subscription peace of mind.</p>
+        </div>
+    </div>
+    <div class="hero-strip"></div>
+
+    <div class="guide-wrap">
+        <div class="guide-card">
+
+            <h2>The Science of Longevity</h2>
+            <p class="guide-subtitle">Most EV batteries are designed to outlast the vehicle itself, but "health" isn't a binary state. By understanding how temperature, charging speeds, and idle states affect chemical degradation, you can ensure your car retains maximum range and value for years to come.</p>
+
+            <nav class="toc">
+                <p class="toc-title">Contents</p>
+                <ol>
+                    <li><a href="#sec-vampire">Vampire Drain & Idle States</a></li>
+                    <li><a href="#sec-charging">Rapid vs. Home Charging</a></li>
+                    <li><a href="#sec-thermal">Thermal Management & Noise</a></li>
+                    <li><a href="#sec-calibration">The BMS & State of Charge</a></li>
+                    <li><a href="#sec-summary">At-a-Glance Maintenance Summary</a></li>
+                    <li><a href="#sec-checklist">The Battery Health Checklist</a></li>
+                </ol>
+            </nav>
+
+            <div class="guide-section" id="sec-vampire">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3>Vampire Drain: The Airport Test</h3>
+                </div>
+                <p>Electric vehicles never truly "turn off." They remain connected to cellular networks, monitor internal temperatures, and run security systems. This background energy consumption is known as <strong>Vampire Drain</strong>.</p>
+                <p>If you leave your car parked at an airport for two weeks, you can expect to lose anywhere from <strong>1% to 5%</strong> of your charge. However, this varies wildly based on active features. For example, Tesla's <strong>Sentry Mode</strong> or similar active monitoring systems can consume significantly more energy—sometimes as much as 1% per day—because they keep the car's primary computer awake to process camera feeds.</p>
+                <div class="guide-callout">
+                    <strong>Holiday Tip:</strong> If leaving your car for a long duration, try to leave it between 40% and 60% charge. Avoid parking it at 100% (which stresses the cells) or below 10% (where a small drain could lead to a 'bricked' battery).
+                </div>
+            </div>
+
+            <div class="guide-section" id="sec-charging">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
+                        </svg>
+                    </div>
+                    <h3>The Speed Trade-off: DC vs. AC</h3>
+                </div>
+                <p>Ultra-<a href="public-network.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">rapid chargers</a> (150kW–350kW) are marvels of engineering, but they are the equivalent of a "protein shake" for your battery—good for emergencies, but not a balanced daily diet. High-speed DC charging generates <strong>significant heat</strong> and forces ions through the battery at high pressure, which can cause micro-cracks in the battery's internal structure over hundreds of cycles.</p>
+                <p>In contrast, slow AC <a href="home-charging.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">home charging</a> (7kW) is gentle, allowing the battery to maintain a stable temperature. While modern Battery Management Systems (BMS) are excellent at protecting the car, data suggests that cars used <em>exclusively</em> on rapid networks show slightly higher degradation over 5 years than those charged primarily at home.</p>
+                <div class="guide-callout">
+                    <strong>The Golden Rule:</strong> Use <a href="public-network.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">rapid chargers</a> for road trips, but rely on "slow and steady" AC charging for your weekly top-ups to keep the chemical structure of your battery pristine.
+                </div>
+            </div>
+
+            <div class="guide-section" id="sec-thermal">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M2 12h20"/>
+                        </svg>
+                    </div>
+                    <h3>Why Is My Car Making Noise?</h3>
+                </div>
+                <p>If you finish a long motorway run on a hot day and hear fans whirring or pumps clicking after you've parked, <strong>don't panic.</strong> This is the Active Thermal Management System at work. Lithium-ion batteries have a "Goldilocks zone" (usually between 15°C and 35°C).</p>
+                <p>By circulating coolant, the car is protecting the cells from "heat soak," which is one of the primary drivers of permanent capacity loss. In <a href="winter.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">winter</a>, the same system may run to warm the battery, ensuring you have full regenerative braking and efficient power delivery from the moment you pull away.</p>
+            </div>
+
+            <div class="guide-section" id="sec-calibration">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="16" height="10" rx="2"/><path d="M22 11v2"/><line x1="6" y1="12" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3>BMS Calibration: Finding "True" Zero</h3>
+                </div>
+                <p>If you always stay between 20% and 80%, your car's computer (BMS) can eventually lose track of where the actual top and bottom of the battery are. This can lead to "range anxiety" where the car shows 5% but suddenly drops to 0%.</p>
+                <p>Once every few months, it is actually beneficial to charge to 100% and let the car sit for an hour. This allows the BMS to "balance" the individual cells, ensuring they are all at the same voltage level. This isn't for the battery chemistry itself—it's for the <strong>accuracy</strong> of your range meter.</p>
+            </div>
+
+            <style>
+                .maintenance-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 24px 0;
+                    font-size: 0.85rem;
+                    background: rgba(15, 23, 42, 0.4);
+                    border-radius: 8px;
+                    overflow: hidden;
+                }
+                .maintenance-table th {
+                    background: rgba(56, 189, 248, 0.1);
+                    color: var(--accent);
+                    text-align: left;
+                    padding: 12px;
+                    border-bottom: 1px solid var(--border);
+                }
+                .maintenance-table td {
+                    padding: 12px;
+                    border-bottom: 1px solid var(--border);
+                    color: var(--muted);
+                }
+                .maintenance-table tr:last-child td { border-bottom: none; }
+                .maintenance-table strong { color: var(--text); }
+            </style>
+            
+            <div class="guide-section" id="sec-summary">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <h3>At-a-Glance Maintenance Summary</h3>
+                </div>
+                
+                <p>Use this reference table to quickly determine the best state of charge for your battery based on your immediate driving needs. For a more comprehensive guide on <a href="mastery.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">EV mastery and efficiency tips</a>, see our complete guide.</p>
+            
+                <style>
+                    .maintenance-table-wrapper {
+                        overflow-x: auto;
+                    }
+                </style>
+
+                <div class="maintenance-table-wrapper">
+                    <table class="maintenance-table">
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Ideal State</th>
+                                <th>Reasoning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Daily Use</strong></td>
+                                <td>20% to 80%</td>
+                                <td>Minimizes chemical stress and heat build-up.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Long Trip</strong></td>
+                                <td>100% (Departing)</td>
+                                <td>Battery won't sit at high voltage long enough to degrade.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Storage (Airport)</strong></td>
+                                <td>50% (Sentry Off)</td>
+                                <td>The most stable "resting" state for Lithium-ion cells.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Winter Driving</strong></td>
+                                <td>Pre-conditioned</td>
+                                <td>Heats battery using grid power to improve efficiency.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+
+            <div class="guide-section" id="sec-checklist">
+                <div class="guide-section-header">
+                    <div class="guide-icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                    </div>
+                    <h3>The Battery Health Checklist</h3>
+                </div>
+                <ul>
+                    <li><strong>Avoid 100% saturation:</strong> Unless you are leaving for a long trip immediately, don't let the car sit at 100% charge for more than a few hours.</li>
+                    <li><strong>Pre-condition:</strong> Use the app to warm the battery in <a href="winter.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">winter</a> before driving; it's more efficient to use grid power for this than battery power.</li>
+                    <li><strong>Mind the Heat:</strong> In extreme heatwaves, park in the shade. High ambient temperatures are the "silent killer" of battery capacity.</li>
+                    <li><strong>Check your Sentry:</strong> If you're at 20% charge and leaving the car for a few days, turn off active monitoring to prevent deep discharge.</li>
+                </ul>
+                <p>Preserving your battery is the best way to ensure your EV remains a high-value asset for <a href="used.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">resale</a>. To see how your charging habits impact your wallet as well as your battery's longevity, explore our <a href="tco.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">total cost of ownership</a> analysis or head back to the <a href="index.html" style="color: var(--accent); font-weight: 600;">EV Subs Compare calculator</a>.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="desktop-sidebar-ad">
+        <div class="ad-tab-vertical">Ads Area</div>
+        <div id="desktop-ad-slot" style="width: 160px; height: 600px; display: flex; align-items: center; justify-content: center;">
+            <ins class="adsbygoogle" style="display:block; width:160px; height:600px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="3754204567" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+        </div>
+    </div>
+        
+    <div class="mobile-bottom-ad">
+        <div class="ad-tab">Ads Area</div>
+        <div id="mobile-ad-slot" style="width: 100%; height: 90px; display: flex; align-items: center; justify-content: center;">
+            <ins class="adsbygoogle" style="display:block; width:100%; height:90px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="5310470020" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+        </div>
+    </div>
+
+	<div class="ai-widget-container">
+	    <div class="ai-content">
+	        <a href="assistant.html" class="ai-button">Chat with AI</a>
+			<div class="ai-icon-wrapper">
+	            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ai-robot-icon">
+	                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+	                <circle cx="12" cy="5" r="2"></circle>
+	                <path d="M12 7v4"></path>
+	                <line x1="8" y1="16" x2="8" y2="16"></line>
+	                <line x1="16" y1="16" x2="16" y2="16"></line>
+	            </svg>
+			</div>	        
+	    </div>
+	</div>
+
+    <script>
+    // Load ads only when visible
+    function loadAdSense() {
+        setTimeout(() => {
+            try {
+                // Only push ads that are actually visible
+                const desktopSlot = document.getElementById('desktop-ad-slot');
+                const mobileSlot = document.getElementById('mobile-ad-slot');
+                
+                if (typeof adsbygoogle !== 'undefined') {
+                    // Check desktop ad
+                    if (desktopSlot && desktopSlot.offsetWidth > 0) {
+                        try {
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        } catch (e) {
+                            // Silently fail for desktop
+                        }
+                    }
+                    
+                    // Check mobile ad separately
+                    if (mobileSlot && mobileSlot.offsetWidth > 0) {
+                        try {
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        } catch (e) {
+                            // Silently fail for mobile
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn('AdSense processing:', e.message);
+            }
+        }, 1500); // Wait 1.5 seconds for full layout and measurement
+    }
+
+    // Load ads when page is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadAdSense);
+    } else {
+        loadAdSense();
+    }
+
+// Reload ads if window is resized - desktop only
+let resizeTimer;
+if (window.matchMedia('(min-width: 700px)').matches) {
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            try {
+                if (typeof adsbygoogle !== 'undefined') {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            } catch (e) {
+                // Silently fail on resize
+            }
+        }, 500);
+    });
+}
+    </script>
+    <script>
+    async function loadMenu() {
+        try {
+            const response = await fetch('menu.html');
+            if (!response.ok) throw new Error('Menu fetch failed');
+            
+            const menuHtml = await response.text();
+            const placeholder = document.getElementById('menu-placeholder');
+            
+            placeholder.innerHTML = menuHtml;
+            
+            setTimeout(() => {
+                expandActiveSections();
+            }, 50);
+
+        } catch (error) {
+            console.error('Menu load failed:', error);
+        }
+    }
+
+    function expandActiveSections() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const activeItem = document.querySelector(`a[href="${currentPage}"]`);
+        
+        if (activeItem) {
+            activeItem.classList.add('active-page');
+            
+            let parent = activeItem.closest('.menu-section-items');
+            if (parent) {
+                const toggle = parent.previousElementSibling;
+                if (toggle && toggle.classList.contains('menu-section-toggle')) {
+                    toggle.classList.add('open');
+                    parent.classList.add('open');
+                }
+            }
+        }
+    }
+
+    function toggleMenu() {
+        const menu = document.getElementById('sideMenu');
+        if (menu) {
+            menu.classList.toggle('active');
+            if (menu.classList.contains('active')) {
+                expandActiveSections();
+            }
+        }
+    }
+
+    function toggleMenuSection(toggleId, itemsId) {
+        const toggle = document.getElementById(toggleId);
+        const items = document.getElementById(itemsId);
+        if (toggle && items) {
+            toggle.classList.toggle('open');
+            items.classList.toggle('open');
+        }
+    }
+
+    loadMenu();
+
+    
+
+// ── Parallax hero effect ──
+const heroBg = document.getElementById('heroBg');
+const heroParallax = document.getElementById('heroParallax');
+
+if (heroBg && heroParallax) {
+    window.addEventListener('scroll', () => {
+        const parallaxContainer = heroParallax.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset;
+        
+        // Only apply parallax while hero is in/near viewport
+        if (parallaxContainer.bottom > 0 && parallaxContainer.top < window.innerHeight) {
+            const yOffset = scrollPosition * 0.5; // 50% parallax speed
+            heroBg.style.transform = `translateY(${yOffset}px)`;
+        }
+    }, { passive: true });
+}
+
+function toggleTheme() {
+        const setCookie = (name, value) => {
+            const date = new Date();
+            date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))};expires=${date.toUTCString()};path=/;SameSite=Lax`;
+        };
+        const isLight = document.documentElement.classList.toggle('light-mode');
+        setCookie('themePref', isLight ? 'light' : 'dark');
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{
+  "providers": [
+    {
+      "id": "beev-mini",
+      "name": "Be.EV (The Mini)",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 4.99,
+        "url": "https://be-ev.co.uk/charging/subscribe-save/",
+        "comments": "150k+ chargers."
+      },
+      "rates": {
+        "default": 49
+      }
+    },
+    {
+      "id": "beev-mega",
+      "name": "Be.EV (The Mega)",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 9.99,
+        "url": "https://be-ev.co.uk/charging/subscribe-save/",
+        "comments": "150k+ chargers."
+      },
+      "rates": {
+        "default": 39
+      }
+    },
+    {
+      "id": "bp-pulse-sub",
+      "name": "BP Pulse",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 7.85,
+        "url": "https://www.bppulse.com/en-gb/public-ev-charging/download-app",
+        "comments": "20% off the PAYG tariff on average. Website disclaimer: pricing may vary — check the app."
+      },
+      "rates": {
+        "7": 52,
+        "50": 69,
+        "150": 69
+      }
+    },
+    {
+      "id": "fastned-gold",
+      "name": "Fastned (Gold)",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 9.98,
+        "url": "https://www.fastnedcharging.com/en/charging/tariffs",
+        "comments": "30% off the PAYG tariff."
+      },
+      "rates": {
+        "default": 55
+      }
+    },
+    {
+      "id": "gridserve-plus",
+      "name": "GRIDSERVE Plus",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 7.99,
+        "url": "https://gridservecampaigns.com/membership/",
+        "comments": "25% off the PAYG tariff, which varies between 82p and 89p — so a discounted average has been used."
+      },
+      "rates": {
+        "7": 37,
+        "22": 37,
+        "50": 64
+      }
+    },
+    {
+      "id": "ionity-motion",
+      "name": "IONITY (Passport Motion)",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 5.49,
+        "url": "https://www.ionity.eu/subscriptions",
+        "comments": "350kW chargers. Website disclaimer: pricing may vary — check the app. Monthly subscriptions available from the app."
+      },
+      "rates": {
+        "default": 58
+      }
+    },
+    {
+      "id": "ionity-power",
+      "name": "IONITY (Power)",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 10.50,
+        "url": "https://www.ionity.eu/subscriptions",
+        "comments": "350kW chargers. Website disclaimer: pricing may vary — check the app."
+      },
+      "rates": {
+        "default": 46
+      }
+    },
+    {
+      "id": "tesla-member",
+      "name": "Tesla (Non-Tesla Member)",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 9.99,
+        "url": "https://www.tesla.com/en_gb/support/charging/supercharging-other-evs",
+        "comments": "Subscription offers same charging price as Tesla owners (20-25% cheaper), which varies by location and time of day. The rate used here is an average. Check the Tesla app ('Find a Charger' section) for specifics. Charging speeds may drop when using a shared stall."
+      },
+      "rates": {
+        "default": 47
+      }
+    }
+  ]
+}

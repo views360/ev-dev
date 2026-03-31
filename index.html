@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="menu-utils.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015"
+     crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+	<meta name="google-adsense-account" content="ca-pub-2944414800646015">
+    <title>EV Subs (UK)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+	<script>
+	    (function() {
+	        const getCookie = (name) => {
+	            const nameEQ = name + "=";
+	            const ca = document.cookie.split(';');
+	            for (let i = 0; i < ca.length; i++) {
+	                let c = ca[i].trim();
+	                if (c.indexOf(nameEQ) === 0) {
+	                    try { return JSON.parse(decodeURIComponent(c.substring(nameEQ.length))); } 
+	                    catch (e) { return decodeURIComponent(c.substring(nameEQ.length)).replace(/"/g, ''); }
+	                }
+	            }
+	            return null;
+	        };
+	        const theme = getCookie('themePref');
+	        if (theme === 'light') document.documentElement.classList.add('light-mode');
+	    })();
+	</script>
+	<style>
+		/* ── Parallax hero ── */
+		.hero-parallax {
+		    position: relative;
+		    height: 350px; /* Changed from 480px */
+		    overflow: hidden;
+		    margin-top: 48px; /* Changed from 0px */
+		}
+		
+		.hero-bg {
+		    position: absolute;
+		    inset: -80px 0 -80px 0;
+		    background-image: url('images/home-charging.webp');
+		    background-size: cover;
+		    background-position: right center; /* Changed from right bottom */
+		    will-change: transform;
+		    filter: brightness(0.75);
+		}
+		
+		.hero-bg::after {
+		    content: '';
+		    position: absolute;
+		    inset: 0;
+		    background: linear-gradient(
+		        to bottom,
+		        rgba(2, 6, 23, 0.15) 0%,
+		        rgba(2, 6, 23, 0.40) 55%,
+		        rgba(2, 6, 23, 0.82) 100%
+		    );
+		}
+		
+		.hero-text {
+		    position: absolute;
+		    bottom: 0;
+		    left: 0;
+		    right: 0;
+		    padding: 0 40px 48px;
+		    z-index: 2;
+		}
+		
+		.hero-eyebrow {
+		    font-family: 'Sora', sans-serif;
+		    font-size: 0.72rem;
+		    font-weight: 700;
+		    letter-spacing: 0.22em;
+		    text-transform: uppercase;
+		    color: var(--accent);
+		    text-shadow: var(--glow);
+		    margin-bottom: 10px;
+		}
+		
+		.hero-title {
+		    font-family: 'Sora', sans-serif;
+		    font-size: clamp(2.4rem, 7vw, 4.8rem);
+		    font-weight: 800;
+		    color: #f1f5f9;
+		    line-height: 1.05;
+		    margin: 0 0 14px;
+		    text-shadow: 0 2px 40px rgba(0,0,0,0.7);
+		}
+		
+		.hero-title span {
+		    color: var(--accent);
+		    text-shadow: var(--glow-strong);
+		}
+		
+		.hero-sub {
+		    font-size: 1.05rem;
+		    color: rgba(241,245,249,0.78);
+                    max-width: 100%;
+		    line-height: 1.55;
+		    margin: 0;
+		}
+		
+		.hero-strip {
+		    height: 3px;
+		    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+		    box-shadow: var(--glow);
+		}
+		
+		/* Ensure light mode compatibility */
+		.light-mode .hero-bg::after {
+		    background: linear-gradient(
+		        to bottom,
+		        rgba(248,250,252,0.10) 0%,
+		        rgba(248,250,252,0.38) 55%,
+		        rgba(248,250,252,0.82) 100%
+		    );
+		}
+		.light-mode .hero-title { color: #0f172a; text-shadow: none; }
+		.light-mode .hero-sub { color: rgba(15,23,42,0.75); }
+		body {
+		    padding: 0 !important;
+		    margin: 0;
+		    background: var(--bg);
+		    overflow-x: hidden;
+		}
+
+        /* ── Mobile ── */
+        @media (max-width: 700px) {
+            .hero-parallax { height: 360px; margin-top: 48px; }
+            .hero-text { padding: 0 24px 36px; }
+            .guide-wrap { padding: 36px 20px 110px; }
+            .guide-card { padding: 24px; } 
+        }
+	</style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6B2B03YZ17');
+</script>
+<body>
+<div id="helpOverlay" class="help-overlay">
+    <div class="help-modal">
+        <button class="close-x" onclick="closeHelp()">×</button>
+        
+        <div class="help-slides" id="helpSlides">
+			<div class="help-slide intro-blank"></div>
+		
+		    <div class="help-slide intro-car">
+		        <div class="splash-branding">
+		            <img src="images/intro.webp" alt="Car" class="splash-hero">
+		        </div>
+		    </div>
+            
+            <div class="help-slide">
+                <h2>Welcome to the EV Subscription Comparison Tool (UK)</h2>
+                <p>Going on a journey and want to find out if EV charging subscriptions are better value than PAYG rates? This tool will tell you!</p>
+				<p><strong>Note:</strong> Glowing green items are there to direct you.</p>
+				<p style="text-align: center; margin: 30px 0 25px 0"><img src="images/ev-mg.webp" label="EV" style="height: 50px" /></p>
+                <div class="help-footer">
+                    <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
+                </div>
+            </div>
+
+            <div class="help-slide">
+                <h2>Calculation Type</h2>
+                <p>Switch between two calculation types: <ol><li><strong>BREAK EVEN</strong> (default)</li>
+		<li><strong>COST REDUCTION</strong>.</li></ul></p>
+                <div class="help-footer">
+                    <button class="btn" onclick="moveSlide(-1)">&lt;&nbsp;Back</button>
+                    <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
+                </div>
+            </div>
+
+            <div class="help-slide">
+                <h2>Type: BREAK EVEN</h2>
+                <p><strong>Break Even</strong> (default calculation type) displays the break-even-miles value for all UK EV-charging subscription providers. This tells you how many miles you must drive using each provider's discounted rate to recoup its subscription fee.</p>                
+                <div class="help-footer">
+                    <button class="btn" onclick="moveSlide(-1)">&lt;&nbsp;Back</button>
+                    <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
+                </div>
+            </div>
+
+            <div class="help-slide">
+                <h2>Type: COST REDUCTION</h2>
+                <p><strong>Cost Reduction</strong> dives deeper into the specifics of your vehicle and charging habits as well as your planned journey distance to calculate potential savings.</p>
+                <div class="help-footer">
+                    <button class="btn" onclick="moveSlide(-1)">&lt;&nbsp;Back</button>
+                    <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
+                </div>
+            </div>
+
+            <div class="help-slide">
+                <h2>Assessing Results</h2>
+                <p>After completing the fields in either calculation type, the results table will automatically update.</p><p>If you are unsure what a field is 
+					asking for, click the<span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">Yes, just 
+						like this.</span></span></span>icon for more information. Amend any field, and the results will auto-update.</p>
+                <div class="help-footer">
+                    <button class="btn" onclick="moveSlide(-1)">&lt;&nbsp;Back</button>
+                    <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
+                </div>
+            </div>
+
+	        <div class="help-slide">
+                <h2>Guides & AI Assistant</h2>
+                <p>Need more help? We've got you covered. Explore our selection of <strong>EV Guides, Day 2 Issues,</strong> and <strong>Further Reading</strong> pages from the menu.<p>
+				<p>You can also use our <strong>AI assistant</strong> for instant UK-specific EV advice. The assistant is accessed via the floating widget on the left side of each page or from the menu.</p>
+                <div class="help-footer">
+                    <button class="btn" onclick="moveSlide(-1)">&lt;&nbsp;Back</button>
+                    <button class="btn secondary empty-pulse" onclick="closeHelp()">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="beReminderOverlay" class="help-overlay" style="display: none;" onclick="closeBeReminder()">
+    <div class="help-modal">
+        <button class="close-x" onclick="closeBeReminder()">×</button>
+        <div class="standalone-slide" style="font-size: 0.9rem !important"> 
+            <h2>Reminder About the Break-Even Calculation Type</h2>
+            <p>The break-even distance is the number of miles you must drive to recoup a provider's monthly subscription fee. 
+				This is a product of your stated vehicle efficiency (miles/kWh) and your average expected PAYG rate when not using a subscription.</p>
+			<p><strong style="color: var(--neon-green); font-weight: bold;">Important:</strong> the break-even distance begins <strong>when you first charge with a provider</strong> — 
+				not when you set off from home with a pre-charged battery.</p>
+            <div class="help-footer">
+                <button class="btn secondary" onclick="closeBeReminder()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+	
+<div class="content-wrap">
+
+<!-- Slide-out menu -->
+<div id="menu-placeholder"></div>
+<!-- ── Parallax hero banner ── -->
+<div class="hero-parallax" id="heroParallax">
+	<div class="hero-bg" id="heroBg"></div>
+	<div class="hero-text">
+		<p class="hero-eyebrow">&#x26A1; EV Subs Compare &mdash; UK</p>
+		<h1 class="hero-title">EV <span>Subs Compare</span></h1>
+		<p class="hero-sub">This is a UK-oriented comparison tool for EV-charging subscriptions that offer discounted rates for a monthly fee. It also offers a raft of helpful EV information pages and an AI assistant to tackle those unanswered questions.</p>
+	</div>
+</div>
+<div class="hero-strip"></div>
+<div class="app">
+	<div class="android-header-full">
+	    <h1 class="android-title-clean">EV Subs (UK)</h1>
+	    <div class="android-dots-trigger" onclick="toggleMenu()">
+	        <span></span><span></span><span></span>
+	    </div>
+	</div>
+</div>
+<div class="calc-tabs-bar">
+    <button type="button" class="calc-tab active" onclick="setToggle('break-even', this)">Break Even</button>
+    <button type="button" class="calc-tab" onclick="setToggle('trip-savings', this)">Cost Reduction</button>
+</div>
+
+<div id="breakEvenCard" class="card" style="margin-bottom: 20px; max-width: 400px; margin-left: auto; margin-right: auto;">
+    <h3>Journey & Vehicle</h3>
+    <div class="input-group">
+        <label for="efficiencyBE"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is likely 
+			to be between 2.5 and 5, depending on the time of year and your driving style and habits. You can either estimate it for the time of year when you will travel, 
+			or you can reset your journey counter and calculate it if your journey is imminent.</span></span></span>Vehicle efficiency (miles/kWh)</label>
+        <input type="number" id="efficiencyBE" oninput="calculate()" placeholder="e.g., 3.5" step="0.1">
+    </div>
+    <div class="input-group">
+        <label for="minSpeedBE">
+            <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">Filter out slower 
+				charging speeds from the results if you don't ever use them, else they will skew the results because they are cheaper 
+				(e.g., setting the value to 50kW will filter out 7kW and 22kW).</span></span></span>Minimum desired charging speed</label>
+        <select id="minSpeedBE">
+            <option value="7">7kW AC (fast)</option>
+            <option value="22">22kW AC (accelerated)</option>
+            <option value="50" selected>50kW DC (rapid)</option>
+            <option value="75">75kW DC(ultra rapid)</option>
+            <option value="150">150kW DC (high power)</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label for="adhocBE">
+            <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is 
+				the average amount you would ordinarily expect to pay during your journey while using PAYG 
+				chargers. If you get a discount (e.g., 8% from Electroverse), input the discounted rate.</span></span></span>Standard PAYG 
+			rate (p/kWh)</label>
+        <input type="number" id="adhocBE" oninput="calculate()" placeholder="e.g., 62 (62p is the 50kW Lidl+ app price)" step="0.1">
+    </div>
+</div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Journey & Vehicle</h3>
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="journeyMiles">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">How far 
+							do you plan to travel? Adjust this value, and the results will auto-update. Note: you may add more journeys after this one.</span></span></span>Journey distance (miles)
+                    </label>
+                    <input type="number" id="journeyMiles" oninput="calculate()" placeholder="e.g., 250">
+                </div>
+                <div class="input-group">
+                    <label for="batteryKwh">
+                         <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">What is the 
+							 usable size of your vehicle's battery? This is not the same as the actual size. For example, a 64 kWh 
+							 battery will typically have about 61 kWh of usable capacity.</span></span></span>Usable Battery size (kWh)</label>
+                    <input type="number" id="batteryKwh" oninput="calculate()" placeholder="e.g., 61">
+                </div>
+            </div>
+
+            <div class="input-row">
+				<div class="input-group">
+                    <label for="prechargesoc">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">The battery percentage you expect your car to be at before you top up to your departure battery level. Used for calculating the cost of pre‑charging before the journey.</span></span></span>Pre‑Charge Battery Level (%)</label>
+                    <input type="number" id="prechargesoc" oninput="calculate()" placeholder="e.g., 20">
+                </div>
+                <div class="input-group">
+                    <label for="soc">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">The battery percentage your car will be at when you begin your journey. It is acceptable to slow charge up to 100% before departing on a long journey.</span></span></span>Departure Battery Level (%)</label>
+                    <input type="number" id="soc" oninput="calculate()" placeholder="e.g., 90">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="minSpeed">         
+                    <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">Filter out slower 
+						charging speeds from the results if you don't plan to use them during your journey, else they will 
+						skew the results because they are cheaper (e.g., setting the value to 50kW will filter out 7kW and 22kW).</span></span></span>Minimum desired 
+					charging speed</label>
+                <select id="minSpeed">
+                    <option value="7">7kW AC (fast)</option>
+                    <option value="22">22kW AC (accelerated)</option>
+                    <option value="50" selected>50kW DC (rapid)</option>
+                    <option value="75">75kW DC(ultra rapid)</option>
+                    <option value="150">150kW DC (high power)</option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="efficiency">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is the number of miles per kWh you will be getting when you depart on your journey(s). It is likely 
+							to be between 2.5 and 5, depending on the time of year and your driving style and habits. 
+							You can either estimate it for the time of year when you will travel, or you can reset your 
+							journey counter and calculate it if your journey is imminent.</span></span></span>Vehicle efficiency (miles/kWh)</label>
+                    <input type="number" id="efficiency" oninput="calculate()" placeholder="e.g., 3.5">
+                </div>
+				<div class="input-group">
+                    <label for="startChargeRate">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">When you 
+							charge your battery before this journey, how much will the rate be (pence per kWh)?</span></span></span>Pre-Charge Rate (p/kWh)                        
+                    </label>
+                    <input type="number" id="startChargeRate" oninput="calculate()" placeholder="e.g., 7.5">
+                </div>
+			</div>
+			<div class="input-row">
+                <div class="input-group">
+                    <label for="maxChargingSpeed">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">What is the maximum charging speed your vehicle supports? You may need to check your user manual or do a web search for it. If you have experienced a lower-than-advertised speed while charging, enter <i>that</i> speed.</span></span></span>Max. Charging Speed (kW)                        
+                    </label>
+                    <input type="number" id="maxChargingSpeed" oninput="calculate()" placeholder="e.g., 150">
+                </div>
+                <div class="input-group">
+                    <label for="rechargeAt">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is the state of charge (SOC) % from which you ordinarily recharge your battery. This will be applied to all charging stops during your journey(s). Following the 80/20 rule (see MENU > EV GUIDES > MASTERY), we recommend recharging when you drop to 20% and stopping at 80% to maximize long-term battery health.</span></span></span>Recharge Threshold (%)                        
+                    </label>
+                    <input type="number" id="rechargeAt" oninput="calculate()" value="20" min="1" max="80">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="adhoc">
+                    <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is the 
+						average amount you would ordinarily expect to pay during your journey while using PAYG chargers.
+						If you already get a discount (e.g., 8% from Electroverse), input the discounted rate. This will be the 
+						baseline for calculating whether it is possible to make your journey cheaper. You may adjust this as many times as you wish to view the effects.</span></span></span>Typical average PAYG public rate you pay (p/kWh)                    
+                </label>
+                <input type="number" id="adhoc" oninput="calculate()" placeholder="e.g., 62 (62p is the 50kW Lidl+ app price)">
+            </div>
+			<div id="additionalJourneysContainer"></div>
+
+			<div class="input-group" style="margin-top: 10px;">
+			    <button type="button" class="btn secondary empty-pulse" id="addJourneyBtn" onclick="addJourneyField()">
+			        <span class="tooltip-container">
+			            <span class="info-icon" onclick="toggleTooltip(this)">💡
+			                <span class="tooltip-box">If you plan to go on more than one journey within one month of the first, include that journey (or journeys), too, because a subscription charge is only paid once for an entire month, and this will significantly affect the overall cost. The results will adjust accordingly.</span>
+			            </span>Include Another Journey?
+			        </span>
+			    </button>
+			</div>
+        </div>
+
+        <div class="card">
+            <div class="providers-header-row">
+                <h3>Subscription Providers</h3>
+                <div id="providerControls">
+                    <p style="font-size: 0.8em; margin-bottom: 15px">Add <strong>all</strong> subscription providers to identify the cheapest for your planned route compared with the baseline for PAYG public charging. Scroll down for the results. You may also add, remove, and temporarily edit individual providers if details are outdated.</p>
+                    <div class="button-group" style="display:flex; gap:6px; margin-bottom: 20px; width: 100%">
+                    	<button id="addAllBtn" style="flex: 1" class="btn secondary empty-pulse" onclick="addAllProviders(); this.classList.remove('empty-pulse');">Add All Providers</button>
+						<button type="button" class="btn secondary" style="flex: 1;" onclick="createProviderBox()">Add Provider</button>
+					</div>
+                </div>
+				<div class="button-group" style="display:flex; gap:6px; margin-bottom: 0px; width: 100%">
+					<button type="button" class="btn secondary" style="flex: 1;" onclick="clearSavedProviders()">Clear Saved Providers</button>
+					<button type="button" class="btn secondary" style="flex: 1;" id="toggleProvidersBtn" onclick="toggleProviders()" style="margin-bottom: 10px;">Collapse Providers List</button>					
+				 </div>
+				<div id="providersHiddenMsg" style="display: none; font-size: 0.85rem; color: var(--accent); margin-top: 0px; padding-top: 0px; font-style: italic;">
+    				⚡ Provider list hidden — but all selected providers remain active in calculations.
+				</div>
+			</div>
+            <div id="collapsibleProviders">
+                <div id="providers"></div>
+            </div>
+        </div>
+    </div>
+
+	<div id="resultsHeader" class="results-header-container">
+	    <div class="results-title-group">
+	        <h2 class="results-headingTRIP">COST-REDUCTION RESULTS</h2>
+	        <a href="#" class="jump-btn-pulse" title="Back to top" style="text-decoration: none;">↑</a>
+	    </div>
+	
+	    <div class="btn-row">
+	        <button type="button" class="btn secondary" id="shareBtn" onclick="shareLink()">Copy Shareable Link</button>
+	        <button type="button" class="btn secondary" id="pdfBtn" onclick="exportPdf()">Export as PDF</button>
+	    </div>
+	</div>
+
+	<div id="contentsBox"></div>
+
+    <div id="preConclusionsText">Please complete all fields in the <strong>Journey & Vehicle</strong> section</div>
+    <div id="results" class="results">
+		<div style="align: center; margin: auto">
+	        <div class="calc-lines">
+				<h3 id="paygSummaryTitle" style="margin-bottom: 0px; padding-bottom: 0px">1. PAYG Summary</h3>
+				<p id="paygSummarySubtitle" style="margin: 0 0 10px 0; opacity: 0.8;">Here is the key information for your journey if you choose PAYG.</p>
+				<div id="homeRangeLine"></div>
+	            <div id="preChargeLine"></div>
+	            <div id="publicMilesLine"></div>
+	            <div id="publicKwhLine"></div>
+	            <div id="adhocCostLine"></div>
+	        </div>
+		</div>
+
+		<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
+            <h3>2. Providers &amp; Subscriptions</h3>
+			<label for="sortResults">Sort results</label>
+            <select id="sortResults" onchange="calculate()">
+                <option value="cheapest">Cheapest first</option>
+                <option value="breakeven">Break-even PAYG public charging miles (low to high)</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+            </select>
+        </div>
+
+        <div class="guide-section" id="providerResults"></div>
+        <div id="conclusionsBox"></div>
+		<div id="realWorldAssessment"></div>
+        <div id="summaryBox" class="summary"></div>
+		
+        <div class="chart-wrapper guide-section" id="graph-section">
+			<h3>6. Subscriptions Break-Even Graph</h3>
+            Click a legend box/text to show/hide line
+            <canvas id="costChart" height="220"></canvas>
+        </div>
+    </div>
+</div>
+</div><!-- end content-wrap -->
+
+<div id="cookieBanner" class="cookie-banner" style="display: none;">
+    <div class="cookie-content">
+        <p>
+            We use cookies to save your vehicle settings and preferences for your next visit. ⚡ 
+            <a href="privacy.html" style="color: var(--accent); text-decoration: underline; margin-left: 5px;">Privacy Policy</a>
+        </p>
+        <div class="cookie-actions">
+            <button class="btn primary" onclick="acceptCookies()">Accept</button>
+            <button class="btn secondary" onclick="closeCookieBanner()">Dismiss</button>
+        </div>
+    </div>
+</div>
+
+<div class="desktop-sidebar-ad">
+    <div class="ad-tab-vertical">Ads Area</div>
+    <div id="desktop-ad-slot" style="width: 160px; height: 600px; display: flex; align-items: center; justify-content: center;">
+        <ins class="adsbygoogle" style="display:block; width:160px; height:600px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="3754204567" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+    </div>
+</div>
+	
+<div class="mobile-bottom-ad">
+    <div class="ad-tab">Ads Area</div>
+    <div id="mobile-ad-slot" style="width: 100%; height: 90px; display: flex; align-items: center; justify-content: center;">
+        <ins class="adsbygoogle" style="display:block; width:100%; height:90px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="5310470020" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
+    </div>
+</div>
+
+	<div class="ai-widget-container">
+	    <div class="ai-content">
+	        <a href="assistant.html" class="ai-button">Chat with AI</a>
+			<div class="ai-icon-wrapper">
+	            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ai-robot-icon">
+	                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+	                <circle cx="12" cy="5" r="2"></circle>
+	                <path d="M12 7v4"></path>
+	                <line x1="8" y1="16" x2="8" y2="16"></line>
+	                <line x1="16" y1="16" x2="16" y2="16"></line>
+	            </svg>
+			</div>	        
+	    </div>
+	</div>
+<script>
+// Load ads only when visible
+function loadAdSense() {
+    setTimeout(() => {
+        try {
+            // Only push ads that are actually visible
+            const desktopSlot = document.getElementById('desktop-ad-slot');
+            const mobileSlot = document.getElementById('mobile-ad-slot');
+            
+            if (typeof adsbygoogle !== 'undefined') {
+                // Check desktop ad
+                if (desktopSlot && desktopSlot.offsetWidth > 0) {
+                    try {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    } catch (e) {
+                        // Silently fail for desktop
+                    }
+                }
+                
+                // Check mobile ad separately
+                if (mobileSlot && mobileSlot.offsetWidth > 0) {
+                    try {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    } catch (e) {
+                        // Silently fail for mobile
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('AdSense processing:', e.message);
+        }
+    }, 1500); // Wait 1.5 seconds for full layout and measurement
+}
+
+// Load ads when page is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadAdSense);
+} else {
+    loadAdSense();
+}
+
+// Reload ads if window is resized - desktop only
+let resizeTimer;
+if (window.matchMedia('(min-width: 700px)').matches) {
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            try {
+                if (typeof adsbygoogle !== 'undefined') {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            } catch (e) {
+                // Silently fail on resize
+            }
+        }, 500);
+    });
+}
+
+window.addEventListener('scroll', function() {
+    const scrollY = window.scrollY;
+    const heroBg = document.getElementById('heroBg');
+    if (heroBg) {
+        // Adjust the 0.4 value to change the speed of the parallax movement
+        heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
+    }
+});
+</script>
+<script>
+async function loadMenu() {
+    try {
+        const response = await fetch('menu.html');
+        if (!response.ok) throw new Error('Menu fetch failed');
+        
+        const menuHtml = await response.text();
+        const placeholder = document.getElementById('menu-placeholder');
+        
+        placeholder.innerHTML = menuHtml;
+        
+        setTimeout(() => {
+            expandActiveSections();
+        }, 50);
+
+    } catch (error) {
+        console.error('Menu load failed:', error);
+    }
+}
+
+function expandActiveSections() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const activeItem = document.querySelector(`a[href="${currentPage}"]`);
+    
+    if (activeItem) {
+        activeItem.classList.add('active-page');
+        
+        let parent = activeItem.closest('.menu-section-items');
+        if (parent) {
+            const toggle = parent.previousElementSibling;
+            if (toggle && toggle.classList.contains('menu-section-toggle')) {
+                toggle.classList.add('open');
+                parent.classList.add('open');
+            }
+        }
+    }
+}
+
+function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+        if (menu.classList.contains('active')) {
+            expandActiveSections();
+        }
+    }
+}
+
+function toggleMenuSection(toggleId, itemsId) {
+    const toggle = document.getElementById(toggleId);
+    const items = document.getElementById(itemsId);
+    if (toggle && items) {
+        toggle.classList.toggle('open');
+        items.classList.toggle('open');
+    }
+}
+
+function clearSavedProviders() {
+    // 1. Delete the cookies
+    document.cookie = "ev_providers=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+    document.cookie = "providers_collapsed=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+    
+    // 2. Clear the UI list
+    const providersContainer = document.getElementById("providers");
+    if (providersContainer) providersContainer.innerHTML = "";
+    
+    // 3. Revert the UI state to expanded
+    const controls = document.getElementById("providerControls");
+    const collapsible = document.getElementById("collapsibleProviders");
+    const hiddenMsg = document.getElementById("providersHiddenMsg");
+    const toggleBtn = document.getElementById("toggleProvidersBtn");
+
+    if (controls) controls.style.display = "block";
+    if (collapsible) collapsible.style.display = "block";
+    if (hiddenMsg) hiddenMsg.style.display = "none";
+    if (toggleBtn) toggleBtn.textContent = "Collapse Providers List";
+    
+    // 4. Update calculations
+    if (typeof calculate === 'function') {
+        calculate();
+    }
+}
+
+// Ensure the menu loads on every page refresh
+loadMenu();
+</script>
+<script src="functions1.js"></script>
+<script src="functions2.js"></script>
+<script src="functions3.js"></script>
+</body>
+</html>
