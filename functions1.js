@@ -25,17 +25,8 @@ let PRESETS = [];
 let providerCount = 0;
 let chart = null;
 
-function toggleSection(header) {
-    const section = header.parentElement;
-    const icon = header.querySelector('.toggle-icon');
-    
-    // Toggle the 'active' class
-    section.classList.toggle('active');
-    
-    // Update icon
-    icon.textContent = section.classList.contains('active') ? '−' : '+';
-}
-
+// Stub function - called in init() but doesn't need to do anything
+// The calculate() function handles all necessary updates
 function updateProviderInfo() {
     // Intentionally empty - this function is called but not needed
 }
