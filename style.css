@@ -54,7 +54,6 @@
 }
 
 #floatingTooltip {
-    display: none !important;
     visibility: hidden;
     position: fixed;
     z-index: 9999;
@@ -1436,6 +1435,20 @@ body {
         box-shadow: -4px 0 18px rgba(56, 189, 248, 0.25), -1px 0 6px rgba(56, 189, 248, 0.15);
         z-index: 2001;
         visibility: visible;
+    }
+    
+    .cookie-banner {
+        /* Kill the centering logic from the mobile view */
+        left: auto !important; 
+        transform: none !important;
+        
+        /* Set a clean anchored position */
+        right: 20px; 
+        bottom: 20px;
+        top: auto;
+        
+        /* Fix the width so it can't stretch the whole screen */
+        width: 400px; 
     }
 
 }
