@@ -65,7 +65,7 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
         return false;
     }
 
-    if (providerBoxes.length === 0 && getCookie('hasSeenHelp')) {
+    if (providerBoxes.length === 0) {
         uiPreText.innerHTML = "Before you may view the results, you must select at least one provider from the list of providers (above). It is simplest to add <i>all</i> providers.";
         uiPreText.style.display = "block";
         uiResults.style.display = "none";
