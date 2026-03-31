@@ -102,7 +102,8 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
 
     const itineraryData = generateRealWorldItineraryHtml(inputs, publicKwh, formatChargingTime);
     
-    let conclusionHTML = `<div class="conclusion-white-border guide-section" id="payg-vs-subscription">`; 
+    /*let conclusionHTML = `<div class="conclusion-white-border guide-section" id="payg-vs-subscription">`;*/
+    let conclusionHTML = `<div id="payg-vs-subscription">`;
     const journeyCount = 1 + inputs.additionalJourneys.length;
     const totalMiles = inputs.journeyMiles + inputs.additionalJourneys.reduce((sum, j) => sum + j.miles, 0);
     let journeyIntro = (journeyCount === 1) ? `For a journey of <strong>${inputs.journeyMiles} miles</strong>` : `For ${journeyCount} journeys totalling <strong>${totalMiles} miles</strong>`;
@@ -117,7 +118,7 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
     conclusionHTML += `</div>`;
     
    // 2. Logic for Section 4 (Charging Durations)
-    let chargingDurationsHTML = `<div class="conclusion-white-border guide-section" id="charging-times-section"><h3>4. Charging Durations</h3>`;
+    let chargingDurationsHTML = `<div id="charging-times-section"><h3>4. Charging Durations</h3>`;
     let durationIntro = (journeyCount === 1) ? `Your proposed <strong>${inputs.journeyMiles}-mile</strong> journey` : `Your ${journeyCount} proposed journeys totalling <strong>${totalMiles} miles</strong>`;
  
     if (inputs.maxChargingSpeed > 0) {
