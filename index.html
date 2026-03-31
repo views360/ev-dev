@@ -447,30 +447,32 @@
 				    <div class="collapsible-content">
 						<p id="paygSummarySubtitle" style="margin: 0 0 10px 0; opacity: 0.8;">Here is the key information for your journey if you choose PAYG.</p>
 						<div id="homeRangeLine"></div>
+						<div id="preChargeLine"></div>
+			            <div id="publicMilesLine"></div>
+			            <div id="publicKwhLine"></div>
+			            <div id="adhocCostLine"></div>
 				    </div>
 				</div>
-
-
-				
-				
-				
-	            <div id="preChargeLine"></div>
-	            <div id="publicMilesLine"></div>
-	            <div id="publicKwhLine"></div>
-	            <div id="adhocCostLine"></div>
 	        </div>
 		</div>
 
-		<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
-            <h3>2. Providers &amp; Subscriptions</h3>
-			<label for="sortResults">Sort results</label>
-            <select id="sortResults" onchange="calculate()">
-                <option value="cheapest">Cheapest first</option>
-                <option value="breakeven">Break-even PAYG public charging miles (low to high)</option>
-                <option value="az">A → Z</option>
-                <option value="za">Z → A</option>
-            </select>
-        </div>
+		<div class="collapsible-section">
+			<div class="collapsible-header" onclick="toggleSection(this)">
+				<h3>2. Providers &amp; Subscriptions</h3>
+				<span class="toggle-icon">+</span>
+			</div>
+			<div class="collapsible-content">
+				<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
+		            <h3>2. Providers &amp; Subscriptions</h3>
+					<label for="sortResults">Sort results</label>
+		            <select id="sortResults" onchange="calculate()">
+		                <option value="cheapest">Cheapest first</option>
+		                <option value="az">A → Z</option>
+		                <option value="za">Z → A</option>
+		            </select>
+		        </div>
+			</div>
+		</div>
 
         <div class="guide-section" id="providerResults"></div>
         <div id="conclusionsBox"></div>
