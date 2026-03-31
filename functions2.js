@@ -76,7 +76,6 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
         if (uiPdf) uiPdf.style.display = "none";
         const contentsBox = document.getElementById("contentsBox");
         if (contentsBox) contentsBox.style.display = "none"; // Add this line
-    return false;
         return false;
     }
 
@@ -155,7 +154,7 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
     }
     conclusionHTML += `${speedData.speedTableHtml}${itineraryData.locationDisclaimer}</div>`;
     conclusionsBox.innerHTML = conclusionHTML + itineraryData.assessmentBoxHTML;
-}
+
 
 function updatePaygSummaryUI(inputs, mainInitialRange, customPreCost, customPreSoc) {
     const rangeData = calculateRangeHtml(inputs, mainInitialRange);
