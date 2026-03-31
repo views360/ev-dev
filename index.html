@@ -456,36 +456,66 @@
 			</div>
 		</div>
 
-		<div>
-			<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
-	            <h3>2. Providers &amp; Subscriptions</h3>
-				<label for="sortResults">Sort results</label>
-	            <select id="sortResults" onchange="calculate()">
-	                <option value="cheapest">Cheapest first</option>
-	                <option value="az">A → Z</option>
-	                <option value="za">Z → A</option>
-	            </select>
-	        </div>
-	        <div class="guide-section" id="providerResults"></div>
+		<div class="collapsible-section">
+		    <div class="collapsible-header" onclick="toggleSection(this)">
+		        <h3>2. Providers &amp; Subscriptions</h3>
+		        <span class="toggle-icon">+</span>
+		    </div>
+		    <div class="collapsible-content">
+				<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
+					<label for="sortResults">Sort results</label>
+		            <select id="sortResults" onchange="calculate()">
+		                <option value="cheapest">Cheapest first</option>
+		                <option value="az">A → Z</option>
+		                <option value="za">Z → A</option>
+		            </select>
+		        </div>
+	        	<div class="guide-section" id="providerResults"></div>
+			</div>
 		</div>
 		
-		<div>
-        	<div id="conclusionsBox"></div>
+		<div class="collapsible-section">
+		    <div class="collapsible-header" onclick="toggleSection(this)">
+		        <h3>3. PAYG vs Subscription Conclusion</h3>
+		        <span class="toggle-icon">+</span>
+		    </div>
+		    <div class="collapsible-content">
+        		<div id="conclusionsBox"></div>
+			</div>
 		</div>
 
-		<div>
-        	<div id="chargingDurations" class="summary"></div>
+		<div class="collapsible-section">
+		    <div class="collapsible-header" onclick="toggleSection(this)">
+		        <h3>4. Charging Durations</h3>
+		        <span class="toggle-icon">+</span>
+		    </div>
+		    <div class="collapsible-content">
+        		<div id="chargingDurations" class="summary"></div>
+			</div>
 		</div>
 		
-		<div>
-			<div id="realWorldAssessment"></div>
+		<div class="collapsible-section">
+		    <div class="collapsible-header" onclick="toggleSection(this)">
+		        <h3>5. Real-World Charging Itinerary</h3>
+		        <span class="toggle-icon">+</span>
+		    </div>
+		    <div class="collapsible-content">
+				<div id="realWorldAssessment"></div>
+			</div>
 		</div>
 		
-        <div class="chart-wrapper guide-section" id="graph-section" style="border: solid red 5px">
-			<h3>6. Subscriptions Break-Even Graph</h3>
-            Click a legend box/text to show/hide line
-            <canvas id="costChart" height="220"></canvas>
-        </div>
+        <div class="collapsible-section">
+		    <div class="collapsible-header" onclick="toggleSection(this)">
+		        <h3>6. Subscriptions Break-Even Graph</h3>
+		        <span class="toggle-icon">+</span>
+		    </div>
+		    <div class="collapsible-content">
+				<div class="chart-wrapper guide-section" id="graph-section" style="border: solid red 5px">
+		            Click a legend box/text to show/hide line
+		            <canvas id="costChart" height="220"></canvas>
+		        </div>
+			</div>
+		</div>
     </div>
 </div>
 </div><!-- end content-wrap -->
