@@ -482,14 +482,14 @@ function generateKwhBreakoutHtml(inputs, journey1PublicMiles) {
     return { breakoutHtml, breakoutKwh };
 }
 
-function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTopUpCost) {
+function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTopUpCost, customPreSoc) {
     let totalPreJourneyCost = mainTopUpCost;
     let preChargeHtml = "";
 
     if (inputs.additionalJourneys.length > 0) {
         preChargeHtml = `<p style="opacity: 0.5; font-size: 0.8rem; margin: 0px"><strong>Pre-charge battery costs:</strong></p>`;
         preChargeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
-            Journey 1 pre-charge cost (${inputs.rechargeAt}%→${inputs.soc}%, ${mainTopUpKwh.toFixed(1)} kWh x  ${inputs.startChargeRate}p): £${mainTopUpCost.toFixed(2)}
+            Journey 1 pre-charge cost (${inputs.prechargesoc}%→${inputs.soc}%, ${mainTopUpKwh.toFixed(1)} kWh x  ${inputs.startChargeRate}p): £${mainTopUpCost.toFixed(2)}
         </div>`;
 
         inputs.additionalJourneys.forEach((j, index) => {
@@ -497,7 +497,7 @@ function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTop
             const extraCost = extraKwh * (j.rate / 100);
             totalPreJourneyCost += extraCost;
             preChargeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
-                Journey ${index + 2} pre-charge cost (${inputs.prechargesoc}%→${j.soc}%, ${extraKwh.toFixed(1)} kWh x ${j.rate}p): £${extraCost.toFixed(2)}
+                Journey ${index + 2} pre-charge cost (${j.prechargesoc}%→${j.soc}%, ${extraKwh.toFixed(1)} kWh x ${j.rate}p): £${extraCost.toFixed(2)}
             </div>`;
         });
 
