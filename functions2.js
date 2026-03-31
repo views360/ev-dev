@@ -74,8 +74,6 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
         if (resultsHeader) resultsHeader.style.display = "none";
         if (uiShare) uiShare.style.display = "none";
         if (uiPdf) uiPdf.style.display = "none";
-        const contentsBox = document.getElementById("contentsBox");
-        if (contentsBox) contentsBox.style.display = "none"; // Add this line
     return false;
         return false;
     }
@@ -103,32 +101,6 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
     const maxChargingTimeFormatted = formatChargingTime(inputs.maxChargingSpeed > 0 ? publicKwh / inputs.maxChargingSpeed : 0);
 
     const itineraryData = generateRealWorldItineraryHtml(inputs, publicKwh, formatChargingTime);
-
-    const contentsBox = document.getElementById("contentsBox");
-    
-    // In Cost Reduction (isTripMode), we hide the TOC
-    if (inputs.isTripMode) {
-        contentsBox.style.display = "none";
-        contentsBox.innerHTML = "";
-    } else {
-        contentsBox.style.display = "block";
-        // Define and assign innerHTML inside the block to avoid scope errors
-        contentsBox.innerHTML = `
-           <div id="toc" class="conclusion-white-border">
-               <h3>RESULTS CONTENTS</h3>
-               <ul style="margin:0; padding-left:20px; font-size:0.95rem;">
-                   <li><a href="#payg-summary" style="color: var(--accent); text-decoration:none;">1. PAYG Summary (Based on ${inputs.adhoc}p/kWh)</a></li>
-                   <li><a href="#providerResults" style="color: var(--accent); text-decoration:none;">2. Providers & Subscriptions</a></li>
-                   <li><a href="#payg-vs-subscription" style="color: var(--accent); text-decoration:none;">3. PAYG vs Subscription Conclusion</a></li>
-                   <li><a href="#charging-times-section" style="color: var(--accent); text-decoration:none;">4. Charging Durations</a></li>
-                   <li><a href="#real-world-assessment" style="color: var(--accent); text-decoration:none;">5. Real-World Charging Itinerary</a></li>
-                   <li><a href="#graph-section" style="color: var(--accent); text-decoration:none;">6. Subscriptions Break-Even Graph</a></li>
-               </ul>
-           </div>       
-           `;
-    }
-    
-    // REMOVED: document.getElementById("contentsBox").innerHTML = contentsHTML; (This was the line causing the break)
     
     let conclusionHTML = `<div class="conclusion-white-border guide-section" id="payg-vs-subscription">`; 
     const journeyCount = 1 + inputs.additionalJourneys.length;
