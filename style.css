@@ -1,5 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
+.collapsible-section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.collapsible-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: var(--panel-alt);
+    user-select: none;
+}
+
+.collapsible-header h2, .collapsible-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.toggle-icon {
+    font-size: 1.5rem;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.collapsible-content {
+    max-height: 0;
+    padding: 0 20px;
+    opacity: 0;
+    transition: all 0.3s ease-out;
+    visibility: hidden;
+}
+
+/* When active, show content */
+.collapsible-section.active .collapsible-content {
+    max-height: 2000px; /* Large enough for content */
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.collapsible-section.active {
+    border-color: var(--accent);
+    box-shadow: var(--glow);
+}
+
 #floatingTooltip {
     visibility: hidden;
     position: fixed;
