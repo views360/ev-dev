@@ -438,11 +438,11 @@
 		<p>The results are divided into sections. Expand each section to view.</p>
 		<div class="collapsible-section">
 		    <div class="collapsible-header" onclick="toggleSection(this)">
-		        <h3 id="paygSummaryTitle" style="margin-bottom: 0px; padding-bottom: 0px">1. PAYG Summary</h3>
+		        <h3>1. PAYG Summary</h3>
 		        <span class="toggle-icon">+</span>
 		    </div>
 		    <div class="collapsible-content">
-				<div style="align: center; margin: auto">
+				<div>
 			        <div class="calc-lines">				
 						<p id="paygSummarySubtitle" style="margin: 0 0 10px 0; opacity: 0.8;">Here is the key information for your journey if you choose PAYG.</p>
 						<div id="homeRangeLine"></div>
@@ -461,7 +461,7 @@
 		        <span class="toggle-icon">+</span>
 		    </div>
 		    <div class="collapsible-content">
-				<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
+				<div id="sortContainer" class="input-group">
 					<label for="sortResults">Sort results</label>
 		            <select id="sortResults" onchange="calculate()">
 		                <option value="cheapest">Cheapest first</option>
@@ -509,7 +509,7 @@
 		        <span class="toggle-icon">+</span>
 		    </div>
 		    <div class="collapsible-content">
-				<div class="chart-wrapper guide-section" id="graph-section" style="border: solid red 5px">
+				<div class="chart-wrapper guide-section" id="graph-section">
 		            Click a legend box/text to show/hide line
 		            <canvas id="costChart" height="220"></canvas>
 		        </div>
