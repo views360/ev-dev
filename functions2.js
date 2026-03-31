@@ -144,16 +144,33 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
     }
     conclusionHTML += `</div>`;
     
-    conclusionHTML += `<div class="conclusion-white-border guide-section" id="charging-times-section"><h3>4. Charging Durations</h3>`;
+   // 2. Logic for Section 4 (Charging Durations)
+    let chargingDurationsHTML = `<div class="conclusion-white-border guide-section" id="charging-times-section"><h3>4. Charging Durations</h3>`;
     let durationIntro = (journeyCount === 1) ? `Your proposed <strong>${inputs.journeyMiles}-mile</strong> journey` : `Your ${journeyCount} proposed journeys totalling <strong>${totalMiles} miles</strong>`;
  
     if (inputs.maxChargingSpeed > 0) {
-        conclusionHTML += `<p class="main-result">${durationIntro} will require <strong>${publicKwh.toFixed(1)} kWh</strong> of public charging. At <strong>${inputs.maxChargingSpeed} kW</strong>, total duration will be approx <strong>${maxChargingTimeFormatted}</strong>.</p>`;
+        chargingDurationsHTML += `<p class="main-result">${durationIntro} will require <strong>${publicKwh.toFixed(1)} kWh</strong> of public charging. At <strong>${inputs.maxChargingSpeed} kW</strong>, total duration will be approx <strong>${maxChargingTimeFormatted}</strong>.</p>`;
     } else {
-        conclusionHTML += `<p class="main-result">Enter your vehicle's <strong>Max. Charging Speed</strong> above to see estimated charging durations.</p>`;
+        chargingDurationsHTML += `<p class="main-result">Enter your vehicle's <strong>Max. Charging Speed</strong> above to see estimated charging durations.</p>`;
     }
-    conclusionHTML += `${speedData.speedTableHtml}${itineraryData.locationDisclaimer}</div>`;
-    conclusionsBox.innerHTML = conclusionHTML + itineraryData.assessmentBoxHTML;
+    chargingDurationsHTML += `${speedData.speedTableHtml}${itineraryData.locationDisclaimer}</div>`;
+
+    // --- START OF NEW MAPPING ---
+    // Update Section 3
+    conclusionsBox.innerHTML = conclusionHTML;
+
+    // Update Section 4
+    const chargingDurationsBox = document.getElementById("chargingDurations");
+    if (chargingDurationsBox) {
+        chargingDurationsBox.innerHTML = chargingDurationsHTML;
+    }
+
+    // Update Section 5
+    const realWorldAssessmentBox = document.getElementById("realWorldAssessment");
+    if (realWorldAssessmentBox) {
+        realWorldAssessmentBox.innerHTML = itineraryData.assessmentBoxHTML;
+    }
+    // --- END OF NEW MAPPING ---
 }
 
 function updatePaygSummaryUI(inputs, mainInitialRange, customPreCost, customPreSoc) {
