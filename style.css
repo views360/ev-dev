@@ -54,6 +54,7 @@
 }
 
 #floatingTooltip {
+    display: none !important;
     visibility: hidden;
     position: fixed;
     z-index: 9999;
