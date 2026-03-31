@@ -437,19 +437,26 @@
 
     <div id="preConclusionsText">Please complete all fields in the <strong>Journey & Vehicle</strong> section</div>
     <div id="results" class="results">
-		<div style="align: center; margin: auto">
-	        <div class="calc-lines">
-				<h3 id="paygSummaryTitle" style="margin-bottom: 0px; padding-bottom: 0px">1. PAYG Summary</h3>
-				<p id="paygSummarySubtitle" style="margin: 0 0 10px 0; opacity: 0.8;">Here is the key information for your journey if you choose PAYG.</p>
-				<div id="homeRangeLine"></div>
-	            <div id="preChargeLine"></div>
-	            <div id="publicMilesLine"></div>
-	            <div id="publicKwhLine"></div>
-	            <div id="adhocCostLine"></div>
-	        </div>
+		<div class="collapsible-section">
+		    <div class="collapsible-header" onclick="toggleSection(this)">
+		        <h3 id="paygSummaryTitle" style="margin-bottom: 0px; padding-bottom: 0px">1. PAYG Summary</h3>
+		        <span class="toggle-icon">+</span>
+		    </div>
+		    <div class="collapsible-content">
+				<div style="align: center; margin: auto">
+			        <div class="calc-lines">				
+						<p id="paygSummarySubtitle" style="margin: 0 0 10px 0; opacity: 0.8;">Here is the key information for your journey if you choose PAYG.</p>
+						<div id="homeRangeLine"></div>
+			            <div id="preChargeLine"></div>
+			            <div id="publicMilesLine"></div>
+			            <div id="publicKwhLine"></div>
+			            <div id="adhocCostLine"></div>
+			        </div>
+				</div>
+			</div>
 		</div>
 
-		<div style="border: solid red 5px">
+		<div>
 			<div id="sortContainer" class="input-group" style="max-width:400px; margin-top: 30px; margin-left: 10px;">
 	            <h3>2. Providers &amp; Subscriptions</h3>
 				<label for="sortResults">Sort results</label>
@@ -461,15 +468,16 @@
 	        </div>
 	        <div class="guide-section" id="providerResults"></div>
 		</div>
-		<div style="border: solid pink 5px">
+		
+		<div>
         	<div id="conclusionsBox"></div>
 		</div>
 
-		<div style="border: solid orange 5px">
+		<div>
         	<div id="chargingDurations" class="summary"></div>
 		</div>
 		
-		<div style="border: solid blue 5px">
+		<div>
 			<div id="realWorldAssessment"></div>
 		</div>
 		
