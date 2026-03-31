@@ -25,6 +25,31 @@ let PRESETS = [];
 let providerCount = 0;
 let chart = null;
 
+function toggleSection(header) {
+    // 1. Get the parent container
+    const section = header.parentElement;
+    
+    // 2. Toggle the "active" class on the section
+    // You can use this class in your CSS to show/hide the content
+    section.classList.toggle('active');
+
+    // 3. Update the toggle icon (+ / -)
+    const icon = header.querySelector('.toggle-icon');
+    if (icon) {
+        icon.textContent = section.classList.contains('active') ? '−' : '+';
+    }
+
+    // 4. (Optional) Handle the content visibility directly if not using CSS classes
+    const content = section.querySelector('.collapsible-content');
+    if (content) {
+        if (section.classList.contains('active')) {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+}
+
 // Stub function - called in init() but doesn't need to do anything
 // The calculate() function handles all necessary updates
 function updateProviderInfo() {
