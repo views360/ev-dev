@@ -353,6 +353,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                     Arrive with ${arrivalSoc.toFixed(0)}% battery
                 </td>
                 <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">–</td>
             </tr>
         `;
         return rows;
@@ -376,7 +377,8 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
         if (remainingMiles <= maxRangeFromFullCharge) {
             const requiredKwh = remainingMiles / efficiency;
             const requiredPercent = rechargeAt + (requiredKwh / batteryKwh) * 100;
-            const durationMins = Math.round((requiredKwh / 50) * 60); // assume 50kW
+            const durationMins = Math.round((requiredKwh / inputs.maxChargeSpeed) * 60);
+            const durationMinsMin = Math.round((kwhFullCharge / inputs.minChargeSpeed) * 60);
 
             rows += `
                 <tr>
@@ -387,6 +389,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                         Recharge from ${rechargeAt}%→${requiredPercent.toFixed(0)}%, ${requiredKwh.toFixed(1)} kWh
                     </td>
                     <td style="padding: 10px; border: 1px solid var(--border);">${durationMins} mins</td>
+                    <td style="padding: 10px; border: 1px solid var(--border);">${durationMinsMin} mins</td>
                 </tr>
             `;
             stop++;
@@ -406,6 +409,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                     Recharge from ${rechargeAt}%→${chargeToPercent}%, ${kwhFullCharge.toFixed(1)} kWh
                 </td>
                 <td style="padding: 10px; border: 1px solid var(--border);">${durationMins} mins</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">${durationMinsMin} mins</td>
             </tr>
         `;
 
@@ -423,6 +427,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
             <td style="padding: 10px; border: 1px solid var(--border);">
                 Arrive with ${rechargeAt}% battery
             </td>
+            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
             <td style="padding: 10px; border: 1px solid var(--border);">–</td>
         </tr>
     `;
