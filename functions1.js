@@ -377,8 +377,8 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
         if (remainingMiles <= maxRangeFromFullCharge) {
             const requiredKwh = remainingMiles / efficiency;
             const requiredPercent = rechargeAt + (requiredKwh / batteryKwh) * 100;
-            const durationMins = Math.round((requiredKwh / inputs.maxChargeSpeed) * 60);
-            let durationMinsMin = Math.round((kwhFullCharge / inputs.minChargeSpeed) * 60);
+            const durationMins = Math.round((requiredKwh / inputs.maxChargingSpeed) * 60);
+            const durationMinsMin = Math.round((kwhFullCharge / inputs.minSpeed) * 60);
 
             rows += `
                 <tr>
@@ -397,7 +397,8 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
         }
 
         // Otherwise: INTERMEDIATE STOP (full charge to 80%)
-        const durationMins = Math.round((kwhFullCharge / 50) * 60);
+        const durationMins = Math.round((kwhFullCharge / inputs.maxChargingSpeed) * 60);
+        const durationMinsMin = Math.round((kwhFullCharge / inputs.minSpeed) * 60);
         const eventLabel = stop === 1 ? "First public charge" : "Public charge";
 
         rows += `
