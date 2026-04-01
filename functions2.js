@@ -223,7 +223,15 @@ function generateRealWorldItineraryHtml(inputs, publicKwh, formatChargingTime) {
 
     // Build itinerary rows for each journey using the existing buildStopsRowsForJourney
     const itineraryRowsArray = allJourneys.map((j) => {
-        return buildStopsRowsForJourney(j.miles, j.soc, inputs.rechargeAt, inputs.efficiency, inputs.batteryKwh);
+        return buildStopsRowsForJourney(
+            j.miles, 
+            j.soc, 
+            inputs.rechargeAt, 
+            inputs.efficiency, 
+            inputs.batteryKwh,
+            inputs.maxChargingSpeed, // Added 6th argument
+            inputs.minSpeed          // Added 7th argument
+        );
     });
     
     // Build tabbed itinerary using the existing buildTabbedItinerary
