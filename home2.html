@@ -88,24 +88,40 @@ body {
 /* ---------- Calculator First Section ---------- */
 
 .primary-section {
-    position: relative; /* Necessary to contain the absolute background */
+    position: relative;
+    width: 100%;
+    min-height: 400px; /* Force a minimum height so the image has space */
     padding: 80px 0;
+    background: #020617; /* Your dark blue fallback */
     overflow: hidden;
 }
 
-/* Temporary Test */
 .primary-bg-image {
-    background-image: url('images/home-charging.webp');
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    
+    /* The Image + The Fade */
+    background-image: 
+        linear-gradient(to bottom, rgba(2, 6, 23, 0.2) 0%, rgba(2, 6, 23, 0.9) 100%), 
+        url('images/home-charging.webp');
+    
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    
+    /* DEBUG: Uncomment the line below to see if the box exists at all */
+    /* border: 5px solid red; */
 }
 
 .home-wrap {
     position: relative;
-    z-index: 2; /* Ensures text and calculator stay above the image */
-    width: 800px;
-    max-width: calc(100vw - 30px);
-    margin: 0 auto;
+    z-index: 5; /* Ensures the calculator sits on top of the image */
 }
 
 .primary-card {
