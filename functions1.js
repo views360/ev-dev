@@ -252,6 +252,8 @@ function buildItineraryTable(stopsRows, rechargethreshold) {
                         <th style="padding: 10px; border: 1px solid var(--border);">
                             🐢 Duration<br />${document.getElementById("minSpeed").value}kW
                         </th>
+
+
                     </tr>
                 </thead>
                 <tbody>
@@ -351,7 +353,6 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                     Arrive with ${arrivalSoc.toFixed(0)}% battery
                 </td>
                 <td style="padding: 10px; border: 1px solid var(--border);">–</td>
-                <td style="padding: 10px; border: 1px solid var(--border);">–</td>
             </tr>
         `;
         return rows;
@@ -375,8 +376,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
         if (remainingMiles <= maxRangeFromFullCharge) {
             const requiredKwh = remainingMiles / efficiency;
             const requiredPercent = rechargeAt + (requiredKwh / batteryKwh) * 100;
-            const durationMins = Math.round((requiredKwh / inputs.maxChargingSpeed) * 60);
-            const durationMinsMin = 0 /*Math.round((kwhFullCharge / inputs.minSpeed) * 60)*/;
+            const durationMins = Math.round((requiredKwh / 50) * 60); // assume 50kW
 
             rows += `
                 <tr>
@@ -387,7 +387,6 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                         Recharge from ${rechargeAt}%→${requiredPercent.toFixed(0)}%, ${requiredKwh.toFixed(1)} kWh
                     </td>
                     <td style="padding: 10px; border: 1px solid var(--border);">${durationMins} mins</td>
-                    <td style="padding: 10px; border: 1px solid var(--border);">${durationMinsMin} mins</td>
                 </tr>
             `;
             stop++;
@@ -395,8 +394,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
         }
 
         // Otherwise: INTERMEDIATE STOP (full charge to 80%)
-        const durationMins = Math.round((kwhFullCharge / inputs.maxChargingSpeed) * 60);
-        const durationMinsMin = 0 /*Math.round((kwhFullCharge / inputs.minSpeed) * 60)*/;
+        const durationMins = Math.round((kwhFullCharge / 50) * 60);
         const eventLabel = stop === 1 ? "First public charge" : "Public charge";
 
         rows += `
@@ -408,7 +406,6 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                     Recharge from ${rechargeAt}%→${chargeToPercent}%, ${kwhFullCharge.toFixed(1)} kWh
                 </td>
                 <td style="padding: 10px; border: 1px solid var(--border);">${durationMins} mins</td>
-                <td style="padding: 10px; border: 1px solid var(--border);">${durationMinsMin} mins</td>
             </tr>
         `;
 
@@ -426,7 +423,6 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
             <td style="padding: 10px; border: 1px solid var(--border);">
                 Arrive with ${rechargeAt}% battery
             </td>
-            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
             <td style="padding: 10px; border: 1px solid var(--border);">–</td>
         </tr>
     `;
