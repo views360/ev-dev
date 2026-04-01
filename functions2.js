@@ -110,14 +110,14 @@ function updateConclusionsAndItineraryUI(inputs, providers, publicKwh, totalAdho
     const extraNote = `<p style="font-size:0.85rem; margin-top:12px; opacity:0.8; color:var(--neon-green) !important;">Note: Before purchasing a subscription, check that your chosen provider has charging stations in your planned area of travel — else your subscription will be wasted.</p>`;
 
     if (bestProvider.savings > 0) {
-        conclusionHTML += `<h3>3. PAYG vs Subscription Conclusion</h3><p class="main-result">${journeyIntro}, a one-month subscription with <strong>${bestProvider.name}</strong> works out cheaper than PAYG based on the selected minimum charging rate of <strong>${minSpeedLabel}</strong>. The total journey cost will be <strong>£${bestProvider.totalJourneyCost.toFixed(2)}</strong>, which represents a saving of <strong>£${bestProvider.savings.toFixed(2)}</strong> over the average PAYG rate of ${inputs.adhoc}p/kWh.</p>${extraNote}`;
+        conclusionHTML += `<p class="main-result">${journeyIntro}, a one-month subscription with <strong>${bestProvider.name}</strong> works out cheaper than PAYG based on the selected minimum charging rate of <strong>${minSpeedLabel}</strong>. The total journey cost will be <strong>£${bestProvider.totalJourneyCost.toFixed(2)}</strong>, which represents a saving of <strong>£${bestProvider.savings.toFixed(2)}</strong> over the average PAYG rate of ${inputs.adhoc}p/kWh.</p>${extraNote}`;
     } else {
-        conclusionHTML += `<h3>3. PAYG vs SUBSCRIPTION CONCLUSION</h3><p class="main-result">${journeyIntro}, a <strong>${inputs.adhoc}p PAYG rate</strong> is cheaper than the cheapest subscription. The total journey cost based on PAYG will be <strong>£${totalAdhocCost.toFixed(2)}</strong>. Consider future journeys this month before deciding.</p>${extraNote}`;
+        conclusionHTML += `<p class="main-result">${journeyIntro}, a <strong>${inputs.adhoc}p PAYG rate</strong> is cheaper than the cheapest subscription. The total journey cost based on PAYG will be <strong>£${totalAdhocCost.toFixed(2)}</strong>. Consider future journeys this month before deciding.</p>${extraNote}`;
     }
     conclusionHTML += `</div>`;
     
    // 2. Logic for Section 4 (Charging Durations)
-    let chargingDurationsHTML = `<div id="charging-times-section"><h3>4. Charging Durations</h3>`;
+    let chargingDurationsHTML = `<div id="charging-times-section">`;
     let durationIntro = (journeyCount === 1) ? `Your proposed <strong>${inputs.journeyMiles}-mile</strong> journey` : `Your ${journeyCount} proposed journeys totalling <strong>${totalMiles} miles</strong>`;
  
     if (inputs.maxChargingSpeed > 0) {
@@ -693,7 +693,7 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     uiPreText.style.display = "none";
     uiResults.style.display = "block";
     
-    document.querySelector(".calc-lines").style.display = "none";
+    /*document.querySelector(".calc-lines").style.display = "none";*/
     document.querySelector(".chart-wrapper").style.display = "none";
 
     let beData = [];
