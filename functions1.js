@@ -285,7 +285,7 @@ function buildTabbedItinerary(journeys, itineraryRowsArray, rechargethreshold) {
                 <div class="itinerary-tab-buttons">${tabs}</div>
                 <div class="itinerary-tab-content">${contents}</div>
             </div>
-            <p class="itinerary-note">Note: the final charge is calculated so you will reach your destination at the specified journey recharge threshold.</p>
+            <p class="itinerary-note">Note: the final charge is calculated so you will reach your destination at the specified journey recharge threshold. Allow +/- 1 minute for rounding.</p>
         </div>
     `;
 }
