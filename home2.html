@@ -164,7 +164,8 @@ body {
 
 .parallax-bg {
     position: absolute;
-    inset: -120px 0;
+    /* Increase the inset to -150px to provide more "bleed" for the movement */
+    inset: -150px 0; 
     background-size: cover;
     background-position: center;
     filter: brightness(0.35);
@@ -314,15 +315,28 @@ document.querySelectorAll('.observe').forEach(el => observer.observe(el));
 
 /* Parallax */
 window.addEventListener('scroll', () => {
-    document.querySelectorAll('.parallax-bg').forEach(bg => {
-        const speed = bg.dataset.speed;
-        bg.style.transform = `translateY(${window.scrollY * speed}px)`;
+    const scrolled = window.scrollY;
+
+    // Handle standard parallax bands
+    document.querySelectorAll('.parallax-band').forEach(section => {
+        const bg = section.querySelector('.parallax-bg');
+        const speed = parseFloat(bg.dataset.speed);
+        
+        // Calculate how far the section is from the top of the viewport
+        const sectionTop = section.offsetTop;
+        const relativeScroll = scrolled - sectionTop;
+
+        // Only move the background when the section is near the viewport
+        // This prevents the "100px gap" issue
+        bg.style.transform = `translateY(${relativeScroll * speed}px)`;
     });
 
+    // Handle Hero separately as it is at the very top
     const hero = document.getElementById('heroBg');
-    hero.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+    if (hero) {
+        hero.style.transform = `translateY(${scrolled * 0.35}px)`;
+    }
 });
 </script>
-
 </body>
 </html>
