@@ -495,7 +495,7 @@ body.light-mode #providerResults th:nth-child(even) {
 
 .main-result {
     font-size: 1.1rem;
-    margin-bottom: 10px;
+    margin-bottom: 0 !important;
     color: var(--bg); 
 }
 
