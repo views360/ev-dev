@@ -24,6 +24,19 @@ body {
     margin: 0 auto;
 }
 
+.slide-image {
+    width: 100%;           /* Let the width be the primary driver */
+    aspect-ratio: 16 / 9;  /* Maintain a standard widescreen shape */
+    height: auto;          /* Overrides the fixed 260px */
+    object-fit: cover;     /* Ensures the image fills the area without distortion */
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--panel-alt), #243447);
+    border: 1px solid var(--border);
+    opacity: 0;
+    transform: translateX(90px);
+    transition: all 1s ease;
+}
+
 @media (max-width: 830px) {
     .home-wrap {
         width: auto;
@@ -262,14 +275,15 @@ body {
 
     /* Center images in the grid */
     .feature-grid {
+        grid-template-columns: 1fr; /* Stack the grid */
         justify-items: center;
+        text-align: center;
     }
 
-    /* Adjust the slide-in images for centered layout */
     .slide-image {
+        height: auto;       /* Ensures it doesn't stay stuck at 220px/260px */
+        max-width: 500px;   /* Keeps it from getting too large on tablets */
         margin: 0 auto;
-        width: 100%;
-        max-width: 400px; /* Prevents image from getting too huge when centered */
     }
 
     /* Center the primary card content if it contains a calculator */
