@@ -496,7 +496,7 @@ body.light-mode #providerResults th:nth-child(even) {
 .main-result {
     font-size: 1.1rem;
     margin: 0 0 10px 0 !important;
-    color: var(--bg); 
+    /*color: var(--bg);*/
 }
 
 .speed-comparison-container {
