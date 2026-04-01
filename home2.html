@@ -239,6 +239,46 @@ body {
         height: 220px;
     }
 }
+
+@media (max-width: 700px) {
+    /* Center the Hero text */
+    .hero-home-text {
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hero-home p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Center Section Headings and Text */
+    .feature-text, 
+    .primary-card, 
+    .parallax-copy {
+        text-align: center;
+    }
+
+    /* Center images in the grid */
+    .feature-grid {
+        justify-items: center;
+    }
+
+    /* Adjust the slide-in images for centered layout */
+    .slide-image {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 400px; /* Prevents image from getting too huge when centered */
+    }
+
+    /* Center the primary card content if it contains a calculator */
+    .primary-card h2, 
+    .primary-card p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
 </style>
 </head>
 
