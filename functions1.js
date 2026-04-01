@@ -332,6 +332,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                 Depart with ${startSoc}% battery
             </td>
             <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
         </tr>
     `;
 
@@ -352,6 +353,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                 <td style="padding: 10px; border: 1px solid var(--border);">
                     Arrive with ${arrivalSoc.toFixed(0)}% battery
                 </td>
+                <td style="padding: 10px; border: 1px solid var(--border);">–</td>
                 <td style="padding: 10px; border: 1px solid var(--border);">–</td>
             </tr>
         `;
@@ -387,6 +389,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                         Recharge from ${rechargeAt}%→${requiredPercent.toFixed(0)}%, ${requiredKwh.toFixed(1)} kWh
                     </td>
                     <td style="padding: 10px; border: 1px solid var(--border);">${durationMins} mins</td>
+                    <td style="padding: 10px; border: 1px solid var(--border);">X mins</td>
                 </tr>
             `;
             stop++;
@@ -406,6 +409,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
                     Recharge from ${rechargeAt}%→${chargeToPercent}%, ${kwhFullCharge.toFixed(1)} kWh
                 </td>
                 <td style="padding: 10px; border: 1px solid var(--border);">${durationMins} mins</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">X mins</td>
             </tr>
         `;
 
@@ -423,6 +427,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
             <td style="padding: 10px; border: 1px solid var(--border);">
                 Arrive with ${rechargeAt}% battery
             </td>
+            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
             <td style="padding: 10px; border: 1px solid var(--border);">–</td>
         </tr>
     `;
