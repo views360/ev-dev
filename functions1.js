@@ -378,7 +378,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
             const requiredKwh = remainingMiles / efficiency;
             const requiredPercent = rechargeAt + (requiredKwh / batteryKwh) * 100;
             const durationMins = Math.round((requiredKwh / inputs.maxChargeSpeed) * 60);
-            const durationMinsMin = Math.round((kwhFullCharge / inputs.minChargeSpeed) * 60);
+            let durationMinsMin = Math.round((kwhFullCharge / inputs.minChargeSpeed) * 60);
 
             rows += `
                 <tr>
