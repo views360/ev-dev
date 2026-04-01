@@ -105,16 +105,6 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1;
-    
-    /* The Image + The Fade */
-    background-image: 
-        linear-gradient(to bottom, rgba(2, 6, 23, 0.2) 0%, rgba(2, 6, 23, 0.9) 100%), 
-        url('images/home-charging.webp');
-    
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
     /* DEBUG: Uncomment the line below to see if the box exists at all */
     /* border: 5px solid red; */
 }
@@ -125,11 +115,29 @@ body {
 }
 
 .primary-card {
-    background: var(--panel-alt);
-    border: 1px solid var(--border);
-    border-radius: 18px;
+    /* 1. Layout & Shape */
     padding: 40px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
     box-shadow: 0 0 24px rgba(56,189,248,0.08);
+    position: relative;
+    overflow: hidden;
+
+    /* 2. The Background Image & Fade */
+    /* This applies the 80% to 10% visibility logic directly to the card */
+    background: 
+        linear-gradient(
+            to bottom, 
+            rgba(2, 6, 23, 0.2) 0%, 
+            rgba(2, 6, 23, 0.9) 100%
+        ),
+        url('images/home-charging.webp') center/cover no-repeat;
+    
+    /* 3. Text Protection */
+    /* If the image makes text hard to read, this adds a subtle dark 
+       wash behind the text to ensure it remains legible */
+    color: var(--text);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 /* ---------- Content Sections ---------- */
