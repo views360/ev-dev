@@ -225,10 +225,13 @@ body {
 
 .parallax-bg {
     position: absolute;
-    /* Increase the inset to -150px to provide more "bleed" for the movement */
+    /* Keeps the extra "bleed" for the parallax movement */
     inset: -150px 0; 
     background-size: cover;
-    background-position: center;
+    
+    /* CHANGE THIS: 'right' ensures the focus stays on the right edge */
+    background-position: right center; 
+    
     filter: brightness(0.35);
     will-change: transform;
 }
@@ -249,18 +252,6 @@ body {
 }
 
 /* ---------- Mobile ---------- */
-
-@media (max-width: 900px) {
-    .feature-grid,
-    .feature-grid.reverse {
-        grid-template-columns: 1fr;
-    }
-
-    .slide-image {
-        height: 220px;
-    }
-}
-
 @media (max-width: 700px) {
     .feature-grid {
         grid-template-columns: 1fr;
