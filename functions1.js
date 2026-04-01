@@ -281,13 +281,10 @@ function buildTabbedItinerary(journeys, itineraryRowsArray, rechargethreshold) {
 
     return `
         <div class="conclusion-white-border guide-section" id="real-world-assessment">
-            <h3>5. Real-World Charging Itinerary</h3>
-
             <div id="itineraryTabs">
                 <div class="itinerary-tab-buttons">${tabs}</div>
                 <div class="itinerary-tab-content">${contents}</div>
             </div>
-
             <p class="itinerary-note">Note: the final charge is calculated so you will reach your destination at the specified journey recharge threshold.</p>
         </div>
     `;
