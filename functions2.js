@@ -540,7 +540,7 @@ function calculateRangeHtml(inputs, mainInitialRange) {
     const paygSubtitle = document.getElementById("paygSummarySubtitle");
 
     if (inputs.additionalJourneys.length > 0) {
-        if (paygSubtitle) paygSubtitle.textContent = `Here is the key information for your journeys if you choose PAYG. Note: allow +/- 1 minute or mile for rounding.`;
+        if (paygSubtitle) paygSubtitle.textContent = `Here is the key information for your journeys if you choose PAYG. Allow +/- 1 minute or mile for rounding.`;
         rangeHtml = `<p style="opacity: 0.5; margin: 0px; font-size: 0.8rem"><strong>Pre-charged battery range:</strong></p>`;
         rangeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
             Journey 1 range: ${mainInitialRange.toFixed(0)} miles
