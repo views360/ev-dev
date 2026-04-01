@@ -449,12 +449,13 @@ body.light-mode #providerResults th:nth-child(even) {
     background-color: rgba(0, 0, 0, 0.02);
 }
 
+/*
 .calc-lines {
     margin: 10px 0;
     padding: 10px;
     border: solid 1px #808080;
     border-radius: 8px;
-}
+}*/
 
 .conclusion-card {
     padding: 24px;
