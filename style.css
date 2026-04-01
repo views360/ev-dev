@@ -1581,6 +1581,10 @@ body {
 /* MOBILE */
 @media (max-width: 700px) {
 
+    #finalResultsSection {
+        margin-bottom: 30px;
+    }
+
     .cookie-banner {
         width: 75%;
         left: calc(50%);
