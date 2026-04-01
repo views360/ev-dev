@@ -252,8 +252,6 @@ function buildItineraryTable(stopsRows, rechargethreshold) {
                         <th style="padding: 10px; border: 1px solid var(--border);">
                             🐢 Duration<br />${document.getElementById("minSpeed").value}kW
                         </th>
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -378,7 +376,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
             const requiredKwh = remainingMiles / efficiency;
             const requiredPercent = rechargeAt + (requiredKwh / batteryKwh) * 100;
             const durationMins = Math.round((requiredKwh / inputs.maxChargingSpeed) * 60);
-            const durationMinsMin = Math.round((kwhFullCharge / inputs.minSpeed) * 60);
+            const durationMinsMin = 0 /*Math.round((kwhFullCharge / inputs.minSpeed) * 60)*/;
 
             rows += `
                 <tr>
@@ -398,7 +396,7 @@ function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency
 
         // Otherwise: INTERMEDIATE STOP (full charge to 80%)
         const durationMins = Math.round((kwhFullCharge / inputs.maxChargingSpeed) * 60);
-        const durationMinsMin = Math.round((kwhFullCharge / inputs.minSpeed) * 60);
+        const durationMinsMin = 0 /*Math.round((kwhFullCharge / inputs.minSpeed) * 60)*/;
         const eventLabel = stop === 1 ? "First public charge" : "Public charge";
 
         rows += `
