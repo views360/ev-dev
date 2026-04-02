@@ -2,16 +2,19 @@ function drawGraph(core, providers) {
     const ctx = document.getElementById("costChart");
     if (chart) chart.destroy();
 
-    const maxMiles = Math.max(core.journeyMiles * 1.2, 300); 
+    // Use a fixed range or a scale based on the user's expected monthly mileage
+    // instead of a single journey's miles.
+    const maxMiles = Math.max(core.journeyMiles * 1.5, 500); 
     const labels = Array.from({length: 11}, (_, i) => Math.round((maxMiles * i) / 10));
     
+    // 1. Standard PAYG Data: (Miles / Efficiency) * (Adhoc Rate / 100)
     const adhocData = labels.map(m => {
-        const pKwh = Math.max(0, m - (core.soc/100 * core.batteryKwh * core.efficiency)) / core.efficiency; 
-        return (core.soc/100 * core.batteryKwh * core.startChargeRate/100) + (pKwh * core.adhoc/100); 
+        const kwhNeeded = m / core.efficiency;
+        return kwhNeeded * (core.adhoc / 100);
     });
 
     const datasets = [{
-        label: "Standard PAYG",
+        label: "Standard PAYG (No Sub)",
         data: adhocData,
         borderColor: "#f97316",
         borderWidth: 3,
@@ -19,11 +22,14 @@ function drawGraph(core, providers) {
         fill: false
     }];
 
+    // 2. Provider Data: Sub Fee + ((Miles / Efficiency) * (Discount Rate / 100))
     providers.forEach((p, idx) => {
         const data = labels.map(m => {
-        const pKwh = Math.max(0, m - (core.soc/100 * core.batteryKwh * core.efficiency)) / core.efficiency; 
-        return p.subCost + (core.soc/100 * core.batteryKwh * core.startChargeRate/100) + (pKwh * p.rate/100); 
+            const kwhNeeded = m / core.efficiency;
+            const costOfEnergy = kwhNeeded * (p.rate / 100);
+            return parseFloat(p.subCost) + costOfEnergy;
         });
+
         datasets.push({
             label: p.name,
             data: data,
@@ -41,10 +47,20 @@ function drawGraph(core, providers) {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: { title: { display: true, text: 'Total Journey Cost (£)' } },
+                y: { 
+                    title: { display: true, text: 'Total Monthly Cost (£)' },
+                    beginAtZero: true 
+                },
                 x: { title: { display: true, text: 'Distance (Miles)' } }
             },
-            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } }
+            plugins: { 
+                legend: { position: 'bottom', labels: { boxWidth: 12 } },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => `${context.dataset.label}: £${context.parsed.y.toFixed(2)}`
+                    }
+                }
+            }
         }
     });
 }
