@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+ <script src="menu-utils.js"></script>
 	<script>
 	    // Only load AdSense if we are on the live production domain
-	    if (window.location.hostname === 'evsubs.uk') {
+	    if (window.location.hostname === 'yourlivedomain.com') {
 	        const script = document.createElement('script');
 	        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015";
 	        script.async = true;
@@ -13,16 +15,18 @@
 	        console.log("AdSense disabled on DEV environment.");
 	    }
 	</script>
-    <script src="menu-utils.js"></script>
     <meta charset="UTF-8">
     <meta name="google-adsense-account" content="ca-pub-2696934198267016">
     <title>EV App Toolkit - EV Subs Compare</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
+<title>EV Subs UK — Homepage Test</title>
+
+<link rel="stylesheet" href="style.css">
+
 <style>
 /* ---------- Homepage Layer ---------- */
 
@@ -38,17 +42,6 @@ body {
     width: 800px;
     max-width: calc(100vw - 30px);
     margin: 0 auto;
-}
-
-/* ── Guide card ── */
-.guide-card {
-	background: var(--panel);
-	border: 1px solid var(--border);
-	border-radius: 16px;
-	padding: 48px;
-	box-shadow: 0 10px 40px rgba(0,0,0,0.3), var(--glow);
-	position: relative;
-	overflow: hidden;
 }
 
 .slide-image {
@@ -72,43 +65,27 @@ body {
     transition: all 1s ease;
 }
 
-section {
-    width: 100%;
-    box-sizing: border-box;
-}
-
 @media (min-width: 700px) {
-body {
-        /* This reserves the space for the ad */
-        padding-right: 160px !important;
-        margin-right: 0 !important; 
-        position: relative;
-    }
+	body {
+		margin-right: 160px !important;
+	}
+}
 
-	.desktop-sidebar-ad {
-        display: none;
+@media (max-width: 699px) {
+    .home-wrap {
+        width: auto;
+        margin-left: 15px;
+        margin-right: 15px;
     }
 }
 
-@media (max-width: 830px) {
-.home-wrap, 
-.hero-home-text, 
-.parallax-copy {
-    width: 100%;
-    max-width: 800px; /* Your desired content width */
-    margin: 0 auto;
-    /* Remove the absolute centering for hero-text to make it behave naturally */
-    position: relative; 
-    left: 0;
-    transform: none;
-}
+/* ---------- Hero ---------- */
 
 .hero-home {
-    display: flex;
-    align-items: flex-end;
-    padding-bottom: 50px;
-    /* Ensure the hero background doesn't slide under the ad */
-    width: 100%; 
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    margin-top: 50px;
 }
 
 .hero-home-bg {
@@ -342,23 +319,23 @@ body {
 }
 </style>
 <script>
-        (function() {
-            const getCookie = (name) => {
-                const nameEQ = name + "=";
-                const ca = document.cookie.split(';');
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i].trim();
-                    if (c.indexOf(nameEQ) === 0) {
-                        try { return JSON.parse(decodeURIComponent(c.substring(nameEQ.length))); }
-                        catch (e) { return decodeURIComponent(c.substring(nameEQ.length)).replace(/"/g, ''); }
-                    }
-                }
-                return null;
-            };
-            const theme = getCookie('themePref');
-            if (theme === 'light') document.documentElement.classList.add('light-mode');
-        })();
-    </script>
+	(function() {
+		const getCookie = (name) => {
+			const nameEQ = name + "=";
+			const ca = document.cookie.split(';');
+			for (let i = 0; i < ca.length; i++) {
+				let c = ca[i].trim();
+				if (c.indexOf(nameEQ) === 0) {
+					try { return JSON.parse(decodeURIComponent(c.substring(nameEQ.length))); }
+					catch (e) { return decodeURIComponent(c.substring(nameEQ.length)).replace(/"/g, ''); }
+				}
+			}
+			return null;
+		};
+		const theme = getCookie('themePref');
+		if (theme === 'light') document.documentElement.classList.add('light-mode');
+	})();
+</script>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
@@ -369,7 +346,6 @@ body {
   gtag('config', 'G-6B2B03YZ17');
 </script>
 <body>
-
     <!-- Fixed top header -->
     <div class="android-header-full">
         <h1 class="android-title-clean">EV Subs Compare (UK)</h1>
@@ -379,7 +355,8 @@ body {
     </div>
 
     <!-- Slide-out menu -->
-    <div id="menu-placeholder"></div>
+    <div id="menu-placeholder"></div>  
+
 
 <!-- HERO -->
 <section class="hero-home">
@@ -470,7 +447,8 @@ body {
         </div>
     </div>
 </section>
-<div class="desktop-sidebar-ad">
+ <!-- Ad slots -->
+    <div class="desktop-sidebar-ad">
     <div class="ad-tab-vertical">Ads Area</div>
     <div id="desktop-ad-slot" style="width: 160px; height: 600px; display: flex; align-items: center; justify-content: center;">
         <ins class="adsbygoogle" style="display:block; width:160px; height:600px; margin:0;" data-ad-client="ca-pub-2944414800646015" data-ad-slot="3754204567" data-ad-format="autorelaxed" data-full-width-responsive="false"></ins>
@@ -498,6 +476,7 @@ body {
 			</div>	        
 	    </div>
 	</div>
+
 <script>
 // Load ads only when visible
 function loadAdSense() {
@@ -614,16 +593,6 @@ function toggleMenuSection(toggleId, itemsId) {
 }
 
 loadMenu();
-
-function toggleTheme() {
-    const setCookie = (name, value) => {
-        const date = new Date();
-        date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
-        document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))};expires=${date.toUTCString()};path=/;SameSite=Lax`;
-    };
-    const isLight = document.documentElement.classList.toggle('light-mode');
-    setCookie('themePref', isLight ? 'light' : 'dark');
-}
 
 /* Slide-in observer */
 const observer = new IntersectionObserver(entries => {
