@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script>
+	    // Only load AdSense if we are on the live production domain
+	    if (window.location.hostname === 'yourlivedomain.com') {
+	        const script = document.createElement('script');
+	        script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015";
+	        script.async = true;
+	        script.crossOrigin = "anonymous";
+	        document.head.appendChild(script);
+	    } else {
+	        console.log("AdSense disabled on DEV environment.");
+	    }
+	</script>
     <script src="menu-utils.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015"
      crossorigin="anonymous"></script>
@@ -67,6 +79,12 @@ body {
     opacity: 0;
     transform: translateX(90px);
     transition: all 1s ease;
+}
+
+@media (min-width: 700px) {
+	body {
+		margin-right: 160px !important;
+	}
 }
 
 @media (max-width: 830px) {
