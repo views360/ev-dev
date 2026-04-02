@@ -176,19 +176,38 @@ function updatePaygSummaryUI(inputs, mainInitialRange, customPreCost, customPreS
     return { totalAdhocCost, totalPreJourneyCost: paygData.totalPreJourneyCost, publicKwh: kwhData.breakoutKwh };
 }
 
-function handleInitialVisibilityAndMode(isTripMode, uiResults, uiPreText, conclusionsBox) {
-    handleModeVisibility(isTripMode); 
-    applyPulsing(); 
+function handleModeVisibility(isTripMode) {
+    // 1. Identify all six results sections
+    const sections = {
+        summary: document.getElementById("summary"),
+        subscriptions: document.getElementById("subscriptions"),
+        conclusion: document.getElementById("conclusion"),
+        durations: document.getElementById("durations"),
+        real: document.getElementById("real"),
+        graph: document.getElementById("graph")
+    };
 
-    if (!isTripMode) {
-        if (conclusionsBox) conclusionsBox.style.display = "none";
-        handleBreakEvenMode(uiPreText, uiResults);
-        return true; // Indicates we should stop calculate() here
+    if (isTripMode) {
+        // COST REDUCTION MODE: Show summary, subscriptions, conclusion, durations, real
+        if (sections.summary) sections.summary.style.display = "block";
+        if (sections.subscriptions) sections.subscriptions.style.display = "block";
+        if (sections.conclusion) sections.conclusion.style.display = "block";
+        if (sections.durations) sections.durations.style.display = "block";
+        if (sections.real) sections.real.style.display = "block";
+        
+        // Hide Graph
+        if (sections.graph) sections.graph.style.display = "none";
+    } else {
+        // BREAK-EVEN MODE: Show only subscriptions and graph
+        if (sections.subscriptions) sections.subscriptions.style.display = "block";
+        if (sections.graph) sections.graph.style.display = "block";
+
+        // Hide others
+        if (sections.summary) sections.summary.style.display = "none";
+        if (sections.conclusion) sections.conclusion.style.display = "none";
+        if (sections.durations) sections.durations.style.display = "none";
+        if (sections.real) sections.real.style.display = "none";
     }
-
-    if (uiPreText) uiPreText.style.display = "block";
-    if (uiResults) uiResults.style.display = "block";
-    return false;
 }
 
 function calculateMainJourneyBasics(inputs) {
