@@ -173,28 +173,19 @@ function handleModeVisibility(isTripMode) {
 
     if (isTripMode) {
         // --- COST REDUCTION MODE ---
-        if (sections.summary) sections.summary.style.display = "block";
-        if (sections.subscriptions) sections.subscriptions.style.display = "block";
-        if (sections.conclusion) sections.conclusion.style.display = "block";
-        if (sections.durations) sections.durations.style.display = "block";
-        if (sections.real) sections.real.style.display = "block";
-        if (sections.graph) sections.graph.style.display = "none"; 
-        
-        if (sections.tripCard) sections.tripCard.style.display = "block";
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "none";
+        if (sections.tripCard) sections.tripCard.style.display = "block";
         if (sections.providersContainer) sections.providersContainer.style.display = "block";
-        
         if (sections.uiPreText) sections.uiPreText.style.display = "none";
         if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
+        // Trip results visibility is typically managed by renderTripResults()
     } else {
         // --- BREAK-EVEN MODE ---
-        
-        // Use querySelector to find the BE inputs by ID or by their specific BE classes
-        const elEff = document.getElementById("efficiencyBE") || document.querySelector(".extra-journey-efficiency");
-        const elBat = document.getElementById("batteryBE") || document.querySelector(".extra-journey-battery");
-        const elAdhoc = document.getElementById("adhocBE") || document.querySelector(".extra-journey-adhoc");
+        const elEff = document.getElementById("efficiencyBE");
+        const elBat = document.getElementById("batteryBE");
+        const elAdhoc = document.getElementById("adhocBE");
 
-        // Check if values are actually entered
+        // Check if elements exist and have valid numeric values
         const valEff = elEff ? elEff.value.trim() : "";
         const valBat = elBat ? elBat.value.trim() : "";
         const valAdhoc = elAdhoc ? elAdhoc.value.trim() : "";
@@ -202,34 +193,35 @@ function handleModeVisibility(isTripMode) {
         const isPopulated = valEff !== "" && valBat !== "" && valAdhoc !== "";
 
         if (isPopulated) {
-            // Show the main results wrapper and BE sections
+            // 1. Reveal the hidden results containers
             if (sections.results) sections.results.style.display = "block";
             if (sections.subscriptions) sections.subscriptions.style.display = "block";
             if (sections.graph) sections.graph.style.display = "block";
             if (sections.resultsIntroText) sections.resultsIntroText.style.display = "block";
-            
-            // Hide the "Please attend to all..." message
             if (sections.uiPreText) sections.uiPreText.style.display = "none";
+
+            // 2. IMPORTANT: Force a calculation update now that fields are ready
+            if (typeof calculate === "function") {
+                calculate(); 
+            }
         } else {
-            // Hide results until all fields are filled
+            // Hide everything if inputs are incomplete
             if (sections.results) sections.results.style.display = "none";
             if (sections.subscriptions) sections.subscriptions.style.display = "none";
             if (sections.graph) sections.graph.style.display = "none";
             if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
             
-            // Show the error message
             if (sections.uiPreText) {
                 sections.uiPreText.style.display = "block";
-                sections.uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
+                sections.uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
             }
         }
 
-        // Always ensure Trip-specific sections are hidden in BE mode
+        // Always hide Trip-only sections in BE mode
         [sections.summary, sections.conclusion, sections.durations, sections.real].forEach(s => {
             if (s) s.style.display = "none";
         });
 
-        // Ensure proper card/container visibility
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
         if (sections.tripCard) sections.tripCard.style.display = "none";
         if (sections.providersContainer) sections.providersContainer.style.display = "none";
