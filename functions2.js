@@ -577,7 +577,7 @@ function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShar
         inputs.startChargeRate <= 0;
 
     if (tripIncomplete) {
-        uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
+        uiPreText.innerHTML = "Please attend to all puslsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
         /*uiPreText.style.display = "block";
         uiResults.style.display = "none";*/
         /*if (resultsHeader) resultsHeader.style.display = "none";
@@ -661,7 +661,7 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     const minSpeedSelection = parseFloat(document.getElementById("minSpeedBE").value) || 0;
 
     if (isNaN(efficiency) || efficiency <= 0 || isNaN(adhocRate) || adhocRate <= 0) {
-        uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
+        uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
         /*uiPreText.style.display = "block";
         uiResults.style.display = "none";*/
         return;
