@@ -42,12 +42,27 @@ function updateProviderInfo() {
 }
 
 function getInputs() {
+    // Check if the body has the class that indicates Break-Even mode
+    const isBeMode = document.body.classList.contains("be-mode");
+
+    if (isBeMode) {
+        // PULL FROM BREAK-EVEN FIELDS
+        return {
+            isBeMode: true,
+            efficiency: parseFloat(document.getElementById("efficiencyBE")?.value) || 0,
+            batteryKwh: parseFloat(document.getElementById("batteryBE")?.value) || 0,
+            adhoc: parseFloat(document.getElementById("adhocBE")?.value) || 0
+        };
+    }
+
+    // ORIGINAL TRIP MODE LOGIC
     const extraMiles = Array.from(document.querySelectorAll(".extra-journey-miles")).map(el => parseFloat(el.value) || 0);
     const extraSocs = Array.from(document.querySelectorAll(".extra-journey-soc")).map(el => parseFloat(el.value) || 0);
     const extraRates = Array.from(document.querySelectorAll(".extra-journey-rate")).map(el => parseFloat(el.value) || 0);
     const extraPreSocs = Array.from(document.querySelectorAll(".extra-journey-prechargesoc")).map(el => parseFloat(el.value) || 0);
 
     return {
+        isBeMode: false,
         journeyMiles: parseFloat(document.getElementById("journeyMiles").value) || 0,
         batteryKwh: parseFloat(document.getElementById("batteryKwh").value) || 0,
         prechargesoc: parseFloat(document.getElementById("prechargesoc").value) || 0,
