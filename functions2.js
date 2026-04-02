@@ -2,7 +2,7 @@ function renderTripResults(inputs, context) {
     const providerBoxes = document.querySelectorAll(".provider-box");
 
     // 1. Check if all required fields and providers are present
-    if (!checkTripReadiness(inputs, context.uiPreText, context.uiResults, context.resultsHeader, context.uiShare, context.uiPdf, providerBoxes, context.sectionSummary)) {
+    if (!checkTripReadiness(inputs, context.uiPreText, context.uiResults, context.resultsHeader, context.uiShare, context.uiPdf, providerBoxes, context.sectionSummary, context.sectionSubs, context.sectionConclusion, context.sectionDurations, context.sectionRealWord, context.sectionGraphs)) {
         return;
     }
 
@@ -57,13 +57,17 @@ function getModeContext() {
         resultsHeader: document.getElementById("resultsHeader"),
         uiShare: document.getElementById("shareBtn"),
         uiPdf: document.getElementById("pdfBtn"),
-        sectionSummary: document.getElementById("sectionSummary")
-        
+        sectionSummary: document.getElementById("sectionSummary"),
+        sectionSubs: document.getElementById("sectionSubs"),    
+        sectionConclusion: document.getElementById("sectionConclusion"),
+        sectionDurations: document.getElementById("sectionDurations"),
+        sectionRealWorld: document.getElementById("sectionRealWorld"),
+        sectionGraph: document.getElementById("sectionGraph")
     };
 }
 
-function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, providerBoxes, sectionSummary) {
-    if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary)) {
+function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, providerBoxes, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraphs) {
+    if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraphs)) {
         return false;
     }
 
@@ -77,6 +81,11 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
         if (uiShare) uiShare.style.display = "none";
         if (uiPdf) uiPdf.style.display = "none";
         if (sectionSummary) sectionSummary.style.display = "none";
+        if (sectionSubs) sectionSubs.style.display = "none";
+        if (sectionConclusion) sectionConclusion.style.display = "none";
+        if (sectionDurations) sectionDurations.style.display = "none";
+        if (sectionRealWorld) sectionRealWorld.style.display = "none";
+        if (sectionGraph) sectionGraph.style.display = "none";
     return false;
         return false;
     }
@@ -90,8 +99,13 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
     if (uiShare) uiShare.style.display = "";
     if (uiPdf) uiPdf.style.display = "";
     if (sectionSummary) sectionSummary.style.display = "";
-    document.querySelector(".calc-lines").style.display = "block";
-    document.querySelector(".chart-wrapper").style.display = "block";
+    if (sectionSubs) sectionSubs.style.display = "";
+    if (sectionConclusion) sectionConclusion.style.display = "";
+    if (sectionDurations) sectionDurations.style.display = "";
+    if (sectionRealWorld) sectionRealWorld.style.display = "";
+    if (sectionGraph) sectionGraph.style.display = "";
+    document.querySelector(".calc-lines").style.display = "";
+    document.querySelector(".chart-wrapper").style.display = "";
     return true;
 }
 
@@ -567,7 +581,7 @@ function calculateRangeHtml(inputs, mainInitialRange) {
     return { rangeHtml, totalInitialRange };
 }
 
-function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary) {
+function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraphs) {
     const tripIncomplete = 
         inputs.journeyMiles <= 0 || 
         inputs.batteryKwh <= 0 || 
@@ -586,6 +600,11 @@ function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShar
         if (uiShare) uiShare.style.display = "none";
         if (uiPdf) uiPdf.style.display = "none";
         if (sectionSummary) sectionSummary.style.display = "none";
+        if (sectionSubs) sectionSubs.style.display = "none";
+        if (sectionConclusion) sectionConclusion.style.display = "none";
+        if (sectionDurations) sectionDurations.style.display = "none";
+        if (sectionRealWorld) sectionRealWorld.style.display = "none";
+        if (sectionGraph) sectionGraph.style.display = "none";
         const toc = document.getElementById("toc");
         if (toc) toc.style.display = "none";
         return true; 
