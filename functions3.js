@@ -2,8 +2,7 @@ function drawGraph(core, providers) {
     const ctx = document.getElementById("costChart");
     if (chart) chart.destroy();
 
-    // Use a fixed range or a scale based on the user's expected monthly mileage
-    // instead of a single journey's miles.
+    // Use a range that accommodates the journey or a sensible default for break-even
     const maxMiles = Math.max(core.journeyMiles * 1.5, 500); 
     const labels = Array.from({length: 11}, (_, i) => Math.round((maxMiles * i) / 10));
     
@@ -14,30 +13,56 @@ function drawGraph(core, providers) {
     });
 
     const datasets = [{
-        label: "Standard PAYG (No Sub)",
+        label: "Standard PAYG",
         data: adhocData,
         borderColor: "#f97316",
         borderWidth: 3,
         pointRadius: 0,
-        fill: false
+        fill: false,
+        order: 2 // Keep the main PAYG line behind the markers
     }];
 
-    // 2. Provider Data: Sub Fee + ((Miles / Efficiency) * (Discount Rate / 100))
+    // 2. Provider Data and Break-Even Markers
     providers.forEach((p, idx) => {
+        const color = getProviderColor(p.name, idx);
+        const subFee = parseFloat(p.subCost);
+        
         const data = labels.map(m => {
             const kwhNeeded = m / core.efficiency;
-            const costOfEnergy = kwhNeeded * (p.rate / 100);
-            return parseFloat(p.subCost) + costOfEnergy;
+            return subFee + (kwhNeeded * (p.rate / 100));
         });
 
+        // Add the provider line
         datasets.push({
             label: p.name,
             data: data,
-            borderColor: getProviderColor(p.name, idx),
+            borderColor: color,
             borderWidth: 2,
             pointRadius: 0,
-            fill: false
+            fill: false,
+            order: 2
         });
+
+        // 3. Calculate and add Break-Even Marker
+        // Formula: Miles = SubCost / ((PAYG_Rate - Discount_Rate) / Efficiency)
+        const rateDiff = (core.adhoc - p.rate) / 100;
+        if (rateDiff > 0) {
+            const breakEvenMiles = (subFee * core.efficiency) / rateDiff;
+            const breakEvenCost = (breakEvenMiles / core.efficiency) * (core.adhoc / 100);
+
+            datasets.push({
+                label: `${p.name} Break-Even`,
+                data: [{ x: breakEvenMiles, y: breakEvenCost }],
+                pointBackgroundColor: "#fff",
+                pointBorderColor: color,
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                showLine: false,
+                type: 'scatter',
+                order: 1 // Bring markers to the front
+            });
+        }
     });
 
     chart = new Chart(ctx, {
@@ -51,13 +76,32 @@ function drawGraph(core, providers) {
                     title: { display: true, text: 'Total Monthly Cost (£)' },
                     beginAtZero: true 
                 },
-                x: { title: { display: true, text: 'Distance (Miles)' } }
+                x: { 
+                    type: 'linear', // Use linear scale to position scatter points accurately
+                    title: { display: true, text: 'Distance (Miles)' },
+                    min: 0,
+                    max: maxMiles
+                }
             },
             plugins: { 
-                legend: { position: 'bottom', labels: { boxWidth: 12 } },
+                legend: { 
+                    position: 'bottom', 
+                    labels: { 
+                        boxWidth: 12,
+                        // Filter out the "Break-Even" entries from the legend to keep it clean
+                        filter: (item) => !item.text.includes('Break-Even')
+                    } 
+                },
                 tooltip: {
                     callbacks: {
-                        label: (context) => `${context.dataset.label}: £${context.parsed.y.toFixed(2)}`
+                        label: (context) => {
+                            const label = context.dataset.label || '';
+                            const value = context.parsed.y.toFixed(2);
+                            if (label.includes('Break-Even')) {
+                                return `${label}: ${context.parsed.x.toFixed(0)} miles (£${value})`;
+                            }
+                            return `${label}: £${value}`;
+                        }
                     }
                 }
             }
