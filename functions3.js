@@ -2,16 +2,35 @@ function drawGraph(core, providers) {
     const ctx = document.getElementById("costChart");
     if (chart) chart.destroy();
 
-    // Use a range that accommodates the journey or a sensible default for break-even
-    const maxMiles = Math.max(core.journeyMiles * 1.5, 500); 
-    const labels = Array.from({length: 11}, (_, i) => Math.round((maxMiles * i) / 10));
-    
-    // 1. Standard PAYG Data: (Miles / Efficiency) * (Adhoc Rate / 100)
-    const adhocData = labels.map(m => {
-        const kwhNeeded = m / core.efficiency;
-        return kwhNeeded * (core.adhoc / 100);
-    });
+    // 1. Detect Mode
+    const activePill = document.querySelector('.calc-tab.active');
+    const isTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
 
+    // Define X-axis range
+    const maxMiles = Math.max(core.journeyMiles * 1.5, 500);
+    const labels = Array.from({ length: 11 }, (_, i) => Math.round((maxMiles * i) / 10));
+
+    // Helper: Calculate cost based on mode
+    const calculateCost = (m, subFee, ratePerKwh) => {
+        if (!isTripMode) {
+            // SIMPLE BREAK-EVEN LOGIC: Sub + (Miles / Eff * Rate)
+            return subFee + ((m / core.efficiency) * (ratePerKwh / 100));
+        } else {
+            // TRIP MODE LOGIC: (Pre-charge Cost) + (Public Charging Cost for miles exceeding initial range)
+            const initialRange = (core.soc / 100) * core.batteryKwh * core.efficiency;
+            const preChargeKwh = Math.max(0, (core.soc - core.prechargesoc) / 100) * core.batteryKwh;
+            const preChargeCost = preChargeKwh * (core.startChargeRate / 100);
+
+            const publicMiles = Math.max(0, m - initialRange);
+            const publicKwh = publicMiles / core.efficiency;
+            const publicCost = publicKwh * (ratePerKwh / 100);
+
+            return subFee + preChargeCost + publicCost;
+        }
+    };
+
+    // 2. Standard PAYG Dataset
+    const adhocData = labels.map(m => calculateCost(m, 0, core.adhoc));
     const datasets = [{
         label: "Standard PAYG",
         data: adhocData,
@@ -19,20 +38,16 @@ function drawGraph(core, providers) {
         borderWidth: 3,
         pointRadius: 0,
         fill: false,
-        order: 2 // Keep the main PAYG line behind the markers
+        order: 2
     }];
 
-    // 2. Provider Data and Break-Even Markers
+    // 3. Provider Datasets
     providers.forEach((p, idx) => {
         const color = getProviderColor(p.name, idx);
         const subFee = parseFloat(p.subCost);
-        
-        const data = labels.map(m => {
-            const kwhNeeded = m / core.efficiency;
-            return subFee + (kwhNeeded * (p.rate / 100));
-        });
 
-        // Add the provider line
+        const data = labels.map(m => calculateCost(m, subFee, p.rate));
+
         datasets.push({
             label: p.name,
             data: data,
@@ -43,25 +58,26 @@ function drawGraph(core, providers) {
             order: 2
         });
 
-        // 3. Calculate and add Break-Even Marker
-        // Formula: Miles = SubCost / ((PAYG_Rate - Discount_Rate) / Efficiency)
-        const rateDiff = (core.adhoc - p.rate) / 100;
-        if (rateDiff > 0) {
-            const breakEvenMiles = (subFee * core.efficiency) / rateDiff;
-            const breakEvenCost = (breakEvenMiles / core.efficiency) * (core.adhoc / 100);
+        // 4. Add Break-Even Markers (Only in Break-Even Mode)
+        if (!isTripMode) {
+            const rateDiff = (core.adhoc - p.rate) / 100;
+            if (rateDiff > 0) {
+                const breakEvenMiles = (subFee * core.efficiency) / rateDiff;
+                const breakEvenCost = calculateCost(breakEvenMiles, 0, core.adhoc);
 
-            datasets.push({
-                label: `${p.name} Break-Even`,
-                data: [{ x: breakEvenMiles, y: breakEvenCost }],
-                pointBackgroundColor: "#fff",
-                pointBorderColor: color,
-                pointBorderWidth: 2,
-                pointRadius: 6,
-                pointHoverRadius: 8,
-                showLine: false,
-                type: 'scatter',
-                order: 1 // Bring markers to the front
-            });
+                datasets.push({
+                    label: `${p.name} Break-Even`,
+                    data: [{ x: breakEvenMiles, y: breakEvenCost }],
+                    pointBackgroundColor: "#fff",
+                    pointBorderColor: color,
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    showLine: false,
+                    type: 'scatter',
+                    order: 1
+                });
+            }
         }
     });
 
@@ -72,25 +88,24 @@ function drawGraph(core, providers) {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: { 
-                    title: { display: true, text: 'Total Monthly Cost (£)' },
-                    beginAtZero: true 
+                y: {
+                    title: { display: true, text: isTripMode ? 'Total Journey Cost (£)' : 'Total Monthly Cost (£)' },
+                    beginAtZero: true
                 },
-                x: { 
-                    type: 'linear', // Use linear scale to position scatter points accurately
+                x: {
+                    type: 'linear',
                     title: { display: true, text: 'Distance (Miles)' },
                     min: 0,
                     max: maxMiles
                 }
             },
-            plugins: { 
-                legend: { 
-                    position: 'bottom', 
-                    labels: { 
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
                         boxWidth: 12,
-                        // Filter out the "Break-Even" entries from the legend to keep it clean
                         filter: (item) => !item.text.includes('Break-Even')
-                    } 
+                    }
                 },
                 tooltip: {
                     callbacks: {
