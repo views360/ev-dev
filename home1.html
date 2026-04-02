@@ -30,6 +30,24 @@ body {
     margin: 0 auto;
 }
 
+/* ── Page body layout ── */
+.guide-wrap {
+	max-width: 860px;
+	margin: 0 auto;
+	padding: 56px 40px 120px;
+}
+
+/* ── Guide card ── */
+.guide-card {
+	background: var(--panel);
+	border: 1px solid var(--border);
+	border-radius: 16px;
+	padding: 48px;
+	box-shadow: 0 10px 40px rgba(0,0,0,0.3), var(--glow);
+	position: relative;
+	overflow: hidden;
+}
+
 .slide-image {
     width: 100%;
     /* This forces the height to always match the width */
@@ -56,6 +74,7 @@ body {
         width: auto;
         margin-left: 15px;
         margin-right: 15px;
+		.guide-wrap { padding: 36px 20px 110px; }
     }
 }
 
@@ -347,6 +366,7 @@ body {
         <p>Your UK guide to subscription savings, charging strategy, practical ownership, and deeper EV understanding.</p>
     </div>
 </section>
+<div class="guide-wrap">
 
 <!-- CALCULATOR FIRST -->
 <section class="primary-section">
@@ -455,7 +475,7 @@ body {
 			</div>	        
 	    </div>
 	</div>
-
+</div>
 <script>
 // Load ads only when visible
 function loadAdSense() {
