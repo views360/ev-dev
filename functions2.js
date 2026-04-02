@@ -1,6 +1,4 @@
-function renderTripResults(inputs, context) {
-    handleModeVisibility(context.isTripMode);
-    
+function renderTripResults(inputs, context) {   
     const providerBoxes = document.querySelectorAll(".provider-box");
 
     // 1. Check if all required fields and providers are present
@@ -45,6 +43,7 @@ function renderTripResults(inputs, context) {
 
     // 7. Save data to cookies and draw the graph
     updateOutputsAndStorage(inputs, providers);
+    handleModeVisibility(context.isTripMode);
 }
 
 function getModeContext() {
@@ -66,20 +65,8 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
     if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf)) {
         return false;
     }
+    if (providerBoxes.length === 0) return false;
 
-    if (providerBoxes.length === 0) {
-        return false;
-    }
-
-    uiPreText.style.display = "none";
-    uiResults.style.display = "block"; // Keep this to show the general container
-    
-    const toc = document.getElementById("toc");
-    if (toc) toc.style.display = "block";
-    if (uiShare) uiShare.style.display = "";
-    if (uiPdf) uiPdf.style.display = "";
-
-    // REMOVED: The hardcoded .calc-lines and .chart-wrapper block displays
     return true;
 }
 
@@ -179,13 +166,19 @@ function handleModeVisibility(isTripMode) {
     };
 
     if (isTripMode) {
-        // COST REDUCTION: Show everything
-        Object.values(sections).forEach(el => { if (el) el.style.display = "block"; });
+        // COST REDUCTION: Show all sections except the graph
+        if (sections.summary) sections.summary.style.display = "block";
+        if (sections.subscriptions) sections.subscriptions.style.display = "block";
+        if (sections.conclusion) sections.conclusion.style.display = "block";
+        if (sections.durations) sections.durations.style.display = "block";
+        if (sections.real) sections.real.style.display = "block";
+        // Corrected from "hidden" to "none"
+        if (sections.graph) sections.graph.style.display = "none"; 
     } else {
-        // BREAK-EVEN: Show ONLY subscriptions and graph
+        // BREAK-EVEN: Show only subscriptions and graph
         if (sections.subscriptions) sections.subscriptions.style.display = "block";
         if (sections.graph) sections.graph.style.display = "block";
-
+        
         // Hide the others
         if (sections.summary) sections.summary.style.display = "none";
         if (sections.conclusion) sections.conclusion.style.display = "none";
