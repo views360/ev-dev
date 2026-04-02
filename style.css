@@ -250,9 +250,12 @@ body {
     margin: 0;
     padding: 20px;
     padding-top: 54px !important;
-    padding-bottom: 98px !important; /* clears the fixed bottom ad bar */
+    padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+    /* Use dvh (Dynamic Viewport Height) for better mobile consistency */
+    min-height: 100dvh;
 }
 
 .app {
@@ -1382,17 +1385,13 @@ body {
     translate: -100% 0;
 }
 
-#bottomSpacer {
-    margin-bottom: 0px;
-}
-
-
 /* DESKTOP */
 /* --- Desktop Layout (>= 700px) --- */
 @media (min-width: 700px) {
     body {
         padding-bottom: 20px !important;
     }
+    
 
     /* 1. content-wrap gives margin:auto children a right boundary that
        excludes the 160px ad column, so they centre within the content area */
@@ -1584,11 +1583,15 @@ body {
 
 /* MOBILE */
 @media (max-width: 700px) {
-
-    #bottomSpacer {
-        margin-bottom: 100px;
+    .content-wrap {
+        /* Adds extra breathing room at the very bottom of the content wrapper */
+        padding-bottom: 40px; 
     }
-
+    
+    .guide-wrap {
+        /* You already have 110px here, ensure it doesn't conflict */
+        padding: 36px 20px calc(110px + env(safe-area-inset-bottom));
+    
     .cookie-banner {
         width: 75%;
         left: calc(50%);
