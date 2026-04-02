@@ -162,7 +162,9 @@ function handleModeVisibility(isTripMode) {
         conclusion: document.getElementById("conclusion"),
         durations: document.getElementById("durations"),
         real: document.getElementById("real"),
-        graph: document.getElementById("graph")
+        graph: document.getElementById("graph"),
+        breakEvenCard: document.getElementById("breakEvenCard"),
+        tripCard: document.getElementById("tripCard")
     };
 
     if (isTripMode) {
@@ -172,18 +174,19 @@ function handleModeVisibility(isTripMode) {
         if (sections.conclusion) sections.conclusion.style.display = "block";
         if (sections.durations) sections.durations.style.display = "block";
         if (sections.real) sections.real.style.display = "block";
-        // Corrected from "hidden" to "none"
         if (sections.graph) sections.graph.style.display = "none"; 
+        if (sections.tripCard) sections.tripCard.style.display = "block";
+        if (sections.breakEvenCard) sections.breakEvenCard.style.display = "none";
     } else {
         // BREAK-EVEN: Show only subscriptions and graph
         if (sections.subscriptions) sections.subscriptions.style.display = "block";
         if (sections.graph) sections.graph.style.display = "block";
-        
-        // Hide the others
         if (sections.summary) sections.summary.style.display = "none";
         if (sections.conclusion) sections.conclusion.style.display = "none";
         if (sections.durations) sections.durations.style.display = "none";
         if (sections.real) sections.real.style.display = "none";
+        if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
+        if (sections.tripCard) sections.tripCard.style.display = "none";
     }
 }
 
