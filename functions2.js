@@ -2,7 +2,7 @@ function renderTripResults(inputs, context) {
     const providerBoxes = document.querySelectorAll(".provider-box");
 
     // 1. Check if all required fields and providers are present
-    if (!checkTripReadiness(inputs, context.uiPreText, context.uiResults, context.resultsHeader, context.uiShare, context.uiPdf, providerBoxes, context.sectionSummary, context.sectionSubs, context.sectionConclusion, context.sectionDurations, context.sectionRealWord, context.sectionGraphs)) {
+    if (!checkTripReadiness(inputs, context.uiPreText, context.uiResults, context.resultsHeader, context.uiShare, context.uiPdf, providerBoxes, context.sectionSummary, context.sectionSubs, context.sectionConclusion, context.sectionDurations, context.sectionRealWord, context.sectionGraph)) {
         return;
     }
 
@@ -66,8 +66,8 @@ function getModeContext() {
     };
 }
 
-function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, providerBoxes, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraphs) {
-    if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraphs)) {
+function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, providerBoxes, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraph) {
+    if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraph)) {
         return false;
     }
 
@@ -581,7 +581,7 @@ function calculateRangeHtml(inputs, mainInitialRange) {
     return { rangeHtml, totalInitialRange };
 }
 
-function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraphs) {
+function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary, sectionSubs, sectionConclusion, sectionDurations, sectionRealWord, sectionGraph) {
     const tripIncomplete = 
         inputs.journeyMiles <= 0 || 
         inputs.batteryKwh <= 0 || 
@@ -707,7 +707,11 @@ function handleModeVisibility(isTripMode) {
 
 function handleBreakEvenMode(uiPreText, uiResults) {
     const contentsBox = document.getElementById("contentsBox");
-    const sectionSummary = document.getElementById("sectionSubs");
+    const sectionSummary = document.getElementById("sectionSummary");
+    const sectionSubs = document.getElementById("sectionSubs");
+    const sectionConclusion = document.getElementById("sectionConclusion");
+    const sectionDurations = document.getElementById("sectionDurations");
+    const sectionRealWord = document.getElementById("sectionRealWord");
     const sectionGraph = document.getElementById("sectionGraph");
     if (contentsBox) {
         contentsBox.style.display = "none";
@@ -721,6 +725,12 @@ function handleBreakEvenMode(uiPreText, uiResults) {
         uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
         uiPreText.style.display = "block";
         uiResults.style.display = "none";
+        sectionSummary.style.display = "none";
+        sectionSubs.style.display = "none";
+        sectionConclusion.style.display = "none";
+        sectionDurations.style.display = "none";
+        sectionRealWorld.style.display = "none";
+        sectionGraph.style.display = "none";
         return;
     }
 
@@ -728,6 +738,10 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     uiResults.style.display = "block";
     sectionSubs.style.display = "block";
     sectionGraph.style.display = "block";
+    sectionSummary.style.display = "none";
+    sectionConclusion.style.display = "none";
+    sectionDurations.style.display = "none";
+    sectionRealWorld.style.display = "none";
     
     /*document.querySelector(".calc-lines").style.display = "none";*/
     document.querySelector(".chart-wrapper").style.display = "none";
