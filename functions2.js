@@ -2,7 +2,7 @@ function renderTripResults(inputs, context) {
     const providerBoxes = document.querySelectorAll(".provider-box");
 
     // 1. Check if all required fields and providers are present
-    if (!checkTripReadiness(inputs, context.uiPreText, context.uiResults, context.resultsHeader, context.uiShare, context.uiPdf, providerBoxes)) {
+    if (!checkTripReadiness(inputs, context.uiPreText, context.uiResults, context.resultsHeader, context.uiShare, context.uiPdf, providerBoxes, context.sectionSummary)) {
         return;
     }
 
@@ -56,12 +56,14 @@ function getModeContext() {
         conclusionsBox: document.getElementById("conclusionsBox"),
         resultsHeader: document.getElementById("resultsHeader"),
         uiShare: document.getElementById("shareBtn"),
-        uiPdf: document.getElementById("pdfBtn")
+        uiPdf: document.getElementById("pdfBtn"),
+        sectionSummary: document.getElementById("sectionSummary")
+        
     };
 }
 
-function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, providerBoxes) {
-    if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf)) {
+function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, providerBoxes, sectionSummary) {
+    if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary)) {
         return false;
     }
 
@@ -74,6 +76,7 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
         if (resultsHeader) resultsHeader.style.display = "none";
         if (uiShare) uiShare.style.display = "none";
         if (uiPdf) uiPdf.style.display = "none";
+        if (sectionSummary) sectionSummary.style.display = "none";
     return false;
         return false;
     }
@@ -86,6 +89,7 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
     if (toc) toc.style.display = "block";
     if (uiShare) uiShare.style.display = "";
     if (uiPdf) uiPdf.style.display = "";
+    if (sectionSummary) sectionSummary.style.display = "";
     document.querySelector(".calc-lines").style.display = "block";
     document.querySelector(".chart-wrapper").style.display = "block";
     return true;
@@ -563,7 +567,7 @@ function calculateRangeHtml(inputs, mainInitialRange) {
     return { rangeHtml, totalInitialRange };
 }
 
-function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf) {
+function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf, sectionSummary) {
     const tripIncomplete = 
         inputs.journeyMiles <= 0 || 
         inputs.batteryKwh <= 0 || 
@@ -581,6 +585,7 @@ function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShar
         if (resultsHeader) resultsHeader.style.display = "none";
         if (uiShare) uiShare.style.display = "none";
         if (uiPdf) uiPdf.style.display = "none";
+        if (sectionSummary) sectionSummary.style.display = "none";
         const toc = document.getElementById("toc");
         if (toc) toc.style.display = "none";
         return true; 
