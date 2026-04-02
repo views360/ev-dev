@@ -1383,7 +1383,7 @@ body {
 }
 
 #bottomSpacer {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 
@@ -1586,7 +1586,7 @@ body {
 @media (max-width: 700px) {
 
     #bottomSpacer {
-        margin-bottom: 130px;
+        margin-bottom: 100px;
     }
 
     .cookie-banner {
