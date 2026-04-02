@@ -1,4 +1,4 @@
-function renderTripResults(inputs, context) {   
+function renderTripResults(inputs, context) {
     const providerBoxes = document.querySelectorAll(".provider-box");
 
     // 1. Check if all required fields and providers are present
@@ -43,7 +43,6 @@ function renderTripResults(inputs, context) {
 
     // 7. Save data to cookies and draw the graph
     updateOutputsAndStorage(inputs, providers);
-    handleModeVisibility(context.isTripMode);
 }
 
 function getModeContext() {
@@ -65,8 +64,30 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
     if (checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShare, uiPdf)) {
         return false;
     }
-    if (providerBoxes.length === 0) return false;
 
+    if (providerBoxes.length === 0) {
+        uiPreText.innerHTML = "Before you may view the results, you must select at least one provider from the list of providers (above). It is simplest to add <i>all</i> providers.";
+        uiPreText.style.display = "block";
+        uiResults.style.display = "none";
+        const toc = document.getElementById("toc");
+        if (toc) toc.style.display = "none";
+        if (resultsHeader) resultsHeader.style.display = "none";
+        if (uiShare) uiShare.style.display = "none";
+        if (uiPdf) uiPdf.style.display = "none";
+    return false;
+        return false;
+    }
+
+    uiPreText.style.display = "none";
+    uiResults.style.display = "block";
+    const conclusionsBox = document.getElementById("conclusionsBox");
+    if (conclusionsBox) conclusionsBox.style.display = "block";
+    const toc = document.getElementById("toc");
+    if (toc) toc.style.display = "block";
+    if (uiShare) uiShare.style.display = "";
+    if (uiPdf) uiPdf.style.display = "";
+    document.querySelector(".calc-lines").style.display = "block";
+    document.querySelector(".chart-wrapper").style.display = "block";
     return true;
 }
 
@@ -155,77 +176,19 @@ function updatePaygSummaryUI(inputs, mainInitialRange, customPreCost, customPreS
     return { totalAdhocCost, totalPreJourneyCost: paygData.totalPreJourneyCost, publicKwh: kwhData.breakoutKwh };
 }
 
-function handleModeVisibility(isTripMode) {
-    const sections = {
-        results: document.getElementById("results"),
-        subscriptions: document.getElementById("subscriptions"),
-        graph: document.getElementById("graph"),
-        uiPreText: document.getElementById("preConclusionsText"),
-        summary: document.getElementById("summary"),
-        conclusion: document.getElementById("conclusion"),
-        durations: document.getElementById("durations"),
-        real: document.getElementById("real"),
-        breakEvenCard: document.getElementById("breakEvenCard"),
-        tripCard: document.getElementById("tripCard"),
-        providersContainer: document.getElementById("providersContainer"),
-        resultsIntroText: document.getElementById("resultsIntroText")
-    };
+function handleInitialVisibilityAndMode(isTripMode, uiResults, uiPreText, conclusionsBox) {
+    handleModeVisibility(isTripMode); 
+    applyPulsing(); 
 
-    if (isTripMode) {
-        // --- COST REDUCTION MODE ---
-        if (sections.breakEvenCard) sections.breakEvenCard.style.display = "none";
-        if (sections.tripCard) sections.tripCard.style.display = "block";
-        if (sections.providersContainer) sections.providersContainer.style.display = "block";
-        if (sections.uiPreText) sections.uiPreText.style.display = "none";
-        if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
-        // Trip results visibility is typically managed by renderTripResults()
-    } else {
-        // --- BREAK-EVEN MODE ---
-        const elEff = document.getElementById("efficiencyBE");
-        const elBat = document.getElementById("batteryBE");
-        const elAdhoc = document.getElementById("adhocBE");
-
-        // Check if elements exist and have valid numeric values
-        const valEff = elEff ? elEff.value.trim() : "";
-        const valBat = elBat ? elBat.value.trim() : "";
-        const valAdhoc = elAdhoc ? elAdhoc.value.trim() : "";
-
-        const isPopulated = valEff !== "" && valBat !== "" && valAdhoc !== "";
-
-        if (isPopulated) {
-            // 1. Reveal the hidden results containers
-            if (sections.results) sections.results.style.display = "block";
-            if (sections.subscriptions) sections.subscriptions.style.display = "block";
-            if (sections.graph) sections.graph.style.display = "block";
-            if (sections.resultsIntroText) sections.resultsIntroText.style.display = "block";
-            if (sections.uiPreText) sections.uiPreText.style.display = "none";
-
-            // 2. IMPORTANT: Force a calculation update now that fields are ready
-            if (typeof calculate === "function") {
-                calculate(); 
-            }
-        } else {
-            // Hide everything if inputs are incomplete
-            if (sections.results) sections.results.style.display = "none";
-            if (sections.subscriptions) sections.subscriptions.style.display = "none";
-            if (sections.graph) sections.graph.style.display = "none";
-            if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
-            
-            if (sections.uiPreText) {
-                sections.uiPreText.style.display = "block";
-                sections.uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
-            }
-        }
-
-        // Always hide Trip-only sections in BE mode
-        [sections.summary, sections.conclusion, sections.durations, sections.real].forEach(s => {
-            if (s) s.style.display = "none";
-        });
-
-        if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
-        if (sections.tripCard) sections.tripCard.style.display = "none";
-        if (sections.providersContainer) sections.providersContainer.style.display = "none";
+    if (!isTripMode) {
+        if (conclusionsBox) conclusionsBox.style.display = "none";
+        handleBreakEvenMode(uiPreText, uiResults);
+        return true; // Indicates we should stop calculate() here
     }
+
+    if (uiPreText) uiPreText.style.display = "block";
+    if (uiResults) uiResults.style.display = "block";
+    return false;
 }
 
 function calculateMainJourneyBasics(inputs) {
@@ -612,14 +575,14 @@ function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShar
         inputs.startChargeRate <= 0;
 
     if (tripIncomplete) {
-        uiPreText.innerHTML = "Please attend to all puslsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
-        /*uiPreText.style.display = "block";
-        uiResults.style.display = "none";*/
-        /*if (resultsHeader) resultsHeader.style.display = "none";
+        uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
+        uiPreText.style.display = "block";
+        uiResults.style.display = "none";
+        if (resultsHeader) resultsHeader.style.display = "none";
         if (uiShare) uiShare.style.display = "none";
         if (uiPdf) uiPdf.style.display = "none";
         const toc = document.getElementById("toc");
-        if (toc) toc.style.display = "none";*/
+        if (toc) toc.style.display = "none";
         return true; 
     }
     return false;
@@ -685,31 +648,61 @@ function applyPulsing() {
     });
 }
 
-function handleBreakEvenMode(uiPreText, uiResults) {
-    const inputs = getInputs();
-    
-    // Safety check: Don't render if the three fields are empty/zero
-    if (inputs.efficiency <= 0 || inputs.batteryKwh <= 0 || inputs.adhoc <= 0) {
-        uiResults.innerHTML = "";
-        return;
+function handleModeVisibility(isTripMode) {
+    const providersContainer = document.getElementById("providers");
+    const collapseBtn = document.getElementById("toggleProvidersBtn");
+    const clearBtn = document.querySelector('button[onclick="clearSavedProviders()"]');
+    const hiddenMsg = document.getElementById("providersHiddenMsg");
+
+    const hasProviders = providersContainer && providersContainer.querySelectorAll(".provider-box").length > 0;
+
+    if (!hasProviders) {
+        if (collapseBtn) collapseBtn.style.display = "none";
+        if (clearBtn) clearBtn.style.display = "none";
+        if (hiddenMsg) hiddenMsg.style.display = "none";
+    } else {
+        if (collapseBtn) collapseBtn.style.display = "block";
+        if (clearBtn) clearBtn.style.display = "block";
     }
 
-    const providerBoxes = document.querySelectorAll(".provider-box");
+    const beCard = document.getElementById("breakEvenCard");
+    if (beCard) beCard.style.display = isTripMode ? "none" : "block";
+    
+    const tripGrid = document.querySelector(".grid");
+    const resultsHeader = document.getElementById("resultsHeader");
+    const btnRow = document.querySelector(".btn-row");
+    const uiResults = document.getElementById("results");
+    const sortContainer = document.getElementById("sortContainer");
+
+    if (sortContainer) sortContainer.style.display = isTripMode ? "block" : "none";
+    if (tripGrid) tripGrid.style.display = isTripMode ? "grid" : "none";
+    if (resultsHeader) resultsHeader.style.display = isTripMode ? "flex" : "none";
+    if (uiResults) uiResults.style.display = isTripMode ? "flex" : "none";
+    if (btnRow) btnRow.style.display = isTripMode ? "flex" : "none";
+}
+
+function handleBreakEvenMode(uiPreText, uiResults) {
     const contentsBox = document.getElementById("contentsBox");
     if (contentsBox) {
-        /*contentsBox.style.display = "none";
-        contentsBox.innerHTML = "";*/
+        contentsBox.style.display = "none";
+        contentsBox.innerHTML = "";
     }
     const efficiency = parseFloat(document.getElementById("efficiencyBE").value);
     const adhocRate = parseFloat(document.getElementById("adhocBE").value) || 0;
     const minSpeedSelection = parseFloat(document.getElementById("minSpeedBE").value) || 0;
 
     if (isNaN(efficiency) || efficiency <= 0 || isNaN(adhocRate) || adhocRate <= 0) {
-        uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
-        /*uiPreText.style.display = "block";
-        uiResults.style.display = "none";*/
+        uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
+        uiPreText.style.display = "block";
+        uiResults.style.display = "none";
         return;
     }
+
+    uiPreText.style.display = "none";
+    uiResults.style.display = "block";
+    
+    /*document.querySelector(".calc-lines").style.display = "none";*/
+    document.querySelector(".chart-wrapper").style.display = "none";
 
     let beData = [];
 
@@ -792,14 +785,14 @@ function calculate() {
     applyPulsing(); 
 
     if (!context.isTripMode) {
-        /*if (context.conclusionsBox) context.conclusionsBox.style.display = "none";*/
+        if (context.conclusionsBox) context.conclusionsBox.style.display = "none";
         handleBreakEvenMode(context.uiPreText, context.uiResults);
         return; 
     }
 
     // Trip Mode Logic
-    /*if (context.uiPreText) context.uiPreText.style.display = "block";
-    if (context.uiResults) context.uiResults.style.display = "block";*/
+    if (context.uiPreText) context.uiPreText.style.display = "block";
+    if (context.uiResults) context.uiResults.style.display = "block";
 
     const inputs = getInputs();
     updatePaygTitle(inputs.adhoc);

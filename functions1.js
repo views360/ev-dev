@@ -42,38 +42,12 @@ function updateProviderInfo() {
 }
 
 function getInputs() {
-    const isBeMode = document.body.classList.contains("be-mode");
-
-    // Pull shared values from the correct IDs based on the active mode
-    const efficiency = parseFloat(document.getElementById(isBeMode ? "efficiencyBE" : "efficiency").value) || 0;
-    const batteryKwh = parseFloat(document.getElementById(isBeMode ? "batteryBE" : "batteryKwh").value) || 0;
-    const adhoc = parseFloat(document.getElementById(isBeMode ? "adhocBE" : "adhoc").value) || 0;
-
-    // The rest of the Trip-specific logic remains untouched
     const extraMiles = Array.from(document.querySelectorAll(".extra-journey-miles")).map(el => parseFloat(el.value) || 0);
     const extraSocs = Array.from(document.querySelectorAll(".extra-journey-soc")).map(el => parseFloat(el.value) || 0);
     const extraRates = Array.from(document.querySelectorAll(".extra-journey-rate")).map(el => parseFloat(el.value) || 0);
     const extraPreSocs = Array.from(document.querySelectorAll(".extra-journey-prechargesoc")).map(el => parseFloat(el.value) || 0);
 
     return {
-        journeyMiles: parseFloat(document.getElementById("journeyMiles")?.value) || 0,
-        batteryKwh: batteryKwh,
-        prechargesoc: parseFloat(document.getElementById("prechargesoc")?.value) || 0,
-        soc: parseFloat(document.getElementById("soc")?.value) || 0,
-        efficiency: efficiency,
-        adhoc: adhoc,
-        // ... (keep the rest of your original return object)
-        };
-    }
-
-    // ORIGINAL TRIP MODE LOGIC
-    const extraMiles = Array.from(document.querySelectorAll(".extra-journey-miles")).map(el => parseFloat(el.value) || 0);
-    const extraSocs = Array.from(document.querySelectorAll(".extra-journey-soc")).map(el => parseFloat(el.value) || 0);
-    const extraRates = Array.from(document.querySelectorAll(".extra-journey-rate")).map(el => parseFloat(el.value) || 0);
-    const extraPreSocs = Array.from(document.querySelectorAll(".extra-journey-prechargesoc")).map(el => parseFloat(el.value) || 0);
-
-    return {
-        isBeMode: false,
         journeyMiles: parseFloat(document.getElementById("journeyMiles").value) || 0,
         batteryKwh: parseFloat(document.getElementById("batteryKwh").value) || 0,
         prechargesoc: parseFloat(document.getElementById("prechargesoc").value) || 0,
