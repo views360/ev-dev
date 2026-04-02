@@ -219,7 +219,7 @@ function handleModeVisibility(isTripMode) {
             // Show the warning message
             if (sections.uiPreText) {
                 sections.uiPreText.style.display = "block";
-                sections.uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
+                sections.uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
             }
         }
 
