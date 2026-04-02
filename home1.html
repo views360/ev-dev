@@ -79,9 +79,15 @@ section.feature-section:first-of-type {
 }
 
 @media (min-width: 700px) {
-body {
-        padding-right: 160px !important;
-        margin-right: 0 !important; 
+	body {
+	        padding-right: 160px !important;
+	        margin-right: 0 !important; 
+	    }
+
+	.parallax-bg, .hero-home-bg {
+        left: 0; 
+        right: -160px; /* Bleeds into the ad zone */
+        width: calc(100% + 160px); 
     }
 	
 	.desktop-sidebar-ad {
@@ -102,8 +108,15 @@ body {
         margin-left: 0;
         margin-right: 0;
     }
+	
     .feature-section {
         padding: 40px 20px; /* Smaller inner padding for mobile */
+    }
+
+	.parallax-bg, .hero-home-bg {
+        width: 100%;
+        right: 0;
+        left: 0;
     }
 }
 
@@ -117,8 +130,10 @@ body {
 
 .hero-home-bg {
     position: absolute;
-    inset: -100px 0;
-    background: url('images/home-charging.webp') center/cover no-repeat;
+    inset: -100px 0; /* Starts aligned to the content area */
+    right: 0;
+    width: 100vw; /* Stretches to the true right edge */
+    background: url('images/home-charging.webp') right center/cover no-repeat;
     filter: brightness(0.75);
     will-change: transform;
 }
@@ -277,21 +292,22 @@ body {
 
 .parallax-bg {
     position: absolute;
-    /* Bleed for parallax movement */
-    top: -100px; 
-    bottom: -100px;
-    left: 0;
-    right: 0;
-
-    /* KEY CHANGE: Anchor to the right edge */
-    background-repeat: no-repeat;
-    background-position: right center;
+    top: -150px;
+    bottom: -150px;
     
-    /* Option A: 'cover' (Standard) */
-    /* If you keep 'cover', the 'right center' tells the browser 
-       to crop the LEFT side first, keeping the RIGHT side visible. */
+    /* Forces the element to the true right edge of the screen */
+    right: 0; 
+    
+    /* On Desktop (min-width 700px), the body has 160px padding-right.
+       We set the width to 100vw so it covers the padding too. */
+    width: 100vw; 
+    
+    background-repeat: no-repeat;
     background-size: cover;
-
+    
+    /* Pins the right-most pixels of the image to the right-most edge of the container */
+    background-position: right center; 
+    
     filter: brightness(0.35);
     will-change: transform;
 }
@@ -643,21 +659,17 @@ document.querySelectorAll('.observe').forEach(el => observer.observe(el));
 window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
 
-    // Handle standard parallax bands
     document.querySelectorAll('.parallax-band').forEach(section => {
         const bg = section.querySelector('.parallax-bg');
+        if (!bg) return;
         const speed = parseFloat(bg.dataset.speed);
-        
-        // Calculate how far the section is from the top of the viewport
         const sectionTop = section.offsetTop;
         const relativeScroll = scrolled - sectionTop;
 
-        // Only move the background when the section is near the viewport
-        // This prevents the "100px gap" issue
+        // Using transform ensures we don't break the background-position: right anchor
         bg.style.transform = `translateY(${relativeScroll * speed}px)`;
     });
 
-    // Handle Hero separately as it is at the very top
     const hero = document.getElementById('heroBg');
     if (hero) {
         hero.style.transform = `translateY(${scrolled * 0.35}px)`;
