@@ -217,7 +217,7 @@ function calculateMainJourneyBasics(inputs) {
 }
 
 function updateOutputsAndStorage(inputs, providers) {
-    drawGraph(inputs, providers);
+    /*drawGraph(inputs, providers);*/
     const dataToSave = getInputs();
     setCookie("ev_trip_values", dataToSave);
     saveProvidersToCookie();
@@ -797,7 +797,7 @@ function handleBreakEvenMode(uiPreText, uiResults) {
         return a.name.localeCompare(b.name);
     });
 
-const fakeInputsForBE = { adhoc: adhocRate }; 
+    const fakeInputsForBE = { adhoc: adhocRate }; 
     const providerResultsHtml = generateBreakEvenResultsHtml(beData);
     document.getElementById("providerResults").innerHTML = providerResultsHtml;
 
