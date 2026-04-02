@@ -683,6 +683,7 @@ function handleModeVisibility(isTripMode) {
 
 function handleBreakEvenMode(uiPreText, uiResults) {
     const contentsBox = document.getElementById("contentsBox");
+    const sectionSummary = document.getElementById("sectionSummary");
     if (contentsBox) {
         contentsBox.style.display = "none";
         contentsBox.innerHTML = "";
@@ -700,6 +701,7 @@ function handleBreakEvenMode(uiPreText, uiResults) {
 
     uiPreText.style.display = "none";
     uiResults.style.display = "block";
+    sectionSummary.style.display = "block";
     
     /*document.querySelector(".calc-lines").style.display = "none";*/
     document.querySelector(".chart-wrapper").style.display = "none";
