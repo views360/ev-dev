@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="menu-utils.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944414800646015" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="google-adsense-account" content="ca-pub-2944414800646015">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EV Subs UK — Homepage Test</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ---------- Homepage Layer ---------- */
+
+        body {
+            padding: 0 !important;
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Desktop ad offset used in other pages */
+        @media (min-width: 700px) {
+            body {
+                margin-right: 160px !important;
+            }
+        }
+
+        /* Width rules requested */
+        .home-wrap {
+            width: 800px;
+            max-width: calc(100vw - 30px);
+            margin: 0 auto;
+        }
+
+        @media (max-width: 830px) {
+            .home-wrap {
+                width: auto;
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+        }
+
+        /* ---------- Hero ---------- */
+
+        .hero-home {
+            position: relative;
+            height: 420px;
+            overflow: hidden;
+            margin-top: 48px; /* Adjusted to match header offset */
+        }
+
+        .hero-home-bg {
+            position: absolute;
+            inset: -100px 0;
+            background: url('images/home-charging.webp') center/cover no-repeat;
+            filter: brightness(0.75);
+            will-change: transform;
+        }
+
+        .hero-home-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(2,6,23,0.15),
+                    rgba(2,6,23,0.55),
+                    rgba(2,6,23,0.88)
+                );
+        }
+
+        .hero-home-text {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            max-width: calc(100vw - 30px);
+            z-index: 2;
+        }
+
+        .hero-home h1 {
+            font-size: clamp(2.4rem, 6vw, 4.8rem);
+            margin: 0;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .hero-home p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 700px;
+            color: rgba(241,245,249,0.82);
+        }
+
+        /* ---------- Calculator First Section ---------- */
+
+        .primary-section {
+            position: relative;
+            width: 100%;
+            min-height: 400px; 
+            padding: 80px 0;
+            background: #020617; 
+            overflow: hidden;
+        }
+
+        .primary-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background-image: 
+                linear-gradient(to bottom, rgba(2, 6, 23, 0.2) 0%, rgba(2, 6, 23, 0.9) 100%), 
+                url('images/home-charging.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .primary-card {
+            background: var(--panel-alt);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 0 24px rgba(56,189,248,0.08);
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ---------- Ad Container Styles ---------- */
+        .desktop-ad-right {
+            position: fixed;
+            top: 60px;
+            right: 10px;
+            width: 140px;
+            height: calc(100vh - 80px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .bottom-ad-container {
+            max-width: 860px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .desktop-ad-right { display: none; }
+        }
+
+        /* ---------- Content Sections ---------- */
+        .feature-section {
+            background: var(--panel);
+            padding: 90px 0;
+            overflow: hidden;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .feature-grid.reverse {
+            grid-template-columns: 340px 1fr;
+        }
+
+        .feature-text h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-text p {
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .slide-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reverse .slide-image {
+            transform: translateX(-50px);
+        }
+
+        .slide-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+
+    <script>
+        /* Cookie-based theme loader */
+        (function() {
+            const getCookie = (name) => {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for (let i = 0; i < ca.length; i++) {
+                    let c = ca[i].trim();
+                    if (c.indexOf(nameEQ) === 0) {
+                        try { return JSON.parse(decodeURIComponent(c.substring(nameEQ.length))); }
+                        catch (e) { return decodeURIComponent(c.substring(nameEQ.length)).replace(/"/g, ''); }
+                    }
+                }
+                return null;
+            };
+            const theme = getCookie('themePref');
+            if (theme === 'light') document.documentElement.classList.add('light-mode');
+        })();
+    </script>
+</head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6B2B03YZ17');
+</script>
+
+<body>
+
+<div class="android-header-full">
+    <h1 class="android-title-clean">EV Subs Compare (UK)</h1>
+    <div class="android-dots-trigger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+</div>
+
+<div id="menu-placeholder"></div>
+
+<div class="desktop-ad-right">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2944414800646015"
+         data-ad-slot="your-right-slot-id"
+         data-ad-format="vertical"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<section class="hero-home">
+    <div class="hero-home-bg" id="heroBg"></div>
+    <div class="hero-home-overlay"></div>
+    <div class="hero-home-text">
+        <h1>Switching to Electric? <span>We've simplified it.</span></h1>
+        <p>Your guide to EV subscriptions, charging costs, and making sense of the transition.</p>
+    </div>
+</section>
+
+<section class="primary-section">
+    <div class="primary-bg-image"></div>
+    <div class="home-wrap">
+        <div class="primary-card">
+            <h2>The EV Cost Calculator</h2>
+            <p>Our flagship tool to compare your current petrol/diesel costs against an EV subscription. Transparent, real-world data.</p>
+            </div>
+    </div>
+</section>
+
+<section class="feature-section">
+    <div class="home-wrap">
+        <div class="feature-grid">
+            <div class="feature-text">
+                <h2>Jargon Buster</h2>
+                <p>
+                    From kWh to Regenerative Braking, we strip away the technical complexity
+                    to give you clear, actionable definitions for everything EV.
+                </p>
+            </div>
+            <img src="images/home-jargon.webp" alt="EV Jargon" class="slide-image observe">
+        </div>
+    </div>
+</section>
+
+<section class="feature-section" style="background: var(--bg);">
+    <div class="home-wrap">
+        <div class="feature-grid reverse">
+            <div class="feature-text">
+                <h2>Essential EV Toolkit</h2>
+                <p>
+                    We’ve reviewed and curated the only apps and resources you actually need
+                    to manage charging, routes, and subscriptions efficiently.
+                </p>
+            </div>
+            <img src="images/home-apps.webp" alt="EV Apps" class="slide-image observe">
+        </div>
+    </div>
+</section>
+
+<div class="bottom-ad-container">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-2944414800646015"
+         data-ad-slot="your-bottom-slot-id"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<script>
+/* Slide-in observer */
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.25 });
+
+document.querySelectorAll('.observe').forEach(el => observer.observe(el));
+
+/* Parallax and Hero Sync */
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const hero = document.getElementById('heroBg');
+    if (hero) {
+        hero.style.transform = `translateY(${scrolled * 0.35}px)`;
+    }
+});
+
+/* Menu toggle required for menu-utils.js */
+function toggleMenu() {
+    const menu = document.getElementById('side-menu');
+    if (menu) menu.classList.toggle('open');
+}
+
+loadMenu();
+</script>
+</body>
+</html>
