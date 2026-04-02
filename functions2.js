@@ -1,4 +1,6 @@
 function renderTripResults(inputs, context) {
+    handleModeVisibility(context.isTripMode);
+    
     const providerBoxes = document.querySelectorAll(".provider-box");
 
     // 1. Check if all required fields and providers are present
@@ -66,28 +68,18 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
     }
 
     if (providerBoxes.length === 0) {
-        uiPreText.innerHTML = "Before you may view the results, you must select at least one provider from the list of providers (above). It is simplest to add <i>all</i> providers.";
-        uiPreText.style.display = "block";
-        uiResults.style.display = "none";
-        const toc = document.getElementById("toc");
-        if (toc) toc.style.display = "none";
-        if (resultsHeader) resultsHeader.style.display = "none";
-        if (uiShare) uiShare.style.display = "none";
-        if (uiPdf) uiPdf.style.display = "none";
-    return false;
         return false;
     }
 
     uiPreText.style.display = "none";
-    uiResults.style.display = "block";
-    const conclusionsBox = document.getElementById("conclusionsBox");
-    if (conclusionsBox) conclusionsBox.style.display = "block";
+    uiResults.style.display = "block"; // Keep this to show the general container
+    
     const toc = document.getElementById("toc");
     if (toc) toc.style.display = "block";
     if (uiShare) uiShare.style.display = "";
     if (uiPdf) uiPdf.style.display = "";
-    /*document.querySelector(".calc-lines").style.display = "block";
-    document.querySelector(".chart-wrapper").style.display = "block";*/
+
+    // REMOVED: The hardcoded .calc-lines and .chart-wrapper block displays
     return true;
 }
 
@@ -186,17 +178,20 @@ function handleModeVisibility(isTripMode) {
         graph: document.getElementById("graph")
     };
 
-    // Define visibility sets based on your new requirements
-    const visibilityMap = isTripMode 
-        ? { summary: 'block', subscriptions: 'block', conclusion: 'block', durations: 'block', real: 'block', graph: 'none' }
-        : { summary: 'none',  subscriptions: 'block', conclusion: 'none',  durations: 'none',  real: 'none',  graph: 'block' };
+    if (isTripMode) {
+        // COST REDUCTION: Show everything
+        Object.values(sections).forEach(el => { if (el) el.style.display = "block"; });
+    } else {
+        // BREAK-EVEN: Show ONLY subscriptions and graph
+        if (sections.subscriptions) sections.subscriptions.style.display = "block";
+        if (sections.graph) sections.graph.style.display = "block";
 
-    // Apply visibility
-    Object.keys(sections).forEach(id => {
-        if (sections[id]) {
-            sections[id].style.display = visibilityMap[id];
-        }
-    });
+        // Hide the others
+        if (sections.summary) sections.summary.style.display = "none";
+        if (sections.conclusion) sections.conclusion.style.display = "none";
+        if (sections.durations) sections.durations.style.display = "none";
+        if (sections.real) sections.real.style.display = "none";
+    }
 }
 
 function calculateMainJourneyBasics(inputs) {
