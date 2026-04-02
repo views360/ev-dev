@@ -189,46 +189,47 @@ function handleModeVisibility(isTripMode) {
     } else {
         // --- BREAK-EVEN MODE ---
         
-        // 1. Safe retrieval of elements to prevent "null" errors in the console
-        const elEff = document.getElementById("efficiencyBE");
-        const elBat = document.getElementById("batteryBE");
-        const elAdhoc = document.getElementById("adhocBE");
+        // Use querySelector to find the BE inputs by ID or by their specific BE classes
+        const elEff = document.getElementById("efficiencyBE") || document.querySelector(".extra-journey-efficiency");
+        const elBat = document.getElementById("batteryBE") || document.querySelector(".extra-journey-battery");
+        const elAdhoc = document.getElementById("adhocBE") || document.querySelector(".extra-journey-adhoc");
 
-        // 2. Check if elements exist AND are populated
-        const isPopulated = elEff && elBat && elAdhoc &&
-                           elEff.value.trim() !== "" && 
-                           elBat.value.trim() !== "" && 
-                           elAdhoc.value.trim() !== "";
+        // Check if values are actually entered
+        const valEff = elEff ? elEff.value.trim() : "";
+        const valBat = elBat ? elBat.value.trim() : "";
+        const valAdhoc = elAdhoc ? elAdhoc.value.trim() : "";
+
+        const isPopulated = valEff !== "" && valBat !== "" && valAdhoc !== "";
 
         if (isPopulated) {
-            // Show results container and specific BE sections
+            // Show the main results wrapper and BE sections
             if (sections.results) sections.results.style.display = "block";
             if (sections.subscriptions) sections.subscriptions.style.display = "block";
             if (sections.graph) sections.graph.style.display = "block";
             if (sections.resultsIntroText) sections.resultsIntroText.style.display = "block";
             
-            // Hide the error warning
+            // Hide the "Please attend to all..." message
             if (sections.uiPreText) sections.uiPreText.style.display = "none";
         } else {
-            // Hide results container and specific BE sections
+            // Hide results until all fields are filled
             if (sections.results) sections.results.style.display = "none";
             if (sections.subscriptions) sections.subscriptions.style.display = "none";
             if (sections.graph) sections.graph.style.display = "none";
             if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
             
-            // Show the warning message
+            // Show the error message
             if (sections.uiPreText) {
                 sections.uiPreText.style.display = "block";
-                sections.uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
+                sections.uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
             }
         }
 
-        // 3. Ensure Trip-specific sections remain hidden
+        // Always ensure Trip-specific sections are hidden in BE mode
         [sections.summary, sections.conclusion, sections.durations, sections.real].forEach(s => {
             if (s) s.style.display = "none";
         });
 
-        // 4. Toggle the input cards
+        // Ensure proper card/container visibility
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
         if (sections.tripCard) sections.tripCard.style.display = "none";
         if (sections.providersContainer) sections.providersContainer.style.display = "none";
