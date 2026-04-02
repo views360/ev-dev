@@ -253,8 +253,6 @@ body {
     padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
     line-height: 1.6;
     transition: background-color 0.3s, color 0.3s;
-    min-height: 100vh;
-    /* Use dvh (Dynamic Viewport Height) for better mobile consistency */
     min-height: 100dvh;
 }
 
