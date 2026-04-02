@@ -1382,6 +1382,10 @@ body {
     translate: -100% 0;
 }
 
+#bottomSpacer {
+    margin-bottom: 30px;
+}
+
 
 /* DESKTOP */
 /* --- Desktop Layout (>= 700px) --- */
@@ -1581,7 +1585,7 @@ body {
 /* MOBILE */
 @media (max-width: 700px) {
 
-    #finalResultsSection {
+    #bottomSpacer {
         margin-bottom: 130px;
     }
 
