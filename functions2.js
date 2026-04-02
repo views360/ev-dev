@@ -686,6 +686,15 @@ function applyPulsing() {
 }
 
 function handleBreakEvenMode(uiPreText, uiResults) {
+    const inputs = getInputs();
+    
+    // Safety check: Don't render if the three fields are empty/zero
+    if (inputs.efficiency <= 0 || inputs.batteryKwh <= 0 || inputs.adhoc <= 0) {
+        uiResults.innerHTML = "";
+        return;
+    }
+
+    const providerBoxes = document.querySelectorAll(".provider-box");
     const contentsBox = document.getElementById("contentsBox");
     if (contentsBox) {
         /*contentsBox.style.display = "none";
@@ -701,12 +710,6 @@ function handleBreakEvenMode(uiPreText, uiResults) {
         uiResults.style.display = "none";*/
         return;
     }
-
-    /*uiPreText.style.display = "none";
-    uiResults.style.display = "block";*/
-    
-    /*document.querySelector(".calc-lines").style.display = "none";*/
-    /*document.querySelector(".chart-wrapper").style.display = "none";*/
 
     let beData = [];
 
