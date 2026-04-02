@@ -86,8 +86,8 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
     if (toc) toc.style.display = "block";
     if (uiShare) uiShare.style.display = "";
     if (uiPdf) uiPdf.style.display = "";
-    document.querySelector(".calc-lines").style.display = "block";
-    document.querySelector(".chart-wrapper").style.display = "block";
+    /*document.querySelector(".calc-lines").style.display = "block";
+    document.querySelector(".chart-wrapper").style.display = "block";*/
     return true;
 }
 
@@ -177,7 +177,6 @@ function updatePaygSummaryUI(inputs, mainInitialRange, customPreCost, customPreS
 }
 
 function handleModeVisibility(isTripMode) {
-    // 1. Identify all six results sections
     const sections = {
         summary: document.getElementById("summary"),
         subscriptions: document.getElementById("subscriptions"),
@@ -187,27 +186,17 @@ function handleModeVisibility(isTripMode) {
         graph: document.getElementById("graph")
     };
 
-    if (isTripMode) {
-        // COST REDUCTION MODE: Show summary, subscriptions, conclusion, durations, real
-        if (sections.summary) sections.summary.style.display = "block";
-        if (sections.subscriptions) sections.subscriptions.style.display = "block";
-        if (sections.conclusion) sections.conclusion.style.display = "block";
-        if (sections.durations) sections.durations.style.display = "block";
-        if (sections.real) sections.real.style.display = "block";
-        
-        // Hide Graph
-        if (sections.graph) sections.graph.style.display = "none";
-    } else {
-        // BREAK-EVEN MODE: Show only subscriptions and graph
-        if (sections.subscriptions) sections.subscriptions.style.display = "block";
-        if (sections.graph) sections.graph.style.display = "block";
+    // Define visibility sets based on your new requirements
+    const visibilityMap = isTripMode 
+        ? { summary: 'block', subscriptions: 'block', conclusion: 'block', durations: 'block', real: 'block', graph: 'none' }
+        : { summary: 'none',  subscriptions: 'block', conclusion: 'none',  durations: 'none',  real: 'none',  graph: 'block' };
 
-        // Hide others
-        if (sections.summary) sections.summary.style.display = "none";
-        if (sections.conclusion) sections.conclusion.style.display = "none";
-        if (sections.durations) sections.durations.style.display = "none";
-        if (sections.real) sections.real.style.display = "none";
-    }
+    // Apply visibility
+    Object.keys(sections).forEach(id => {
+        if (sections[id]) {
+            sections[id].style.display = visibilityMap[id];
+        }
+    });
 }
 
 function calculateMainJourneyBasics(inputs) {
