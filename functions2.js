@@ -184,9 +184,13 @@ function handleModeVisibility(isTripMode) {
         if (sections.uiPreText) sections.uiPreText.style.display = "none";
         if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
     } else {
-        const efficiencyInput = document.getElementById("efficiencyBE");
-        const isPopulated = efficiencyInput && efficiencyInput.value.trim() !== "";
+        // BREAK-EVEN MODE
+        const efficiency = document.getElementById("efficiencyBE").value.trim();
+        const battery = document.getElementById("batteryBE").value.trim();
+        const paygRate = document.getElementById("adhocBE").value.trim();
 
+        // Check if all three BE Journey & Vehicle fields are populated
+        const isPopulated = efficiency !== "" && battery !== "" && paygRate !== "";
         if (isPopulated) {
             // Show results and intro text
             if (sections.subscriptions) sections.subscriptions.style.display = "block";
@@ -201,23 +205,24 @@ function handleModeVisibility(isTripMode) {
             if (sections.graph) sections.graph.style.display = "none";
             if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
             
-            // Show the red error text
+            // Show the red error text (preConclusionsText)
             if (sections.uiPreText) {
                 sections.uiPreText.style.display = "block";
                 sections.uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
             }
         }
-        
-        // BREAK-EVEN: Show only subscriptions and graph
-        if (sections.subscriptions) sections.subscriptions.style.display = "block";
-        if (sections.graph) sections.graph.style.display = "block";
-        if (sections.summary) sections.summary.style.display = "none";
-        if (sections.conclusion) sections.conclusion.style.display = "none";
-        if (sections.durations) sections.durations.style.display = "none";
-        if (sections.real) sections.real.style.display = "none";
+
+        // Standard BE mode card visibility
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
         if (sections.tripCard) sections.tripCard.style.display = "none";
         if (sections.providersContainer) sections.providersContainer.style.display = "none";
+        
+        // Ensure Trip-specific result sections are hidden
+        if (sections.summary) sections.summary.style.display = "none";
+        if (sections.providersContainer) sections.providersContainer.style.display = "none";
+        if (sections.conclusion) sections.conclusion.style.display = "none";
+        if (sections.durations) sections.durations.style.display = "none";
+        if (sections.real) sections.real.style.display = "none";
     }
 }
 
