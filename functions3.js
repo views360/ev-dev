@@ -10,16 +10,16 @@ function drawGraph(core, providers) {
     const maxMiles = Math.max(core.journeyMiles * 1.5, 500);
     const labels = Array.from({ length: 11 }, (_, i) => Math.round((maxMiles * i) / 10));
 
-    // Helper: Calculate initial range available from starting SOC
+    // Helper: Initial range from starting SOC
     const initialRange = (core.soc / 100) * core.batteryKwh * core.efficiency;
 
     // Helper: Calculate cost based on mode
     const calculateCost = (m, subFee, ratePerKwh) => {
         if (!isTripMode) {
-            // BREAK-EVEN MODE
+            // BREAK-EVEN MODE: Linear
             return subFee + ((m / core.efficiency) * (ratePerKwh / 100));
         } else {
-            // COST REDUCTION MODE (includes Pre-Charge and Initial Range flat-line)
+            // COST REDUCTION MODE: Pre-Charge + Public after initial range
             const preChargeKwh = Math.max(0, (core.soc - core.prechargesoc) / 100) * core.batteryKwh;
             const preChargeCost = preChargeKwh * (core.startChargeRate / 100);
 
@@ -42,9 +42,8 @@ function drawGraph(core, providers) {
         order: 2
     }];
 
-    // 3. Initial Range Marker (For all lines in Cost-Reduction Mode)
+    // 3. Battery Exhausted Marker (Cost-Reduction Mode only)
     if (isTripMode && initialRange > 0 && initialRange <= maxMiles) {
-        // We add a marker for the PAYG line's transition
         datasets.push({
             label: "Battery Exhausted",
             data: [{ x: initialRange, y: calculateCost(initialRange, 0, core.adhoc) }],
@@ -74,27 +73,19 @@ function drawGraph(core, providers) {
             order: 2
         });
 
-        // Mode-specific markers
-        if (isTripMode) {
-            // Marker where this specific provider starts charging
-            if (initialRange > 0 && initialRange <= maxMiles) {
-                datasets.push({
-                    label: `${p.name} Start Charging`,
-                    data: [{ x: initialRange, y: calculateCost(initialRange, subFee, p.rate) }],
-                    pointBackgroundColor: color,
-                    pointBorderColor: "#fff",
-                    pointBorderWidth: 2,
-                    pointRadius: 5,
-                    showLine: false,
-                    type: 'scatter',
-                    order: 1
-                });
+        // 5. Break-Even Marker Logic (Calculated for both modes)
+        const rateDiff = (core.adhoc - p.rate) / 100;
+        if (rateDiff > 0) {
+            let beMiles;
+            if (!isTripMode) {
+                // Simple Break-Even Miles
+                beMiles = (subFee * core.efficiency) / rateDiff;
+            } else {
+                // Trip Mode Break-Even Miles (Relative to the point public charging starts)
+                beMiles = initialRange + ((subFee * core.efficiency) / rateDiff);
             }
-        } else {
-            // Break-even markers for Break-Even Mode
-            const rateDiff = (core.adhoc - p.rate) / 100;
-            if (rateDiff > 0) {
-                const beMiles = (subFee * core.efficiency) / rateDiff;
+
+            if (beMiles <= maxMiles) {
                 datasets.push({
                     label: `${p.name} Break-Even`,
                     data: [{ x: beMiles, y: calculateCost(beMiles, 0, core.adhoc) }],
@@ -110,7 +101,6 @@ function drawGraph(core, providers) {
         }
     });
 
-    // 5. Chart Configuration
     chart = new Chart(ctx, {
         type: "line",
         data: { labels, datasets },
@@ -134,7 +124,7 @@ function drawGraph(core, providers) {
                     position: 'bottom',
                     labels: {
                         boxWidth: 12,
-                        filter: (item) => !['Break-Even', 'Charging', 'Exhausted'].some(word => item.text.includes(word))
+                        filter: (item) => !['Break-Even', 'Exhausted'].some(word => item.text.includes(word))
                     }
                 },
                 tooltip: {
@@ -144,8 +134,7 @@ function drawGraph(core, providers) {
                             const x = context.parsed.x.toFixed(0);
                             const y = context.parsed.y.toFixed(2);
                             if (label.includes('Exhausted')) return `Initial Battery Range: ${x} miles`;
-                            if (label.includes('Charging')) return `${label.replace(' Start Charging', '')}: Public charging starts at ${x} miles`;
-                            if (label.includes('Break-Even')) return `Break-Even: ${x} miles (£${y})`;
+                            if (label.includes('Break-Even')) return `${label.replace(' Break-Even', '')} Break-Even: ${x} miles (£${y})`;
                             return `${label}: £${y}`;
                         }
                     }
