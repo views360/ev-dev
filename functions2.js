@@ -865,7 +865,7 @@ function calculate() {
 
 function generateBreakEvenResultsHtml(beData) {
     let html = `
-    <h3 style="margin: 20px 0 0 10px; padding-bottom: 0px">Providers & Subscriptions</h3>
+    <!--h3 style="margin: 20px 0 0 10px; padding-bottom: 0px">Providers & Subscriptions</h3-->
     <div class="mobile-only-text" style="font-size: 0.8em; text-align: center; color: var(--neon-green); margin-bottom: 0px;">
         Slide table left to view hidden columns.
     </div>
