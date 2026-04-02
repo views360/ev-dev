@@ -572,13 +572,13 @@ function checkIncompleteTrip(inputs, uiPreText, uiResults, resultsHeader, uiShar
 
     if (tripIncomplete) {
         uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
-        uiPreText.style.display = "block";
-        uiResults.style.display = "none";
-        if (resultsHeader) resultsHeader.style.display = "none";
+        /*uiPreText.style.display = "block";
+        uiResults.style.display = "none";*/
+        /*if (resultsHeader) resultsHeader.style.display = "none";
         if (uiShare) uiShare.style.display = "none";
         if (uiPdf) uiPdf.style.display = "none";
         const toc = document.getElementById("toc");
-        if (toc) toc.style.display = "none";
+        if (toc) toc.style.display = "none";*/
         return true; 
     }
     return false;
@@ -644,44 +644,11 @@ function applyPulsing() {
     });
 }
 
-function handleModeVisibility(isTripMode) {
-    const providersContainer = document.getElementById("providers");
-    const collapseBtn = document.getElementById("toggleProvidersBtn");
-    const clearBtn = document.querySelector('button[onclick="clearSavedProviders()"]');
-    const hiddenMsg = document.getElementById("providersHiddenMsg");
-
-    const hasProviders = providersContainer && providersContainer.querySelectorAll(".provider-box").length > 0;
-
-    if (!hasProviders) {
-        if (collapseBtn) collapseBtn.style.display = "none";
-        if (clearBtn) clearBtn.style.display = "none";
-        if (hiddenMsg) hiddenMsg.style.display = "none";
-    } else {
-        if (collapseBtn) collapseBtn.style.display = "block";
-        if (clearBtn) clearBtn.style.display = "block";
-    }
-
-    const beCard = document.getElementById("breakEvenCard");
-    if (beCard) beCard.style.display = isTripMode ? "none" : "block";
-    
-    const tripGrid = document.querySelector(".grid");
-    const resultsHeader = document.getElementById("resultsHeader");
-    const btnRow = document.querySelector(".btn-row");
-    const uiResults = document.getElementById("results");
-    const sortContainer = document.getElementById("sortContainer");
-
-    if (sortContainer) sortContainer.style.display = isTripMode ? "block" : "none";
-    if (tripGrid) tripGrid.style.display = isTripMode ? "grid" : "none";
-    if (resultsHeader) resultsHeader.style.display = isTripMode ? "flex" : "none";
-    if (uiResults) uiResults.style.display = isTripMode ? "flex" : "none";
-    if (btnRow) btnRow.style.display = isTripMode ? "flex" : "none";
-}
-
 function handleBreakEvenMode(uiPreText, uiResults) {
     const contentsBox = document.getElementById("contentsBox");
     if (contentsBox) {
-        contentsBox.style.display = "none";
-        contentsBox.innerHTML = "";
+        /*contentsBox.style.display = "none";
+        contentsBox.innerHTML = "";*/
     }
     const efficiency = parseFloat(document.getElementById("efficiencyBE").value);
     const adhocRate = parseFloat(document.getElementById("adhocBE").value) || 0;
@@ -689,16 +656,16 @@ function handleBreakEvenMode(uiPreText, uiResults) {
 
     if (isNaN(efficiency) || efficiency <= 0 || isNaN(adhocRate) || adhocRate <= 0) {
         uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
-        uiPreText.style.display = "block";
-        uiResults.style.display = "none";
+        /*uiPreText.style.display = "block";
+        uiResults.style.display = "none";*/
         return;
     }
 
-    uiPreText.style.display = "none";
-    uiResults.style.display = "block";
+    /*uiPreText.style.display = "none";
+    uiResults.style.display = "block";*/
     
     /*document.querySelector(".calc-lines").style.display = "none";*/
-    document.querySelector(".chart-wrapper").style.display = "none";
+    /*document.querySelector(".chart-wrapper").style.display = "none";*/
 
     let beData = [];
 
@@ -781,14 +748,14 @@ function calculate() {
     applyPulsing(); 
 
     if (!context.isTripMode) {
-        if (context.conclusionsBox) context.conclusionsBox.style.display = "none";
+        /*if (context.conclusionsBox) context.conclusionsBox.style.display = "none";*/
         handleBreakEvenMode(context.uiPreText, context.uiResults);
         return; 
     }
 
     // Trip Mode Logic
-    if (context.uiPreText) context.uiPreText.style.display = "block";
-    if (context.uiResults) context.uiResults.style.display = "block";
+    /*if (context.uiPreText) context.uiPreText.style.display = "block";
+    if (context.uiResults) context.uiResults.style.display = "block";*/
 
     const inputs = getInputs();
     updatePaygTitle(inputs.adhoc);
