@@ -103,9 +103,9 @@ function checkTripReadiness(inputs, uiPreText, uiResults, resultsHeader, uiShare
     if (sectionConclusion) sectionConclusion.style.display = "";
     if (sectionDurations) sectionDurations.style.display = "";
     if (sectionRealWorld) sectionRealWorld.style.display = "";
-    if (sectionGraph) sectionGraph.style.display = "none";
+    if (sectionGraph) sectionGraph.style.display = "";
     document.querySelector(".calc-lines").style.display = "";
-    document.querySelector(".chart-wrapper").style.display = "none";
+    document.querySelector(".chart-wrapper").style.display = "";
     return true;
 }
 
