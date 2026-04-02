@@ -164,7 +164,8 @@ function handleModeVisibility(isTripMode) {
         real: document.getElementById("real"),
         graph: document.getElementById("graph"),
         breakEvenCard: document.getElementById("breakEvenCard"),
-        tripCard: document.getElementById("tripCard")
+        tripCard: document.getElementById("tripCard"),
+        providersContainer: document.getElementById("providersContainer")
     };
 
     if (isTripMode) {
@@ -177,6 +178,7 @@ function handleModeVisibility(isTripMode) {
         if (sections.graph) sections.graph.style.display = "none"; 
         if (sections.tripCard) sections.tripCard.style.display = "block";
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "none";
+        if (sections.providersContainer) sections.providersContainer.style.display = "block";
     } else {
         // BREAK-EVEN: Show only subscriptions and graph
         if (sections.subscriptions) sections.subscriptions.style.display = "block";
@@ -187,6 +189,7 @@ function handleModeVisibility(isTripMode) {
         if (sections.real) sections.real.style.display = "none";
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
         if (sections.tripCard) sections.tripCard.style.display = "none";
+         if (sections.providersContainer) sections.providersContainer.style.display = "none";
     }
 }
 
