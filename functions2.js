@@ -217,7 +217,7 @@ function calculateMainJourneyBasics(inputs) {
 }
 
 function updateOutputsAndStorage(inputs, providers) {
-    /*drawGraph(inputs, providers);*/
+    drawGraph(inputs, providers);
     const dataToSave = getInputs();
     setCookie("ev_trip_values", dataToSave);
     saveProvidersToCookie();
