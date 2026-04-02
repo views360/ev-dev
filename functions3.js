@@ -10,20 +10,21 @@ function drawGraph(core, providers) {
     const maxMiles = Math.max(core.journeyMiles * 1.5, 500);
     const labels = Array.from({ length: 11 }, (_, i) => Math.round((maxMiles * i) / 10));
 
+    // Helper: Calculate initial range available from starting SOC
+    const initialRange = (core.soc / 100) * core.batteryKwh * core.efficiency;
+
     // Helper: Calculate cost based on mode
     const calculateCost = (m, subFee, ratePerKwh) => {
         if (!isTripMode) {
-            // SIMPLE BREAK-EVEN LOGIC: Sub + (Miles / Eff * Rate)
+            // BREAK-EVEN MODE
             return subFee + ((m / core.efficiency) * (ratePerKwh / 100));
         } else {
-            // TRIP MODE LOGIC: (Pre-charge Cost) + (Public Charging Cost for miles exceeding initial range)
-            const initialRange = (core.soc / 100) * core.batteryKwh * core.efficiency;
+            // COST REDUCTION MODE (includes Pre-Charge and Initial Range flat-line)
             const preChargeKwh = Math.max(0, (core.soc - core.prechargesoc) / 100) * core.batteryKwh;
             const preChargeCost = preChargeKwh * (core.startChargeRate / 100);
 
             const publicMiles = Math.max(0, m - initialRange);
-            const publicKwh = publicMiles / core.efficiency;
-            const publicCost = publicKwh * (ratePerKwh / 100);
+            const publicCost = (publicMiles / core.efficiency) * (ratePerKwh / 100);
 
             return subFee + preChargeCost + publicCost;
         }
@@ -41,11 +42,26 @@ function drawGraph(core, providers) {
         order: 2
     }];
 
-    // 3. Provider Datasets
+    // 3. Initial Range Marker (For all lines in Cost-Reduction Mode)
+    if (isTripMode && initialRange > 0 && initialRange <= maxMiles) {
+        // We add a marker for the PAYG line's transition
+        datasets.push({
+            label: "Battery Exhausted",
+            data: [{ x: initialRange, y: calculateCost(initialRange, 0, core.adhoc) }],
+            pointBackgroundColor: "#f97316",
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            showLine: false,
+            type: 'scatter',
+            order: 1
+        });
+    }
+
+    // 4. Provider Datasets
     providers.forEach((p, idx) => {
         const color = getProviderColor(p.name, idx);
         const subFee = parseFloat(p.subCost);
-
         const data = labels.map(m => calculateCost(m, subFee, p.rate));
 
         datasets.push({
@@ -58,21 +74,34 @@ function drawGraph(core, providers) {
             order: 2
         });
 
-        // 4. Add Break-Even Markers (Only in Break-Even Mode)
-        if (!isTripMode) {
+        // Mode-specific markers
+        if (isTripMode) {
+            // Marker where this specific provider starts charging
+            if (initialRange > 0 && initialRange <= maxMiles) {
+                datasets.push({
+                    label: `${p.name} Start Charging`,
+                    data: [{ x: initialRange, y: calculateCost(initialRange, subFee, p.rate) }],
+                    pointBackgroundColor: color,
+                    pointBorderColor: "#fff",
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    showLine: false,
+                    type: 'scatter',
+                    order: 1
+                });
+            }
+        } else {
+            // Break-even markers for Break-Even Mode
             const rateDiff = (core.adhoc - p.rate) / 100;
             if (rateDiff > 0) {
-                const breakEvenMiles = (subFee * core.efficiency) / rateDiff;
-                const breakEvenCost = calculateCost(breakEvenMiles, 0, core.adhoc);
-
+                const beMiles = (subFee * core.efficiency) / rateDiff;
                 datasets.push({
                     label: `${p.name} Break-Even`,
-                    data: [{ x: breakEvenMiles, y: breakEvenCost }],
+                    data: [{ x: beMiles, y: calculateCost(beMiles, 0, core.adhoc) }],
                     pointBackgroundColor: "#fff",
                     pointBorderColor: color,
                     pointBorderWidth: 2,
                     pointRadius: 6,
-                    pointHoverRadius: 8,
                     showLine: false,
                     type: 'scatter',
                     order: 1
@@ -81,6 +110,7 @@ function drawGraph(core, providers) {
         }
     });
 
+    // 5. Chart Configuration
     chart = new Chart(ctx, {
         type: "line",
         data: { labels, datasets },
@@ -88,15 +118,15 @@ function drawGraph(core, providers) {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: {
+                y: { 
                     title: { display: true, text: isTripMode ? 'Total Journey Cost (£)' : 'Total Monthly Cost (£)' },
-                    beginAtZero: true
+                    beginAtZero: true 
                 },
-                x: {
+                x: { 
                     type: 'linear',
                     title: { display: true, text: 'Distance (Miles)' },
-                    min: 0,
-                    max: maxMiles
+                    min: 0, 
+                    max: maxMiles 
                 }
             },
             plugins: {
@@ -104,18 +134,19 @@ function drawGraph(core, providers) {
                     position: 'bottom',
                     labels: {
                         boxWidth: 12,
-                        filter: (item) => !item.text.includes('Break-Even')
+                        filter: (item) => !['Break-Even', 'Charging', 'Exhausted'].some(word => item.text.includes(word))
                     }
                 },
                 tooltip: {
                     callbacks: {
                         label: (context) => {
                             const label = context.dataset.label || '';
-                            const value = context.parsed.y.toFixed(2);
-                            if (label.includes('Break-Even')) {
-                                return `${label}: ${context.parsed.x.toFixed(0)} miles (£${value})`;
-                            }
-                            return `${label}: £${value}`;
+                            const x = context.parsed.x.toFixed(0);
+                            const y = context.parsed.y.toFixed(2);
+                            if (label.includes('Exhausted')) return `Initial Battery Range: ${x} miles`;
+                            if (label.includes('Charging')) return `${label.replace(' Start Charging', '')}: Public charging starts at ${x} miles`;
+                            if (label.includes('Break-Even')) return `Break-Even: ${x} miles (£${y})`;
+                            return `${label}: £${y}`;
                         }
                     }
                 }
