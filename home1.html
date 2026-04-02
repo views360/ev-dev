@@ -80,14 +80,18 @@ section.feature-section:first-of-type {
 
 @media (min-width: 700px) {
 	body {
-	        padding-right: 160px !important;
-	        margin-right: 0 !important; 
+	    padding-right: 160px !important;
+	    margin-right: 0 !important; 
 	    }
 
 	.parallax-bg, .hero-home-bg {
         left: 0; 
         right: -160px; /* Bleeds into the ad zone */
         width: calc(100% + 160px); 
+    }
+
+	.parallax-band {
+        padding-right: 160px; 
     }
 	
 	.desktop-sidebar-ad {
@@ -288,6 +292,8 @@ section.feature-section:first-of-type {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    /* Add this line to ensure padding-right from body is respected if needed */
+    box-sizing: border-box; 
 }
 
 .parallax-bg {
