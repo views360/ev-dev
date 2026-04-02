@@ -157,8 +157,11 @@ function updatePaygSummaryUI(inputs, mainInitialRange, customPreCost, customPreS
 
 function handleModeVisibility(isTripMode) {
     const sections = {
-        summary: document.getElementById("summary"),
+        results: document.getElementById("results"),
         subscriptions: document.getElementById("subscriptions"),
+        graph: document.getElementById("graph"),
+        uiPreText: document.getElementById("preConclusionsText"),
+        summary: document.getElementById("summary"),
         conclusion: document.getElementById("conclusion"),
         durations: document.getElementById("durations"),
         real: document.getElementById("real"),
@@ -192,18 +195,17 @@ function handleModeVisibility(isTripMode) {
         // Check if all three BE Journey & Vehicle fields are populated
         const isPopulated = efficiency !== "" && battery !== "" && paygRate !== "";
         if (isPopulated) {
-            // Show results and intro text
+            // 1. Show the main results container and the two BE sections
+            if (sections.results) sections.results.style.display = "block";
             if (sections.subscriptions) sections.subscriptions.style.display = "block";
             if (sections.graph) sections.graph.style.display = "block";
-            if (sections.resultsIntroText) sections.resultsIntroText.style.display = "block";
             
-            // Hide the red error text
+            // 2. Hide the red error text
             if (sections.uiPreText) sections.uiPreText.style.display = "none";
         } else {
-            // Hide results and intro text
-            if (sections.subscriptions) sections.subscriptions.style.display = "none";
+            // 1. Hide the results container and sections
+            if (sections.results) sections.results.style.display = "none";
             if (sections.graph) sections.graph.style.display = "none";
-            if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
             
             // Show the red error text (preConclusionsText)
             if (sections.uiPreText) {
@@ -212,17 +214,14 @@ function handleModeVisibility(isTripMode) {
             }
         }
 
-        // Standard BE mode card visibility
+        // Ensure Trip-specific sections remain hidden
+        [sections.summary, sections.conclusion, sections.durations, sections.real].forEach(s => {
+            if (s) s.style.display = "none";
+        });
+
+        // Toggle the input cards themselves
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
         if (sections.tripCard) sections.tripCard.style.display = "none";
-        if (sections.providersContainer) sections.providersContainer.style.display = "none";
-        
-        // Ensure Trip-specific result sections are hidden
-        if (sections.summary) sections.summary.style.display = "none";
-        if (sections.providersContainer) sections.providersContainer.style.display = "none";
-        if (sections.conclusion) sections.conclusion.style.display = "none";
-        if (sections.durations) sections.durations.style.display = "none";
-        if (sections.real) sections.real.style.display = "none";
     }
 }
 
