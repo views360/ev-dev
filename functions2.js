@@ -165,63 +165,73 @@ function handleModeVisibility(isTripMode) {
         conclusion: document.getElementById("conclusion"),
         durations: document.getElementById("durations"),
         real: document.getElementById("real"),
-        graph: document.getElementById("graph"),
         breakEvenCard: document.getElementById("breakEvenCard"),
         tripCard: document.getElementById("tripCard"),
         providersContainer: document.getElementById("providersContainer"),
-        uiPreText: document.getElementById("preConclusionsText"),
         resultsIntroText: document.getElementById("resultsIntroText")
     };
 
     if (isTripMode) {
-        // COST REDUCTION: Show all sections except the graph
+        // --- COST REDUCTION MODE ---
         if (sections.summary) sections.summary.style.display = "block";
         if (sections.subscriptions) sections.subscriptions.style.display = "block";
         if (sections.conclusion) sections.conclusion.style.display = "block";
         if (sections.durations) sections.durations.style.display = "block";
         if (sections.real) sections.real.style.display = "block";
         if (sections.graph) sections.graph.style.display = "none"; 
+        
         if (sections.tripCard) sections.tripCard.style.display = "block";
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "none";
         if (sections.providersContainer) sections.providersContainer.style.display = "block";
+        
         if (sections.uiPreText) sections.uiPreText.style.display = "none";
         if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
     } else {
-        // BREAK-EVEN MODE
-        const efficiency = document.getElementById("efficiencyBE").value.trim();
-        const battery = document.getElementById("batteryBE").value.trim();
-        const paygRate = document.getElementById("adhocBE").value.trim();
+        // --- BREAK-EVEN MODE ---
+        
+        // 1. Safe retrieval of elements to prevent "null" errors in the console
+        const elEff = document.getElementById("efficiencyBE");
+        const elBat = document.getElementById("batteryBE");
+        const elAdhoc = document.getElementById("adhocBE");
 
-        // Check if all three BE Journey & Vehicle fields are populated
-        const isPopulated = efficiency !== "" && battery !== "" && paygRate !== "";
+        // 2. Check if elements exist AND are populated
+        const isPopulated = elEff && elBat && elAdhoc &&
+                           elEff.value.trim() !== "" && 
+                           elBat.value.trim() !== "" && 
+                           elAdhoc.value.trim() !== "";
+
         if (isPopulated) {
-            // 1. Show the main results container and the two BE sections
+            // Show results container and specific BE sections
             if (sections.results) sections.results.style.display = "block";
             if (sections.subscriptions) sections.subscriptions.style.display = "block";
             if (sections.graph) sections.graph.style.display = "block";
+            if (sections.resultsIntroText) sections.resultsIntroText.style.display = "block";
             
-            // 2. Hide the red error text
+            // Hide the error warning
             if (sections.uiPreText) sections.uiPreText.style.display = "none";
         } else {
-            // 1. Hide the results container and sections
+            // Hide results container and specific BE sections
             if (sections.results) sections.results.style.display = "none";
+            if (sections.subscriptions) sections.subscriptions.style.display = "none";
             if (sections.graph) sections.graph.style.display = "none";
+            if (sections.resultsIntroText) sections.resultsIntroText.style.display = "none";
             
-            // Show the red error text (preConclusionsText)
+            // Show the warning message
             if (sections.uiPreText) {
                 sections.uiPreText.style.display = "block";
                 sections.uiPreText.innerHTML = "Please attend to all flashing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
             }
         }
 
-        // Ensure Trip-specific sections remain hidden
+        // 3. Ensure Trip-specific sections remain hidden
         [sections.summary, sections.conclusion, sections.durations, sections.real].forEach(s => {
             if (s) s.style.display = "none";
         });
 
-        // Toggle the input cards themselves
+        // 4. Toggle the input cards
         if (sections.breakEvenCard) sections.breakEvenCard.style.display = "block";
         if (sections.tripCard) sections.tripCard.style.display = "none";
+        if (sections.providersContainer) sections.providersContainer.style.display = "none";
     }
 }
 
