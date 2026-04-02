@@ -744,7 +744,7 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     sectionRealWorld.style.display = "none";
     
     /*document.querySelector(".calc-lines").style.display = "none";*/
-    document.querySelector(".chart-wrapper").style.display = "none";
+    document.querySelector(".chart-wrapper").style.display = "block";
 
     let beData = [];
 
@@ -818,6 +818,25 @@ const fakeInputsForBE = { adhoc: adhocRate };
             }
         }, 5000);
     }
+    
+    // NEW: Call drawGraph to render the chart in Break-Even mode
+    const graphInputs = {
+        journeyMiles: 300, // Default range for BE comparison
+        batteryKwh: parseFloat(document.getElementById("batteryKwh").value) || 60,
+        soc: 100,
+        efficiency: efficiency,
+        adhoc: adhocRate,
+        startChargeRate: 0 
+    };
+    
+    // Map beData to the format drawGraph expects for providers
+    const graphProviders = beData.map(p => ({
+        name: p.name,
+        subCost: p.subCost,
+        rate: p.rate
+    }));
+    
+    drawGraph(graphInputs, graphProviders);
 }
 
 function calculate() {
