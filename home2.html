@@ -225,12 +225,16 @@ body {
 
 .parallax-bg {
     position: absolute;
-    /* Keeps the extra "bleed" for the parallax movement */
-    inset: -150px 0; 
-    background-size: cover;
+    /* Increase height to 120% to give "room" to slide without showing gaps */
+    top: -10%; 
+    left: 0;
+    width: 100%;
+    height: 120%; 
     
-    /* CHANGE THIS: 'right' ensures the focus stays on the right edge */
+    background-size: cover;
+    /* This anchors the image to the right and vertical middle */
     background-position: right center; 
+    background-repeat: no-repeat;
     
     filter: brightness(0.35);
     will-change: transform;
