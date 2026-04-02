@@ -277,13 +277,21 @@ body {
 
 .parallax-bg {
     position: absolute;
-    /* Keeps the extra "bleed" for the parallax movement */
-    inset: -150px 0; 
+    /* Bleed for parallax movement */
+    top: -100px; 
+    bottom: -100px;
+    left: 0;
+    right: 0;
+
+    /* KEY CHANGE: Anchor to the right edge */
+    background-repeat: no-repeat;
+    background-position: right center;
+    
+    /* Option A: 'cover' (Standard) */
+    /* If you keep 'cover', the 'right center' tells the browser 
+       to crop the LEFT side first, keeping the RIGHT side visible. */
     background-size: cover;
-    
-    /* CHANGE THIS: 'right' ensures the focus stays on the right edge */
-    background-position: right center; 
-    
+
     filter: brightness(0.35);
     will-change: transform;
 }
