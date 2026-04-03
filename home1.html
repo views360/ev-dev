@@ -23,7 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 <style>
 /* ---------- Homepage Layer ---------- */
@@ -77,29 +77,43 @@ section.feature-section:first-of-type {
 }
 
 @media (min-width: 700px) {
-	body {
-	    padding-right: 160px !important;
-	    margin-right: 0 !important; 
-	    }
+   body {
+	padding-right: 160px !important;
+	margin-right: 0 !important; 
+	}
 
-	.parallax-bg, .hero-home-bg {
-        left: 0; 
-        right: -160px; /* Bleeds into the ad zone */
+
+.parallax-bg, .hero-home-bg {
+        /* 1. Reset the left/right logic */
+        left: 0;
+        right: auto;
+        
+        /* 2. Make it 160px wider than the content area */
+        /* This ensures the 'right edge' of the DIV is under the ad area */
         width: calc(100% + 160px); 
+        
+        /* 3. Pull the DIV 160px to the left */
+        /* Now the right edge of the DIV perfectly aligns with the right edge of the screen */
+        margin-left: -160px;
+        
+        /* 4. Ensure the image inside stays pinned to the right */
+        background-position: right center !important;
+        background-size: cover;
     }
 
-	.parallax-band {
-        padding-right: 160px; 
+    .parallax-band {
+        /* Ensure the text container doesn't shift with the background */
+        padding-right: 0; 
     }
 	
-	.desktop-sidebar-ad {
+.desktop-sidebar-ad {
         position: fixed;
         right: 0;
         top: 0;
         width: 160px;
         height: 100vh;
         z-index: 1000;
-        background: var(--bg); /* Keeps ad area background consistent */
+        background: var(--bg);
         border-left: 1px solid var(--border);
     }
 }
@@ -132,10 +146,13 @@ section.feature-section:first-of-type {
 
 .hero-home-bg {
     position: absolute;
-    inset: -100px 0; /* Starts aligned to the content area */
+    inset: -100px 0;
     right: 0;
-    width: 100vw; /* Stretches to the true right edge */
-    background: url('images/home-charging.webp') right center/cover no-repeat;
+    width: 100%; 
+    /* Anchor to the right here as well */
+    background: url('images/home-charging.webp') no-repeat;
+    background-size: cover;
+    background-position: right center; 
     filter: brightness(0.75);
     will-change: transform;
 }
@@ -283,38 +300,6 @@ section.feature-section:first-of-type {
 
 /* ---------- Parallax Bands ---------- */
 
-.parallax-band {
-    position: relative;
-    min-height: 360px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    /* Add this line to ensure padding-right from body is respected if needed */
-    box-sizing: border-box; 
-}
-
-.parallax-bg {
-    position: absolute;
-    top: -150px;
-    bottom: -150px;
-    
-    /* Forces the element to the true right edge of the screen */
-    right: 0; 
-    
-    /* On Desktop (min-width 700px), the body has 160px padding-right.
-       We set the width to 100vw so it covers the padding too. */
-    width: 100vw; 
-    
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-    /* Pins the right-most pixels of the image to the right-most edge of the container */
-    background-position: right center; 
-    
-    filter: brightness(0.35);
-    will-change: transform;
-}
 
 .parallax-copy {
     position: relative;
@@ -345,15 +330,15 @@ section.feature-section:first-of-type {
         margin: 0 auto;
     }
     
-    /* Center the Hero text */
     .hero-home-text {
-        text-align: center;
-        left: 50%;
-        transform: translateX(-50%);
+        text-align: left !important;  /* Overrides any inherited centering */
+        left: 40px !important;       /* Keeps it pinned to the left edge */
+        transform: none !important;  /* Prevents the translateX(-50%) centering trick */
+        width: calc(100% - 80px);
     }
 
     .hero-home p {
-        margin-left: auto;
+        margin-left: 0 !important;   /* Ensures the paragraph doesn't auto-margin to center */
         margin-right: auto;
     }
 
