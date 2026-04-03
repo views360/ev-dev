@@ -35,6 +35,33 @@ html, body {
     overflow-x: hidden;
 }
 
+.calc-flex-container {
+    display: flex;
+    gap: 30px; /* Space between text and image */
+    align-items: stretch; /* Forces both sides to be equal height */
+    margin-top: 20px;
+}
+
+/* Text side takes up the majority of space */
+.calc-text-side {
+    flex: 1; 
+    text-align: left; /* Keeps text left-aligned even if card is centered */
+}
+
+/* Image side container */
+.calc-image-side {
+    flex: 0 0 120px; /* Fixed width for the image area, adjust as needed */
+    display: flex;
+}
+
+/* The magic for the image height */
+.calc-side-img {
+    width: 100%;
+    height: 100%; /* Spans the full height of the text container */
+    object-fit: contain; /* Ensures the icon doesn't get squashed/stretched */
+    object-position: center;
+}
+
 .home-wrap {
     width: 100%;
     max-width: 100%; /* Spans full remaining width */
@@ -109,19 +136,25 @@ section.feature-section:first-of-type {
     }
     
     .primary-section {
-        /* Set padding-right to match your sidebar width (160px) 
-           plus whatever gutter you want (e.g., 40px) */
         padding-right: 160px !important; 
-        padding-left: 40px;
+        /* Changed: Adding 40px padding to both sides of the available area */
+        padding-left: 40px !important;
+        padding-top: 80px;
+        padding-bottom: 80px;
         box-sizing: border-box;
         display: flex;
-        justify-content: center; /* This centers the card in the REMAINING space */
+        justify-content: center;
     }
 
     .primary-section .home-wrap {
         width: 100%;
-        max-width: 800px;
-        margin: 0; /* Let the parent's flexbox handle alignment */
+        /* This ensures it stays 800px on big screens, 
+           but shrinks gracefully on smaller ones while 
+           respecting the 40px padding of the parent */
+        max-width: 800px; 
+        margin: 0; 
+        padding-right: 40px; /* Essential: creates the "right" margin inside the flex space */
+        box-sizing: border-box;
     }
 
     .hero-home-text {
@@ -249,8 +282,8 @@ section.feature-section:first-of-type {
     background: 
         linear-gradient(
             to bottom, 
-            rgba(2, 6, 23, 0.2) 0%, 
-            rgba(2, 6, 23, 0.9) 100%
+            rgba(2, 6, 23, 0.9) 0%, 
+            rgba(2, 6, 23, 0.6) 100%
         ),
         url('images/home-calc2.webp') center/cover no-repeat;
     
@@ -419,6 +452,22 @@ section.feature-section:first-of-type {
         width: calc(100% - 220px) !important; /* Accounting for 30px left + 160px sidebar + 30px buffer */
     }
 }
+
+@media (max-width: 600px) {
+    .calc-flex-container {
+        flex-direction: column; /* Stack them on small screens */
+        align-items: center;
+    }
+    
+    .calc-image-side {
+        flex: 0 0 auto;
+        height: 100px; /* Give it a fixed height on mobile when stacked */
+    }
+
+    .calc-text-side {
+        text-align: center;
+    }
+}
 </style>
 <script>
 	(function() {
@@ -474,12 +523,20 @@ section.feature-section:first-of-type {
 <section class="primary-section">
     <div class="primary-bg-image"></div>    
     <div class="home-wrap">
-        <div class="primary-card">
-            <h2>Subscription Comparison Calculator</h2>
-            <p>
-                Insert your existing calculator module here from index.html.
-                This remains the homepage’s primary tool.
-            </p>
+        <div class="primary-card">            
+            <div class="calc-flex-container">
+                <div class="calc-text-side">
+                    <h2 style="margin-top: 0; padding-top:0">The Calculator</h2>
+			<p>
+                        Use the <strong>Subscription Comparison Calculator</strong> to find out exactly how much long journeys are costing you — and how much you could save with the right subscription. Potential savings are huge.
+                    </p>
+                    <p>Click the calculator icon or select <strong>Calculator</strong> from the menu.</p>
+                </div>
+
+                <div class="calc-image-side">
+                     <span class="tooltip-container"><a href="calculator.html" style="border:none"><img src="images/small-calculator.webp" alt="Calculator" class="calc-side-img"></a><span class="tooltip-box">Click to load the Subscription Comparison Calculator</span></span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
