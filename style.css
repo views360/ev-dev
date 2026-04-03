@@ -872,7 +872,7 @@ tr.bad td { color: var(--danger); }
     display: flex;
     align-items: center; 
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 50px 0 10px;
     box-sizing: border-box;
     position: fixed; 
     top: 0;
@@ -882,16 +882,17 @@ tr.bad td { color: var(--danger); }
 
 .android-title-clean {
     color: #ffffff !important;
-    font-size: clamp(0.7rem, 3.5vw, 1.4rem) !important; 
+    font-size: clamp(12px, 3.7vw, 1.2rem) !important; 
     font-weight: 400 !important;
     margin: 0 !important;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: calc(100% - 60px); 
-    display: block;
+    overflow: visible; 
+    text-overflow: clip;
+    display: inline-block;
+    vertical-align: middle;
 }
+
 
 .android-dots-trigger {
     display: flex;
@@ -1785,5 +1786,19 @@ body {
 
     .chart-wrapper {
         margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .android-title-clean {
+        font-size: 3.4vw !important;
+        letter-spacing: 0px;
+    }
+}
+
+@media (max-width: 360px) {
+    .android-title-clean {
+        font-size: 3.4vw !important;
+        letter-spacing: 0px;
     }
 }
