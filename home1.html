@@ -455,17 +455,36 @@ section.feature-section:first-of-type {
 
 @media (max-width: 600px) {
     .calc-flex-container {
-        flex-direction: column; /* Stack them on small screens */
+        /* Keep it as a row, but reduce the gap for tight screens */
+        flex-direction: row !important; 
+        gap: 15px; 
         align-items: center;
     }
     
     .calc-image-side {
-        flex: 0 0 auto;
-        height: 100px; /* Give it a fixed height on mobile when stacked */
+        /* Shrink the image container from 120px to 80px on small screens */
+        flex: 0 0 80px !important; 
+        height: auto;
     }
 
     .calc-text-side {
-        text-align: center;
+        /* Keep text left aligned to look better next to a side-icon */
+        text-align: left !important;
+    }
+
+    .calc-text-side h2 {
+        font-size: 1.25rem !important; /* Smaller, punchier title */
+        margin-bottom: 8px !important;
+    }
+
+    .calc-text-side p {
+        font-size: 0.9rem !important; /* Reduces from standard 1rem/1.1rem */
+        line-height: 1.4 !important;  /* Tighter line spacing saves vertical space */
+        margin-bottom: 10px !important;
+    }
+
+    .calc-flex-container {
+        gap: 12px !important; /* Slightly tighter gap for very narrow screens */
     }
 }
 </style>
@@ -528,14 +547,19 @@ section.feature-section:first-of-type {
                 <div class="calc-text-side">
                     <h2 style="margin-top: 0; padding-top:0">The Calculator</h2>
 			<p>
-                        Use the <strong>Subscription Comparison Calculator</strong> to find out exactly how much long journeys are costing you — and how much you could save with the right subscription. Potential savings are huge.
+                        Going on a long journey? Explore significant savings with the <strong>Subscription Comparison Calculator</strong>.
                     </p>
                     <p>Click the calculator icon or select <strong>Calculator</strong> from the menu.</p>
                 </div>
 
-                <div class="calc-image-side">
-                     <span class="tooltip-container"><a href="calculator.html" style="border:none"><img src="images/small-calculator.webp" alt="Calculator" class="calc-side-img"></a><span class="tooltip-box">Click to load the Subscription Comparison Calculator</span></span>
-                </div>
+<div class="calc-image-side">
+    <span class="tooltip-container">
+        <a href="calculator.html" style="border:none">
+            <img src="images/small-calculator.webp" alt="Calculator" class="calc-side-img">
+        </a>
+        <span class="tooltip-box">Click to load the Subscription Comparison Calculator</span>
+    </span>
+</div>
             </div>
         </div>
     </div>
