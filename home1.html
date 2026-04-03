@@ -83,30 +83,21 @@ section.feature-section:first-of-type {
 	}
 
 
-.parallax-bg, .hero-home-bg {
+    .parallax-bg, .hero-home-bg {
         /* 1. Reset the left/right logic */
         left: 0;
         right: auto;
-        
-        /* 2. Make it 160px wider than the content area */
-        /* This ensures the 'right edge' of the DIV is under the ad area */
         width: calc(100% + 160px); 
-        
-        /* 3. Pull the DIV 160px to the left */
-        /* Now the right edge of the DIV perfectly aligns with the right edge of the screen */
         margin-left: -160px;
-        
-        /* 4. Ensure the image inside stays pinned to the right */
         background-position: right center !important;
         background-size: cover;
     }
 
     .parallax-band {
-        /* Ensure the text container doesn't shift with the background */
         padding-right: 0; 
     }
 	
-.desktop-sidebar-ad {
+    .desktop-sidebar-ad {
         position: fixed;
         right: 0;
         top: 0;
@@ -115,6 +106,26 @@ section.feature-section:first-of-type {
         z-index: 1000;
         background: var(--bg);
         border-left: 1px solid var(--border);
+    }
+    
+    .primary-section {
+        /* Set padding-right to match your sidebar width (160px) 
+           plus whatever gutter you want (e.g., 40px) */
+        padding-right: 160px !important; 
+        padding-left: 40px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center; /* This centers the card in the REMAINING space */
+    }
+
+    .primary-section .home-wrap {
+        width: 100%;
+        max-width: 800px;
+        margin: 0; /* Let the parent's flexbox handle alignment */
+    }
+
+    .hero-home-text {
+        width: calc(100% - 240px) !important;
     }
 }
 
@@ -229,6 +240,9 @@ section.feature-section:first-of-type {
     box-shadow: 0 0 24px rgba(56,189,248,0.08);
     position: relative;
     overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+    box-sizing: border-box;
 
     /* 2. The Background Image & Fade */
     /* This applies the 80% to 10% visibility logic directly to the card */
@@ -322,38 +336,87 @@ section.feature-section:first-of-type {
         grid-template-columns: 1fr;
         justify-items: center;
         text-align: center;
+        gap: 40px;
     }
 
     .slide-image {
-        /* On mobile, we keep it square but limit the size so it's not huge */
         max-width: 340px; 
         margin: 0 auto;
     }
     
+    .primary-section {
+        padding: 60px 30px !important; /* 60px top/bottom, 30px sides */
+        box-sizing: border-box;
+        width: 100%;
+        display: block; /* Reset from desktop flex if necessary */
+    }
+
+    .primary-card {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 30px; /* Internal card padding */
+        text-align: center;
+    }
+
     .hero-home-text {
-        text-align: left !important;  /* Overrides any inherited centering */
-        left: 40px !important;       /* Keeps it pinned to the left edge */
-        transform: none !important;  /* Prevents the translateX(-50%) centering trick */
-        width: calc(100% - 80px);
+        text-align: left !important;
+        left: 30px !important; /* Matches your 30px margin request */
+        width: calc(100% - 60px) !important; /* Total 60px (30 left + 30 right) */
+        transform: none !important;
+    }
+
+    .slide-image {
+        max-width: 340px; 
+        margin: 0 auto;
     }
 
     .hero-home p {
-        margin-left: 0 !important;   /* Ensures the paragraph doesn't auto-margin to center */
+        margin-left: 0 !important;
         margin-right: auto;
     }
 
-    /* Center Section Headings and Text */
     .feature-text, 
     .primary-card, 
     .parallax-copy {
         text-align: center;
     }
 
-    /* Center the primary card content if it contains a calculator */
     .primary-card h2, 
     .primary-card p {
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 900px) {
+    body {
+        /* Keep the sidebar space but ensure content feels balanced */
+        padding-right: 160px !important;
+    }
+
+    .primary-section {
+        /* Symmetry: We subtract the 160px sidebar, then center what's left */
+        padding-right: 160px !important; 
+        padding-left: 0 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .primary-section .home-wrap {
+        /* Force the container to be centered in the space left by the sidebar */
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 30px; /* This gives you your 30px safety margin on the sides */
+        box-sizing: border-box;
+    }
+
+    .hero-home-text {
+        /* Align hero text with the same 30px margin as the calculator */
+        left: 30px !important;
+        width: calc(100% - 220px) !important; /* Accounting for 30px left + 160px sidebar + 30px buffer */
     }
 }
 </style>
