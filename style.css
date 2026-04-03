@@ -881,11 +881,23 @@ tr.bad td { color: var(--danger); }
 }
 
 .android-title-clean {
-    color: #ffffff !important; 
-    font-size: 1.4rem !important; 
+    color: #ffffff !important;
+    /* Uses clamp to scale between 0.9rem and 1.4rem based on screen width */
+    font-size: clamp(0.9rem, 3.5vw, 1.4rem) !important; 
     font-weight: 400 !important;
     margin: 0 !important;
     letter-spacing: 0.5px;
+    
+    /* Forces single line */
+    white-space: nowrap; 
+    
+    /* Prevents layout breaking on tiny screens */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    /* Ensures it leaves room for the dots-trigger */
+    max-width: calc(100% - 60px); 
+    display: block;
 }
 
 .android-dots-trigger {
