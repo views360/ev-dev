@@ -165,6 +165,19 @@ section.feature-section:first-of-type {
     .hero-home-text {
         width: calc(100% - 240px) !important;
     }
+	
+	.feature-section {
+        padding-right: 160px !important; /* Move content away from the ad sidebar */
+        padding-left: 0 !important;
+    }
+
+    .feature-section .home-wrap {
+        width: 100%;
+        max-width: 1200px; /* Or whatever your grid max is */
+        margin: 0 auto;
+        padding: 0 30px;  /* This is your guaranteed 30px safety buffer */
+        box-sizing: border-box;
+    }
 }
 
 @media (max-width: 699px) {
@@ -308,14 +321,14 @@ section.feature-section:first-of-type {
 
 .feature-grid {
     display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 60px;
+    grid-template-columns: 1fr minmax(200px, 340px); /* Changed to be flexible */
+    gap: 40px; /* Slightly reduced gap helps on narrow screens */
     align-items: center;
-    max-width: 1200px; /* Optional: keeps the grid from getting ultra-wide on huge monitors */
+    width: 100%; /* Ensure it takes full width of home-wrap */
 }
 
 .feature-grid.reverse {
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: minmax(200px, 340px) 1fr;
 }
 
 .feature-text h2 {
