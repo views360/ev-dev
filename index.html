@@ -72,20 +72,21 @@ html, body {
 }
 
 .slide-image {
+    /* 1. Remove forced square ratio */
+    aspect-ratio: auto; 
+    
+    /* 2. Standard sizing */
     width: 100%;
-    /* Keeps the container a perfect square */
-    aspect-ratio: 1 / 1; 
+    max-width: 340px; /* Keeps it from getting too huge on desktop */
+    height: auto;     /* Shrinks vertically to match the image precisely */
     
-    /* CHANGE THIS: 'contain' shows the whole image, 'cover' crops it */
-    object-fit: contain; 
-    
-    /* This ensures the image sits in the center of the square */
-    object-position: center; 
-
-    height: auto; 
+    /* 3. Appearance */
+    display: block;   /* Removes tiny bottom gap inherent to inline images */
     border-radius: 18px;
-    background-color: #243447; /* This color will show in any 'letterbox' gaps */
     border: 1px solid var(--border);
+    background-color: transparent; /* No longer need a fallback color */
+    
+    /* 4. Animation properties */
     opacity: 0;
     transform: translateX(90px);
     transition: all 1s ease;
@@ -105,6 +106,15 @@ section.feature-section:first-of-type {
     display: flex;             /* Added */
     justify-content: center;    /* Added */
     box-sizing: border-box;
+}
+
+.slide-image.left {
+    transform: translateX(-90px);
+}
+
+.slide-image.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 @media (min-width: 700px) {
