@@ -72,24 +72,35 @@ html, body {
 }
 
 .slide-image {
-    /* 1. Remove forced square ratio */
-    aspect-ratio: auto; 
+    /* 1. Remove all forced dimensions */
+    aspect-ratio: auto !important; 
+    height: auto !important; 
     
-    /* 2. Standard sizing */
+    /* 2. Control the size by width only */
     width: 100%;
-    max-width: 340px; /* Keeps it from getting too huge on desktop */
-    height: auto;     /* Shrinks vertically to match the image precisely */
+    max-width: 340px; 
     
-    /* 3. Appearance */
-    display: block;   /* Removes tiny bottom gap inherent to inline images */
+    /* 3. Ensure the browser respects the image's internal ratio */
+    object-fit: contain; 
+    
+    /* 4. Styling & Animation */
+    display: block;
     border-radius: 18px;
     border: 1px solid var(--border);
-    background-color: transparent; /* No longer need a fallback color */
-    
-    /* 4. Animation properties */
+    background-color: transparent;
     opacity: 0;
     transform: translateX(90px);
     transition: all 1s ease;
+}
+
+/* Ensure the left-sliding version also behaves */
+.slide-image.left {
+    transform: translateX(-90px);
+}
+
+.slide-image.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Remove the padding-top from the first section that was adding that "large gap" */
