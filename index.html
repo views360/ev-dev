@@ -65,6 +65,7 @@ html, body {
     line-height: 1.15;
     margin: 0;
     font-weight: 800;
+	z-index: 10 !important;
 }
 
 .calc-flex-container {
@@ -187,8 +188,6 @@ section.feature-section:first-of-type {
 	margin-right: 0 !important; 
 	}
 	
-
-
     .parallax-bg, .hero-home-bg {
         /* 1. Reset the left/right logic */
         left: 0;
@@ -251,6 +250,12 @@ section.feature-section:first-of-type {
         margin: 0 auto;
         padding: 0 30px;  /* This is your guaranteed 30px safety buffer */
         box-sizing: border-box;
+    }
+
+	.parallax-band::after {
+        left: 0;
+        width: calc(100% + 160px);
+        margin-left: -160px;
     }
 }
 
