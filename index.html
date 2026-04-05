@@ -51,8 +51,20 @@ html, body {
 /* Ensure the text is definitely on top of the new gradient */
 .parallax-copy {
     position: relative;
-    z-index: 3; 
-    color: var(--text);
+    z-index: 10; /* Increased to be safe */
+    text-align: center;
+    width: 800px;
+    max-width: calc(100vw - 30px);
+    pointer-events: none; /* Allows scrolling/clicks to pass through to the section */
+}
+
+.parallax-copy h2 {
+    color: #ffffff !important; 
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Adds depth over the gradient */
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.15;
+    margin: 0;
+    font-weight: 800;
 }
 
 .calc-flex-container {
