@@ -185,17 +185,19 @@ section.feature-section:first-of-type {
 	}
 	
     .parallax-bg, .hero-home-bg {
-        /* 1. Reset the left/right logic */
         left: 0;
         right: auto;
-        width: calc(100% + 160px); 
-        margin-left: -160px;
+        width: 100% !important;
+        margin-left: -160px !important;
+        /* !important is needed here to override the shorthand 'center' in your inline HTML styles */
         background-position: right center !important;
-        background-size: cover;
+        background-size: cover !important;
     }
 
-	.parallax-band {
+    /* This ensures the container itself aligns with the rest of the page content */
+    .parallax-band {
         padding-right: 160px; 
+	padding-right: 0;
     }
 	
     .desktop-sidebar-ad {
@@ -250,8 +252,8 @@ section.feature-section:first-of-type {
 
     .parallax-band::after {
         left: 0;
-        width: calc(100% + 160px);
-        margin-left: -160px;
+        /*width: calc(100% + 160px);
+        margin-left: -160px;*/
     }
 }
 
@@ -349,8 +351,6 @@ section.feature-section:first-of-type {
     width: 100%;
     height: 100%;
     z-index: 1;
-    /* DEBUG: Uncomment the line below to see if the box exists at all */
-    /* border: 5px solid red; */
 }
 
 .home-wrap {
@@ -466,7 +466,7 @@ section.feature-section:first-of-type {
         gap: 40px;
     }
 
-	.slide-image {
+    .slide-image {
         max-width: 340px; 
         width: 80%; /* Allows it to shrink slightly on very small phones */
         margin: 0 auto;
@@ -663,7 +663,7 @@ section.feature-section:first-of-type {
 
 <!-- PARALLAX BAND -->
 <section class="parallax-band">
-    <div class="parallax-bg" data-speed="0.25" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/home-savings.webp') center/cover no-repeat;"></div>
+    <div class="parallax-bg" data-speed="0.35" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/home-savings.webp') right/cover no-repeat;"></div>
     <div class="parallax-copy">
         <h2>Save up to 40% on Public Charging</h2>
     </div>
@@ -688,7 +688,7 @@ section.feature-section:first-of-type {
 
 <!-- PARALLAX BAND -->
 <section class="parallax-band">
-    <div class="parallax-bg" data-speed="0.35" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/apps.webp') center/cover no-repeat;"></div>
+    <div class="parallax-bg" data-speed="0.35" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/apps.webp') right/cover no-repeat;"></div>
     <div class="parallax-copy">
         <h2>Drive further with fewer expensive mistakes</h2>
     </div>
@@ -713,7 +713,7 @@ section.feature-section:first-of-type {
 
 <!-- PARALLAX BAND -->
 <section class="parallax-band">
-    <div class="parallax-bg" data-speed="0.25" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/jargon.webp') center/cover no-repeat;"></div>
+    <div class="parallax-bg" data-speed="0.35" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/jargon.webp') right/cover no-repeat;"></div>
     <div class="parallax-copy">
         <h2>Understand EV ownership beyond the brochure</h2>
     </div>
