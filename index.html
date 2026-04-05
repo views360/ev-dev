@@ -35,6 +35,33 @@ html, body {
     overflow-x: hidden;
 }
 
+.bolt-list, .day2-list, .further-list {
+    display: inline-block;   /* Only takes up as much width as the longest line */
+    text-align: left;        /* Keeps text and bolts aligned left */
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;          /* Centers the block itself */
+}
+
+/* Parent wrapper (Add this if your list isn't already inside a centered div) */
+.centered-container {
+    text-align: center;      /* This pushes the inline-block list to the center */
+    width: 100%;
+    padding: 20px 0;
+}
+
+.bolt-list a, .day2-list a, .further-list a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+/* Optional: Add a hover effect to match the interactive feel of other pages */
+.bolt-list a:hover, .day2-list a:hover, .further-list a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
 .parallax-band {
     position: relative;
     width: 100%;
@@ -119,6 +146,14 @@ html, body {
     max-width: 100%; /* Spans full remaining width */
     margin: 0;
     padding: 0;
+}
+
+ul li span {
+    display: block;      /* Ensures it starts on its own line if you remove <br /> */
+    font-size: 0.8rem;   /* Sets the size relative to root font */
+    opacity: 0.6;        /* Fades the text slightly */
+    line-height: 1.4;    /* Improves readability for multi-line descriptions */
+    margin-top: 2px;     /* Optional: adds a tiny gap below the bold title */
 }
 
 .slide-image {
@@ -353,6 +388,18 @@ section.feature-section:first-of-type {
     z-index: 1;
 }
 
+    ul.bolt-list, ul.day2-list, ul.further-list {
+        list-style: none;
+        padding-left: 20px;
+    }
+
+    ul.bolt-list li::before, ul.day2-list li::before, ul.further-list li::before {
+        content: "⚡";
+        display: inline-block;
+        width: 1.5em;
+        margin-left: -1.5em;
+    }
+
 .home-wrap {
     position: relative;
     z-index: 5; /* Ensures the calculator sits on top of the image */
@@ -459,6 +506,17 @@ section.feature-section:first-of-type {
 
 /* ---------- Mobile ---------- */
 @media (max-width: 900px) {
+
+    .bolt-list, .day2-list, .further-list {
+        max-width: 90%;      /* Prevents the list from hitting the screen edges */
+        font-size: 0.95rem;  /* Slightly smaller for tight mobile screens */
+    }
+    
+    .bolt-list li, , .day2-list li, .further-list li {
+        margin-bottom: 15px; /* Adds breathing room between items */
+        padding-left: 1.5em; /* Space for the absolute/pseudo bolt */
+        position: relative;
+    }
     .feature-grid {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -516,6 +574,7 @@ section.feature-section:first-of-type {
         margin-right: auto;
     }
 }
+
 
 @media (min-width: 700px) and (max-width: 900px) {
     body {
@@ -581,6 +640,7 @@ section.feature-section:first-of-type {
     .calc-flex-container {
         gap: 12px !important; /* Slightly tighter gap for very narrow screens */
     }
+
 }
 </style>
 <script>
@@ -676,9 +736,31 @@ section.feature-section:first-of-type {
             <div class="feature-text">
                 <h2>Essential EV Guides</h2>
                 <p>
-                    Core guidance for new EV drivers:
+                    View the menu or follow the links below for core guidance for new EV drivers:
                     charging etiquette, apps, winter behaviour,
                     terminology and practical ownership confidence.
+<ul class="bolt-list">
+  <li>
+    <a href="apps.html"><strong>App Toolkit</strong></a><br />
+    <span>Essential navigation and payment apps for UK charging.</span>
+  </li>
+  <li>
+    <a href="etiquette.html"><strong>Etiquette</strong></a><br />
+    <span>Unwritten rules for sharing public chargers and rapid hubs.</span>
+  </li>
+  <li>
+    <a href="jargon.html"><strong>Jargon Buster</strong></a><br />
+    <span>Clear definitions for technical EV terms and acronyms.</span>
+  </li>
+  <li>
+    <a href="mastery.html"><strong>Mastery</strong></a><br />
+    <span>Advanced tips for maximizing efficiency and battery health.</span>
+  </li>
+  <li>
+    <a href="winter-range.html"><strong>Winter Range</strong></a><br />
+    <span>Real-world advice for cold weather performance and heating.</span>
+  </li>
+</ul>
                 </p>
             </div>
             <img src="images/home-guides.webp" alt="Essential EV Guides" class="slide-image observe">
@@ -701,10 +783,24 @@ section.feature-section:first-of-type {
             <img src="images/home-day2.webp" alt="EV Day-2 Issues" class="slide-image left observe">
             <div class="feature-text">
                 <h2>Day-2 Issues</h2>
-                <p>
-                    Battery questions, insurance realities,
+                <p>View the menu or follow the links below for 
+                    battery questions, insurance realities,
                     towing concerns and the practical matters
                     owners encounter after initial ownership begins.
+<ul class="day2-list">
+  <li>
+    <a href="battery.html"><strong>Battery Health</strong></a><br />
+    <span>Essential guidance on maintaining electric vehicle battery longevity and performance.</span>
+  </li>
+  <li>
+    <a href="insurance.html"><strong>Insurance</strong></a><br />
+    <span>Comprehensive information regarding specialised insurance coverage for EV owners.</span>
+  </li>
+  <li>
+    <a href="towing.html"><strong>Towing & Holidays</strong></a><br />
+    <span>Practical advice for towing trailers and planning trips with EVs.</span>
+  </li>
+</ul>
                 </p>
             </div>
         </div>
@@ -725,9 +821,31 @@ section.feature-section:first-of-type {
         <div class="feature-grid">
             <div class="feature-text">
                 <h2>Further Reading</h2>
-                <p>
-                    Home charging, public charging economics,
-                    myths, used EV ownership and total cost clarity.
+                <p>View the menu or follow the links below for 
+                    information on home charging, public charging economics,
+                    myths, used EV ownership, and total cost clarity.
+<ul class="further-list">
+  <li>
+    <a href="home-charging.html"><strong>Home Charging</strong></a><br />
+    <span>A guide to installing and using efficient domestic charging points.</span>
+  </li>
+  <li>
+    <a href="public-network.html"><strong>Public Network</strong></a><br />
+    <span>Navigating the UK’s growing infrastructure of rapid and destination chargers.</span>
+  </li>
+  <li>
+    <a href="ownership.html"><strong>Ownership Cost</strong></a><br />
+    <span>Analysing long-term savings on fuel, maintenance, and tax benefits.</span>
+  </li>
+  <li>
+    <a href="used.html"><strong>Buying Used</strong></a><br />
+    <span>Expert tips on inspecting batteries and finding affordable pre-owned EVs.</span>
+  </li>
+  <li>
+    <a href="myths.html"><strong>EV Myths</strong></a><br />
+    <span>Debunking common misconceptions about battery life, safety, and environmental impact.</span>
+  </li>
+</ul>
                 </p>
             </div>
             <img src="images/home-books.webp" alt="EV Further Reading" class="slide-image observe">
