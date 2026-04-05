@@ -44,7 +44,7 @@ html, body {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    /* 1. Creates a clean stacking environment */
+    /* Create a isolated stacking context so z-index 1 is the bottom */
     isolation: isolate; 
 }
 
@@ -54,39 +54,35 @@ html, body {
     bottom: -120px;
     left: 0;
     width: 100%;
-    z-index: -2; /* Deepest layer */
+    /* Layer 1: The absolute bottom */
+    z-index: 1; 
     will-change: transform;
     background-repeat: no-repeat;
-}
-
-.parallax-band::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1; /* Sits between image and text */
-    background: linear-gradient(
-        to bottom, 
-        rgba(2, 6, 23, 0.9) 0%, 
-        rgba(2, 6, 23, 0.6) 100%
-    );
+    background-size: cover;
     pointer-events: none;
 }
 
-/* Ensure the text is definitely on top of the new gradient */
-.parallax-copy h2 {
-    color: #ffffff !important; /* Forces pure white */
-    margin: 0;
-    font-weight: 800;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+/* Remove the ::after entirely to stop it from covering the text */
+.parallax-band::after {
+    display: none;
+}
+
+.parallax-copy {
+    position: relative;
+    /* Layer 2: Explicitly above the background layer */
+    z-index: 2; 
+    text-align: center;
+    width: 800px;
+    max-width: calc(100vw - 30px);
 }
 
 .parallax-copy h2 {
     color: #ffffff !important; 
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Adds depth over the gradient */
     font-size: clamp(2rem, 5vw, 4rem);
     line-height: 1.15;
     margin: 0;
     font-weight: 800;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8); 
 }
 
 .calc-flex-container {
@@ -182,27 +178,6 @@ section.feature-section:first-of-type {
     transform: translateX(0);
 }
 
-.parallax-bg {
-    position: absolute;
-    /* This vertical "bleed" is required so the JS has room to move the image */
-    top: -120px; 
-    bottom: -120px;
-    z-index: 1;
-    will-change: transform;
-    background-repeat: no-repeat;
-}
-
-.parallax-band {
-    position: relative;
-    width: 100%;
-    height: 350px; /* Essential: This creates the visible area */
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
 @media (min-width: 700px) {
    body {
 	padding-right: 160px !important;
@@ -273,7 +248,7 @@ section.feature-section:first-of-type {
         box-sizing: border-box;
     }
 
-	.parallax-band::after {
+    .parallax-band::after {
         left: 0;
         width: calc(100% + 160px);
         margin-left: -160px;
@@ -686,6 +661,14 @@ section.feature-section:first-of-type {
     </div>
 </section>
 
+<!-- PARALLAX BAND -->
+<section class="parallax-band">
+    <div class="parallax-bg" data-speed="0.25" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/home-savings.webp') center/cover no-repeat;"></div>
+    <div class="parallax-copy">
+        <h2>Save up to 40% on Public Charging</h2>
+    </div>
+</section>
+
 <!-- EV GUIDES -->
 <section class="feature-section">
     <div class="home-wrap">
@@ -705,7 +688,7 @@ section.feature-section:first-of-type {
 
 <!-- PARALLAX BAND -->
 <section class="parallax-band">
-    <div class="parallax-bg" data-speed="0.35" style="background-image:url('images/apps.webp')"></div>
+    <div class="parallax-bg" data-speed="0.35" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/apps.webp') center/cover no-repeat;"></div>
     <div class="parallax-copy">
         <h2>Drive further with fewer expensive mistakes</h2>
     </div>
@@ -730,7 +713,7 @@ section.feature-section:first-of-type {
 
 <!-- PARALLAX BAND -->
 <section class="parallax-band">
-    <div class="parallax-bg" data-speed="0.25" style="background-image:url('images/jargon.webp')"></div>
+    <div class="parallax-bg" data-speed="0.25" style="background: linear-gradient(to bottom, rgba(2, 6, 23, 0.9), rgba(2, 6, 23, 0.6)), url('images/jargon.webp') center/cover no-repeat;"></div>
     <div class="parallax-copy">
         <h2>Understand EV ownership beyond the brochure</h2>
     </div>
