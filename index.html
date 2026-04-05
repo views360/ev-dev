@@ -50,16 +50,18 @@ html, body {
 
 /* Image side container */
 .calc-image-side {
-    flex: 0 0 120px; /* Fixed width for the image area, adjust as needed */
+    flex: 0 0 120px; /* Keep this at 120px to accommodate the 100px image */
     display: flex;
+    align-items: center; /* Centers image vertically if text is tall */
+    justify-content: center;
 }
 
 /* The magic for the image height */
 .calc-side-img {
     width: 100%;
-    height: 100%; /* Spans the full height of the text container */
-    object-fit: contain; /* Ensures the icon doesn't get squashed/stretched */
-    object-position: center;
+    min-width: 100px; /* Added: Ensures it never drops below 100px */
+    height: auto;    /* Changed from 100% to auto to maintain aspect ratio */
+    object-fit: contain;
 }
 
 .home-wrap {
