@@ -73,19 +73,18 @@ html, body {
 
 .slide-image {
     width: 100%;
-    /* This forces the height to always match the width */
+    /* Keeps the container a perfect square */
     aspect-ratio: 1 / 1; 
     
-    /* Crucial for <img> tags to prevent squashing */
-    object-fit: cover; 
+    /* CHANGE THIS: 'contain' shows the whole image, 'cover' crops it */
+    object-fit: contain; 
     
-    /* Crucial for <div> placeholders using background-image */
-    background-size: cover;
-    background-position: center;
+    /* This ensures the image sits in the center of the square */
+    object-position: center; 
 
     height: auto; 
     border-radius: 18px;
-    background-color: #243447; /* Fallback color */
+    background-color: #243447; /* This color will show in any 'letterbox' gaps */
     border: 1px solid var(--border);
     opacity: 0;
     transform: translateX(90px);
@@ -390,8 +389,9 @@ section.feature-section:first-of-type {
         gap: 40px;
     }
 
-    .slide-image {
+	.slide-image {
         max-width: 340px; 
+        width: 80%; /* Allows it to shrink slightly on very small phones */
         margin: 0 auto;
     }
     
