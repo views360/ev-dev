@@ -35,27 +35,49 @@ html, body {
     overflow-x: hidden;
 }
 
+.parallax-band {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    /* 1. Creates a clean stacking environment */
+    isolation: isolate; 
+}
+
+.parallax-bg {
+    position: absolute;
+    top: -120px;
+    bottom: -120px;
+    left: 0;
+    width: 100%;
+    z-index: -2; /* Deepest layer */
+    will-change: transform;
+    background-repeat: no-repeat;
+}
+
 .parallax-band::after {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: 2; /* Sits above the image (z-index 1) but below the text (z-index 2+) */
+    z-index: -1; /* Sits between image and text */
     background: linear-gradient(
         to bottom, 
         rgba(2, 6, 23, 0.9) 0%, 
         rgba(2, 6, 23, 0.6) 100%
     );
-    pointer-events: none; /* Allows clicks to pass through to links if needed */
+    pointer-events: none;
 }
 
 /* Ensure the text is definitely on top of the new gradient */
-.parallax-copy {
-    position: relative;
-    z-index: 10; /* Increased to be safe */
-    text-align: center;
-    width: 800px;
-    max-width: calc(100vw - 30px);
-    pointer-events: none; /* Allows scrolling/clicks to pass through to the section */
+.parallax-copy h2 {
+    color: #ffffff !important; /* Forces pure white */
+    margin: 0;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
 .parallax-copy h2 {
@@ -65,7 +87,6 @@ html, body {
     line-height: 1.15;
     margin: 0;
     font-weight: 800;
-	z-index: 10 !important;
 }
 
 .calc-flex-container {
@@ -451,6 +472,7 @@ section.feature-section:first-of-type {
     text-align: center;
     width: 800px;
     max-width: calc(100vw - 30px);
+	opacity: 1 !important;
 }
 
 .parallax-copy h2 {
