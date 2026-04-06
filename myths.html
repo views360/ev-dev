@@ -483,6 +483,23 @@ function toggleTheme() {
     setCookie('themePref', isLight ? 'light' : 'dark');
 }
 
+function expandActiveSections() {
+    const currentPage = window.location.pathname.split('/').pop() || 'myths.html';
+    const activeItem = document.querySelector(`a[href="${currentPage}"]`);
+    
+    if (activeItem) {
+        activeItem.classList.add('active-page');
+        
+        let parent = activeItem.closest('.menu-section-items');
+        if (parent) {
+            const toggle = parent.previousElementSibling;
+            if (toggle && toggle.classList.contains('menu-section-toggle')) {
+                toggle.classList.add('open');
+                parent.classList.add('open');
+            }
+        }
+    }
+}
 loadMenu();
 </script>
 </body>
