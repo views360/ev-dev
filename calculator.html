@@ -54,28 +54,31 @@
 
 @media (min-width: 700px) {
     /* 1. Reserve the ad space on the right side of the screen */
-    body {
+	body {
+        /* Reserves the ad space on the right */
         padding-right: 160px !important;
+        margin: 0;
     }
 
-    /* 2. Unified rule for all main containers to ensure they align perfectly */
-    .app, 
+	.app, 
     .calc-tabs-bar, 
     .content-wrap, 
     #breakEvenCard, 
     #preConclusionsText {
         width: 100%;
-        max-width: 1000px;
+        /* Matches the max-width of your Journey & Vehicle card */
+        max-width: 1000px; 
         margin-left: auto !important;
         margin-right: auto !important;
-        display: block; /* Ensures auto margins work on text blocks */
+        display: block;
     }
 
     /* 3. Specific styling for the error text now that it is centered */
-    #preConclusionsText {
+	#preConclusionsText {
         text-align: center;
         padding: 20px 0;
-        color: var(--accent);
+        /* Reverting to your original error red */
+        color: #ff4444; 
         font-weight: bold;
     }
 }	
