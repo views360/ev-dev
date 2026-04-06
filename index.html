@@ -214,6 +214,22 @@ section.feature-section:first-of-type {
     transform: translateX(0);
 }
 
+footer {
+    width: calc(100% - 160px) !important;
+    padding: 20px 20px 0 20px;
+    background: #020617; /* Matches your primary section dark blue */
+    border-top: 1px solid var(--border);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+footer p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
 @media (min-width: 700px) {
    body {
 	padding-right: 160px !important;
@@ -516,6 +532,19 @@ section.feature-section:first-of-type {
         gap: 40px;
     }
 
+    .feature-grid.reverse {
+        grid-template-columns: 1fr; /* Force single column */
+    }
+
+    .feature-grid.reverse .feature-text {
+        order: 1; /* Moves text to the top */
+    }
+
+    .feature-grid.reverse .slide-image {
+        order: 2; /* Moves image below text */
+        margin-top: 20px;
+    }
+
     .slide-image {
         max-width: 340px; 
         width: 80%; /* Allows it to shrink slightly on very small phones */
@@ -565,6 +594,9 @@ section.feature-section:first-of-type {
         margin-left: auto;
         margin-right: auto;
     }
+    footer {
+        width: 100% !important;
+    }
 }
 
 
@@ -595,7 +627,10 @@ section.feature-section:first-of-type {
     .hero-home-text {
         /* Align hero text with the same 30px margin as the calculator */
         left: 30px !important;
-        width: calc(100% - 220px) !important; /* Accounting for 30px left + 160px sidebar + 30px buffer */
+        width: calc(100% - 220px) !important;
+    }
+    footer {
+        width: calc(100% - 160px) !important;
     }
 }
 
@@ -812,7 +847,7 @@ section.feature-section:first-of-type {
     <div class="home-wrap">
         <div class="feature-grid">
             <div class="feature-text">
-                <h2>Further Reading</h2>
+                <h2>Deep Dives & Further Reading</h2>
                 <p>View the menu or follow the links below for 
                     information on home charging, public charging economics,
                     myths, used EV ownership, and total cost clarity.
@@ -873,7 +908,11 @@ section.feature-section:first-of-type {
 			</div>	        
 	    </div>
 	</div>
-
+<footer>
+    <div class="home-wrap">
+        <p>&copy; 2026 - EV Subs UK. All rights reserved.</p>
+    </div>
+</footer>
 <script>
 // Load ads only when visible
 function loadAdSense() {
