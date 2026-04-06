@@ -160,6 +160,33 @@ function toggleTooltip(iconEl) {
     });
 }
 
+function expandActiveSections() {
+    // Get the current page filename
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Check all menu items with data-page attribute or href matching current page
+    const activeItem = document.querySelector(`a[data-page][href="${currentPage}"]`) || 
+                       document.querySelector(`a[href="${currentPage}"]`);
+    
+    if (activeItem) {
+        // Add active class to the link
+        document.querySelectorAll('a.menu-item-clean').forEach(link => {
+            link.classList.remove('active-page');
+        });
+        activeItem.classList.add('active-page');
+        
+        // Find parent section and expand it
+        let parent = activeItem.closest('.menu-section-items');
+        if (parent) {
+            const toggle = parent.previousElementSibling;
+            if (toggle && toggle.classList.contains('menu-section-toggle')) {
+                toggle.classList.add('open');
+                parent.classList.add('open');
+            }
+        }
+    }
+}
+
 // Desktop: hide on click outside, show/hide on hover, reposition on scroll
 document.addEventListener('click', (e) => {
     if (_ftActive && !e.target.closest('.info-icon')) _ftHide();
