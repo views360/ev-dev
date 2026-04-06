@@ -75,6 +75,21 @@
         margin-left: auto !important;
         margin-right: auto !important;
     }
+	
+	#results {
+        width: 100%;
+        display: block; /* or flex if you want side-by-side, but block is safer for your current layout */
+    }
+
+    .collapsible-section {
+        /* Ensure it takes up the full available width of its parent (.app) */
+        width: auto; 
+        max-width: 100%;
+        /* You currently have margin: 0 15px 15px 15px; 
+           Ensure these margins aren't preventing it from looking 'centered' */
+        margin-left: 15px;
+        margin-right: 15px;
+    }
 }
 	
 
