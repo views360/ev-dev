@@ -48,32 +48,47 @@
         margin: 0;
         overflow-x: hidden;
         background: var(--bg);
+        display: flex;
+        flex-direction: column;
     }
 
-	@media (min-width: 700px) {
-        body {
-            margin-right: 160px !important;
-        }
+@media (min-width: 700px) {
+    /* 1. Reserve the ad space on the right side of the screen */
+    body {
+        padding-right: 160px !important;
+    }
 
-		.app, 
-	    .content-wrap, 
-	    .calc-tabs-bar,
-	    #breakEvenCard,
-	    #preConclusionsText {
-	        margin-left: 160px !important;
-	        margin-right: auto !important;
-	        max-width: 1200px; /* Optional: keeps content from becoming too wide */
-	    }
-    }	
+    /* 2. Unified rule for all main containers to ensure they align perfectly */
+    .app, 
+    .calc-tabs-bar, 
+    .content-wrap, 
+    #breakEvenCard, 
+    #preConclusionsText {
+        width: 100%;
+        max-width: 1000px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block; /* Ensures auto margins work on text blocks */
+    }
+
+    /* 3. Specific styling for the error text now that it is centered */
+    #preConclusionsText {
+        text-align: center;
+        padding: 20px 0;
+        color: var(--accent);
+        font-weight: bold;
+    }
+}	
 	
 
     /* ── Parallax hero ── */
-    .hero-parallax {
+.hero-parallax {
         position: relative;
         height: 350px;
         overflow: hidden;
-        margin-top: 48px; /* Standard header offset */
-    }
+        margin-top: 48px;
+        width: 100%;
+    }}
     
 	.hero-bg {
         position: absolute;
