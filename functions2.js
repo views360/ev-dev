@@ -861,6 +861,25 @@ function calculate() {
     // Call the new helper to handle the heavy lifting
     // Call the new helper to handle the heavy lifting
     renderTripResults(inputs, context);
+
+    const isCollapsed = getCookie('providers_collapsed') === true;
+    const hiddenMsg = document.getElementById("providersHiddenMsg");
+    
+    // If the cookie says we are collapsed, force the message to stay visible
+    // and keep the provider list hidden, even if checkTripReadiness just tried to show them.
+    if (isCollapsed && hiddenMsg) {
+        const controls = document.getElementById("providerControls");
+        const collapsible = document.getElementById("collapsibleProviders");
+        const toggleBtn = document.getElementById("toggleProvidersBtn");
+    
+        if (controls) controls.style.display = "none";
+        if (collapsible) collapsible.style.display = "none";
+        
+        // This specific line prevents the 'flicker and disappear' act:
+        hiddenMsg.style.display = "block"; 
+        
+        if (toggleBtn) toggleBtn.textContent = "Show Providers List";
+    }
 }
 
 function generateBreakEvenResultsHtml(beData) {
