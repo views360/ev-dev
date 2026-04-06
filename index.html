@@ -99,8 +99,9 @@ html, body {
     /* Layer 2: Explicitly above the background layer */
     z-index: 2; 
     text-align: center;
-    width: 800px;
-    max-width: calc(100vw - 30px);
+    width: calc(100% - 160px); 
+    margin-right: 160px;
+    max-width: 800px;
 }
 
 .parallax-copy h2 {
@@ -308,6 +309,14 @@ section.feature-section:first-of-type {
         right: 0;
         left: 0;
     }
+
+.parallax-copy {
+        width: 100% !important;   /* Override the calc(100% - 160px) */
+        margin-right: 0 !important; /* Remove the ad-space offset */
+        padding: 0 20px;          /* Optional: adds a safety buffer so text doesn't touch screen edges */
+        box-sizing: border-box;
+    }
+
 }
 
 /* ---------- Hero ---------- */
@@ -485,24 +494,7 @@ section.feature-section:first-of-type {
     transform: translateX(0);
 }
 
-/* ---------- Parallax Bands ---------- */
 
-
-.parallax-copy {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    width: 800px;
-    max-width: calc(100vw - 30px);
-	opacity: 1 !important;
-}
-
-.parallax-copy h2 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    line-height: 1.15;
-    margin: 0;
-    font-weight: 800;
-}
 
 /* ---------- Mobile ---------- */
 @media (max-width: 900px) {
