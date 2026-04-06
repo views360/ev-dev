@@ -456,16 +456,6 @@ if (window.matchMedia('(min-width: 700px)').matches) {
 }
 </script>
 <script>
-async function loadMenu() {
-    try {
-        const response = await fetch('menu.html');
-        if (!response.ok) throw new Error('Menu fetch failed');
-        const menuHtml = await response.text();
-        document.getElementById('menu-placeholder').innerHTML = menuHtml;
-        setTimeout(() => { expandActiveSections(); }, 50);
-    } catch (error) { console.error('Menu load failed:', error); }
-}
-
 // ── Parallax hero effect ──
 const heroBg = document.getElementById('heroBg');
 const heroParallax = document.getElementById('heroParallax');
@@ -492,18 +482,6 @@ function toggleTheme() {
     const isLight = document.documentElement.classList.toggle('light-mode');
     setCookie('themePref', isLight ? 'light' : 'dark');
 }
-
-function toggleMenu() {
-    const menu = document.getElementById('sideMenu');
-    if (menu) {
-        menu.classList.toggle('active');
-        if (menu.classList.contains('active')) {
-            expandActiveSections();
-        }
-    }
-}
-loadMenu();
-loadMenu();
 </script>
 </body>
 </html>
