@@ -70,8 +70,15 @@
         font-weight: bold;
     }
 
-    /* Ensure the other main containers stay centered but don't force 100% */
-    .app, .calc-tabs-bar, .content-wrap {
+	.content-wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block;
+    }
+	
+    .app, .calc-tabs-bar {
         margin-left: auto !important;
         margin-right: auto !important;
     }
