@@ -570,7 +570,7 @@ function toggleMenu() {
     }
 }
 
-function toggleMenuSection(toggleId, itemsId) {
+/*function toggleMenuSection(toggleId, itemsId) {
     const toggle = document.getElementById(toggleId);
     const items = document.getElementById(itemsId);
     
@@ -592,9 +592,9 @@ function toggleMenuSection(toggleId, itemsId) {
         toggle.classList.toggle('open');
         items.classList.toggle('open');
     }
-}
+}*/
 
-function expandActiveSections() {
+/*function expandActiveSections() {
     // Get the current page filename
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     
@@ -619,7 +619,7 @@ function expandActiveSections() {
             }
         }
     }
-}
+}*/
 
 // Initialize page highlighting on load
 document.addEventListener('DOMContentLoaded', () => {
