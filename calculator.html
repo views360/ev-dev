@@ -53,37 +53,34 @@
     }
 
 @media (min-width: 700px) {
-    /* 1. Reserve the ad space on the right side of the screen */
-	body {
-        /* Reserves the ad space on the right */
+    body {
+        /* Correctly offsets the entire layout for the ad sidebar */
         padding-right: 160px !important;
         margin: 0;
     }
 
-	.app, 
+    /* Target the containers to center them */
+    .app, 
     .calc-tabs-bar, 
-    .content-wrap, 
-    #breakEvenCard, 
-    #preConclusionsText {
-        width: 100%;
-        /* Matches the Journey & Vehicle card max-width */
-        max-width: 1000px !important; 
+    .content-wrap {
         margin-left: auto !important;
         margin-right: auto !important;
-        display: block !important;
+        width: fit-content; /* Prevents the container from defaulting to 100% */
     }
 
-    /* 3. Specific styling for the error text now that it is centered */
-	#preConclusionsText {
+    /* Target the error block to match the Journey & Vehicle card width exactly */
+    #preConclusionsText {
+        display: block;
+        width: 100%;
+        /* This matches the 'Journey & Vehicle' card in your grid/breakEvenCard */
+        max-width: 1000px; 
+        margin: 20px auto !important;
         text-align: center;
-        padding: 20px 0;
-        color: #ff4444; /* Original Red */
+        color: #ff4444; /* Restored Red */
         font-weight: bold;
         box-sizing: border-box;
-        /* Ensure no background or borders stretch it */
-        background: transparent; 
     }
-}	
+}
 	
 
     /* ── Parallax hero ── */
