@@ -43,12 +43,15 @@
 	</script>
 	<style>
 		/* ── Parallax hero ── */
-		.hero-parallax {
-		    position: relative;
-		    height: 350px; /* Changed from 480px */
-		    overflow: hidden;
-		    margin-top: 48px; /* Changed from 0px */
-		}
+.hero-parallax {
+    position: relative;
+    height: 350px;
+    overflow: hidden;
+    margin-top: 0;         /* Change from 48px to 0 to fix top gap */
+    margin-left: -20px;    /* Negative margin to offset body padding */
+    margin-right: -20px;   /* Negative margin to offset body padding */
+    width: calc(100% + 40px); /* Expand width to cover the full screen */
+}
 		
 		.hero-bg {
 		    position: absolute;
@@ -72,14 +75,14 @@
 		    );
 		}
 		
-		.hero-text {
-		    position: absolute;
-		    bottom: 0;
-		    left: 0;
-		    right: 0;
-		    padding: 0 40px 48px;
-		    z-index: 2;
-		}
+.hero-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 60px 48px; /* Increased side padding slightly to compensate for wider container */
+    z-index: 2;
+}
 		
 		.hero-eyebrow {
 		    font-family: 'Sora', sans-serif;
@@ -239,8 +242,6 @@
         </div>
     </div>
 </div>
-	
-<div class="content-wrap">
 
 <!-- Slide-out menu -->
 <div id="menu-placeholder"></div>
@@ -296,7 +297,7 @@
         <input type="number" id="adhocBE" oninput="calculate()" placeholder="e.g., 62 (62p is the 50kW Lidl+ app price)" step="0.1">
     </div>
 </div>
-
+<div class="content-wrap">
     <div class="grid">
         <div class="card">
             <h3>Journey & Vehicle</h3>
