@@ -575,6 +575,20 @@ function toggleMenuSection(toggleId, itemsId) {
     const items = document.getElementById(itemsId);
     
     if (toggle && items) {
+        // 1. Check if we are opening this section
+        const isOpening = !toggle.classList.contains('open');
+
+        // 2. If opening, close all other sections first
+        if (isOpening) {
+            document.querySelectorAll('.menu-section-toggle.open').forEach(openToggle => {
+                openToggle.classList.remove('open');
+            });
+            document.querySelectorAll('.menu-section-items.open').forEach(openItems => {
+                openItems.classList.remove('open');
+            });
+        }
+
+        // 3. Toggle the current section
         toggle.classList.toggle('open');
         items.classList.toggle('open');
     }
