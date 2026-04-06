@@ -726,7 +726,7 @@ async function loadMenu() {
 }
 
 function expandActiveSections() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const currentPage = window.location.pathname.split('/').pop() || 'calculator.html';
     const activeItem = document.querySelector(`a[href="${currentPage}"]`);
     
     if (activeItem) {
