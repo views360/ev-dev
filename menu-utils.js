@@ -195,3 +195,5 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
+loadmenu();
