@@ -163,9 +163,10 @@
 		    </div>
             
             <div class="help-slide">
-                <h2>Welcome to the UK's EV Subscription Comparison Tool</h2>
-                <p>Going on a journey and want to find out if EV charging subscriptions are better value than PAYG rates? This tool will tell you!</p>
-				<p><strong>Note:</strong> Glowing green items are there to direct you.</p>
+                <h2>Calculator Tutorial</h2>
+                <p>This tutorial won’t reappear unless you select <strong>Reset All</strong> from the menu.</p>
+<p>This tool calculates journey costs to compare EV subscription value against PAYG rates.</p>
+				<p><strong>Note:</strong> Glowing green items guide the way.</p>
 				<p style="text-align: center; margin: 30px 0 25px 0"><img src="images/ev-mg.webp" label="EV" style="height: 50px" /></p>
                 <div class="help-footer">
                     <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
@@ -193,7 +194,7 @@
 
             <div class="help-slide">
                 <h2>Type: COST REDUCTION</h2>
-                <p><strong>Cost Reduction</strong> dives deeper into the specifics of your vehicle and charging habits as well as your planned journey distance to calculate potential savings.</p>
+                <p><strong>Cost Reduction</strong> dives deeper into the specifics of your vehicle and charging habits as well as your planned journey distance to calculate potential savings.</p><p>By necessity, it needs a lot of information.</p>
                 <div class="help-footer">
                     <button class="btn" onclick="moveSlide(-1)">&lt;&nbsp;Back</button>
                     <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
@@ -202,9 +203,9 @@
 
             <div class="help-slide">
                 <h2>Assessing Results</h2>
-                <p>After completing the fields in either calculation type, the results table will automatically update.</p><p>If you are unsure what a field is 
+                <p>After populating each field in either calculation type, the results will be displayed in expandable sections. If you change one or more form values, the results will automatically update.</p><p>If you are unsure what a field is 
 					asking for, click the<span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">Yes, just 
-						like this.</span></span></span>icon for more information. Amend any field, and the results will auto-update.</p>
+						like this.</span></span></span>icon for more information.</p>
                 <div class="help-footer">
                     <button class="btn" onclick="moveSlide(-1)">&lt;&nbsp;Back</button>
                     <button class="btn secondary empty-pulse" onclick="moveSlide(1)">Next&nbsp;&gt;</button>
@@ -247,9 +248,8 @@
 <div class="hero-parallax" id="heroParallax">
 	<div class="hero-bg" id="heroBg"></div>
 	<div class="hero-text">
-		<p class="hero-eyebrow">&#x26A1; The UK's EV Subscription Comparison Tool</p>
-		<h1 class="hero-title">EV <span>Subs UK</span></h1>
-		<p class="hero-sub">This is a UK-oriented comparison tool for EV-charging subscriptions that offer discounted rates for a monthly fee. It also offers a raft of helpful EV information pages and an AI assistant to tackle those unanswered questions.</p>
+		<h1 class="hero-title">EV <span>Subs Calculator</span></h1>
+		<p class="hero-sub">Use the tabs to switch between <strong>Break Even</strong> and <strong>Cost Reduction</strong> calculation types.</p>
 	</div>
 </div>
 <div class="hero-strip"></div>
@@ -392,7 +392,7 @@
 			    <button type="button" class="btn secondary empty-pulse" id="addJourneyBtn" onclick="addJourneyField()">
 			        <span class="tooltip-container">
 			            <span class="info-icon" onclick="toggleTooltip(this)">💡
-			                <span class="tooltip-box">If you plan to go on more than one journey within one month of the first, include that journey (or journeys), too, because a subscription charge is only paid once for an entire month, and this will significantly affect the overall cost. The results will adjust accordingly.</span>
+			                <span class="tooltip-box">If you plan to go on more than one journey within one month of the first, include that journey (or journeys) because a subscription charge is only paid once for an entire month, and this will significantly affect the overall cost. The results will adjust accordingly.</span>
 			            </span>Include Another Journey?
 			        </span>
 			    </button>
