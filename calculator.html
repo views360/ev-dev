@@ -61,10 +61,14 @@
 
     /* Target ONLY the error block to match your cards */
 	#preConclusionsText {
-	    width: 100%;
-	    display: block;
-	    /* No max-width here, the JS-injected div above will handle it */
-	}
+        display: block !important;
+        width: 100% !important;
+        max-width: 400px !important; /* Matches your Break-Even card width */
+        margin: 20px auto !important;
+        text-align: center;
+        color: #ff4444 !important; /* Keeps it Red */
+        font-weight: bold;
+    }
 
     /* Ensure the other main containers stay centered but don't force 100% */
     .app, .calc-tabs-bar, .content-wrap {
