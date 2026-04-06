@@ -242,3 +242,12 @@ function toggleMenu() {
         }
     }
 }
+
+function toggleMenuSection(toggleId, itemsId) {
+    const toggle = document.getElementById(toggleId);
+    const items = document.getElementById(itemsId);
+    if (toggle && items) {
+        toggle.classList.toggle('open');
+        items.classList.toggle('open');
+    }
+}
