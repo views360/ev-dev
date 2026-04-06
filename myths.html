@@ -466,8 +466,6 @@ async function loadMenu() {
     } catch (error) { console.error('Menu load failed:', error); }
 }
 
-loadMenu();
-
 // ── Parallax hero effect ──
 const heroBg = document.getElementById('heroBg');
 const heroParallax = document.getElementById('heroParallax');
@@ -494,6 +492,7 @@ function toggleTheme() {
     const isLight = document.documentElement.classList.toggle('light-mode');
     setCookie('themePref', isLight ? 'light' : 'dark');
 }
+loadMenu();
 </script>
 </body>
 </html>
