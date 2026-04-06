@@ -753,15 +753,6 @@ function toggleMenu() {
     }
 }
 
-function toggleMenuSection(toggleId, itemsId) {
-    const toggle = document.getElementById(toggleId);
-    const items = document.getElementById(itemsId);
-    if (toggle && items) {
-        toggle.classList.toggle('open');
-        items.classList.toggle('open');
-    }
-}
-
 function clearSavedProviders() {
     // 1. Delete the cookies
     document.cookie = "ev_providers=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
