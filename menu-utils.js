@@ -228,7 +228,16 @@ function toggleMenu() {
 function toggleMenuSection(toggleId, itemsId) {
     const toggle = document.getElementById(toggleId);
     const items = document.getElementById(itemsId);
+
     if (toggle && items) {
+        // If we are about to open this section...
+        if (!items.classList.contains('open')) {
+            // ...close all other open sections first
+            document.querySelectorAll('.menu-section-toggle').forEach(t => t.classList.remove('open'));
+            document.querySelectorAll('.menu-section-items').forEach(i => i.classList.remove('open'));
+        }
+
+        // Now toggle the clicked section
         toggle.classList.toggle('open');
         items.classList.toggle('open');
     }
