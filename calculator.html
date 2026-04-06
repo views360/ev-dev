@@ -54,25 +54,32 @@
 
 @media (min-width: 700px) {
     body {
-        /* Reserves the ad space on the right */
+        /* Fixes the hero/sidebar alignment by shrinking the usable width */
         padding-right: 160px !important;
         margin: 0;
     }
 
-    /* Target ONLY the error block to match your cards */
+    /* Standardizes the width for the tabs and the error message to match the grid */
+    .calc-tabs-bar, 
     #preConclusionsText {
+        width: 100% !important;
+        max-width: 1000px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
         display: block !important;
-        /* Matches the Journey & Vehicle card width exactly */
-        max-width: 1000px !important; 
-        margin: 20px auto !important;
-        text-align: center;
-        color: #ff4444; /* Your original Red */
-        font-weight: bold;
-        padding: 10px;
+        box-sizing: border-box;
     }
 
-    /* Ensure the other main containers stay centered but don't force 100% */
-    .app, .calc-tabs-bar, .content-wrap {
+    /* Restores your original red error styling */
+    #preConclusionsText {
+        text-align: center;
+        padding: 20px;
+        color: #ff4444; 
+        font-weight: bold;
+    }
+
+    /* Keeps the calculator app centered without forcing it wide */
+    .app, .content-wrap {
         margin-left: auto !important;
         margin-right: auto !important;
     }
