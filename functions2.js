@@ -312,7 +312,7 @@ function generateSpeedComparisonHtml(publicKwh, maxChargingSpeed, inputs) {
         <div class="speed-comparison-container" style="width: fit-content; max-width: 100%; margin: 0;">
             <p style="font-size: 0.85rem; margin-bottom: 10px;">
                 <span class="tooltip-container">
-                    <span class="info-icon" onclick="toggleTooltip(this)">💡<span class="tooltip-box">A comparison of estimated total journey charge durations...</span></span>
+                    <span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">A comparison of estimated total journey charge durations...</span></span>
                 </span>
                 <strong>Estimated Total Public Charging Duration Required</strong>
             </p>
@@ -328,12 +328,12 @@ function generateSpeedComparisonHtml(publicKwh, maxChargingSpeed, inputs) {
 function generateProviderResultsHtml(providers, inputs) {
     let html = `<div class="mobile-only-text" style="font-size: 0.8em; text-align: center; color: var(--neon-green)">Slide table left to view hidden columns.</div><div class="results-scroll"><table><thead><tr>
         <th>Provider (click hyperlink to view subscription info)</th>
-        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the provider's subscription fee, which gives you access to their discounted charge rate for ONE MONTH.</span></span></span>Sub. Fee</th>
-        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the provider's discounted charge rate (per kWh) that is available after subscribing for an entire month. Note: Some providers have variable charge rates depending on location and time of day. The rate listed here may be an average. Click the provider's link to confirm pricing.</span></span></span>Disc. Rate</th>
-        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the expected <strong>total charging cost</strong> of your journey using this provider and including your stated battery pre-charge. If the value is displayed in green, it is cheaper than the equivalent journey using PAYG charging at the rate you entered above (${inputs.adhoc}p/kWh).</span></span></span>Journey Cost</th>
-        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the amount by which the discounted charge rate will either be cheaper or more expensive than your average PAYG rate for the same distance. Green means cheaper; red means more expensive. Bear in mind that you can continue to use a provider's subscription for an entire month.</span></span></span>vs. PAYG</th>
-        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the number of miles you must drive on the provider's discounted charge rate to pay off the subscription fee. <strong>Important! This is not the total miles of your journey</strong> — it is the number of miles you must drive from your first charge with this provider. Remember, a subscription lasts for an entire month.</span></span></span>Break-Even Miles</th>
-        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the break-even miles PLUS the initial number of miles your vehicle can drive based on its pre-charged state. The number of journeys has no impact on this value.</span></span></span>Battery + Break Even</th>
+        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the provider's subscription fee, which gives you access to their discounted charge rate for ONE MONTH.</span></span></span>Sub. Fee</th>
+        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the provider's discounted charge rate (per kWh) that is available after subscribing for an entire month. Note: Some providers have variable charge rates depending on location and time of day. The rate listed here may be an average. Click the provider's link to confirm pricing.</span></span></span>Disc. Rate</th>
+        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the expected <strong>total charging cost</strong> of your journey using this provider and including your stated battery pre-charge. If the value is displayed in green, it is cheaper than the equivalent journey using PAYG charging at the rate you entered above (${inputs.adhoc}p/kWh).</span></span></span>Journey Cost</th>
+        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the amount by which the discounted charge rate will either be cheaper or more expensive than your average PAYG rate for the same distance. Green means cheaper; red means more expensive. Bear in mind that you can continue to use a provider's subscription for an entire month.</span></span></span>vs. PAYG</th>
+        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the number of miles you must drive on the provider's discounted charge rate to pay off the subscription fee. <strong>Important! This is not the total miles of your journey</strong> — it is the number of miles you must drive from your first charge with this provider. Remember, a subscription lasts for an entire month.</span></span></span>Break-Even Miles</th>
+        <th><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the break-even miles PLUS the initial number of miles your vehicle can drive based on its pre-charged state. The number of journeys has no impact on this value.</span></span></span>Battery + Break Even</th>
         </tr></thead><tbody>`;
     
     providers.forEach(p => {
@@ -349,7 +349,7 @@ function generateProviderResultsHtml(providers, inputs) {
             : "N/A";
         html += `<tr class="${rowClass}">
             <td>
-                <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">${p.comments}</span>
+                <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">${p.comments}</span>
                 </span></span> ${providerLink}
             </td>
             <td>£${p.subCost.toFixed(2)}</td>
@@ -480,7 +480,7 @@ function generateKwhBreakoutHtml(inputs, journey1PublicMiles) {
         breakoutHtml += `
             <p style="border-bottom: 1px solid rgba(255,255,255,0.2); margin:0; padding-bottom: 10px;">
                 <span class="tooltip-container">
-                    <span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">💡
+                    <span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️
                         <span class="tooltip-box">
                             This is the total cost of energy needed from PAYG chargers across all journeys.
                         </span>
@@ -491,7 +491,7 @@ function generateKwhBreakoutHtml(inputs, journey1PublicMiles) {
             </p>
         `;
      } else {
-        breakoutHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is the cost of energy needed from PAYG charging to complete this journey.</span></span></span>PAYG battery charge (${j1Kwh.toFixed(1)} kWh x ${inputs.adhoc}p): <strong>£${(j1Kwh * (inputs.adhoc / 100)).toFixed(2)}</strong></p>`;
+        breakoutHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is the cost of energy needed from PAYG charging to complete this journey.</span></span></span>PAYG battery charge (${j1Kwh.toFixed(1)} kWh x ${inputs.adhoc}p): <strong>£${(j1Kwh * (inputs.adhoc / 100)).toFixed(2)}</strong></p>`;
     }
 
     return { breakoutHtml, breakoutKwh };
@@ -517,9 +517,9 @@ function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTop
         });
 
         preChargeHtml += `<p style="margin: 0px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">
-            <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the combined cost for pre-charging your battery before each journey defined above.</span></span></span>Total battery pre-charge cost for all journeys: £${totalPreJourneyCost.toFixed(2)}</p>`;
+            <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the combined cost for pre-charging your battery before each journey defined above.</span></span></span>Total battery pre-charge cost for all journeys: £${totalPreJourneyCost.toFixed(2)}</p>`;
     } else {
-        preChargeHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the cost of pre-charging your battery at your start/departure location before your journey.</span></span></span>Pre-journey battery charge (${customPreSoc}%→${inputs.soc}%, ${mainTopUpKwh.toFixed(1)} kWh x ${inputs.startChargeRate}p): 
+        preChargeHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the cost of pre-charging your battery at your start/departure location before your journey.</span></span></span>Pre-journey battery charge (${customPreSoc}%→${inputs.soc}%, ${mainTopUpKwh.toFixed(1)} kWh x ${inputs.startChargeRate}p): 
             <strong>£${mainTopUpCost.toFixed(2)}</strong></p>`;
     }
 
@@ -544,9 +544,9 @@ function generatePaygSummaryHtml(inputs, mainInitialRange, mainTopUpKwh, mainTop
         });
 
         publicMilesHtml += `<p style="border-bottom: 1px solid rgba(255,255,255,0.2); margin:0; padding-bottom: 10px;">
-            <span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is the total number of miles of your combined journey distance that will need to be paid for with PAYG charging. It takes into account the range expected from pre-charging before each journey and your recharge threshold of ${inputs.rechargeAt}%.</span></span></span>Total PAYG charging miles required: ${totalPublicMiles.toFixed(0)} miles</p>`;
+            <span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is the total number of miles of your combined journey distance that will need to be paid for with PAYG charging. It takes into account the range expected from pre-charging before each journey and your recharge threshold of ${inputs.rechargeAt}%.</span></span></span>Total PAYG charging miles required: ${totalPublicMiles.toFixed(0)} miles</p>`;
     } else {
-        publicMilesHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is how many miles of your journey will need to be paid for with PAYG charging. It takes into account the range expected from pre-charging before the journey and your recharge threshold of ${inputs.rechargeAt}%.</span></span></span>PAYG charging miles needed: <strong>${journey1PublicMiles.toFixed(0)} miles</strong></p>`;
+        publicMilesHtml = `<p style="margin: 0px;"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is how many miles of your journey will need to be paid for with PAYG charging. It takes into account the range expected from pre-charging before the journey and your recharge threshold of ${inputs.rechargeAt}%.</span></span></span>PAYG charging miles needed: <strong>${journey1PublicMiles.toFixed(0)} miles</strong></p>`;
     }
 
     return { preChargeHtml, publicMilesHtml, totalPreJourneyCost, totalPublicMiles, journey1PublicMiles };
@@ -573,10 +573,10 @@ function calculateRangeHtml(inputs, mainInitialRange) {
         });
 
         rangeHtml += `<p style="border-bottom: 1px solid rgba(255,255,255,0.2); margin: 0; padding-bottom: 10px;">
-            <span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is the range you <i>should</i> expect from pre-charging at your start/departure location(s) from your recharge threshold of ${inputs.rechargeAt}% to your specified departure SOC for each journey. It forms part of the calculation for how many miles of PAYG charging will be needed across all journeys.</span></span></span>Total pre-charged battery range for all journeys: ${totalInitialRange.toFixed(0)} miles</p>`;
+            <span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is the range you <i>should</i> expect from pre-charging at your start/departure location(s) from your recharge threshold of ${inputs.rechargeAt}% to your specified departure SOC for each journey. It forms part of the calculation for how many miles of PAYG charging will be needed across all journeys.</span></span></span>Total pre-charged battery range for all journeys: ${totalInitialRange.toFixed(0)} miles</p>`;
     } else {
         if (paygSubtitle) paygSubtitle.textContent = `Here is the key information for your journey if you choose PAYG. Allow +/- 1 minute, mile, and/or penny for rounding.`;
-        rangeHtml = `<p style="margin: 0px"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">💡<span class="tooltip-box">This is the initial range you should expect for each journey based on pre-charging at your start/departure location from your recharge threshold of ${inputs.rechargeAt}% to your specified departure SOC of ${inputs.soc}%). It forms part of the calculation for how many miles of PAYG charging will be needed to complete this journey.</span></span></span>Pre-charged battery range: <strong>${mainInitialRange.toFixed(0)} miles</strong></p>`;
+        rangeHtml = `<p style="margin: 0px"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is the initial range you should expect for each journey based on pre-charging at your start/departure location from your recharge threshold of ${inputs.rechargeAt}% to your specified departure SOC of ${inputs.soc}%). It forms part of the calculation for how many miles of PAYG charging will be needed to complete this journey.</span></span></span>Pre-charged battery range: <strong>${mainInitialRange.toFixed(0)} miles</strong></p>`;
     }
     return { rangeHtml, totalInitialRange };
 }
@@ -874,9 +874,9 @@ function generateBreakEvenResultsHtml(beData) {
             <thead>
                 <tr style="background: rgba(255,255,255,0.05);">
                     <th style="padding: 10px; border: 1px solid var(--border); text-align: left;">Provider (click hyperlink to view subscription info)</th>
-                    <th style="padding: 10px; border: 1px solid var(--border); text-align: left;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the provider's subscription fee, which gives you access to their discounted charge rate for ONE MONTH.</span></span></span>Sub. Fee</th>
-                    <th style="padding: 10px; border: 1px solid var(--border); text-align: left;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the provider's discounted charge rate (per kWh) that is available after subscribing for an entire month. Note: Some providers have variable charge rates depending on location and time of day. The rate listed here may be an average. Click the provider's link to confirm pricing.</span></span></span>Disc. Rate</th>
-                    <th style="padding: 10px; border: 1px solid var(--border); text-align: left;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡<span class="tooltip-box">This is the number of miles you must drive on the provider's discounted charge rate to pay off the subscription fee. <strong>Important! This is not the total miles of your journey</strong> — it is the number of miles you must drive from your first charge with this provider. Remember, a subscription lasts for an entire month.</span></span></span>Break-Even Miles</th>
+                    <th style="padding: 10px; border: 1px solid var(--border); text-align: left;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the provider's subscription fee, which gives you access to their discounted charge rate for ONE MONTH.</span></span></span>Sub. Fee</th>
+                    <th style="padding: 10px; border: 1px solid var(--border); text-align: left;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the provider's discounted charge rate (per kWh) that is available after subscribing for an entire month. Note: Some providers have variable charge rates depending on location and time of day. The rate listed here may be an average. Click the provider's link to confirm pricing.</span></span></span>Disc. Rate</th>
+                    <th style="padding: 10px; border: 1px solid var(--border); text-align: left;"><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">This is the number of miles you must drive on the provider's discounted charge rate to pay off the subscription fee. <strong>Important! This is not the total miles of your journey</strong> — it is the number of miles you must drive from your first charge with this provider. Remember, a subscription lasts for an entire month.</span></span></span>Break-Even Miles</th>
                 </tr>
             </thead>
             <tbody>`;
@@ -890,7 +890,7 @@ function generateBreakEvenResultsHtml(beData) {
             <tr>
                 <td style="padding: 10px; border: 1px solid var(--border);">
                     <span class="tooltip-container">
-                        <span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">💡
+                        <span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️
                             <span class="tooltip-box">${p.comments}</span>
                         </span>
                     </span> ${providerLink}
