@@ -149,13 +149,17 @@ body {
 @media (max-width: 700px) {
 	.hero-parallax { height: 360px; margin-top: 48px; }
 	.hero-text { padding: 0 24px 36px; }
-}
 
-/* Fix for Calculator App Spacing (since body padding is now 0) */
-/*.app {
-	margin-top: 40px;
-	margin-bottom: 40px;
-}*/
+	body {
+        /* This ensures the last collapsible container isn't buried under the ad */
+        padding-bottom: 120px !important; 
+    }
+    
+    #results {
+        /* Adds extra breathing room specifically for the results area on mobile */
+        margin-bottom: 40px;
+    }
+}
 
 @media (min-width: 700px) {
     body {
