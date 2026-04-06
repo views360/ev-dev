@@ -767,3 +767,34 @@ function addJourneyField() {
     reindexJourneys(); // Update numbers immediately after adding
     calculate();
 }
+
+// Sync the collapsed/expanded UI state on page load
+(function() {
+    // 1. First, ensure providers are loaded from cookies
+    if (typeof loadSavedProviders === 'function') {
+        loadSavedProviders();
+    }
+
+    // 2. Check the collapse preference and the presence of providers
+    const isCollapsed = getCookie('providers_collapsed') === 'true';
+    const providersContainer = document.getElementById("providers");
+    const hasProviders = providersContainer && providersContainer.children.length > 0;
+
+    // 3. If it was previously collapsed and contains items, update the UI
+    if (isCollapsed && hasProviders) {
+        const controls = document.getElementById("providerControls");
+        const collapsible = document.getElementById("collapsibleProviders");
+        const hiddenMsg = document.getElementById("providersHiddenMsg");
+        const toggleBtn = document.getElementById("toggleProvidersBtn");
+
+        if (controls) controls.style.display = "none";
+        if (collapsible) collapsible.style.display = "none";
+        if (hiddenMsg) hiddenMsg.style.display = "block";
+        if (toggleBtn) toggleBtn.textContent = "Expand Providers List";
+    }
+
+    // 4. Run the initial calculation
+    if (typeof calculate === 'function') {
+        calculate();
+    }
+})();
