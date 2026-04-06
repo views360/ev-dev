@@ -643,19 +643,7 @@ if (window.matchMedia('(min-width: 700px)').matches) {
             }
         }
     }
-
-    function toggleMenuSection(toggleId, itemsId) {
-        const toggle = document.getElementById(toggleId);
-        const items = document.getElementById(itemsId);
-        if (toggle && items) {
-            toggle.classList.toggle('open');
-            items.classList.toggle('open');
-        }
-    }
-
-    loadMenu();
-
-    
+    loadMenu(); 
 
 // ── Parallax hero effect ──
 const heroBg = document.getElementById('heroBg');
