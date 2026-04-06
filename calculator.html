@@ -66,21 +66,23 @@
     #breakEvenCard, 
     #preConclusionsText {
         width: 100%;
-        /* Matches the max-width of your Journey & Vehicle card */
-        max-width: 1000px; 
+        /* Matches the Journey & Vehicle card max-width */
+        max-width: 1000px !important; 
         margin-left: auto !important;
         margin-right: auto !important;
-        display: block;
+        display: block !important;
     }
 
     /* 3. Specific styling for the error text now that it is centered */
 	#preConclusionsText {
-		text-align: center;
-		padding: 20px 0;
-		color: #ff4444; /* Restored original Red */
-		font-weight: bold;
-		box-sizing: border-box;
-	}
+        text-align: center;
+        padding: 20px 0;
+        color: #ff4444; /* Original Red */
+        font-weight: bold;
+        box-sizing: border-box;
+        /* Ensure no background or borders stretch it */
+        background: transparent; 
+    }
 }	
 	
 
