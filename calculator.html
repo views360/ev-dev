@@ -43,11 +43,19 @@
 	</script>
 <style>
     /* ── Page reset for Hero ── */
-    body {
-        padding: 0 !important; /* Forces hero to edge like home-charging.html */
+	body {
+        padding: 0 !important;
         margin: 0;
         overflow-x: hidden;
+        background: var(--bg);
     }
+
+	@media (min-width: 700px) {
+        body {
+            margin-right: 160px !important;
+        }
+    }	
+	
 
     /* ── Parallax hero ── */
     .hero-parallax {
@@ -57,12 +65,14 @@
         margin-top: 48px; /* Standard header offset */
     }
     
-    .hero-bg {
+	.hero-bg {
         position: absolute;
-        inset: -80px 0 -80px 0;
+        /* Increase inset-right to ensure the image isn't clipped by the container */
+        inset: -80px 0 -80px 0; 
         background-image: url('images/home-charging.webp');
         background-size: cover;
-        background-position: right center;
+        /* Anchors the image to the right of the VISIBLE area */
+        background-position: right center; 
         will-change: transform;
         filter: brightness(0.75);
     }
