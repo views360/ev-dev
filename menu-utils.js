@@ -242,5 +242,4 @@ function toggleMenu() {
         }
     }
 }
-
 loadMenu();
