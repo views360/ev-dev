@@ -54,31 +54,27 @@
 
 @media (min-width: 700px) {
     body {
-        /* Correctly offsets the entire layout for the ad sidebar */
+        /* Reserves the ad space on the right */
         padding-right: 160px !important;
         margin: 0;
     }
 
-    /* Target the containers to center them */
-    .app, 
-    .calc-tabs-bar, 
-    .content-wrap {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: fit-content; /* Prevents the container from defaulting to 100% */
-    }
-
-    /* Target the error block to match the Journey & Vehicle card width exactly */
+    /* Target ONLY the error block to match your cards */
     #preConclusionsText {
-        display: block;
-        width: 100%;
-        /* This matches the 'Journey & Vehicle' card in your grid/breakEvenCard */
-        max-width: 1000px; 
+        display: block !important;
+        /* Matches the Journey & Vehicle card width exactly */
+        max-width: 1000px !important; 
         margin: 20px auto !important;
         text-align: center;
-        color: #ff4444; /* Restored Red */
+        color: #ff4444; /* Your original Red */
         font-weight: bold;
-        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    /* Ensure the other main containers stay centered but don't force 100% */
+    .app, .calc-tabs-bar, .content-wrap {
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 	
