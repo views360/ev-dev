@@ -643,14 +643,21 @@ if (window.matchMedia('(min-width: 700px)').matches) {
     });
 }
 
-window.addEventListener('scroll', function() {
-    const scrollY = window.scrollY;
-    const heroBg = document.getElementById('heroBg');
-    if (heroBg) {
-        // Adjust the 0.4 value to change the speed of the parallax movement
-        heroBg.style.transform = `translateY(${scrollY * 0.4}px)`;
-    }
-});
+const heroBg = document.getElementById('heroBg');
+const heroParallax = document.getElementById('heroParallax');
+
+if (heroBg && heroParallax) {
+    window.addEventListener('scroll', () => {
+        const parallaxContainer = heroParallax.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset;
+        
+        // Only apply parallax while hero is in/near viewport
+        if (parallaxContainer.bottom > 0 && parallaxContainer.top < window.innerHeight) {
+            const yOffset = scrollPosition * 0.5; // 50% parallax speed to match home-charging
+            heroBg.style.transform = `translateY(${yOffset}px)`;
+        }
+    }, { passive: true });
+}
 </script>
 <script>
 async function loadMenu() {
