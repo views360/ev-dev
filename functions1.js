@@ -193,8 +193,7 @@ function updateProviderFields(id) {
     if (p.rates) {
         const { minSpeed } = getInputs();
         
-        // 1. Get all keys and filter based on your rules:
-        // Include '0' (Standard) OR any speed >= the user's minimum
+        // Filter: Keep '0' (always valid) OR any speed >= the user's minimum
         const validSpeeds = Object.keys(p.rates).filter(s => {
             const sNum = parseFloat(s);
             return sNum === 0 || sNum >= minSpeed;
@@ -202,20 +201,20 @@ function updateProviderFields(id) {
 
         const speedSelect = document.getElementById(`speed${id}`);
         speedSelect.innerHTML = validSpeeds.map(s => 
-            `<option value="${s}">${s === "0" ? 'Standard' : s + 'kW'}</option>`
+            `<option value="${s}">${parseFloat(s) === 0 ? 'Standard' : s + 'kW'}</option>`
         ).join("");
 
         if (validSpeeds.length > 0) {
-            // 2. Since your JSON is manually ordered, index 0 is the correct initial choice.
-            // If minSpeed is 7, BP Pulse returns [7, 50, 150]. Index 0 is 7.
+            // Because you manual-ordered the JSON, the first item in this 
+            // filtered list is the slowest speed that satisfies the user.
             const initialSpeed = validSpeeds[0];
             
-            // 3. CRITICAL: Explicitly set the dropdown value AND the rate input
+            // Set the UI values
             speedSelect.value = initialSpeed;
             document.getElementById(`rate${id}`).value = p.rates[initialSpeed];
 
-            // 4. Only show the speed selection row if there is more than just "Standard"
-            speedRow.style.display = (validSpeeds.length === 1 && validSpeeds[0] === "0") ? "none" : "flex";
+            // Hide the speed row if the only option is 'Standard'
+            speedRow.style.display = (validSpeeds.length === 1 && parseFloat(validSpeeds[0]) === 0) ? "none" : "flex";
         }
     }
     calculate();
