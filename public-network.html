@@ -6,7 +6,7 @@
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="google-adsense-account" content="ca-pub-2944414800646015">
-    <title>The Public Network - EV Subs UK</title>
+    <title>The Public Network - EV Subs Compare</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
@@ -352,7 +352,7 @@
 <body>
 
     <div class="android-header-full">
-        <h1 class="android-title-clean">EV Subs UK</h1>
+        <h1 class="android-title-clean">EV Subs Compare (UK)</h1>
         <div class="android-dots-trigger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
@@ -363,7 +363,7 @@
     <div class="hero-parallax" id="heroParallax">
         <div class="hero-bg" id="heroBg"></div>
         <div class="hero-text">
-            <div class="hero-eyebrow">⚡Further Reading</div>
+            <p class="hero-eyebrow">&#x26A1; EV Subs Compare &mdash; UK</p>
             <h1 class="hero-title">EV <span>Public Network</span></h1>
             <p class="hero-sub">Decoding the UK Network — from lamp-post trickles to ultra-rapid motorway hubs.</p>
         </div>
@@ -497,22 +497,37 @@ function loadAdSense() {
         try {
             const desktopSlot = document.getElementById('desktop-ad-slot');
             const mobileSlot = document.getElementById('mobile-ad-slot');
+            
             if (typeof adsbygoogle !== 'undefined') {
-                if (desktopSlot && desktopSlot.offsetWidth > 0) { (adsbygoogle = window.adsbygoogle || []).push({}); }
-                if (mobileSlot && mobileSlot.offsetWidth > 0) { (adsbygoogle = window.adsbygoogle || []).push({}); }
+                if (desktopSlot && desktopSlot.offsetWidth > 0) {
+                    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+                }
+                if (mobileSlot && mobileSlot.offsetWidth > 0) {
+                    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+                }
             }
-        } catch (e) { console.warn('AdSense processing:', e.message); }
+        } catch (e) {
+            console.warn('AdSense processing:', e.message);
+        }
     }, 1500);
 }
 
-if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', loadAdSense); } else { loadAdSense(); }
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadAdSense);
+} else {
+    loadAdSense();
+}
 
 let resizeTimer;
 if (window.matchMedia('(min-width: 700px)').matches) {
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            try { if (typeof adsbygoogle !== 'undefined') { (adsbygoogle = window.adsbygoogle || []).push({}); } } catch (e) {}
+            try {
+                if (typeof adsbygoogle !== 'undefined') {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            } catch (e) {}
         }, 500);
     });
 }
@@ -552,7 +567,19 @@ function toggleMenu() {
         if (menu.classList.contains('active')) { expandActiveSections(); }
     }
 }
+
+function toggleMenuSection(toggleId, itemsId) {
+    const toggle = document.getElementById(toggleId);
+    const items = document.getElementById(itemsId);
+    if (toggle && items) {
+        toggle.classList.toggle('open');
+        items.classList.toggle('open');
+    }
+}
+
 loadMenu();
+
+
 
 // ── Parallax hero effect ──
 const heroBg = document.getElementById('heroBg');
