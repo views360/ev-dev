@@ -232,6 +232,13 @@ async function loadMenu() {
         const placeholder = document.getElementById('menu-placeholder');
         
         placeholder.innerHTML = menuHtml;
+
+        // --- NEW: Insert Copyright Footer ---
+        if (!document.querySelector('footer')) {
+            const footer = document.createElement('footer');
+            footer.innerHTML = `<p>&copy; ${new Date().getFullYear()} EV Subs UK. All rights reserved.</p>`;
+            document.body.appendChild(footer);
+        }
         
         setTimeout(() => {
             expandActiveSections();
