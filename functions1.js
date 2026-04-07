@@ -182,7 +182,7 @@ function updateProviderFields(id) {
     const speedRow = document.getElementById(`speedRow${id}`);
     
     if (presetName === 'Custom' || !p) {
-        speedRow.style.display = "none";
+        if (speedRow) speedRow.style.display = "none";
         calculate();
         return;
     }
@@ -193,27 +193,29 @@ function updateProviderFields(id) {
     if (p.rates) {
         const { minSpeed } = getInputs();
         
-        // Filter: Keep '0' (always valid) OR any speed >= the user's minimum
+        // Use the manual order from your JSON
         const validSpeeds = Object.keys(p.rates).filter(s => {
             const sNum = parseFloat(s);
+            // 0 is the universal fallback; others must be >= minSpeed
             return sNum === 0 || sNum >= minSpeed;
         });
 
         const speedSelect = document.getElementById(`speed${id}`);
-        speedSelect.innerHTML = validSpeeds.map(s => 
-            `<option value="${s}">${parseFloat(s) === 0 ? 'Standard' : s + 'kW'}</option>`
-        ).join("");
+        if (speedSelect) {
+            speedSelect.innerHTML = validSpeeds.map(s => 
+                `<option value="${s}">${parseFloat(s) === 0 ? 'Standard' : s + 'kW'}</option>`
+            ).join("");
 
-        if (validSpeeds.length > 0) {
-            // Because you manual-ordered the JSON, the first item in this 
-            // filtered list is the slowest speed that satisfies the user.
-            const initialSpeed = validSpeeds[0];
-            
-            // Set the UI values
-            speedSelect.value = initialSpeed;
-            document.getElementById(`rate${id}`).value = p.rates[initialSpeed];
+            if (validSpeeds.length > 0) {
+                // Select the first valid speed in your list
+                const initialSpeed = validSpeeds[0];
+                speedSelect.value = initialSpeed;
+                document.getElementById(`rate${id}`).value = p.rates[initialSpeed];
+            }
+        }
 
-            // Hide the speed row if the only option is 'Standard'
+        if (speedRow) {
+            // Hide the row if 'Standard' is the only option
             speedRow.style.display = (validSpeeds.length === 1 && parseFloat(validSpeeds[0]) === 0) ? "none" : "flex";
         }
     }
