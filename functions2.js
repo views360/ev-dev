@@ -719,7 +719,6 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     }
     const efficiency = parseFloat(document.getElementById("efficiencyBE").value);
     const adhocRate = parseFloat(document.getElementById("adhocBE").value) || 0;
-    const minSpeedSelection = parseFloat(document.getElementById("minSpeedBE").value) || 0;
 
     if (isNaN(efficiency) || efficiency <= 0 || isNaN(adhocRate) || adhocRate <= 0) {
         uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
@@ -754,13 +753,14 @@ function handleBreakEvenMode(uiPreText, uiResults) {
         const speedKeys = Object.keys(rates);
         
         speedKeys.forEach(speed => {
-            const numericSpeed = speed === 'default' ? 0 : parseFloat(speed);
+            /*const numericSpeed = speed === 'default' ? 0 : parseFloat(speed);
             if (speed !== 'default' && numericSpeed < minSpeedSelection) {
                 return; 
             }
 
             const rate = rates[speed];
             const speedDisplay = speed === 'default' ? "Max. available" : `${speed}kW`;
+            */
             
             let breakEvenMiles = null; 
             let displayMiles = "";
