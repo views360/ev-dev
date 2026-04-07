@@ -190,28 +190,29 @@ function updateProviderFields(id) {
     document.getElementById(`name${id}`).value = p.name;
     document.getElementById(`subCost${id}`).value = p.subscription.subCost;
 
-if (p.rates && !p.rates.default) {
+    if (p.rates && !p.rates.default) {
         const { minSpeed } = getInputs();
+        // Convert keys to numbers and sort them so 7 comes before 50
         const speeds = Object.keys(p.rates)
-            .filter(s => parseFloat(s) >= minSpeed)
-            .sort((a, b) => parseFloat(a) - parseFloat(b)); // Ensure speeds are in order
+            .map(Number)
+            .filter(s => s >= minSpeed)
+            .sort((a, b) => a - b);
 
         const speedSelect = document.getElementById(`speed${id}`);
         speedSelect.innerHTML = speeds.map(s => `<option value="${s}">${s}kW</option>`).join("");
         speedRow.style.display = "flex";
 
-        // NEW: Add event listener to update the rate when the speed selection changes
-        speedSelect.onchange = () => {
-            const selectedSpeed = speedSelect.value;
-            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed];
-            calculate();
-        };
-
-        // Set the initial rate to the first speed that meets the minimum requirement
         if (speeds.length > 0) {
-            speedSelect.value = speeds[0];
-            document.getElementById(`rate${id}`).value = p.rates[speeds[0]];
+            // FIX: Explicitly check if the user's minSpeed exists in the provider's rates.
+            // If it doesn't, use the first available speed that is >= minSpeed.
+            const selectedSpeed = p.rates[minSpeed] ? minSpeed : speeds[0];
+            
+            speedSelect.value = selectedSpeed;
+            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed];
         }
+    } else {
+        document.getElementById(`rate${id}`).value = p.rates.default;
+        speedRow.style.display = "none";
     }
     calculate();
 }
