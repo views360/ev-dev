@@ -190,29 +190,33 @@ function updateProviderFields(id) {
     document.getElementById(`name${id}`).value = p.name;
     document.getElementById(`subCost${id}`).value = p.subscription.subCost;
 
-    if (p.rates && !p.rates.default) {
+    if (p.rates) {
         const { minSpeed } = getInputs();
         
-        // Since you've ordered them manually, we just filter for valid speeds
-        const speeds = Object.keys(p.rates).filter(s => parseFloat(s) >= minSpeed);
+        // 1. Get all keys and filter based on your rules:
+        // Include '0' (Standard) OR any speed >= the user's minimum
+        const validSpeeds = Object.keys(p.rates).filter(s => {
+            const sNum = parseFloat(s);
+            return sNum === 0 || sNum >= minSpeed;
+        });
 
         const speedSelect = document.getElementById(`speed${id}`);
-        speedSelect.innerHTML = speeds.map(s => `<option value="${s}">${s}kW</option>`).join("");
-        speedRow.style.display = "flex";
+        speedSelect.innerHTML = validSpeeds.map(s => 
+            `<option value="${s}">${s === "0" ? 'Standard' : s + 'kW'}</option>`
+        ).join("");
 
-        if (speeds.length > 0) {
-            // Pick the first speed in your manually ordered list that met the criteria
-            const selectedSpeed = speeds[0];
+        if (validSpeeds.length > 0) {
+            // 2. Since your JSON is manually ordered, index 0 is the correct initial choice.
+            // If minSpeed is 7, BP Pulse returns [7, 50, 150]. Index 0 is 7.
+            const initialSpeed = validSpeeds[0];
             
-            // Set the dropdown to show that speed
-            speedSelect.value = selectedSpeed;
-            
-            // Force the Rate field to update to the specific price for that speed
-            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed];
+            // 3. CRITICAL: Explicitly set the dropdown value AND the rate input
+            speedSelect.value = initialSpeed;
+            document.getElementById(`rate${id}`).value = p.rates[initialSpeed];
+
+            // 4. Only show the speed selection row if there is more than just "Standard"
+            speedRow.style.display = (validSpeeds.length === 1 && validSpeeds[0] === "0") ? "none" : "flex";
         }
-    } else {
-        document.getElementById(`rate${id}`).value = p.rates.default;
-        speedRow.style.display = "none";
     }
     calculate();
 }
