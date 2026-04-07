@@ -193,24 +193,22 @@ function updateProviderFields(id) {
     if (p.rates && !p.rates.default) {
         const { minSpeed } = getInputs();
         
-        // 1. Convert keys to numbers and sort them numerically (7, 50, 150)
-        // This stops the browser from potentially ordering them as strings or in random order
-        const speeds = Object.keys(p.rates)
-            .map(Number)
-            .filter(s => s >= minSpeed)
-            .sort((a, b) => a - b);
+        // Since you've ordered them manually, we just filter for valid speeds
+        const speeds = Object.keys(p.rates).filter(s => parseFloat(s) >= minSpeed);
 
         const speedSelect = document.getElementById(`speed${id}`);
         speedSelect.innerHTML = speeds.map(s => `<option value="${s}">${s}kW</option>`).join("");
         speedRow.style.display = "flex";
 
         if (speeds.length > 0) {
-            // 2. Use the first speed in our sorted list (the lowest speed >= minSpeed)
+            // Pick the first speed in your manually ordered list that met the criteria
             const selectedSpeed = speeds[0];
             
-            // 3. Update both the dropdown value and the rate input field
+            // Set the dropdown to show that speed
             speedSelect.value = selectedSpeed;
-            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed.toString()];
+            
+            // Force the Rate field to update to the specific price for that speed
+            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed];
         }
     } else {
         document.getElementById(`rate${id}`).value = p.rates.default;
