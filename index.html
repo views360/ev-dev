@@ -808,15 +808,16 @@ section.feature-section:first-of-type {
 					        <summary>How the calculation works</summary>
 					        <div class="details-content">
 								<p><h3>Break-Even Mode</h3></p>
-								<p>Two input values are used to calculate the raw break-even miles point for each subscriber. It is a blunt instrument because it is a simple comparison between <strong>provider subscription fee and discount rate</strong> versus EV efficiency (miles/kWh) and average PAYG rate (p/kWh).</p>
+								<p>Two input values are used to calculate the raw break-even miles point for each subscriber. It is a blunt instrument because it is a simple comparison between <i>provider subscription fee</i> and <i>provider discounted rate</i> versus EV <i>efficiency (miles/kWh)</i> and <i>average PAYG rate (p/kWh)</i>.</p>
 					            <ul>
-					                <li><strong>Vehicle Efficiency (Miles/kWh):</strong> Your EV will report its efficiency value, which is the number of miles it can travel per kilowatt-hour. This changes with the seasons (changing temperatures), and you need to know this figure because it is used to calculate how many miles your EV will need to drive to reach the break-even point compared with the PAYG rate you would ordinarily expect to pay (on average).</li>
-					                <li><strong>Standard PAYG Rate (pence per kilowatt-hour):</strong> This is the average PAYG amount you expect to pay. It is used as the basis for how far each provider's break-even mileage point will be — based on your EV's efficiency value (above).</li>
+					                <li><strong>Vehicle Efficiency (Miles/kWh):</strong> Your EV reports an efficiency value, which is the number of miles it can travel per kilowatt-hour. This value changes with the seasons (changing temperatures), so you need to enter an up-to-date value for the best calculation.</li>
+					                <li><strong>Standard PAYG Rate (pence per kilowatt-hour):</strong> This is the average PAYG amount you expect to pay when you use a public charging facility.</li>
 								</ul>
-								<p><h3>Cost-Reduction Mode</h3></p>
-					            <ul>
-					                <li><strong>Vehicle Efficiency (Miles/kWh):</strong> Your EV will report its efficiency value, which is the number of miles it can travel per kilowatt-hour. This changes with the seasons (changing temperatures), and you need to know this figure because it is used to calculate how many miles your EV will need to drive to reach the break-even point compared with the PAYG rate you would ordinarily expect to pay (on average).</li>
-					                <li><strong>Standard PAYG Rate (pence per kilowatt-hour):</strong> This is the average PAYG amount you expect to pay. It is used as the basis for how far each provider's break-even mileage point will be — based on your EV's efficiency value (above).</li>
+								<p style="margin-top: 20px"><h3>Cost-Reduction Mode</h3></p>
+					            <p>10 different input values are used in a complex series of calculations to provide not only the lowest cost for your journey(s) but also provide a comparison between the cheapest subscription provider and PAYG rateas, the amount of overall charging time needed for the specified journey length(s), and even a real-world itinerary detailing the charging points and durations. It ain't rocket science, but it's the next best thing.</p>
+								<ul>
+					                <li><strong>Journey Distance (Miles):</strong> How far you plan to travel, start to finish. This isn't each leg of a holiday; it's the over all journey (e.g., from leaving home to arriving back at home again).</li>
+					                <li><strong>Usable Battery Size (kWh):</strong> This is used to calculate how far you can travel between charges. This will be used in conjuction with recharge threshold and departing battery level.</li>
 								</ul>
 					        </div>
 					    </details>
