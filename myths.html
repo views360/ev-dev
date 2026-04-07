@@ -456,7 +456,7 @@ if (window.matchMedia('(min-width: 700px)').matches) {
 }
 
 loadMenu();	
-function expandActiveSections() {
+/*function expandActiveSections() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const activeItem = document.querySelector(`a[href="${currentPage}"]`);
     if (activeItem) {
@@ -480,7 +480,7 @@ function toggleMenu() {
     }
 }
 
-/*function toggleMenuSection(toggleId, itemsId) {
+function toggleMenuSection(toggleId, itemsId) {
     const toggle = document.getElementById(toggleId);
     const items = document.getElementById(itemsId);
     if (toggle && items) {
