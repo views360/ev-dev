@@ -1609,6 +1609,11 @@ footer p {
 
 /* MOBILE */
 @media (max-width: 700px) { 
+
+    footer {
+        margin-bottom: 100px !important;
+    }
+    
     .content-wrap {
         /* Adds extra breathing room at the very bottom of the content wrapper */
         padding-bottom: 60px; 
