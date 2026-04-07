@@ -224,6 +224,14 @@ document.addEventListener('click', (e) => {
 });
 
 async function loadMenu() {
+    // 1. ALWAYS create the footer first so it doesn't depend on the menu
+    if (!document.querySelector('footer')) {
+        const footer = document.createElement('footer');
+        footer.innerHTML = `<p>&copy; ${new Date().getFullYear()} EV Subs UK. All rights reserved.</p>`;
+        document.body.appendChild(footer);
+    }
+
+    // 2. Then try to load the menu
     try {
         const response = await fetch('menu.html');
         if (!response.ok) throw new Error('Menu fetch failed');
@@ -231,17 +239,15 @@ async function loadMenu() {
         const menuHtml = await response.text();
         const placeholder = document.getElementById('menu-placeholder');
         
-        placeholder.innerHTML = menuHtml;
-
-        // --- NEW: Insert Copyright Footer ---
-        if (!document.querySelector('footer')) {
-            const footer = document.createElement('footer');
-            footer.innerHTML = `<p>&copy; ${new Date().getFullYear()} EV Subs UK. All rights reserved.</p>`;
-            document.body.appendChild(footer);
+        if (placeholder) {
+            placeholder.innerHTML = menuHtml;
         }
         
+        // Use a safety check before calling this
         setTimeout(() => {
-            expandActiveSections();
+            if (typeof expandActiveSections === 'function') {
+                expandActiveSections();
+            }
         }, 50);
 
     } catch (error) {
