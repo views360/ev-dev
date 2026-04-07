@@ -67,6 +67,72 @@ html, body {
     text-decoration: underline;
 }
 
+/* Expandable Calculator Info */
+.calc-details-wrapper {
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+}
+
+.calc-info {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.calc-info:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.calc-info summary {
+    padding: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    list-style: none; /* Removes default arrow */
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+
+/* Custom arrow for the summary */
+.calc-info summary::before {
+    content: '➔';
+    display: inline-block;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.calc-info[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.details-content {
+    padding: 0 15px 15px 15px;
+    font-size: 0.9rem;
+    color: rgba(241, 245, 249, 0.85);
+    line-height: 1.5;
+}
+
+.details-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.details-content li {
+    margin-bottom: 10px;
+    padding-left: 12px;
+    border-left: 2px solid var(--accent);
+}
+
+.details-content strong {
+    color: #fff;
+    display: block;
+    margin-bottom: 2px;
+}
+
 .parallax-band {
     position: relative;
     width: 100%;
@@ -713,6 +779,20 @@ section.feature-section:first-of-type {
                         Going on a long journey? Explore significant savings with the <strong>Subscription Comparison Calculator</strong>.
                     </p>
                     <p>Click the calculator icon or select <strong>Calculator</strong> from the menu.</p>
+					<div class="calc-details-wrapper">
+					    <details class="calc-info">
+					        <summary>How the calculation works</summary>
+					        <div class="details-content">
+					            <ul>
+					                <li><strong>Charging Speed (kW):</strong> The rate at which energy is delivered to your battery. High-power rapid chargers (150kW+) are faster but usually more expensive.</li>
+					                <li><strong>Energy Needed (kWh):</strong> The total amount of electricity required for your journey or to reach your target charge level.</li>
+					                <li><strong>Subscription Fee:</strong> The monthly cost paid to a charging network (like Tesla, Ionity, or BP Pulse) to unlock lower "member" rates.</li>
+					                <li><strong>Member vs. Guest Rate:</strong> We compare the discounted price per kWh against the standard pay-as-you-go rate to see if the subscription saves you more than it costs.</li>
+					                <li><strong>Efficiency (mi/kWh):</strong> How far your EV travels per unit of energy. This varies based on speed, weight, and weather.</li>
+					            </ul>
+					        </div>
+					    </details>
+					</div>
                 </div>
 
 				<div class="calc-image-side">
