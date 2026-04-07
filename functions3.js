@@ -182,7 +182,21 @@ function init() {
             } else if (savedValues && savedValues[id] !== undefined) {
                 el.value = savedValues[id];
             }
-            el.addEventListener('input', calculate);
+            el.addEventListener('input', () => {
+                // ADD THIS PART:
+                if (id === 'minSpeed') {
+                    // This forces every provider box to refresh its rates
+                    document.querySelectorAll(".provider-box").forEach(box => {
+                        const boxId = box.dataset.id;
+                        const presetSelect = document.getElementById(`preset${boxId}`);
+                        if (presetSelect && presetSelect.value !== 'Custom') {
+                            updateProviderFields(boxId); 
+                        }
+                    });
+                }
+                // Keep your original call here
+                calculate();
+            });
         });
 
         const effTrip = document.getElementById("efficiency");
