@@ -190,16 +190,28 @@ function updateProviderFields(id) {
     document.getElementById(`name${id}`).value = p.name;
     document.getElementById(`subCost${id}`).value = p.subscription.subCost;
 
-    if (p.rates && !p.rates.default) {
+if (p.rates && !p.rates.default) {
         const { minSpeed } = getInputs();
-        const speeds = Object.keys(p.rates).filter(s => parseFloat(s) >= minSpeed);
+        const speeds = Object.keys(p.rates)
+            .filter(s => parseFloat(s) >= minSpeed)
+            .sort((a, b) => parseFloat(a) - parseFloat(b)); // Ensure speeds are in order
+
         const speedSelect = document.getElementById(`speed${id}`);
         speedSelect.innerHTML = speeds.map(s => `<option value="${s}">${s}kW</option>`).join("");
         speedRow.style.display = "flex";
-        if (speeds.length > 0) document.getElementById(`rate${id}`).value = p.rates[speeds[0]];
-    } else {
-        document.getElementById(`rate${id}`).value = p.rates.default;
-        speedRow.style.display = "none";
+
+        // NEW: Add event listener to update the rate when the speed selection changes
+        speedSelect.onchange = () => {
+            const selectedSpeed = speedSelect.value;
+            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed];
+            calculate();
+        };
+
+        // Set the initial rate to the first speed that meets the minimum requirement
+        if (speeds.length > 0) {
+            speedSelect.value = speeds[0];
+            document.getElementById(`rate${id}`).value = p.rates[speeds[0]];
+        }
     }
     calculate();
 }
