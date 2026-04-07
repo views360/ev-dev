@@ -719,7 +719,7 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     }
     const efficiency = parseFloat(document.getElementById("efficiencyBE").value);
     const adhocRate = parseFloat(document.getElementById("adhocBE").value) || 0;
-    const minSpeedSelection = parseFloat(document.getElementById("minSpeedBE").value) || 0;
+    const minSpeedSelection = parseFloat(document.getElementById("minSpeed").value) || 0;
 
     if (isNaN(efficiency) || efficiency <= 0 || isNaN(adhocRate) || adhocRate <= 0) {
         uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calcuation types.";
