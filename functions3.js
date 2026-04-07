@@ -164,18 +164,9 @@ function init() {
     const urlParams = new URLSearchParams(window.location.search);
     
     const speedTrip = document.getElementById("minSpeed");
-    const speedBE = document.getElementById("minSpeedBE");
-
-    const syncAndCalc = (e) => {
-        const newValue = e.target.value;
-        speedTrip.value = newValue;
-        speedBE.value = newValue;
-        calculate(); 
-    };
-
-    if (speedTrip && speedBE) {
-        speedTrip.addEventListener('change', syncAndCalc);
-        speedBE.addEventListener('change', syncAndCalc);
+    
+    if (speedTrip) {
+        speedTrip.addEventListener('change', calculate);
     }
 
     fetch("providers.json").then(r => r.json()).then(data => {
