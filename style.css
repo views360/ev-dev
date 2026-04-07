@@ -1410,10 +1410,6 @@ footer p {
 /* DESKTOP */
 /* --- Desktop Layout (>= 700px) --- */
 @media (min-width: 700px) {
-    body {
-        padding-bottom: 20px !important;
-    }
-    
     footer {
         /*width: calc(100% - 160px) !important;*/
         width: 100%;
