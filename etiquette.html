@@ -514,34 +514,13 @@ if (window.matchMedia('(min-width: 700px)').matches) {
         }, 500);
     });
 }
-</script>
-<script>
-async function loadMenu() {
-    try {
-        const response = await fetch('menu.html');
-        if (!response.ok) throw new Error('Menu fetch failed');
-        
-        const menuHtml = await response.text();
-        const placeholder = document.getElementById('menu-placeholder');
-        
-        placeholder.innerHTML = menuHtml;
-        
-        setTimeout(() => {
-            expandActiveSections();
-        }, 50);
 
-    } catch (error) {
-        console.error('Menu load failed:', error);
-    }
-}
-
+loadMenu();	
 function expandActiveSections() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const activeItem = document.querySelector(`a[href="${currentPage}"]`);
-    
     if (activeItem) {
         activeItem.classList.add('active-page');
-        
         let parent = activeItem.closest('.menu-section-items');
         if (parent) {
             const toggle = parent.previousElementSibling;
@@ -552,17 +531,23 @@ function expandActiveSections() {
         }
     }
 }
-
+	
 function toggleMenu() {
     const menu = document.getElementById('sideMenu');
     if (menu) {
         menu.classList.toggle('active');
-        if (menu.classList.contains('active')) {
-            expandActiveSections();
-        }
+        if (menu.classList.contains('active')) { expandActiveSections(); }
     }
 }
-loadMenu();
+
+function toggleMenuSection(toggleId, itemsId) {
+    const toggle = document.getElementById(toggleId);
+    const items = document.getElementById(itemsId);
+    if (toggle && items) {
+        toggle.classList.toggle('open');
+        items.classList.toggle('open');
+    }
+}
 
 // ── Parallax hero effect ──
 const heroBg = document.getElementById('heroBg');
