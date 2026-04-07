@@ -1608,22 +1608,7 @@ footer p {
 
 
 /* MOBILE */
-@media (max-width: 700px) {
-    .guide-wrap {
-        padding-bottom: 180px !important; /* Increased from 110px to accommodate ad + footer height */
-    }
-
-    /* 2. Ensure the footer stays in the document flow and above background elements */
-    footer {
-        position: relative;
-        display: block;
-        clear: both;
-        z-index: 50;
-        background: var(--bg); /* Prevents the ad from showing through if the footer is transparent */
-        margin-top: 20px;
-        padding-bottom: 20px;
-    }
-    
+@media (max-width: 700px) { 
     .content-wrap {
         /* Adds extra breathing room at the very bottom of the content wrapper */
         padding-bottom: 60px; 
