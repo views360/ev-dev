@@ -164,19 +164,19 @@ function init() {
     const urlParams = new URLSearchParams(window.location.search);
     
     const speedTrip = document.getElementById("minSpeed");
-    /*const speedBE = document.getElementById("minSpeedBE");*/
+    const speedBE = document.getElementById("minSpeedBE");
 
     const syncAndCalc = (e) => {
         const newValue = e.target.value;
         speedTrip.value = newValue;
-        /*speedBE.value = newValue;*/
+        speedBE.value = newValue;
         calculate(); 
     };
 
-    /*if (speedTrip && speedBE) {
+    if (speedTrip && speedBE) {
         speedTrip.addEventListener('change', syncAndCalc);
         speedBE.addEventListener('change', syncAndCalc);
-    }*/
+    }
 
     fetch("providers.json").then(r => r.json()).then(data => {
         PRESETS = data.providers;
