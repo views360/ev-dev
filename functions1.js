@@ -192,12 +192,24 @@ function updateProviderFields(id) {
 
     if (p.rates) {
         const { minSpeed } = getInputs();
+        const availableSpeeds = Object.keys(p.rates).map(Number).sort((a, b) => a - b);
         
-        // Use the manual order from your JSON
+        // 1. Determine the "Best Fit" speed
+        // If minSpeed is higher than the fastest offered, use the fastest (max).
+        // Otherwise, find the first speed that is >= minSpeed.
+        const maxProviderSpeed = Math.max(...availableSpeeds);
+        let bestFitSpeed;
+
+        if (minSpeed >= maxProviderSpeed) {
+            bestFitSpeed = maxProviderSpeed;
+        } else {
+            bestFitSpeed = availableSpeeds.find(s => s >= minSpeed) || availableSpeeds[0];
+        }
+
+        // 2. Filter the dropdown to only show sensible options (Standard or >= bestFit)
         const validSpeeds = Object.keys(p.rates).filter(s => {
             const sNum = parseFloat(s);
-            // 0 is the universal fallback; others must be >= minSpeed
-            return sNum === 0 || sNum >= minSpeed;
+            return sNum === 0 || sNum >= bestFitSpeed;
         });
 
         const speedSelect = document.getElementById(`speed${id}`);
@@ -206,16 +218,12 @@ function updateProviderFields(id) {
                 `<option value="${s}">${parseFloat(s) === 0 ? 'Standard' : s + 'kW'}</option>`
             ).join("");
 
-            if (validSpeeds.length > 0) {
-                // Select the first valid speed in your list
-                const initialSpeed = validSpeeds[0];
-                speedSelect.value = initialSpeed;
-                document.getElementById(`rate${id}`).value = p.rates[initialSpeed];
-            }
+            // Set the value to our calculated best fit
+            speedSelect.value = bestFitSpeed;
+            document.getElementById(`rate${id}`).value = p.rates[bestFitSpeed];
         }
 
         if (speedRow) {
-            // Hide the row if 'Standard' is the only option
             speedRow.style.display = (validSpeeds.length === 1 && parseFloat(validSpeeds[0]) === 0) ? "none" : "flex";
         }
     }
