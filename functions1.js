@@ -192,7 +192,9 @@ function updateProviderFields(id) {
 
     if (p.rates && !p.rates.default) {
         const { minSpeed } = getInputs();
-        // Convert keys to numbers and sort them so 7 comes before 50
+        
+        // 1. Convert keys to numbers and sort them numerically (7, 50, 150)
+        // This stops the browser from potentially ordering them as strings or in random order
         const speeds = Object.keys(p.rates)
             .map(Number)
             .filter(s => s >= minSpeed)
@@ -203,12 +205,12 @@ function updateProviderFields(id) {
         speedRow.style.display = "flex";
 
         if (speeds.length > 0) {
-            // FIX: Explicitly check if the user's minSpeed exists in the provider's rates.
-            // If it doesn't, use the first available speed that is >= minSpeed.
-            const selectedSpeed = p.rates[minSpeed] ? minSpeed : speeds[0];
+            // 2. Use the first speed in our sorted list (the lowest speed >= minSpeed)
+            const selectedSpeed = speeds[0];
             
+            // 3. Update both the dropdown value and the rate input field
             speedSelect.value = selectedSpeed;
-            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed];
+            document.getElementById(`rate${id}`).value = p.rates[selectedSpeed.toString()];
         }
     } else {
         document.getElementById(`rate${id}`).value = p.rates.default;
