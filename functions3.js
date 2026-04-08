@@ -283,11 +283,14 @@ function init() {
 function exportPdf() {
 
     const pdfBtn = document.getElementById("pdfBtn");
-    const providerRows = document.querySelectorAll("#providerResults tbody tr");
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
     const chargingDurations = document.getElementById("chargingDurations");
     const realWorld = document.getElementById("realWorldAssessment");
+
+    // --- FIXED: Select the actual provider table ---
+    const providerTable = document.querySelector("#providerResults table");
+    const providerRows = providerTable ? providerTable.querySelectorAll("tbody tr") : [];
 
     if (!providerRows.length || !pdfBtn) return;
 
@@ -367,13 +370,13 @@ function exportPdf() {
             <th>Journey Cost</th>
             <th>vs. PAYG</th>
             <th>Break Even</th>
-            <th>Battery Range</th>
+            <th>Battery + Break Even</th>
         </tr>
     </thead>
     <tbody>
     `;
 
-    // CLEAN TEXT EXTRACTION FROM <td> CELLS
+    // --- FIXED: Extract clean text from each provider row ---
     providerRows.forEach(row => {
         const cols = row.querySelectorAll("td");
 
@@ -384,7 +387,7 @@ function exportPdf() {
             const journeyCost = cols[3].innerText.trim();
             const vsPayg = cols[4].innerText.trim();
             const breakEven = cols[5].innerText.trim();
-            const batteryRange = cols[6].innerText.trim();
+            const batteryBreak = cols[6].innerText.trim();
 
             contentHtml += `
             <tr>
@@ -394,7 +397,7 @@ function exportPdf() {
                 <td>${journeyCost}</td>
                 <td>${vsPayg}</td>
                 <td>${breakEven}</td>
-                <td>${batteryRange}</td>
+                <td>${batteryBreak}</td>
             </tr>`;
         }
     });
@@ -405,7 +408,7 @@ function exportPdf() {
     <h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>
     `;
 
-    // CHARGING DURATION SECTION (TEXT-ONLY)
+    // --- CHARGING DURATION SECTION ---
     if (chargingDurations && chargingDurations.innerHTML.trim() !== "") {
         contentHtml += `
         <div style="border:1px solid #000; padding:10px; margin-bottom:20px;">
@@ -413,7 +416,7 @@ function exportPdf() {
         </div>`;
     }
 
-    // REAL-WORLD ITINERARY
+    // --- REAL-WORLD ITINERARY ---
     contentHtml += `
     <h2 class="pdf-section-title">Real-World Charging Itinerary</h2>
     <div style="border:1px solid #000; padding:10px; margin-bottom:20px;">
@@ -421,7 +424,7 @@ function exportPdf() {
     </div>
     `;
 
-    // CONCLUSION
+    // --- CONCLUSION ---
     contentHtml += `
     <h2 class="pdf-section-title">Analysis Conclusion</h2>
     <div class="pdf-conclusion-wrapper">
