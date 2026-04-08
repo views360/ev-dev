@@ -288,8 +288,10 @@ function exportPdf() {
     const providerTable = document.querySelector("#providerResults table");
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
-    const chargingDurations = document.getElementById("chargingDurations");
     const realWorld = document.getElementById("realWorldAssessment");
+
+    // NEW: Charging durations table selector (corrected)
+    const chargingTable = document.querySelector("#chargingDurations .speed-comparison-container table");
 
     if (!providerTable) return;
 
@@ -370,8 +372,6 @@ function exportPdf() {
     printContainer.appendChild(cleanProviderTable);
 
     // --- CHARGING DURATIONS TABLE (CLONED) ---
-    const chargingTable = document.querySelector("#chargingDurations table");
-
     const extraSections = document.createElement("div");
 
     extraSections.innerHTML += `
@@ -381,7 +381,11 @@ function exportPdf() {
     if (chargingTable) {
         const cleanChargingTable = chargingTable.cloneNode(true);
         cleanChargingTable.classList.add("pdf-table");
+
+        // Remove icons + colours
         cleanChargingTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
+        cleanChargingTable.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
+
         extraSections.appendChild(cleanChargingTable);
     } else {
         extraSections.innerHTML += `<p>No charging duration data available.</p>`;
