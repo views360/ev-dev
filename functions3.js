@@ -290,6 +290,7 @@ function exportPdf() {
 
     if (!providerRows.length || !pdfBtn) return;
 
+    // 1. Detect Mode
     const activePill = document.querySelector('.calc-tab.active');
     const isTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
     const reportTitle = isTripMode ? "EV JOURNEY COST REDUCTION REPORT" : "EV SUBSCRIPTIONS BREAK-EVEN REPORT";
@@ -299,31 +300,38 @@ function exportPdf() {
     pdfBtn.style.pointerEvents = "none";
     pdfBtn.style.opacity = "0.7";
 
+    // 2. Create the Print Container
     const printContainer = document.createElement("div");
     printContainer.id = "pdf-render-area";
     printContainer.style.cssText = "position:absolute; left:-9999px; width:800px; padding:40px; background:#ffffff !important; color:#000000 !important; font-family:Arial, sans-serif;";
 
+    // 3. Define the Table Header
     let tableHeaderHtml = isTripMode 
         ? `<tr><th>Provider</th><th>Sub. Fee</th><th>Disc. Rate</th><th>Journey Cost</th><th>vs. PAYG</th><th>Break-Even*</th></tr>`
         : `<tr><th>Provider</th><th>Sub. Fee</th><th>Disc. Rate</th><th colspan="3">Break-Even Miles</th></tr>`;
 
+    // 4. Build the HTML Content with Strict Greyscale Styles
     let contentHtml = `
         <style>
-            /* STRICT GREYSCALE THEME */
-            #pdf-render-area, #pdf-render-area * { 
+            #pdf-render-area * { 
                 color: #000000 !important; 
-                background-color: #ffffff !important; 
+                background-color: transparent !important; 
                 border-color: #000000 !important;
-                text-decoration: none !important;
-                filter: grayscale(100%) !important; /* Forces all colors to grey */
+                filter: none !important;
+                text-shadow: none !important;
             }
+            #pdf-render-area { background-color: #ffffff !important; }
             .pdf-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
             .pdf-section-title { font-size: 16px; margin-top: 25px; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 3px; margin-bottom: 10px; text-transform: uppercase; }
             .pdf-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 20px; border: 1px solid #000; }
             .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 8px; text-align: left; }
             .pdf-table th { background-color: #eeeeee !important; font-weight: bold; }
-            .pdf-summary-box { padding: 15px; border: 1px solid #000; margin-bottom: 20px; line-height: 1.4; }
+            .pdf-summary-box { padding: 15px; border: 1px solid #000; margin-bottom: 20px; line-height: 1.4; background-color: #ffffff !important; }
             .bold { font-weight: bold; }
+            /* Fix for durations table colors */
+            .speed-comparison-container table, .mini-table { width: 100%; border-collapse: collapse; border: 1px solid #000; }
+            .speed-comparison-container th, .mini-table th { background-color: #eee !important; border: 1px solid #000; }
+            .speed-comparison-container td, .mini-table td { border: 1px solid #000; background-color: #fff !important; }
         </style>
         
         <div class="pdf-header">
@@ -340,34 +348,31 @@ function exportPdf() {
             <thead>${tableHeaderHtml}</thead>
             <tbody>`;
 
+    // 5. Populate Provider Rows (Using querySelector to avoid tooltip text)
     providerRows.forEach(row => {
         const cols = row.querySelectorAll("td");
         if (cols.length >= 4) {
-            // FIX: Robustly extract only the visible text, ignoring nested tooltip HTML
-            const providerName = cols[0].innerText.replace(/ℹ️/g, '').trim().split('\n').filter(s => s.length > 0).pop() || "Unknown";
-            const subFee = cols[1].innerText.trim() || "£0.00";
-            const rate = cols[2].innerText.trim() || "0p";
-            const col3Value = cols[3].innerText.trim() || "-";
-
+            // Target the hyperlink or text node specifically to skip tooltip "ℹ️"
+            const nameLink = cols[0].querySelector('a');
+            const providerName = nameLink ? nameLink.innerText.trim() : cols[0].innerText.replace(/ℹ️/g, '').trim();
+            
             if (isTripMode && cols.length >= 6) {
-                const savings = cols[4].innerText.trim() || "-";
-                const beMiles = cols[5].innerText.trim() || "-";
                 contentHtml += `
                     <tr>
                         <td class="bold">${providerName}</td>
-                        <td>${subFee}</td>
-                        <td>${rate}</td>
-                        <td>${col3Value}</td>
-                        <td class="bold">${savings}</td>
-                        <td>${beMiles}</td>
+                        <td>${cols[1].innerText.trim()}</td>
+                        <td>${cols[2].innerText.trim()}</td>
+                        <td>${cols[3].innerText.trim()}</td>
+                        <td class="bold">${cols[4].innerText.trim()}</td>
+                        <td>${cols[5].innerText.trim()}</td>
                     </tr>`;
             } else {
                 contentHtml += `
                     <tr>
                         <td class="bold">${providerName}</td>
-                        <td>${subFee}</td>
-                        <td>${rate}</td>
-                        <td colspan="3" class="bold">${col3Value}</td>
+                        <td>${cols[1].innerText.trim()}</td>
+                        <td>${cols[2].innerText.trim()}</td>
+                        <td colspan="3" class="bold">${cols[3].innerText.trim()}</td>
                     </tr>`;
             }
         }
@@ -375,19 +380,21 @@ function exportPdf() {
 
     contentHtml += `</tbody></table>`;
 
+    // 6. Include Sub-sections for Trip Mode
     if (isTripMode) {
-        if (durationsSection && durationsSection.innerText.trim().length > 0) {
+        if (durationsSection) {
             contentHtml += `<div class="pdf-section-title">2. Estimated Public Charging Durations</div>`;
-            contentHtml += `<div class="pdf-table-wrapper" style="margin-bottom:20px;">${durationsSection.innerHTML}</div>`;
+            contentHtml += `<div class="pdf-content-wrapper">${durationsSection.innerHTML}</div>`;
         }
-        if (itinerarySection && itinerarySection.innerText.trim().length > 0) {
+        if (itinerarySection) {
             contentHtml += `<div class="pdf-section-title">3. Real-World Charging Itinerary</div>`;
-            contentHtml += `<div class="pdf-table-wrapper">${itinerarySection.innerHTML}</div>`;
+            contentHtml += `<div class="pdf-content-wrapper">${itinerarySection.innerHTML}</div>`;
         }
     }
 
+    // 7. Analysis Conclusion
     contentHtml += `
-        <div class="pdf-section-title">Conclusion</div>
+        <div class="pdf-section-title">Analysis Conclusion</div>
         <div class="pdf-summary-box">
             ${conclusion ? conclusion.innerHTML : "No conclusion available."}
         </div>
@@ -396,19 +403,17 @@ function exportPdf() {
 
     printContainer.innerHTML = contentHtml;
 
-    // Remove UI elements and reset colors for nested tables
+    // 8. Final Clean-up of UI junk
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .calc-tab, .mobile-only-text, .tooltip-box, .tooltip-container").forEach(el => el.remove());
     
-    printContainer.querySelectorAll("table, td, th, tr, span, div, p").forEach(el => {
-        el.style.backgroundColor = "#ffffff";
+    // Force all text in the conclusion and summary to black
+    printContainer.querySelectorAll("p, span, div, strong").forEach(el => {
         el.style.color = "#000000";
-        if (el.tagName === 'TD' || el.tagName === 'TH' || el.tagName === 'TABLE') {
-            el.style.border = "1px solid #000000";
-        }
     });
 
     document.body.appendChild(printContainer);
 
+    // 9. Render with html2canvas
     html2canvas(printContainer, { 
         scale: 2,
         useCORS: true,
