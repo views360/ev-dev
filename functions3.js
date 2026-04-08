@@ -281,26 +281,16 @@ function init() {
 }
 
 function exportPdf() {
+    const pdfBtn = document.getElementById("pdfBtn");
+    if (!pdfBtn) return;
 
     const providerTable = document.querySelector("#providerResults table");
-
-    if (!providerTable) {
-        calculate();
-        setTimeout(exportPdf, 50);
-        return;
-    }
-
-    const pdfBtn = document.getElementById("pdfBtn");
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
     const chargingDurations = document.getElementById("chargingDurations");
     const realWorld = document.getElementById("realWorldAssessment");
 
-    // --- FIXED: Select the actual provider table ---
-    const providerTable = document.querySelector("#providerResults table");
-    const providerRows = providerTable ? providerTable.querySelectorAll("tbody tr") : [];
-
-    if (!providerRows.length || !pdfBtn) return;
+    if (!providerTable) return;
 
     const originalText = pdfBtn.textContent;
     pdfBtn.textContent = "Generating...";
@@ -318,6 +308,10 @@ function exportPdf() {
         color:#000;
         font-family:Arial, sans-serif;
     `;
+
+    // Clone provider table so we can safely strip UI-only elements
+    const cleanProviderTable = providerTable.cloneNode(true);
+    cleanProviderTable.querySelectorAll(".info-icon").forEach(el => el.remove());
 
     let contentHtml = `
     <style>
@@ -368,81 +362,51 @@ function exportPdf() {
     </div>
 
     <h2 class="pdf-section-title">Comparison Results</h2>
-
-    <table class="pdf-table">
-    <thead>
-        <tr>
-            <th>Provider</th>
-            <th>Sub. Fee</th>
-            <th>Disc. Rate</th>
-            <th>Journey Cost</th>
-            <th>vs. PAYG</th>
-            <th>Break Even</th>
-            <th>Battery + Break Even</th>
-        </tr>
-    </thead>
-    <tbody>
-    `;
-
-    // --- FIXED: Extract clean text from each provider row ---
-    providerRows.forEach(row => {
-        const cols = row.querySelectorAll("td");
-
-        if (cols.length >= 7) {
-            const provider = cols[0].innerText.replace("ℹ️", "").trim();
-            const subFee = cols[1].innerText.trim();
-            const rate = cols[2].innerText.trim();
-            const journeyCost = cols[3].innerText.trim();
-            const vsPayg = cols[4].innerText.trim();
-            const breakEven = cols[5].innerText.trim();
-            const batteryBreak = cols[6].innerText.trim();
-
-            contentHtml += `
-            <tr>
-                <td>${provider}</td>
-                <td>${subFee}</td>
-                <td>${rate}</td>
-                <td>${journeyCost}</td>
-                <td>${vsPayg}</td>
-                <td>${breakEven}</td>
-                <td>${batteryBreak}</td>
-            </tr>`;
-        }
-    });
-
-    contentHtml += `
-    </tbody></table>
-
-    <h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>
-    `;
-
-    // --- CHARGING DURATION SECTION ---
-    if (chargingDurations && chargingDurations.innerHTML.trim() !== "") {
-        contentHtml += `
-        <div style="border:1px solid #000; padding:10px; margin-bottom:20px;">
-            ${chargingDurations.innerHTML}
-        </div>`;
-    }
-
-    // --- REAL-WORLD ITINERARY ---
-    contentHtml += `
-    <h2 class="pdf-section-title">Real-World Charging Itinerary</h2>
-    <div style="border:1px solid #000; padding:10px; margin-bottom:20px;">
-        ${realWorld ? realWorld.innerHTML : ""}
-    </div>
-    `;
-
-    // --- CONCLUSION ---
-    contentHtml += `
-    <h2 class="pdf-section-title">Analysis Conclusion</h2>
-    <div class="pdf-conclusion-wrapper">
-        ${conclusion ? conclusion.innerHTML : ""}
-    </div>
     `;
 
     printContainer.innerHTML = contentHtml;
 
-    // Remove unwanted UI elements
+    // Attach cloned provider table and give it PDF styling
+    cleanProviderTable.classList.add("pdf-table");
+    printContainer.appendChild(cleanProviderTable);
+
+    // Charging durations
+    const extraSections = document.createElement("div");
+    extraSections.innerHTML = `
+        <h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>
+    `;
+    if (chargingDurations && chargingDurations.innerHTML.trim() !== "") {
+        const cdWrapper = document.createElement("div");
+        cdWrapper.style.border = "1px solid #000";
+        cdWrapper.style.padding = "10px";
+        cdWrapper.style.marginBottom = "20px";
+        cdWrapper.innerHTML = chargingDurations.innerHTML;
+        extraSections.appendChild(cdWrapper);
+    }
+
+    // Real-world itinerary
+    extraSections.innerHTML += `
+        <h2 class="pdf-section-title">Real-World Charging Itinerary</h2>
+    `;
+    const rwWrapper = document.createElement("div");
+    rwWrapper.style.border = "1px solid #000";
+    rwWrapper.style.padding = "10px";
+    rwWrapper.style.marginBottom = "20px";
+    rwWrapper.innerHTML = realWorld ? realWorld.innerHTML : "";
+    extraSections.appendChild(rwWrapper);
+
+    // Conclusion
+    extraSections.innerHTML += `
+        <h2 class="pdf-section-title">Analysis Conclusion</h2>
+    `;
+    const conclusionWrapper = document.createElement("div");
+    conclusionWrapper.className = "pdf-conclusion-wrapper";
+    conclusionWrapper.innerHTML = conclusion ? conclusion.innerHTML : "";
+    extraSections.appendChild(conclusionWrapper);
+
+    printContainer.appendChild(extraSections);
+
+    // Strip UI-only elements from the PDF DOM
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text")
         .forEach(el => el.remove());
 
@@ -453,7 +417,6 @@ function exportPdf() {
         useCORS: true,
         backgroundColor: "#ffffff"
     }).then(canvas => {
-
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF("p", "mm", "a4");
 
@@ -477,11 +440,11 @@ function exportPdf() {
                     (pageHeightAvailable * canvas.width) / imgWidth
                 );
 
-                const tempCanvas = document.createElement('canvas');
+                const tempCanvas = document.createElement("canvas");
                 tempCanvas.width = canvas.width;
                 tempCanvas.height = canvasHeightThatFits;
 
-                const tempCtx = tempCanvas.getContext('2d');
+                const tempCtx = tempCanvas.getContext("2d");
                 tempCtx.drawImage(
                     canvas,
                     0, yCanvasOffset,
@@ -538,7 +501,6 @@ function closeHelp() {
         }, 300);
     }
 }
-
 
 function toggleProviders() {
     const container = document.getElementById("collapsibleProviders");
