@@ -282,6 +282,14 @@ function init() {
 
 function exportPdf() {
 
+    const providerTable = document.querySelector("#providerResults table");
+
+    if (!providerTable) {
+        calculate();
+        setTimeout(exportPdf, 50);
+        return;
+    }
+
     const pdfBtn = document.getElementById("pdfBtn");
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
