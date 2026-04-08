@@ -285,10 +285,14 @@ function exportPdf() {
     const providerRows = document.querySelectorAll("#providerResults tbody tr");
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
+    
+    // IDs for the missing sections
+    const durationsSection = document.getElementById("chargingDurations");
+    const itinerarySection = document.getElementById("realWorldAssessment");
 
     if (!providerRows.length || !pdfBtn) return;
 
-    // Detect Active Mode
+    // 1. Detect Mode
     const activePill = document.querySelector('.calc-tab.active');
     const isTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
     const reportTitle = isTripMode ? "EV JOURNEY COST REDUCTION REPORT" : "EV SUBSCRIPTIONS BREAK-EVEN REPORT";
@@ -298,12 +302,13 @@ function exportPdf() {
     pdfBtn.style.pointerEvents = "none";
     pdfBtn.style.opacity = "0.7";
 
+    // 2. Create the Print Container
     const printContainer = document.createElement("div");
     printContainer.id = "pdf-render-area";
     printContainer.style.cssText = "position:absolute; left:-9999px; width:800px; padding:40px; background:#fff; color:#000; font-family:Arial, sans-serif;";
 
-    // Dynamic Header based on Mode
-    let tableHeaderHtml = '';
+    // 3. Define the Table Header based on Mode
+    let tableHeaderHtml = "";
     if (isTripMode) {
         tableHeaderHtml = `
             <tr>
@@ -324,49 +329,42 @@ function exportPdf() {
             </tr>`;
     }
 
+    // 4. Build the HTML Content
     let contentHtml = `
         <style>
             #pdf-render-area * { color: #000 !important; }
-            .pdf-header { text-align: center; margin-bottom: 10px; }
-            .pdf-section-title { font-size: 20px; margin-top: 20px; font-weight: bold; border-bottom: 2px solid #eee; padding-bottom: 5px; }
-            .pdf-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; margin-bottom: 30px; }
+            .pdf-header { text-align: center; margin-bottom: 20px; }
+            .pdf-section-title { font-size: 18px; margin-top: 30px; font-weight: bold; border-bottom: 2px solid #39FF14; padding-bottom: 5px; margin-bottom: 10px; }
+            .pdf-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 20px; }
             .pdf-table th, .pdf-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-            .pdf-table th { background: #f8f8f8; font-weight: bold; }
-            .pdf-conclusion-wrapper { 
-                background: #f9f9f9 !important; 
-                padding: 15px; 
-                border: 1px solid #eee; 
-                border-radius: 8px; 
-                margin-top: 10px;
-                line-height: 1.5;
-            }
-            .calc-lines div { margin-bottom: 8px; font-size: 14px; }
+            .pdf-table th { background: #f4f4f4; }
+            .pdf-summary-box { background: #f9f9f9 !important; padding: 15px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 20px; }
             .savings-cell { color: #059669 !important; font-weight: bold; }
+            .itinerary-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+            .itinerary-table td, .itinerary-table th { border: 1px solid #eee; padding: 6px; }
         </style>
         
         <div class="pdf-header">
-            <strong style="font-size:22px; color:#000">${reportTitle}</strong>
+            <h1 style="margin:0; font-size:22px;">${reportTitle}</h1>
             <p>Generated on ${new Date().toLocaleDateString('en-GB')}</p>
         </div>
         
-        <div class="calc-lines">
+        <div class="pdf-summary-box">
             ${paygSummary ? paygSummary.innerHTML : ""}
         </div>
 
-        <h2 class="pdf-section-title">Provider Comparison Results</h2>
+        <div class="pdf-section-title">Provider Comparison Results</div>
         <table class="pdf-table">
-            <thead>
-                ${tableHeaderHtml}
-            </thead>
+            <thead>${tableHeaderHtml}</thead>
             <tbody>`;
 
+    // 5. Populate Provider Rows
     providerRows.forEach(row => {
         const cols = row.querySelectorAll("td");
         if (isTripMode && cols.length >= 6) {
-            // Mapping for Cost Reduction Mode
             contentHtml += `
                 <tr>
-                    <td><strong>${cols[0].innerText.split('\n')[0]}</strong></td>
+                    <td><strong>${cols[0].innerText.split('\n').pop().trim()}</strong></td>
                     <td>${cols[1].innerText}</td>
                     <td>${cols[2].innerText}</td>
                     <td>${cols[3].innerText}</td>
@@ -374,10 +372,9 @@ function exportPdf() {
                     <td>${cols[5].innerText}</td>
                 </tr>`;
         } else if (!isTripMode && cols.length >= 4) {
-            // Mapping for Break-Even Mode
             contentHtml += `
                 <tr>
-                    <td><strong>${cols[0].innerText.split('\n')[0]}</strong></td>
+                    <td><strong>${cols[0].innerText.split('\n').pop().trim()}</strong></td>
                     <td>${cols[1].innerText}</td>
                     <td>${cols[2].innerText}</td>
                     <td colspan="3"><strong>${cols[3].innerText}</strong></td>
@@ -387,47 +384,41 @@ function exportPdf() {
 
     contentHtml += `</tbody></table>`;
 
-    // Add Charging Durations Table (Only relevant in Trip Mode)
-    if (isTripMode) {
-        const chargingTimesTable = document.querySelector(".speed-comparison-container table");
-        if (chargingTimesTable) {
-            contentHtml += `<h2 class="pdf-section-title">Estimated Public Charging Durations</h2>`;
-            contentHtml += `<table class="pdf-table">`;
-            const chargingHeaders = chargingTimesTable.querySelectorAll("thead th");
-            contentHtml += `<thead><tr>`;
-            chargingHeaders.forEach(header => {
-                contentHtml += `<th>${header.innerText}</th>`;
-            });
-            contentHtml += `</tr></thead><tbody>`;
-            
-            const chargingRows = chargingTimesTable.querySelectorAll("tbody tr");
-            chargingRows.forEach(row => {
-                const cells = row.querySelectorAll("td");
-                contentHtml += `<tr>`;
-                cells.forEach(cell => {
-                    contentHtml += `<td>${cell.innerText}</td>`;
-                });
-                contentHtml += `</tr>`;
-            });
-            contentHtml += `</tbody></table>`;
-        }
+    // 6. Include Charging Durations (Trip Mode Only)
+    if (isTripMode && durationsSection && durationsSection.innerHTML.trim() !== "") {
+        contentHtml += `
+            <div class="pdf-section-title">Estimated Public Charging Durations</div>
+            <div class="pdf-durations-wrapper">
+                ${durationsSection.innerHTML}
+            </div>`;
     }
-    
+
+    // 7. Include Real-World Itinerary (Trip Mode Only)
+    if (isTripMode && itinerarySection && itinerarySection.innerHTML.trim() !== "") {
+        contentHtml += `
+            <div class="pdf-section-title">Real-World Charging Itinerary</div>
+            <div class="pdf-itinerary-wrapper">
+                ${itinerarySection.innerHTML}
+            </div>`;
+    }
+
+    // 8. Add Conclusion
     contentHtml += `
-        <h2 class="pdf-section-title">Analysis Conclusion</h2>
-        <div class="pdf-conclusion-wrapper">
-            ${conclusion ? conclusion.innerHTML : "No conclusion available."}
+        <div class="pdf-section-title">Analysis Conclusion</div>
+        <div class="pdf-summary-box">
+            ${conclusion ? conclusion.innerHTML : "No conclusion generated."}
         </div>
-        ${isTripMode ? `<p style="font-size: 10px; margin-top: 10px;">* Break-Even calculation for Trip Mode excludes the cost of your initial battery pre-charge.</p>` : ''}
+        ${isTripMode ? `<p style="font-size: 9px; margin-top: 10px; opacity:0.6;">* Break-Even calculation for Trip Mode excludes the cost of your initial battery pre-charge.</p>` : ''}
     `;
 
     printContainer.innerHTML = contentHtml;
 
-    // Clean up UI elements not needed in PDF
-    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text, .tooltip-box, p[style*='opacity:0.8']").forEach(el => el.remove());
+    // 9. Clean up UI elements (icons, buttons, tooltips) before rendering
+    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .calc-tab, .mobile-only-text, .tooltip-box, button").forEach(el => el.remove());
 
     document.body.appendChild(printContainer);
 
+    // 10. Render and Save
     html2canvas(printContainer, { 
         scale: 2,
         useCORS: true,
@@ -437,7 +428,7 @@ function exportPdf() {
         const pdf = new jsPDF("p", "mm", "a4");
         const pageWidth = pdf.internal.pageSize.getWidth();
         const pageHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = pageWidth - 20; // 10mm margins
+        const imgWidth = pageWidth - 20; 
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         
         let remainingHeight = canvas.height;
@@ -464,8 +455,7 @@ function exportPdf() {
             }
         }
 
-        const fileName = isTripMode ? "EV-Journey-Analysis.pdf" : "EV-Break-Even-Analysis.pdf";
-        pdf.save(fileName);
+        pdf.save(isTripMode ? "EV-Journey-Analysis.pdf" : "EV-Break-Even-Report.pdf");
 
         document.body.removeChild(printContainer);
         pdfBtn.textContent = originalText;
@@ -473,7 +463,6 @@ function exportPdf() {
         pdfBtn.style.opacity = "1";
     });
 }
-
 window.addEventListener("DOMContentLoaded", init);
 
 let currentSlide = 0;
@@ -599,57 +588,6 @@ function toggleMenu() {
         }
     }
 }
-
-/*function toggleMenuSection(toggleId, itemsId) {
-    const toggle = document.getElementById(toggleId);
-    const items = document.getElementById(itemsId);
-    
-    if (toggle && items) {
-        // 1. Check if we are opening this section
-        const isOpening = !toggle.classList.contains('open');
-
-        // 2. If opening, close all other sections first
-        if (isOpening) {
-            document.querySelectorAll('.menu-section-toggle.open').forEach(openToggle => {
-                openToggle.classList.remove('open');
-            });
-            document.querySelectorAll('.menu-section-items.open').forEach(openItems => {
-                openItems.classList.remove('open');
-            });
-        }
-
-        // 3. Toggle the current section
-        toggle.classList.toggle('open');
-        items.classList.toggle('open');
-    }
-}*/
-
-/*function expandActiveSections() {
-    // Get the current page filename
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    
-    // Check all menu items with data-page attribute or href matching current page
-    const activeItem = document.querySelector(`a[data-page][href="${currentPage}"]`) || 
-                       document.querySelector(`a[href="${currentPage}"]`);
-    
-    if (activeItem) {
-        // Add active class to the link
-        document.querySelectorAll('a.menu-item-clean').forEach(link => {
-            link.classList.remove('active-page');
-        });
-        activeItem.classList.add('active-page');
-        
-        // Find parent section and expand it
-        let parent = activeItem.closest('.menu-section-items');
-        if (parent) {
-            const toggle = parent.previousElementSibling;
-            if (toggle && toggle.classList.contains('menu-section-toggle')) {
-                toggle.classList.add('open');
-                parent.classList.add('open');
-            }
-        }
-    }
-}*/
 
 // Initialize page highlighting on load
 document.addEventListener('DOMContentLoaded', () => {
