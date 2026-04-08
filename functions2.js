@@ -561,14 +561,14 @@ function calculateRangeHtml(inputs, mainInitialRange) {
         if (paygSubtitle) paygSubtitle.textContent = `Here is the key information for your journeys if you choose PAYG. Allow +/- 1 minute, mile, and/or penny for rounding.`;
         rangeHtml = `<p style="opacity: 0.5; margin: 0px; font-size: 0.8rem"><strong>Pre-charged battery range:</strong></p>`;
         rangeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
-            Journey 1 range: ${mainInitialRange.toFixed(0)} miles (depart: Y% → Recharge: X%)
+            Journey 1 range: ${mainInitialRange.toFixed(0)} miles (depart: ${j.soc}% → recharge: ${inputs.rechargeAt}%)
         </div>`;
 
         inputs.additionalJourneys.forEach((j, index) => {
             const extraRange = Math.max(0, ((j.soc - inputs.rechargeAt) / 100) * inputs.batteryKwh * inputs.efficiency);
             totalInitialRange += extraRange;
             rangeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
-                Journey ${index + 2} range: ${extraRange.toFixed(0)} miles (depart: Y% → recharge: X%)
+                Journey ${index + 2} range: ${extraRange.toFixed(0)} miles (depart: ${j.soc}% → recharge: ${inputs.rechargeAt}%)
             </div>`;
         });
 
@@ -576,7 +576,7 @@ function calculateRangeHtml(inputs, mainInitialRange) {
             <span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is the range you <i>should</i> expect from pre-charging at your start/departure location(s) from your recharge threshold of ${inputs.rechargeAt}% to your specified departure SOC for each journey. It forms part of the calculation for how many miles of PAYG charging will be needed across all journeys.</span></span></span>Total pre-charged battery range for all journeys: ${totalInitialRange.toFixed(0)} miles</p>`;
     } else {
         if (paygSubtitle) paygSubtitle.textContent = `Here is the key information for your journey if you choose PAYG. Allow +/- 1 minute, mile, and/or penny for rounding.`;
-        rangeHtml = `<p style="margin: 0px"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is the initial range you should expect for each journey based on pre-charging at your start/departure location from your recharge threshold of ${inputs.rechargeAt}% to your specified departure SOC of ${inputs.soc}%). It forms part of the calculation for how many miles of PAYG charging will be needed to complete this journey.</span></span></span>Pre-charged battery range: <strong>${mainInitialRange.toFixed(0)} miles</strong>  (depart: Y% → recharge: X%)</p>`;
+        rangeHtml = `<p style="margin: 0px"><span class="tooltip-container"><span class="info-icon" style="font-size:0.8rem" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is the initial range you should expect for each journey based on pre-charging at your start/departure location from your recharge threshold of ${inputs.rechargeAt}% to your specified departure SOC of ${inputs.soc}%). It forms part of the calculation for how many miles of PAYG charging will be needed to complete this journey.</span></span></span>Pre-charged battery range: <strong>${mainInitialRange.toFixed(0)} miles</strong> (${inputs.soc}% → recharge: ${inputs.rechargeAt}%)</p>`;
     }
     return { rangeHtml, totalInitialRange };
 }
