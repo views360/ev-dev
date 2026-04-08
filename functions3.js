@@ -282,13 +282,14 @@ function init() {
 
 function exportPdf() {
     const pdfBtn = document.getElementById("pdfBtn");
-    const providerRows = document.querySelectorAll("#providerResults tbody tr");
+    const resultsTable = document.getElementById("providerResults");
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
     const durationsSection = document.getElementById("chargingDurations");
     const itinerarySection = document.getElementById("realWorldAssessment");
 
-    if (!providerRows.length || !pdfBtn) {
+    // 1. Safety Check & Mode Detection
+    if (!resultsTable || !resultsTable.querySelector('tbody tr') || !pdfBtn) {
         alert("Please ensure calculation results are visible before exporting.");
         return;
     }
@@ -300,9 +301,10 @@ function exportPdf() {
     pdfBtn.textContent = "Generating...";
     pdfBtn.style.pointerEvents = "none";
 
+    // 2. Create Print Container with Strict BW Styles
     const printContainer = document.createElement("div");
     printContainer.id = "pdf-render-area";
-    printContainer.style.cssText = "position:absolute; left:-9999px; width:800px; padding:40px; background:#fff; color:#000; font-family:Arial, sans-serif;";
+    printContainer.style.cssText = "position:absolute; left:-9999px; width:800px; padding:40px; background:#ffffff !important; color:#000000 !important; font-family:Arial, sans-serif;";
 
     let tableHeaderHtml = isTripMode 
         ? `<tr><th>Provider</th><th>Sub. Fee</th><th>Disc. Rate</th><th>Journey Cost</th><th>vs. PAYG</th><th>Break-Even*</th></tr>`
@@ -310,12 +312,21 @@ function exportPdf() {
 
     let contentHtml = `
         <style>
-            #pdf-render-area * { color: #000 !important; background: #fff !important; filter: grayscale(100%) !important; }
+            /* ABSOLUTE GREYSCALE OVERRIDE */
+            #pdf-render-area, #pdf-render-area * { 
+                color: #000000 !important; 
+                background-color: #ffffff !important; 
+                border-color: #000000 !important; 
+                text-decoration: none !important;
+                filter: grayscale(100%) !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+            }
             .pdf-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
             .pdf-section-title { font-size: 16px; margin-top: 25px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; }
             .pdf-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 10px; border: 1px solid #000; }
-            .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 8px; text-align: left; }
-            .pdf-table th { background: #eee !important; }
+            .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 8px; text-align: left; vertical-align: middle; }
+            .pdf-table th { background-color: #eeeeee !important; }
             .summary-box { border: 1px solid #000; padding: 15px; margin-top: 10px; line-height: 1.5; }
         </style>
         
@@ -331,25 +342,20 @@ function exportPdf() {
             <thead>${tableHeaderHtml}</thead>
             <tbody>`;
 
-    // ROBUST DATA EXTRACTION
-    providerRows.forEach(row => {
-        const cols = row.querySelectorAll("td");
-        if (cols.length >= 4) {
-            // Extracts name while skipping the info icon and tooltip text
-            let name = "Unknown";
-            const link = cols[0].querySelector('a');
-            if (link) {
-                name = link.innerText.trim();
-            } else {
-                name = cols[0].innerText.replace('ℹ️', '').trim().split('\n').filter(t => t.length > 0).pop();
-            }
-
-            contentHtml += `<tr><td style="font-weight:bold">${name}</td><td>${cols[1].innerText.trim()}</td><td>${cols[2].innerText.trim()}</td>`;
+    // 3. TARGETED DATA EXTRACTION (Direct Cell Access)
+    const rows = resultsTable.querySelectorAll("tbody tr");
+    rows.forEach(row => {
+        const cells = row.cells;
+        if (cells.length >= 4) {
+            // Clean name by finding the last text node (skips icons/tooltips)
+            const providerName = cells[0].innerText.replace(/ℹ️/g, '').trim().split('\n').pop();
             
-            if (isTripMode && cols.length >= 6) {
-                contentHtml += `<td>${cols[3].innerText.trim()}</td><td style="font-weight:bold">${cols[4].innerText.trim()}</td><td>${cols[5].innerText.trim()}</td>`;
+            contentHtml += `<tr><td style="font-weight:bold">${providerName}</td><td>${cells[1].innerText.trim()}</td><td>${cells[2].innerText.trim()}</td>`;
+            
+            if (isTripMode && cells.length >= 6) {
+                contentHtml += `<td>${cells[3].innerText.trim()}</td><td style="font-weight:bold">${cells[4].innerText.trim()}</td><td>${cells[5].innerText.trim()}</td>`;
             } else {
-                contentHtml += `<td colspan="3" style="font-weight:bold">${cols[3].innerText.trim()}</td>`;
+                contentHtml += `<td colspan="3" style="font-weight:bold">${cells[3].innerText.trim()}</td>`;
             }
             contentHtml += `</tr>`;
         }
@@ -357,29 +363,40 @@ function exportPdf() {
 
     contentHtml += `</tbody></table>`;
 
+    // 4. INCLUDE DYNAMIC SECTIONS
     if (isTripMode) {
-        if (durationsSection) {
+        if (durationsSection && durationsSection.innerHTML.trim() !== "") {
             contentHtml += `<div class="pdf-section-title">2. Estimated Public Charging Durations</div>`;
-            contentHtml += `<div style="margin-top:10px;">${durationsSection.innerHTML}</div>`;
+            contentHtml += `<div class="pdf-table-wrapper" style="margin-top:10px;">${durationsSection.innerHTML}</div>`;
         }
-        if (itinerarySection) {
+        if (itinerarySection && itinerarySection.innerHTML.trim() !== "") {
             contentHtml += `<div class="pdf-section-title">3. Real-World Charging Itinerary</div>`;
-            contentHtml += `<div style="margin-top:10px;">${itinerarySection.innerHTML}</div>`;
+            contentHtml += `<div class="pdf-table-wrapper" style="margin-top:10px;">${itinerarySection.innerHTML}</div>`;
         }
     }
 
+    // 5. CONCLUSION
     contentHtml += `
         <div class="pdf-section-title">Analysis Conclusion</div>
-        <div class="summary-box">${conclusion ? conclusion.innerHTML : ""}</div>
-        <p style="font-size: 9px; margin-top: 10px; opacity: 0.7;">* Break-Even calculation for Trip Mode excludes the cost of your initial battery pre-charge.</p>
+        <div class="summary-box">${conclusion ? conclusion.innerHTML : "No conclusion generated."}</div>
+        <p style="font-size: 9px; margin-top: 10px;">* Break-Even calculation for Trip Mode excludes the cost of your initial battery pre-charge.</p>
     `;
 
     printContainer.innerHTML = contentHtml;
-    // Clean UI elements
+    
+    // 6. SCRUB UI ELEMENTS
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mobile-only-text, button").forEach(el => el.remove());
+    // Force nested tables (Durations/Itinerary) to match BW theme
+    printContainer.querySelectorAll("table, th, td").forEach(el => {
+        el.style.borderColor = "#000000";
+        el.style.color = "#000000";
+        el.style.backgroundColor = el.tagName === "TH" ? "#eeeeee" : "#ffffff";
+    });
+
     document.body.appendChild(printContainer);
 
-    html2canvas(printContainer, { scale: 2, useCORS: true }).then(canvas => {
+    // 7. MULTI-PAGE RENDERING
+    html2canvas(printContainer, { scale: 2, useCORS: true, backgroundColor: "#ffffff" }).then(canvas => {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF("p", "mm", "a4");
         const pageWidth = pdf.internal.pageSize.getWidth();
