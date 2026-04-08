@@ -290,7 +290,7 @@ function exportPdf() {
     const conclusion = document.getElementById("conclusionsBox");
     const realWorld = document.getElementById("realWorldAssessment");
 
-    // NEW: Charging durations table selector (corrected)
+    // CORRECT selector for Charging Durations table
     const chargingTable = document.querySelector("#chargingDurations .speed-comparison-container table");
 
     if (!providerTable) return;
@@ -371,50 +371,47 @@ function exportPdf() {
     cleanProviderTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
     printContainer.appendChild(cleanProviderTable);
 
-    // --- CHARGING DURATIONS TABLE (CLONED) ---
-    const extraSections = document.createElement("div");
-
-    extraSections.innerHTML += `
-        <h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>
-    `;
+    // --- CHARGING DURATIONS TABLE (CLONED AS REAL DOM NODE) ---
+    const cdSection = document.createElement("div");
+    cdSection.innerHTML = `<h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>`;
 
     if (chargingTable) {
         const cleanChargingTable = chargingTable.cloneNode(true);
         cleanChargingTable.classList.add("pdf-table");
 
-        // Remove icons + colours
+        // Remove icons + inline colours
         cleanChargingTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
         cleanChargingTable.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
 
-        extraSections.appendChild(cleanChargingTable);
+        cdSection.appendChild(cleanChargingTable);
     } else {
-        extraSections.innerHTML += `<p>No charging duration data available.</p>`;
+        cdSection.innerHTML += `<p>No charging duration data available.</p>`;
     }
 
+    printContainer.appendChild(cdSection);
+
     // --- REAL-WORLD ITINERARY ---
-    extraSections.innerHTML += `
-        <h2 class="pdf-section-title">Real-World Charging Itinerary</h2>
-    `;
+    const rwSection = document.createElement("div");
+    rwSection.innerHTML = `<h2 class="pdf-section-title">Real-World Charging Itinerary</h2>`;
     const rwWrapper = document.createElement("div");
     rwWrapper.style.border = "1px solid #000";
     rwWrapper.style.padding = "10px";
     rwWrapper.style.marginBottom = "20px";
     rwWrapper.innerHTML = realWorld ? realWorld.innerHTML : "";
-    extraSections.appendChild(rwWrapper);
+    rwSection.appendChild(rwWrapper);
+    printContainer.appendChild(rwSection);
 
     // --- CONCLUSION ---
-    extraSections.innerHTML += `
-        <h2 class="pdf-section-title">Analysis Conclusion</h2>
-    `;
+    const conclusionSection = document.createElement("div");
+    conclusionSection.innerHTML = `<h2 class="pdf-section-title">Analysis Conclusion</h2>`;
     const conclusionWrapper = document.createElement("div");
     conclusionWrapper.className = "pdf-conclusion-wrapper";
     conclusionWrapper.innerHTML = conclusion ? conclusion.innerHTML : "";
-    extraSections.appendChild(conclusionWrapper);
-
-    printContainer.appendChild(extraSections);
+    conclusionSection.appendChild(conclusionWrapper);
+    printContainer.appendChild(conclusionSection);
 
     // Strip UI-only elements
-    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text")
+    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mobile-only-text")
         .forEach(el => el.remove());
 
     document.body.appendChild(printContainer);
