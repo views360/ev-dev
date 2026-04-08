@@ -301,7 +301,6 @@ function exportPdf() {
 
     const printContainer = document.createElement("div");
     printContainer.id = "pdf-render-area";
-    // Force a white background for the whole capture area
     printContainer.style.cssText = "position:absolute; left:-9999px; width:800px; padding:40px; background:#ffffff !important; color:#000000 !important; font-family:Arial, sans-serif;";
 
     let tableHeaderHtml = isTripMode 
@@ -310,20 +309,20 @@ function exportPdf() {
 
     let contentHtml = `
         <style>
-            /* Force Greyscale & High Contrast */
+            /* STRICT GREYSCALE THEME */
             #pdf-render-area, #pdf-render-area * { 
                 color: #000000 !important; 
                 background-color: #ffffff !important; 
                 border-color: #000000 !important;
-                text-shadow: none !important;
-                box-shadow: none !important;
+                text-decoration: none !important;
+                filter: grayscale(100%) !important; /* Forces all colors to grey */
             }
             .pdf-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
             .pdf-section-title { font-size: 16px; margin-top: 25px; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 3px; margin-bottom: 10px; text-transform: uppercase; }
             .pdf-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 20px; border: 1px solid #000; }
             .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 8px; text-align: left; }
             .pdf-table th { background-color: #eeeeee !important; font-weight: bold; }
-            .pdf-summary-box { padding: 10px; border: 1px solid #000; margin-bottom: 20px; line-height: 1.4; }
+            .pdf-summary-box { padding: 15px; border: 1px solid #000; margin-bottom: 20px; line-height: 1.4; }
             .bold { font-weight: bold; }
         </style>
         
@@ -344,29 +343,31 @@ function exportPdf() {
     providerRows.forEach(row => {
         const cols = row.querySelectorAll("td");
         if (cols.length >= 4) {
-            // Robustly extract the Provider Name by removing the icon/tooltip text
-            let providerName = cols[0].innerText.replace(/ℹ️/g, '').trim();
-            // In case of multi-line text in the cell, take the last line (the name)
-            const lines = providerName.split('\n').map(l => l.trim()).filter(l => l !== "");
-            providerName = lines[lines.length - 1];
+            // FIX: Robustly extract only the visible text, ignoring nested tooltip HTML
+            const providerName = cols[0].innerText.replace(/ℹ️/g, '').trim().split('\n').filter(s => s.length > 0).pop() || "Unknown";
+            const subFee = cols[1].innerText.trim() || "£0.00";
+            const rate = cols[2].innerText.trim() || "0p";
+            const col3Value = cols[3].innerText.trim() || "-";
 
             if (isTripMode && cols.length >= 6) {
+                const savings = cols[4].innerText.trim() || "-";
+                const beMiles = cols[5].innerText.trim() || "-";
                 contentHtml += `
                     <tr>
                         <td class="bold">${providerName}</td>
-                        <td>${cols[1].innerText.trim()}</td>
-                        <td>${cols[2].innerText.trim()}</td>
-                        <td>${cols[3].innerText.trim()}</td>
-                        <td class="bold">${cols[4].innerText.trim()}</td>
-                        <td>${cols[5].innerText.trim()}</td>
+                        <td>${subFee}</td>
+                        <td>${rate}</td>
+                        <td>${col3Value}</td>
+                        <td class="bold">${savings}</td>
+                        <td>${beMiles}</td>
                     </tr>`;
             } else {
                 contentHtml += `
                     <tr>
                         <td class="bold">${providerName}</td>
-                        <td>${cols[1].innerText.trim()}</td>
-                        <td>${cols[2].innerText.trim()}</td>
-                        <td colspan="3" class="bold">${cols[3].innerText.trim()}</td>
+                        <td>${subFee}</td>
+                        <td>${rate}</td>
+                        <td colspan="3" class="bold">${col3Value}</td>
                     </tr>`;
             }
         }
@@ -375,11 +376,11 @@ function exportPdf() {
     contentHtml += `</tbody></table>`;
 
     if (isTripMode) {
-        if (durationsSection) {
+        if (durationsSection && durationsSection.innerText.trim().length > 0) {
             contentHtml += `<div class="pdf-section-title">2. Estimated Public Charging Durations</div>`;
             contentHtml += `<div class="pdf-table-wrapper" style="margin-bottom:20px;">${durationsSection.innerHTML}</div>`;
         }
-        if (itinerarySection) {
+        if (itinerarySection && itinerarySection.innerText.trim().length > 0) {
             contentHtml += `<div class="pdf-section-title">3. Real-World Charging Itinerary</div>`;
             contentHtml += `<div class="pdf-table-wrapper">${itinerarySection.innerHTML}</div>`;
         }
@@ -395,18 +396,15 @@ function exportPdf() {
 
     printContainer.innerHTML = contentHtml;
 
-    // Remove UI elements that cause visual clutter or "black background" issues
+    // Remove UI elements and reset colors for nested tables
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .calc-tab, .mobile-only-text, .tooltip-box, .tooltip-container").forEach(el => el.remove());
     
-    // Final force for nested tables within Durations/Itinerary sections
-    printContainer.querySelectorAll("table").forEach(tbl => {
-        tbl.classList.add("pdf-table");
-        tbl.removeAttribute("style");
-    });
-    printContainer.querySelectorAll("td, th").forEach(cell => {
-        cell.style.backgroundColor = "#ffffff";
-        cell.style.color = "#000000";
-        cell.style.border = "1px solid #000000";
+    printContainer.querySelectorAll("table, td, th, tr, span, div, p").forEach(el => {
+        el.style.backgroundColor = "#ffffff";
+        el.style.color = "#000000";
+        if (el.tagName === 'TD' || el.tagName === 'TH' || el.tagName === 'TABLE') {
+            el.style.border = "1px solid #000000";
+        }
     });
 
     document.body.appendChild(printContainer);
