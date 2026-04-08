@@ -282,139 +282,88 @@ function init() {
 
 function exportPdf() {
     const pdfBtn = document.getElementById("pdfBtn");
-    const providerRows = document.querySelectorAll("#providerResults tbody tr");
-    const paygSummary = document.querySelector(".calc-lines");
-    const conclusion = document.getElementById("conclusionsBox");
-    const durationsSection = document.getElementById("chargingDurations");
-    const itinerarySection = document.getElementById("realWorldAssessment");
-
-    if (!providerRows.length || !pdfBtn) return;
-
-    // 1. Detect Mode
+    const container = document.querySelector(".container"); // The main wrapper
     const activePill = document.querySelector('.calc-tab.active');
     const isTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
-    const reportTitle = isTripMode ? "EV JOURNEY COST REDUCTION REPORT" : "EV SUBSCRIPTIONS BREAK-EVEN REPORT";
 
+    if (!pdfBtn || !container) return;
+
+    // 1. UI Feedback
     const originalText = pdfBtn.textContent;
     pdfBtn.textContent = "Generating...";
     pdfBtn.style.pointerEvents = "none";
     pdfBtn.style.opacity = "0.7";
 
-    // 2. Create the Print Container
-    const printContainer = document.createElement("div");
-    printContainer.id = "pdf-render-area";
-    printContainer.style.cssText = "position:absolute; left:-9999px; width:800px; padding:40px; background:#ffffff !important; color:#000000 !important; font-family:Arial, sans-serif;";
-
-    // 3. Define the Table Header
-    let tableHeaderHtml = isTripMode 
-        ? `<tr><th>Provider</th><th>Sub. Fee</th><th>Disc. Rate</th><th>Journey Cost</th><th>vs. PAYG</th><th>Break-Even*</th></tr>`
-        : `<tr><th>Provider</th><th>Sub. Fee</th><th>Disc. Rate</th><th colspan="3">Break-Even Miles</th></tr>`;
-
-    // 4. Build the HTML Content with Strict Greyscale Styles
-    let contentHtml = `
-        <style>
-            #pdf-render-area * { 
-                color: #000000 !important; 
-                background-color: transparent !important; 
-                border-color: #000000 !important;
-                filter: none !important;
-                text-shadow: none !important;
-            }
-            #pdf-render-area { background-color: #ffffff !important; }
-            .pdf-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-            .pdf-section-title { font-size: 16px; margin-top: 25px; font-weight: bold; border-bottom: 1px solid #000; padding-bottom: 3px; margin-bottom: 10px; text-transform: uppercase; }
-            .pdf-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 20px; border: 1px solid #000; }
-            .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 8px; text-align: left; }
-            .pdf-table th { background-color: #eeeeee !important; font-weight: bold; }
-            .pdf-summary-box { padding: 15px; border: 1px solid #000; margin-bottom: 20px; line-height: 1.4; background-color: #ffffff !important; }
-            .bold { font-weight: bold; }
-            /* Fix for durations table colors */
-            .speed-comparison-container table, .mini-table { width: 100%; border-collapse: collapse; border: 1px solid #000; }
-            .speed-comparison-container th, .mini-table th { background-color: #eee !important; border: 1px solid #000; }
-            .speed-comparison-container td, .mini-table td { border: 1px solid #000; background-color: #fff !important; }
-        </style>
-        
-        <div class="pdf-header">
-            <h1 style="margin:0; font-size:20px;">${reportTitle}</h1>
-            <p style="margin:5px 0 0 0;">Generated on ${new Date().toLocaleDateString('en-GB')}</p>
-        </div>
-        
-        <div class="pdf-summary-box">
-            ${paygSummary ? paygSummary.innerHTML : ""}
-        </div>
-
-        <div class="pdf-section-title">1. Provider Comparison Results</div>
-        <table class="pdf-table">
-            <thead>${tableHeaderHtml}</thead>
-            <tbody>`;
-
-    // 5. Populate Provider Rows (Using querySelector to avoid tooltip text)
-    providerRows.forEach(row => {
-        const cols = row.querySelectorAll("td");
-        if (cols.length >= 4) {
-            // Target the hyperlink or text node specifically to skip tooltip "ℹ️"
-            const nameLink = cols[0].querySelector('a');
-            const providerName = nameLink ? nameLink.innerText.trim() : cols[0].innerText.replace(/ℹ️/g, '').trim();
-            
-            if (isTripMode && cols.length >= 6) {
-                contentHtml += `
-                    <tr>
-                        <td class="bold">${providerName}</td>
-                        <td>${cols[1].innerText.trim()}</td>
-                        <td>${cols[2].innerText.trim()}</td>
-                        <td>${cols[3].innerText.trim()}</td>
-                        <td class="bold">${cols[4].innerText.trim()}</td>
-                        <td>${cols[5].innerText.trim()}</td>
-                    </tr>`;
-            } else {
-                contentHtml += `
-                    <tr>
-                        <td class="bold">${providerName}</td>
-                        <td>${cols[1].innerText.trim()}</td>
-                        <td>${cols[2].innerText.trim()}</td>
-                        <td colspan="3" class="bold">${cols[3].innerText.trim()}</td>
-                    </tr>`;
-            }
-        }
+    // 2. Prepare the UI for "Snapshot"
+    // Expand all accordion sections so they are visible to the capture engine
+    const sections = document.querySelectorAll('.accordion-section');
+    const originalStates = [];
+    sections.forEach(s => {
+        originalStates.push(s.classList.contains('active'));
+        s.classList.add('active');
     });
 
-    contentHtml += `</tbody></table>`;
-
-    // 6. Include Sub-sections for Trip Mode
-    if (isTripMode) {
-        if (durationsSection) {
-            contentHtml += `<div class="pdf-section-title">2. Estimated Public Charging Durations</div>`;
-            contentHtml += `<div class="pdf-content-wrapper">${durationsSection.innerHTML}</div>`;
+    // Create a temporary overlay to force high-contrast greyscale styles
+    const styleTag = document.createElement("style");
+    styleTag.id = "pdf-export-styles";
+    styleTag.innerHTML = `
+        /* Force Greyscale and white backgrounds for the capture */
+        #pdf-export-capture {
+            background: white !important;
+            color: black !important;
+            padding: 20px !important;
         }
-        if (itinerarySection) {
-            contentHtml += `<div class="pdf-section-title">3. Real-World Charging Itinerary</div>`;
-            contentHtml += `<div class="pdf-content-wrapper">${itinerarySection.innerHTML}</div>`;
+        #pdf-export-capture * {
+            color: black !important;
+            background-color: transparent !important;
+            border-color: #333 !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+            filter: grayscale(100%) !important;
         }
-    }
-
-    // 7. Analysis Conclusion
-    contentHtml += `
-        <div class="pdf-section-title">Analysis Conclusion</div>
-        <div class="pdf-summary-box">
-            ${conclusion ? conclusion.innerHTML : "No conclusion available."}
-        </div>
-        <p style="font-size: 9px; margin-top: 10px;">* Break-Even calculation for Trip Mode excludes the cost of your initial battery pre-charge.</p>
+        /* Hide UI junk like buttons, icons, and tabs */
+        #pdf-export-capture .info-icon, 
+        #pdf-export-capture .jump-btn-pulse, 
+        #pdf-export-capture .calc-tabs, 
+        #pdf-export-capture .mobile-only-text, 
+        #pdf-export-capture button,
+        #pdf-export-capture .input-section,
+        #pdf-export-capture #costChart { 
+            display: none !important; 
+        }
+        /* Style headers for the PDF */
+        #pdf-export-capture h1, #pdf-export-capture h2 {
+            border-bottom: 2px solid black !important;
+            padding-bottom: 5px !important;
+            margin-top: 20px !important;
+        }
+        #pdf-export-capture table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+        }
+        #pdf-export-capture th {
+            background-color: #eee !important;
+        }
     `;
+    document.head.appendChild(styleTag);
 
-    printContainer.innerHTML = contentHtml;
-
-    // 8. Final Clean-up of UI junk
-    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .calc-tab, .mobile-only-text, .tooltip-box, .tooltip-container").forEach(el => el.remove());
+    // Clone the relevant results area
+    const captureArea = document.createElement("div");
+    captureArea.id = "pdf-export-capture";
+    captureArea.style.cssText = "position:absolute; left:-9999px; width:800px;";
     
-    // Force all text in the conclusion and summary to black
-    printContainer.querySelectorAll("p, span, div, strong").forEach(el => {
-        el.style.color = "#000000";
-    });
+    // Add Title and Date
+    const title = isTripMode ? "EV JOURNEY COST REDUCTION REPORT" : "EV SUBSCRIPTIONS BREAK-EVEN REPORT";
+    captureArea.innerHTML = `<h1>${title}</h1><p>Generated: ${new Date().toLocaleDateString('en-GB')}</p>`;
+    
+    // Append the results sections
+    const resultsArea = document.getElementById("uiResults").cloneNode(true);
+    captureArea.appendChild(resultsArea);
 
-    document.body.appendChild(printContainer);
+    document.body.appendChild(captureArea);
 
-    // 9. Render with html2canvas
-    html2canvas(printContainer, { 
+    // 3. Capture the Snapshot
+    html2canvas(captureArea, {
         scale: 2,
         useCORS: true,
         backgroundColor: "#ffffff"
@@ -423,14 +372,15 @@ function exportPdf() {
         const pdf = new jsPDF("p", "mm", "a4");
         const pageWidth = pdf.internal.pageSize.getWidth();
         const pageHeight = pdf.internal.pageSize.getHeight();
-        const imgWidth = pageWidth - 20; 
+        const imgWidth = pageWidth - 20; // 10mm margins
         
         let remainingHeight = canvas.height;
         let yCanvasOffset = 0;
-        const pageHeightAvailable = pageHeight - 30; 
+        const pageHeightAvailable = pageHeight - 30; // 15mm margins
 
         while (remainingHeight > 0) {
             const canvasHeightThatFits = Math.min(remainingHeight, (pageHeightAvailable * canvas.width) / imgWidth);
+            
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = canvas.width;
             tempCanvas.height = canvasHeightThatFits;
@@ -447,8 +397,17 @@ function exportPdf() {
             if (remainingHeight > 0) pdf.addPage();
         }
 
+        // 4. Cleanup and Save
         pdf.save(isTripMode ? "EV-Journey-Analysis.pdf" : "EV-Break-Even-Analysis.pdf");
-        document.body.removeChild(printContainer);
+        
+        document.body.removeChild(captureArea);
+        document.head.removeChild(styleTag);
+        
+        // Restore original accordion states
+        sections.forEach((s, i) => {
+            if (!originalStates[i]) s.classList.remove('active');
+        });
+
         pdfBtn.textContent = originalText;
         pdfBtn.style.pointerEvents = "auto";
         pdfBtn.style.opacity = "1";
