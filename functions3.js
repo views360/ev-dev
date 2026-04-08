@@ -286,6 +286,8 @@ function exportPdf() {
     const providerRows = document.querySelectorAll("#providerResults tbody tr");
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
+    const chargingDurations = document.getElementById("chargingDurations");
+    const realWorld = document.getElementById("realWorldAssessment");
 
     if (!providerRows.length || !pdfBtn) return;
 
@@ -365,22 +367,24 @@ function exportPdf() {
             <th>Journey Cost</th>
             <th>vs. PAYG</th>
             <th>Break Even</th>
+            <th>Battery Range</th>
         </tr>
     </thead>
     <tbody>
     `;
 
-    // CLEAN TEXT-ONLY PROVIDER TABLE
+    // CLEAN TEXT EXTRACTION FROM <td> CELLS
     providerRows.forEach(row => {
         const cols = row.querySelectorAll("td");
 
-        if (cols.length >= 6) {
-            const provider = cols[0].innerText.split("\n")[0].trim();
+        if (cols.length >= 7) {
+            const provider = cols[0].innerText.replace("ℹ️", "").trim();
             const subFee = cols[1].innerText.trim();
             const rate = cols[2].innerText.trim();
             const journeyCost = cols[3].innerText.trim();
             const vsPayg = cols[4].innerText.trim();
             const breakEven = cols[5].innerText.trim();
+            const batteryRange = cols[6].innerText.trim();
 
             contentHtml += `
             <tr>
@@ -390,6 +394,7 @@ function exportPdf() {
                 <td>${journeyCost}</td>
                 <td>${vsPayg}</td>
                 <td>${breakEven}</td>
+                <td>${batteryRange}</td>
             </tr>`;
         }
     });
@@ -400,31 +405,23 @@ function exportPdf() {
     <h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>
     `;
 
-    // Charging durations table
-    const chargingTimesTable = document.querySelector(".speed-comparison-container table");
-    if (chargingTimesTable) {
-        contentHtml += `<table class="pdf-table">`;
-
-        const chargingHeaders = chargingTimesTable.querySelectorAll("thead th");
-        contentHtml += `<thead><tr>`;
-        chargingHeaders.forEach(header => {
-            contentHtml += `<th>${header.innerText}</th>`;
-        });
-        contentHtml += `</tr></thead><tbody>`;
-
-        const chargingRows = chargingTimesTable.querySelectorAll("tbody tr");
-        chargingRows.forEach(row => {
-            const cells = row.querySelectorAll("td");
-            contentHtml += `<tr>`;
-            cells.forEach(cell => {
-                contentHtml += `<td>${cell.innerText}</td>`;
-            });
-            contentHtml += `</tr>`;
-        });
-
-        contentHtml += `</tbody></table>`;
+    // CHARGING DURATION SECTION (TEXT-ONLY)
+    if (chargingDurations && chargingDurations.innerHTML.trim() !== "") {
+        contentHtml += `
+        <div style="border:1px solid #000; padding:10px; margin-bottom:20px;">
+            ${chargingDurations.innerHTML}
+        </div>`;
     }
 
+    // REAL-WORLD ITINERARY
+    contentHtml += `
+    <h2 class="pdf-section-title">Real-World Charging Itinerary</h2>
+    <div style="border:1px solid #000; padding:10px; margin-bottom:20px;">
+        ${realWorld ? realWorld.innerHTML : ""}
+    </div>
+    `;
+
+    // CONCLUSION
     contentHtml += `
     <h2 class="pdf-section-title">Analysis Conclusion</h2>
     <div class="pdf-conclusion-wrapper">
@@ -435,7 +432,7 @@ function exportPdf() {
     printContainer.innerHTML = contentHtml;
 
     // Remove unwanted UI elements
-    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text, p[style*='opacity:0.8']")
+    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text")
         .forEach(el => el.remove());
 
     document.body.appendChild(printContainer);
