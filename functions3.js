@@ -290,7 +290,7 @@ function exportPdf() {
     const conclusion = document.getElementById("conclusionsBox");
     const realWorld = document.getElementById("realWorldAssessment");
 
-    // CORRECT selector for Charging Durations table
+    // Correct selector for Charging Durations table
     const chargingTable = document.querySelector("#chargingDurations .speed-comparison-container table");
 
     if (!providerTable) return;
@@ -314,11 +314,10 @@ function exportPdf() {
 
     let contentHtml = `
     <style>
-        #pdf-render-area, 
-        #pdf-render-area * {
+        #pdf-render-area, #pdf-render-area * {
             color: #000 !important;
             background: #fff !important;
-            -webkit-text-fill-color: #000 !important; /* <-- NEW */
+            -webkit-text-fill-color: #000 !important;
             filter: grayscale(100%);
             -webkit-filter: grayscale(100%);
         }
@@ -373,7 +372,7 @@ function exportPdf() {
     cleanProviderTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
     printContainer.appendChild(cleanProviderTable);
 
-    // --- CHARGING DURATIONS TABLE (CLONED AS REAL DOM NODE) ---
+    // --- CHARGING DURATIONS TABLE (CLONED) ---
     const cdSection = document.createElement("div");
     cdSection.innerHTML = `<h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>`;
 
@@ -412,11 +411,25 @@ function exportPdf() {
     conclusionSection.appendChild(conclusionWrapper);
     printContainer.appendChild(conclusionSection);
 
+    // --- FIX: Remove neon-green inline colour from conclusion note ---
+    const conclusionNote = printContainer.querySelector("#conclusionsBox p[style*='var(--neon-green)']");
+    if (conclusionNote) {
+        conclusionNote.style.removeProperty("color");
+        conclusionNote.style.setProperty("color", "#000", "important");
+        conclusionNote.style.setProperty("-webkit-text-fill-color", "#000", "important");
+    }
+
     // Strip UI-only elements
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mobile-only-text")
         .forEach(el => el.remove());
 
     document.body.appendChild(printContainer);
+
+    // FINAL OVERRIDE: ensure absolutely everything is black
+    printContainer.querySelectorAll("*").forEach(el => {
+        el.style.color = "#000";
+        el.style.setProperty("-webkit-text-fill-color", "#000", "important");
+    });
 
     html2canvas(printContainer, {
         scale: 3,
