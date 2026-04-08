@@ -561,14 +561,14 @@ function calculateRangeHtml(inputs, mainInitialRange) {
         if (paygSubtitle) paygSubtitle.textContent = `Here is the key information for your journeys if you choose PAYG. Allow +/- 1 minute, mile, and/or penny for rounding.`;
         rangeHtml = `<p style="opacity: 0.5; margin: 0px; font-size: 0.8rem"><strong>Pre-charged battery range:</strong></p>`;
         rangeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
-            Journey 1 range: ${mainInitialRange.toFixed(0)} miles (depart: ${inputs.soc}}%→recharge: ${inputs.rechargeAt}%)
+            Journey 1 range: ${mainInitialRange.toFixed(0)} miles (depart: ${inputs.soc}%→recharge: ${inputs.rechargeAt}%)
         </div>`;
 
         inputs.additionalJourneys.forEach((j, index) => {
             const extraRange = Math.max(0, ((j.soc - inputs.rechargeAt) / 100) * inputs.batteryKwh * inputs.efficiency);
             totalInitialRange += extraRange;
             rangeHtml += `<div style="font-size: 0.8rem; opacity: 0.5; margin-bottom: 2px; margin-left: 10px;">
-                Journey ${index + 2} range: ${extraRange.toFixed(0)} miles (depart: ${inputs.soc}%→recharge: ${inputs.rechargeAt}%)
+                Journey ${index + 2} range: ${extraRange.toFixed(0)} miles (depart: ${j.soc}%→recharge: ${inputs.rechargeAt}%)
             </div>`;
         });
 
