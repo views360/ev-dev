@@ -409,6 +409,8 @@ function exportPdf() {
     conclusionWrapper.innerHTML = conclusion ? conclusion.innerHTML : "";
     conclusionSection.appendChild(conclusionWrapper);
     printContainer.appendChild(conclusionSection);
+    printContainer.querySelectorAll("#conclusionsBox *")
+    .forEach(el => el.style.color = "#000");
 
     // Strip UI-only elements
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mobile-only-text")
