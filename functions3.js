@@ -281,6 +281,7 @@ function init() {
 }
 
 function exportPdf() {
+
     const pdfBtn = document.getElementById("pdfBtn");
     if (!pdfBtn) return;
 
@@ -308,10 +309,6 @@ function exportPdf() {
         color:#000;
         font-family:Arial, sans-serif;
     `;
-
-    // Clone provider table so we can safely strip UI-only elements
-    const cleanProviderTable = providerTable.cloneNode(true);
-    cleanProviderTable.querySelectorAll(".info-icon").forEach(el => el.remove());
 
     let contentHtml = `
     <style>
@@ -366,25 +363,31 @@ function exportPdf() {
 
     printContainer.innerHTML = contentHtml;
 
-    // Attach cloned provider table and give it PDF styling
+    // --- PROVIDER TABLE (CLONED) ---
+    const cleanProviderTable = providerTable.cloneNode(true);
     cleanProviderTable.classList.add("pdf-table");
+    cleanProviderTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
     printContainer.appendChild(cleanProviderTable);
 
-    // Charging durations
+    // --- CHARGING DURATIONS TABLE (CLONED) ---
+    const chargingTable = document.querySelector("#chargingDurations table");
+
     const extraSections = document.createElement("div");
-    extraSections.innerHTML = `
+
+    extraSections.innerHTML += `
         <h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>
     `;
-    if (chargingDurations && chargingDurations.innerHTML.trim() !== "") {
-        const cdWrapper = document.createElement("div");
-        cdWrapper.style.border = "1px solid #000";
-        cdWrapper.style.padding = "10px";
-        cdWrapper.style.marginBottom = "20px";
-        cdWrapper.innerHTML = chargingDurations.innerHTML;
-        extraSections.appendChild(cdWrapper);
+
+    if (chargingTable) {
+        const cleanChargingTable = chargingTable.cloneNode(true);
+        cleanChargingTable.classList.add("pdf-table");
+        cleanChargingTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
+        extraSections.appendChild(cleanChargingTable);
+    } else {
+        extraSections.innerHTML += `<p>No charging duration data available.</p>`;
     }
 
-    // Real-world itinerary
+    // --- REAL-WORLD ITINERARY ---
     extraSections.innerHTML += `
         <h2 class="pdf-section-title">Real-World Charging Itinerary</h2>
     `;
@@ -395,7 +398,7 @@ function exportPdf() {
     rwWrapper.innerHTML = realWorld ? realWorld.innerHTML : "";
     extraSections.appendChild(rwWrapper);
 
-    // Conclusion
+    // --- CONCLUSION ---
     extraSections.innerHTML += `
         <h2 class="pdf-section-title">Analysis Conclusion</h2>
     `;
@@ -406,7 +409,7 @@ function exportPdf() {
 
     printContainer.appendChild(extraSections);
 
-    // Strip UI-only elements from the PDF DOM
+    // Strip UI-only elements
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text")
         .forEach(el => el.remove());
 
@@ -417,6 +420,7 @@ function exportPdf() {
         useCORS: true,
         backgroundColor: "#ffffff"
     }).then(canvas => {
+
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF("p", "mm", "a4");
 
