@@ -288,6 +288,11 @@ function exportPdf() {
 
     if (!providerRows.length || !pdfBtn) return;
 
+    // Detect Active Mode
+    const activePill = document.querySelector('.calc-tab.active');
+    const isTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
+    const reportTitle = isTripMode ? "EV JOURNEY COST REDUCTION REPORT" : "EV SUBSCRIPTIONS BREAK-EVEN REPORT";
+
     const originalText = pdfBtn.textContent;
     pdfBtn.textContent = "Generating...";
     pdfBtn.style.pointerEvents = "none";
@@ -297,27 +302,50 @@ function exportPdf() {
     printContainer.id = "pdf-render-area";
     printContainer.style.cssText = "position:absolute; left:-9999px; width:800px; padding:40px; background:#fff; color:#000; font-family:Arial, sans-serif;";
 
+    // Dynamic Header based on Mode
+    let tableHeaderHtml = '';
+    if (isTripMode) {
+        tableHeaderHtml = `
+            <tr>
+                <th>Provider</th>
+                <th>Sub. Fee</th>
+                <th>Disc. Rate</th>
+                <th>Journey Cost</th>
+                <th>vs. PAYG</th>
+                <th>Break-Even*</th>
+            </tr>`;
+    } else {
+        tableHeaderHtml = `
+            <tr>
+                <th>Provider</th>
+                <th>Sub. Fee</th>
+                <th>Disc. Rate</th>
+                <th colspan="3">Break-Even Miles</th>
+            </tr>`;
+    }
+
     let contentHtml = `
         <style>
             #pdf-render-area * { color: #000 !important; }
             .pdf-header { text-align: center; margin-bottom: 10px; }
-            .pdf-section-title { font-size: 22px; margin-top: 20px; }
+            .pdf-section-title { font-size: 20px; margin-top: 20px; font-weight: bold; border-bottom: 2px solid #eee; padding-bottom: 5px; }
             .pdf-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; margin-bottom: 30px; }
-            .pdf-table th, .pdf-table td { border: 1px solid #000; padding: 8px; text-align: left; }
-            .pdf-table th { background: #f2f2f2; }
-            .conclusion-white-border { border: none !important; }
+            .pdf-table th, .pdf-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+            .pdf-table th { background: #f8f8f8; font-weight: bold; }
             .pdf-conclusion-wrapper { 
-                background: #f4f4f4 !important; 
-                padding: 0px; 
-                border: 1px solid #ccc; 
+                background: #f9f9f9 !important; 
+                padding: 15px; 
+                border: 1px solid #eee; 
                 border-radius: 8px; 
-                margin-top: 20px;
+                margin-top: 10px;
+                line-height: 1.5;
             }
-            .calc-lines div { margin-bottom: 5px; }
+            .calc-lines div { margin-bottom: 8px; font-size: 14px; }
+            .savings-cell { color: #059669 !important; font-weight: bold; }
         </style>
         
         <div class="pdf-header">
-            <strong style="font-size:24px; color:#000">EV SUBSCRIPTIONS COMPARISON REPORT</strong>
+            <strong style="font-size:22px; color:#000">${reportTitle}</strong>
             <p>Generated on ${new Date().toLocaleDateString('en-GB')}</p>
         </div>
         
@@ -325,76 +353,85 @@ function exportPdf() {
             ${paygSummary ? paygSummary.innerHTML : ""}
         </div>
 
-        <h2 class="pdf-section-title">Comparison Results</h2>
+        <h2 class="pdf-section-title">Provider Comparison Results</h2>
         <table class="pdf-table">
             <thead>
-                <tr>
-                    <th>Provider</th>
-                    <th>Sub. Fee</th>
-                    <th>Disc. Rate</th>
-                    <th>Journey Cost</th>
-                    <th>vs. PAYG</th>
-                    <th>Break Even<br />(Exc. Battery Pre-Charge)</th>
-                </tr>
+                ${tableHeaderHtml}
             </thead>
             <tbody>`;
 
     providerRows.forEach(row => {
         const cols = row.querySelectorAll("td");
-        if (cols.length >= 6) {
+        if (isTripMode && cols.length >= 6) {
+            // Mapping for Cost Reduction Mode
             contentHtml += `
                 <tr>
                     <td><strong>${cols[0].innerText.split('\n')[0]}</strong></td>
                     <td>${cols[1].innerText}</td>
                     <td>${cols[2].innerText}</td>
                     <td>${cols[3].innerText}</td>
-                    <td>${cols[4].innerText}</td>
+                    <td class="savings-cell">${cols[4].innerText}</td>
                     <td>${cols[5].innerText}</td>
+                </tr>`;
+        } else if (!isTripMode && cols.length >= 4) {
+            // Mapping for Break-Even Mode
+            contentHtml += `
+                <tr>
+                    <td><strong>${cols[0].innerText.split('\n')[0]}</strong></td>
+                    <td>${cols[1].innerText}</td>
+                    <td>${cols[2].innerText}</td>
+                    <td colspan="3"><strong>${cols[3].innerText}</strong></td>
                 </tr>`;
         }
     });
 
-    contentHtml += `</tbody></table>
-        <h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>`;
-    
-    // Add charging times table
-    const chargingTimesTable = document.querySelector(".speed-comparison-container table");
-    if (chargingTimesTable) {
-        contentHtml += `<table class="pdf-table">`;
-        const chargingHeaders = chargingTimesTable.querySelectorAll("thead th");
-        contentHtml += `<thead><tr>`;
-        chargingHeaders.forEach(header => {
-            contentHtml += `<th>${header.innerText}</th>`;
-        });
-        contentHtml += `</tr></thead><tbody>`;
-        
-        const chargingRows = chargingTimesTable.querySelectorAll("tbody tr");
-        chargingRows.forEach(row => {
-            const cells = row.querySelectorAll("td");
-            contentHtml += `<tr>`;
-            cells.forEach(cell => {
-                contentHtml += `<td>${cell.innerText}</td>`;
+    contentHtml += `</tbody></table>`;
+
+    // Add Charging Durations Table (Only relevant in Trip Mode)
+    if (isTripMode) {
+        const chargingTimesTable = document.querySelector(".speed-comparison-container table");
+        if (chargingTimesTable) {
+            contentHtml += `<h2 class="pdf-section-title">Estimated Public Charging Durations</h2>`;
+            contentHtml += `<table class="pdf-table">`;
+            const chargingHeaders = chargingTimesTable.querySelectorAll("thead th");
+            contentHtml += `<thead><tr>`;
+            chargingHeaders.forEach(header => {
+                contentHtml += `<th>${header.innerText}</th>`;
             });
-            contentHtml += `</tr>`;
-        });
-        contentHtml += `</tbody></table>`;
+            contentHtml += `</tr></thead><tbody>`;
+            
+            const chargingRows = chargingTimesTable.querySelectorAll("tbody tr");
+            chargingRows.forEach(row => {
+                const cells = row.querySelectorAll("td");
+                contentHtml += `<tr>`;
+                cells.forEach(cell => {
+                    contentHtml += `<td>${cell.innerText}</td>`;
+                });
+                contentHtml += `</tr>`;
+            });
+            contentHtml += `</tbody></table>`;
+        }
     }
     
     contentHtml += `
         <h2 class="pdf-section-title">Analysis Conclusion</h2>
         <div class="pdf-conclusion-wrapper">
-            ${conclusion ? conclusion.innerHTML : ""}
-        </div>`;
+            ${conclusion ? conclusion.innerHTML : "No conclusion available."}
+        </div>
+        ${isTripMode ? `<p style="font-size: 10px; margin-top: 10px;">* Break-Even calculation for Trip Mode excludes the cost of your initial battery pre-charge.</p>` : ''}
+    `;
 
     printContainer.innerHTML = contentHtml;
 
-    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text, p[style*='opacity:0.8']").forEach(el => el.remove());
+    // Clean up UI elements not needed in PDF
+    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mini-table, .mobile-only-text, .tooltip-box, p[style*='opacity:0.8']").forEach(el => el.remove());
 
     document.body.appendChild(printContainer);
 
     html2canvas(printContainer, { 
         scale: 2,
-        useCORS: true 
+        useCORS: true,
+        logging: false
     }).then(canvas => {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF("p", "mm", "a4");
@@ -403,44 +440,32 @@ function exportPdf() {
         const imgWidth = pageWidth - 20; // 10mm margins
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         
-        // Handle multiple pages if content is taller than one page
-        let yPosition = 15;
-        const pageHeightAvailable = pageHeight - 30; // 15mm top and bottom margins
-        
-        if (imgHeight <= pageHeightAvailable) {
-            // Content fits on one page
-            pdf.addImage(canvas.toDataURL("image/png"), "PNG", 10, 15, imgWidth, imgHeight);
-        } else {
-            // Content spans multiple pages
-            let remainingHeight = canvas.height;
-            let yCanvasOffset = 0;
+        let remainingHeight = canvas.height;
+        let yCanvasOffset = 0;
+        const pageHeightAvailable = pageHeight - 30; // 15mm margins
+
+        while (remainingHeight > 0) {
+            const canvasHeightThatFits = Math.min(remainingHeight, (pageHeightAvailable * canvas.width) / imgWidth);
             
-            while (remainingHeight > 0) {
-                // Calculate how much of the canvas we can fit on this page
-                const canvasHeightThatFits = Math.min(remainingHeight, (pageHeightAvailable * canvas.width) / imgWidth);
-                
-                // Create a temporary canvas for this section
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = canvas.width;
-                tempCanvas.height = canvasHeightThatFits;
-                const tempCtx = tempCanvas.getContext('2d');
-                tempCtx.drawImage(canvas, 0, yCanvasOffset, canvas.width, canvasHeightThatFits, 0, 0, canvas.width, canvasHeightThatFits);
-                
-                // Add this section to the PDF
-                const sectionImgHeight = (canvasHeightThatFits * imgWidth) / canvas.width;
-                pdf.addImage(tempCanvas.toDataURL("image/png"), "PNG", 10, 15, imgWidth, sectionImgHeight);
-                
-                // Move to next page and update positions
-                remainingHeight -= canvasHeightThatFits;
-                yCanvasOffset += canvasHeightThatFits;
-                
-                if (remainingHeight > 0) {
-                    pdf.addPage();
-                }
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvasHeightThatFits;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.drawImage(canvas, 0, yCanvasOffset, canvas.width, canvasHeightThatFits, 0, 0, canvas.width, canvasHeightThatFits);
+            
+            const sectionImgHeight = (canvasHeightThatFits * imgWidth) / canvas.width;
+            pdf.addImage(tempCanvas.toDataURL("image/png"), "PNG", 10, 15, imgWidth, sectionImgHeight);
+            
+            remainingHeight -= canvasHeightThatFits;
+            yCanvasOffset += canvasHeightThatFits;
+            
+            if (remainingHeight > 0) {
+                pdf.addPage();
             }
         }
 
-        pdf.save("EV-Journey-Analysis.pdf");
+        const fileName = isTripMode ? "EV-Journey-Analysis.pdf" : "EV-Break-Even-Analysis.pdf";
+        pdf.save(fileName);
 
         document.body.removeChild(printContainer);
         pdfBtn.textContent = originalText;
