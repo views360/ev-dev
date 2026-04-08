@@ -810,22 +810,22 @@ section.feature-section:first-of-type {
 								<p><h3>Break-Even Mode</h3></p>
 								<p>Two input values are used to calculate the raw break-even miles point for each subscriber. It is a blunt instrument because it is a simple comparison between <i>provider subscription fee</i> and <i>provider discounted rate</i> versus EV <i>efficiency (miles/kWh)</i> and <i>average PAYG rate (p/kWh)</i>.</p>
 					            <ol>
-					                <li><strong>Vehicle Efficiency (Miles/kWh):</strong> Every EV reports its efficiency value, which is the number of miles it can travel per kilowatt-hour. This value changes with the seasons (changing temperatures), so you need to enter an up-to-date value for the best calculation.</li>
-					                <li><strong>Standard PAYG Rate (pence per kilowatt-hour):</strong> This is the average PAYG amount you expect to pay when you use a public charging facility.</li>
+					                <li><strong>Vehicle Efficiency (Miles per kilowatt-hour):</strong> This value determines how many miles you can travel on a single charge. Every EV reports its efficiency value, which changes with the seasons (changing temperatures), so you need to enter an up-to-date value for the best calculation.</li>
+					                <li><strong>Typical Average PAYG Public Rate You Pay (pence per kilowatt-hour):</strong> This is the average PAYG amount you expect to pay when you use a public charging facility. It is used as part of the comparison logic with provider subscription values.</li>
 								</ol>
 								<p style="margin-top: 50px !important"><h3>Cost-Reduction Mode</h3></p>
 					            <p>10 different input values are used in a complex series of calculations to provide not only the lowest cost for your journey(s) but also provide a comparison between the cheapest subscription provider and PAYG rates, the amount of overall charging time needed for the specified journey length(s), and even a real-world itinerary detailing the charging points and durations. It ain't rocket science, but it's the next best thing.</p>
 								<ol>
-					                <li><strong>Journey Distance (Miles):</strong> How far you plan to travel, start to finish. This isn't each leg of a holiday; it's the over all journey (e.g., from leaving home to arriving back at home again).</li>
-					                <li><strong>Usable Battery Size (kWh):</strong> This value is used to calculate how far you can travel between charges. This will be used in conjuction with recharge threshold and departing battery level.</li>
-					                <li><strong>Pre-Charge Battery Level (%):</strong> This value is used to calculate how far you can travel between charges. This will be used in conjuction with recharge threshold and departing battery level.</li>
-					                <li><strong>Departure Battery Level (%):</strong> This value...</li>
-					                <li><strong>Minimum Desired Charging Speed:</strong> This value...</li>
-					                <li><strong>Vehicle Efficiency (Miles/kWh):</strong> Every EV reports its efficiency value, which is the number of miles it can travel per kilowatt-hour. This value changes with the seasons (changing temperatures), so you need to enter an up-to-date value for the best calculation.</li>
-					                <li><strong>Pre-Charge Rate (pence/kWh):</strong> This value...</li>
-					                <li><strong>Max. Charging Speed (kW):</strong> This value...</li>
-					                <li><strong>Recharge Threshold (%):</strong> This value...</li>
-					                <li><strong>Typical Average PAYG Public Rate You Pay (penc/kWh):</strong> This value...</li>
+					                <li><strong>Journey Distance (miles):</strong> How far you plan to travel, start to finish. This isn't each leg of a holiday; it's the over all journey (e.g., from leaving home to arriving back at home again).</li>
+					                <li><strong>Usable Battery Size (kilowatt-hours):</strong> This value is used to calculate how far you can travel between charges. This will be used in conjuction with recharge threshold and departing battery level.</li>
+					                <li><strong>Pre-Charge Battery Level (battery %):</strong> This is your battery level before you begin charging for your first journey. Taking this value from the <strong>Departure Battery Level</strong> contributes to the calculation for how much your initial pre-charge will cost.</li>
+					                <li><strong>Departure Battery Level (battery %):</strong> This is the battery level to which you will charge before your first journey. This value feeds into the calculation for how much your first charge will cost. Ordinarily, you should charge to no more than 80%, but you may charge up to 100% before a long journey as long as you don't leave your battery at 100% for long to avoid stressing it.</li>
+					                <li><strong>Minimum Desired Charging Speed (kilowatts):</strong> This is the minimum PAYG charge speed you are willing to use at a public charging location. Some providers offer cheaper rates for slower speeds. However, if you don't want to wait hours while charging at a public stop, you'll want to rule out the slower speed(s) or they will skew the results table.</li>
+					                <li><strong>Vehicle Efficiency (miles per kilowatt-hour):</strong> This value determines how many miles you can travel on a single charge. Every EV reports its efficiency value, which changes with the seasons (changing temperatures), so you need to enter an up-to-date value for the best calculation.</li>
+					                <li><strong>Pre-Charge Rate (pence per kilowatt-hour):</strong> This is the cost to charge your battery before you go on a journey (e.g., your cheap overnight tariff). It is used to calculate the cost of your pre-charge and feeds into the total journey cost.</li>
+					                <li><strong>Max. Charging Speed (kilowatts):</strong> This is the maximum speed at which your battery can charge. It is used to calculate real-world charging durations.</li>
+					                <li><strong>Recharge Threshold (battery %):</strong> This is the battery level you allow your EV to drop to before charging again. While you won't always be at the same level each time, it will average out across the full length of your journey(s). It defaults to 20%, which is the recommended level to ensure maximum battery health over tine.</li>
+					                <li><strong>Typical Average PAYG Public Rate You Pay (pence per kilowatt-hour):</strong> This is the average PAYG amount you expect to pay when you use a public charging facility. It is used as part of the comparison logic with provider subscription values.</li>
 								</ol>
 					        </div>
 					    </details>
