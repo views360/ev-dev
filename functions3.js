@@ -289,10 +289,8 @@ function exportPdf() {
     const paygSummary = document.querySelector(".calc-lines");
     const conclusion = document.getElementById("conclusionsBox");
 
-    // Correct selector for Charging Durations table
     const chargingTable = document.querySelector("#chargingDurations .speed-comparison-container table");
 
-    // All itinerary panels (Journey 1, Journey 2, Journey 3…)
     const journeyPanels = document.querySelectorAll("#realWorldAssessment .itinerary-tab-panel");
 
     if (!providerTable) return;
@@ -368,13 +366,13 @@ function exportPdf() {
 
     printContainer.innerHTML = contentHtml;
 
-    // --- PROVIDER TABLE (CLONED) ---
+    // --- PROVIDER TABLE ---
     const cleanProviderTable = providerTable.cloneNode(true);
     cleanProviderTable.classList.add("pdf-table");
     cleanProviderTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
     printContainer.appendChild(cleanProviderTable);
 
-    // --- CHARGING DURATIONS TABLE (CLONED) ---
+    // --- CHARGING DURATIONS TABLE ---
     const cdSection = document.createElement("div");
     cdSection.innerHTML = `<h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>`;
 
@@ -406,12 +404,19 @@ function exportPdf() {
 
         const cleanPanel = panel.cloneNode(true);
 
+        cleanPanel.removeAttribute("style");
+
         cleanPanel.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
+
         cleanPanel.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
 
-        cleanPanel.querySelectorAll("table").forEach(tbl => tbl.classList.add("pdf-table"));
-
-        rwSection.appendChild(cleanPanel);
+        const table = cleanPanel.querySelector("table");
+        if (table) {
+            table.classList.add("pdf-table");
+            rwSection.appendChild(table);
+        } else {
+            rwSection.innerHTML += `<p>No table found for Journey ${index + 1}</p>`;
+        }
     });
 
     printContainer.appendChild(rwSection);
@@ -425,7 +430,6 @@ function exportPdf() {
     conclusionSection.appendChild(conclusionWrapper);
     printContainer.appendChild(conclusionSection);
 
-    // FIX: Remove neon-green inline colour from conclusion note
     const conclusionNote = printContainer.querySelector("#conclusionsBox p[style*='var(--neon-green)']");
     if (conclusionNote) {
         conclusionNote.style.removeProperty("color");
@@ -433,13 +437,11 @@ function exportPdf() {
         conclusionNote.style.setProperty("-webkit-text-fill-color", "#000", "important");
     }
 
-    // Strip UI-only elements
     printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mobile-only-text")
         .forEach(el => el.remove());
 
     document.body.appendChild(printContainer);
 
-    // FINAL OVERRIDE: ensure absolutely everything is black
     printContainer.querySelectorAll("*").forEach(el => {
         el.style.color = "#000";
         el.style.setProperty("-webkit-text-fill-color", "#000", "important");
