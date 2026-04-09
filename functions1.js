@@ -104,11 +104,6 @@ function shareLink() {
     });
 }
 
-function toggleTheme() {
-    const isLight = document.documentElement.classList.toggle("light-mode");
-    setCookie('themePref', isLight ? 'light' : 'dark');
-}
-
 function createProviderBox(preset) {
     providerCount++;
     const id = providerCount;
