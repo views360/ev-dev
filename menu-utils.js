@@ -28,6 +28,11 @@ function resetAll() {
     window.location.href = "index.html";
 }
 
+function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle("light-mode");
+    setCookie('themePref', isLight ? 'light' : 'dark');
+}
+
 // ---------------------------------------------------------------------------
 // Floating viewport-safe tooltip
 // ---------------------------------------------------------------------------
