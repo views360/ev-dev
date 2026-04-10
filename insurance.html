@@ -50,6 +50,25 @@
 		  font-weight: bold;
 		  line-height: 1.2;
 		}
+	
+		/* target ULs inside your custom OL */
+		ol.custom-list ul {
+		  list-style-type: disc; /* Brings back the standard bullets */
+		  padding-left: 2rem;    /* Ensures it indents properly */
+		  margin-top: 0.5rem;
+		}
+		
+		/* Hide the custom numbers from the nested UL items */
+		ol.custom-list ul li::before {
+		  content: none;
+		}
+		
+		/* Ensure nested LIs don't try to flex like the parents */
+		ol.custom-list ul li {
+		  display: list-item; 
+		  counter-increment: none;
+		}
+		
         /* ── Page reset ── */
         body {
             padding: 0 !important;
