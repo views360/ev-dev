@@ -20,6 +20,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+		ol.custom-list {
+		  list-style-type: none;
+		  counter-reset: my-counter;
+		  padding-left: 0;
+		}
+		
+		/* 2. Use Flexbox on the LI to align items */
+		ol.custom-list > li {
+		  counter-increment: my-counter;
+		  display: flex;
+		  align-items: flex-start; /* Aligns the number and the text container at the top */
+		  margin-bottom: 1.5rem;
+		}
+		
+		/* 3. Style the number to match your 1.3rem "heading" */
+		ol.custom-list li::before {
+		  content: counter(my-counter) ".";
+		  font-size: 1.1rem; /* Matches your heading p size */
+		  font-weight: bold;
+		  margin-right: 0.5rem;
+		  line-height: 1.2; /* Match the line-height of the paragraph */
+		  flex-shrink: 0;   /* Prevents the number from squishing */
+		}
+		
+		/* 4. Remove the margin from the first paragraph so it doesn't push down */
+		ol.custom-list li p:first-child {
+		  margin-top: 0;
+		  font-weight: bold;
+		  line-height: 1.2;
+		}
         /* ── Page reset ── */
         body {
             padding: 0 !important;
@@ -340,6 +370,54 @@
             if (theme === 'light') document.documentElement.classList.add('light-mode');
         })();
     </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is EV insurance often more expensive than petrol or diesel insurance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The battery is the most expensive component, accounting for 40–60% of an EV's value. Even minor collisions can compromise a battery's integrity, leading to a full replacement or a total write-off if the replacement cost exceeds the car's market value."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are my home charging cables and wallbox covered by car insurance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not automatically. While some specialist insurers bundle wallbox and cable cover, many standard motor policies classify cables as accessories with low sub-limits (£100–£250), which may not cover the full replacement cost. You should check if your wallbox is covered under buildings or motor insurance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an Acoustic Vehicle Alerting System (AVAS) and why does it affect insurance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AVAS emits a sound at low speeds (below 20km/h) to alert pedestrians. It has been mandatory for new UK EVs since July 2021. If your system is faulty or disabled during an accident, insurers may argue that the lack of alert contributed to the incident."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do EV repairs often take longer than internal combustion engine (ICE) cars?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "EVs require technicians with high-voltage (HV) certification to safely isolate the battery before structural repairs. Because there are fewer HV-certified bodyshops in the UK compared to standard garages, repair wait times are often significantly longer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I ask an insurer before taking out a policy for an electric car?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key questions include: Does the policy cover battery damage from low-speed impacts? Is my home wallbox covered? How many HV-certified repairers are in your network near me? And will I get an EV as a courtesy car?"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
@@ -388,6 +466,7 @@
                     <li><a href="#sec-avas">The "Quiet Car" Liability &amp; AVAS</a></li>
                     <li><a href="#sec-repairers">Approved Repairers</a></li>
                     <li><a href="#sec-checklist">Your Insurance Checklist</a></li>
+					<li><a href="#faq">Frequently Asked Questions</a></li>
                 </ol>
             </nav>
 
@@ -500,6 +579,44 @@
                 </ul>
                 <p>Getting these answers in writing before you commit to a policy takes fifteen minutes and can save you thousands. Insurance is just one aspect of EV ownership costs—for a complete picture of your overall expenses, see our <a href="tco.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">total cost of ownership</a> analysis. If you're already thinking carefully about the ongoing cost of running your EV, use the <a href="index.html" style="color: var(--accent); font-weight: 600;">EV Subs Compare calculator</a> to make sure you're also getting the best value from your charging subscriptions.</p>
             </div>
+
+			<section id="faq" class="about-wrap" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
+			    <div class="about-card">
+			        <h2 style="opacity: 0.99;">Frequently Asked Questions</h2>
+					<ol class="custom-list">
+	
+				        <li><article class="about-section">
+				            <p style="font-weight: 700; font-size: 1.1rem">Why is EV insurance often more expensive than petrol or diesel insurance?</p>
+				            <p>The battery is the most expensive component, accounting for 40–60% of an EV's value. Even minor collisions can compromise a battery's integrity, leading to a full replacement or a total write-off if the replacement cost exceeds the car's market value.</p>
+				        </article></li>
+				
+				        <li><article class="about-section">
+				            <p style="font-weight: 700; font-size: 1.1rem">Are my home charging cables and wallbox covered by car insurance?</p>
+				            <p>Not automatically. While some specialist insurers bundle wallbox and cable cover, many standard motor policies classify cables as accessories with low sub-limits (£100–£250), which may not cover the full replacement cost. You should check if your wallbox is covered under buildings or motor insurance.</p>
+				        </article></li>
+				
+				        <li><article class="about-section">
+				            <p style="font-weight: 700; font-size: 1.1rem">What is an Acoustic Vehicle Alerting System (AVAS) and why does it affect insurance?</p>
+				            <p>AVAS emits a sound at low speeds (below 20km/h) to alert pedestrians. It has been mandatory for new UK EVs since July 2021. If your system is faulty or disabled during an accident, insurers may argue that the lack of alert contributed to the incident.</p>
+				        </article></li>
+				
+				        <li><article class="about-section">
+				            <p style="font-weight: 700; font-size: 1.1rem">Why do EV repairs often take longer than internal combustion engine (ICE) cars?</p>
+				            <p>EVs require technicians with high-voltage (HV) certification to safely isolate the battery before structural repairs. Because there are fewer HV-certified bodyshops in the UK compared to standard garages, repair wait times are often significantly longer.</p>
+				        </article></li>		
+						
+				        <li><article class="about-section">
+				            <p style="font-weight: 700; font-size: 1.1rem">What should I ask an insurer before taking out a policy for an electric car?</p>
+				            <p>Key questions include:<ul>
+								<li>Does the policy cover battery damage from low-speed impacts?</li>
+								<li>Is my home wallbox covered?</li><li>How many HV-certified repairers are in your network near me?</li>
+								<li>And will I get an EV as a courtesy car?</li></ul>
+							</p>
+				        </article></li>
+				
+					</ol>
+			    </div>
+			</section>			
 
         </div>
     </div>
