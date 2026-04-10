@@ -20,7 +20,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ── Page reset ── */
+ol.custom-list {
+  list-style-type: none;
+  counter-reset: my-counter;
+  padding-left: 0;
+}
+
+/* 2. Use Flexbox on the LI to align items */
+ol.custom-list > li {
+  counter-increment: my-counter;
+  display: flex;
+  align-items: flex-start; /* Aligns the number and the text container at the top */
+  margin-bottom: 1.5rem;
+}
+
+/* 3. Style the number to match your 1.3rem "heading" */
+ol.custom-list li::before {
+  content: counter(my-counter) ".";
+  font-size: 1.1rem; /* Matches your heading p size */
+  font-weight: bold;
+  margin-right: 0.5rem;
+  line-height: 1.2; /* Match the line-height of the paragraph */
+  flex-shrink: 0;   /* Prevents the number from squishing */
+}
+
+/* 4. Remove the margin from the first paragraph so it doesn't push down */
+ol.custom-list li p:first-child {
+  margin-top: 0;
+  font-weight: bold;
+  line-height: 1.2;
+}
+		
+		/* ── Page reset ── */
         body {
             padding: 0 !important;
             margin: 0;
@@ -311,6 +342,54 @@
             if (theme === 'light') document.documentElement.classList.add('light-mode');
         })();
     </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is a dedicated Wallbox better than a standard 3-pin plug?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Dedicated Smart Wallboxes are safer for handling high electrical loads over long periods, provide speeds roughly three times faster than a standard plug, and include professional safety features to protect your home's electrical system."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I install a 22kW charger at home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most UK homes have a single-phase supply that supports a 7kW charger. While 22kW chargers exist, they require a three-phase supply, which is rare and expensive for residential properties. Additionally, many EVs are limited to 7kW or 11kW for AC charging."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much can a Smart EV Tariff save me on charging costs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Using a Smart EV Tariff with off-peak rates (often under 10p per kWh) can cut your fuel costs by up to 70% compared to standard electricity rates. These windows typically occur between midnight and 5am."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do I need to check before installing an EV charger?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You must have off-street parking (driveway or garage), a strong Wi-Fi signal at the installation point for smart features, and a modern fuse box. Renters or flat owners will also need written permission from their landlord or freeholder."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there still grants available for home EV charger installation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The OZEV grant for single-unit homeowners has largely ended, but it remains available for renters, flat owners, and landlords. This grant can cover up to 75% of costs, capped at £350, when using an approved installer."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
 <script>
@@ -354,6 +433,7 @@
                     <li><a href="#sec-readiness">Installation Readiness Checklist</a></li>
                     <li><a href="#sec-grants">OZEV Grants & Funding</a></li>
                     <li><a href="#sec-compare">Back to Savings</a></li>
+					<li><a href="#faq">Frequently Asked Questions</a></li>
                 </ol>
             </nav>
 
@@ -441,6 +521,35 @@
                 </div>
                 <p>Even with home charging, you'll still need the <a href="public-network.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">public network</a> for longer trips. Use the <a href="index.html" style="color: var(--accent); font-weight: 600;">EV Subs Compare calculator</a> to see how a public charging subscription can supplement your home setup and keep your long-distance costs as low as your daily commute.</p>
             </div>
+
+			<section id="faq" class="about-wrap" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
+			    <div class="about-card">
+			        <h2 style="opacity: 0.99;">Frequently Asked Questions</h2>
+				<ol class="custom-list">
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Is a dedicated Wallbox better than a standard 3-pin plug?</p>
+			            <p>Yes. Dedicated Smart Wallboxes are safer for handling high electrical loads over long periods, provide speeds roughly three times faster than a standard plug, and include professional safety features to protect your home's electrical system.</p>
+			        </article></li>
+					
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How much can a Smart EV Tariff save me on charging costs?</p>
+			            <p>Using a Smart EV Tariff with off-peak rates (often under 10p per kWh) can cut your fuel costs by up to 70% compared to standard electricity rates. These windows typically occur between midnight and 5am.</p>
+			        </article></li>
+					
+					<li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">What do I need to check before installing an EV charger?</p>
+			            <p>You must have off-street parking (driveway or garage), a strong Wi-Fi signal at the installation point for smart features, and a modern fuse box. Renters or flat owners will also need written permission from their landlord or freeholder.</p>
+			        </article></li>
+					
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Are there still grants available for home EV charger installation?</p>
+			            <p>The OZEV grant for single-unit homeowners has largely ended, but it remains available for renters, flat owners, and landlords. This grant can cover up to 75% of costs, capped at £350, when using an approved installer.</p>
+			        </article></li>
+			
+				</ol>
+			    </div>
+			</section>
 
         </div>
     </div>
