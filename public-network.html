@@ -20,6 +20,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+		ol.custom-list {
+		  list-style-type: none;
+		  counter-reset: my-counter;
+		  padding-left: 0;
+		}
+		
+		/* 2. Use Flexbox on the LI to align items */
+		ol.custom-list > li {
+		  counter-increment: my-counter;
+		  display: flex;
+		  align-items: flex-start; /* Aligns the number and the text container at the top */
+		  margin-bottom: 1.5rem;
+		}
+		
+		/* 3. Style the number to match your 1.3rem "heading" */
+		ol.custom-list li::before {
+		  content: counter(my-counter) ".";
+		  font-size: 1.1rem; /* Matches your heading p size */
+		  font-weight: bold;
+		  margin-right: 0.5rem;
+		  line-height: 1.2; /* Match the line-height of the paragraph */
+		  flex-shrink: 0;   /* Prevents the number from squishing */
+		}
+		
+		/* 4. Remove the margin from the first paragraph so it doesn't push down */
+		ol.custom-list li p:first-child {
+		  margin-top: 0;
+		  font-weight: bold;
+		  line-height: 1.2;
+		}
+		
         /* ── Page reset ── */
         body {
             padding: 0 !important;
@@ -347,6 +378,54 @@
             if (theme === 'light') document.documentElement.classList.add('light-mode');
         })();
     </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the different tiers of public EV charging speeds?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Public charging is divided into four main tiers: Slow (3–6kW) for overnight street parking; Fast (7–22kW) for supermarkets or 4+ hour stays; Rapid (50kW+) for motorway hubs; and Ultra-Rapid (150kW+) for the fastest possible journey top-ups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between Type 2, CCS, and CHAdeMO connectors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Type 2 (AC) is the UK standard for Slow and Fast charging, usually requiring your own cable. CCS (DC) is the European standard for Rapid and Ultra-Rapid charging with tethered cables. CHAdeMO (DC) is an older standard used by some Japanese EVs and is increasingly being phased out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to charge an EV at a Rapid charger?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A standard Rapid charger (50kW+) can typically charge an EV from 20% to 80% in approximately 45 minutes, making it ideal for a mid-journey break."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I check if a public charger is working before I arrive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You should use services like Zap-Map or PlugShare to check live status. Most modern UK networks provide real-time data showing if a unit is 'In Use', 'Offline', or has been successfully used recently by other drivers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I find the cheapest rate for public Ultra-Rapid charging?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Public charging costs vary, but you can find the lowest per-kWh rates by using tools like the EV Subs Compare calculator to identify which subscriptions, such as Ionity Passport or Tesla Membership, offer the best value for specific hardware."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
 <script>
@@ -388,6 +467,7 @@
                     <li><a href="#sec-connectors">Connectors: Type 2, CCS & CHAdeMO</a></li>
                     <li><a href="#sec-protip">Pro-Tip: Checking Status</a></li>
                     <li><a href="#sec-practice">Back to the Calculator</a></li>
+					<li><a href="#faq">Frequently Asked Questions</a></li>
                 </ol>
             </nav>
 
@@ -479,6 +559,40 @@
                 </div>
                 <p>Public charging doesn't have to be expensive. Once you've identified the Ultra-Rapid hubs on your route, use the <a href="index.html" style="color: var(--accent); font-weight: 600;">EV Subs Compare calculator</a> to find which subscription (like Ionity Passport or Tesla Membership) offers the lowest per-kWh rate for that specific hardware.</p>
             </div>
+
+			<section id="faq" class="about-wrap" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
+			    <div class="about-card">
+			        <h2 style="opacity: 0.99;">Frequently Asked Questions</h2>
+				<ol class="custom-list">
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">What are the different tiers of public EV charging speeds?</p>
+			            <p>Public charging is divided into four main tiers: Slow (3–6kW) for overnight street parking; Fast (7–22kW) for supermarkets or 4+ hour stays; Rapid (50kW+) for motorway hubs; and Ultra-Rapid (150kW+) for the fastest possible journey top-ups.</p>
+			        </article></li>
+			
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">What is the difference between Type 2, CCS, and CHAdeMO connectors?</p>
+			            <p>Type 2 (AC) is the UK standard for Slow and Fast charging, usually requiring your own cable. CCS (DC) is the European standard for Rapid and Ultra-Rapid charging with tethered cables. CHAdeMO (DC) is an older standard used by some Japanese EVs and is increasingly being phased out.</p>
+			        </article></li>
+			
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How long does it take to charge an EV at a Rapid charger?</p>
+			            <p>A standard Rapid charger (50kW+) can typically charge an EV from 20% to 80% in approximately 45 minutes, making it ideal for a mid-journey break.</p>
+			        </article></li>
+			
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How can I check if a public charger is working before I arrive?</p>
+			            <p>You should use services like Zap-Map or PlugShare to check live status. Most modern UK networks provide real-time data showing if a unit is 'In Use', 'Offline', or has been successfully used recently by other drivers.</p>
+			        </article></li>
+			
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How can I find the cheapest rate for public Ultra-Rapid charging?</p>
+			            <p>Public charging costs vary, but you can find the lowest per-kWh rates by using tools like the EV Subs UK calculator to identify which subscriptions, such as Ionity Passport or Tesla Membership, offer the best value for specific hardware.</p>
+			        </article></li>
+			
+				</ol>
+			    </div>
+			</section>
 
         </div>
     </div>
