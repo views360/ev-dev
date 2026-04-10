@@ -20,7 +20,36 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ── Page reset ── */
+		ol.custom-list {
+		  list-style-type: none;
+		  counter-reset: my-counter;
+		  padding-left: 0;
+		}
+		
+		/* 2. Increment the counter for every list item */
+		ol.custom-list li {
+		  counter-increment: my-counter;
+		  display: flex;
+		  align-items: flex-start; /* Aligns the number with the top of the H3 */
+		  margin-bottom: 1.5rem;
+		}
+		
+		/* 3. Style the number to match your H3 */
+		ol.custom-list li::before {
+		  content: counter(my-counter) ".";
+		  
+		  /* Match your H3 styles here */
+		  font-size: 1.75rem; /* Adjust to match your H3 size */
+		  font-weight: bold;
+		  margin-right: 1rem;
+		  line-height: 1.2; /* Match your H3 line-height */
+		}
+		
+		/* 4. Optional: Ensure the H3 doesn't add extra top margin */
+		ol.custom-list h3 {
+		  margin-top: 0;
+		  display: inline-block;
+		}
         body {
             padding: 0 !important;
             margin: 0;
@@ -617,29 +646,29 @@
                 </div>
             </div>
 
-			<section id="faq" class="about-wrap" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
+			<section id="faq" class="about-wrap custom-list" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
 			    <div class="about-card">
 			        <h2 style="opacity: 0.99;">Frequently Asked Questions</h2>
 			
-			        <ol><li><article class="about-section">
+			        <article class="about-section">
 			            <h3>Do I really need all four of these apps?</h3>
 			            <p>Think of them as a toolkit rather than a to-do list. <strong>Zap-Map</strong> is your essential daily map, while <strong>ABRP</strong> is your "long-distance brain" for planning big trips. <strong>PlugShare</strong> is your reality check for charger reliability, and the <strong>Tesla app</strong> is now a must-have for accessing the reliable Supercharger network in the UK.</p>
-			        </article></li>
+			        </article>
 			
-			        <li><article class="about-section">
+			        <article class="about-section">
 			            <h3>Can I use Tesla Superchargers with any electric car?</h3>
 			            <p>In 2026, most Tesla Supercharger sites in the UK are open to non-Tesla vehicles. You’ll just need to download the Tesla app, create an account, and add a payment method to start charging at their high-speed "Magic Dock" locations.</p>
-			        </article></li>
+			        </article>
 			
-			        <li><article class="about-section">
+			        <article class="about-section">
 			            <h3>Is it worth paying for "Premium" app versions?</h3>
 			            <p>For most drivers, the free versions are plenty. However, if you want to see your live battery level inside <strong>ABRP</strong> or use <strong>Zap-Map</strong> on your car's dashboard via Apple CarPlay or Android Auto, the small monthly subscription fee is often worth the extra convenience.</p>
-			        </article></li>
+			        </article>
 			
-			        <li><article class="about-section">
+			        <article class="about-section">
 			            <h3>How do I know if a charger is actually working before I arrive?</h3>
 			            <p>Check the community "check-ins" on <strong>PlugShare</strong>. It is the gold standard for real-time reliability because it relies on recent photos and reports from other drivers who have just used that specific charger.</p>
-			        </article></li></ol>
+			        </article>
 			    </div>
 			</section>
 
