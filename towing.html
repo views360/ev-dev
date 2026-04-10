@@ -20,6 +20,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+		ol.custom-list {
+		  list-style-type: none;
+		  counter-reset: my-counter;
+		  padding-left: 0;
+		}
+		
+		/* 2. Use Flexbox on the LI to align items */
+		ol.custom-list > li {
+		  counter-increment: my-counter;
+		  display: flex;
+		  align-items: flex-start; /* Aligns the number and the text container at the top */
+		  margin-bottom: 1.5rem;
+		}
+		
+		/* 3. Style the number to match your 1.3rem "heading" */
+		ol.custom-list li::before {
+		  content: counter(my-counter) ".";
+		  font-size: 1.1rem; /* Matches your heading p size */
+		  font-weight: bold;
+		  margin-right: 0.5rem;
+		  line-height: 1.2; /* Match the line-height of the paragraph */
+		  flex-shrink: 0;   /* Prevents the number from squishing */
+		}
+		
+		/* 4. Remove the margin from the first paragraph so it doesn't push down */
+		ol.custom-list li p:first-child {
+		  margin-top: 0;
+		  font-weight: bold;
+		  line-height: 1.2;
+		}
+		
         /* ── Page reset ── */
         body {
             padding: 0 !important;
@@ -341,6 +372,54 @@
             if (theme === 'light') document.documentElement.classList.add('light-mode');
         })();
     </script>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "FAQPage",
+	  "mainEntity": [
+	    {
+	      "@type": "Question",
+	      "name": "How much does towing affect the range of an electric car?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Towing typically cuts an EV's usable range by 30% to 50% due to increased aerodynamic drag and weight. For planning purposes, a good rule of thumb is to halve your car's official WLTP range and plan for charging stops every 80–100 miles."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Are all electric vehicles allowed to tow a caravan or trailer?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "No. Not all EVs are type-approved for towing. You must check your vehicle's VIN plate (located in the engine bay or door frame); if the train weight is zero or blank, the car is not legally allowed to tow. Retrofitting a towbar to a non-approved vehicle is illegal and invalidates your insurance."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Can I use standard public chargers while towing a trailer?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Most standard charging bays are too small for car-and-trailer combinations. You should specifically seek out 'pull-through' bays provided by networks like GRIDSERVE and Osprey. If these aren't available, you may need to unhitch your trailer in a safe area before charging."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Does towing a caravan affect EV insurance in the UK?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Most comprehensive policies cover towing, but you must verify that your car is type-approved for the load. Towing with a vehicle not rated for it will invalidate your insurance. It is also recommended to check if your policy covers the caravan's contents while in transit."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "How can I improve my EV's range while towing?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Reducing your motorway speed from 70 mph to 60 mph can extend your range by 15–20% by decreasing aerodynamic drag. Additionally, pre-conditioning your battery before reaching a rapid charger ensures faster charging speeds, especially in cooler weather."
+	      }
+	    }
+	  ]
+	}
+	</script>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
@@ -389,6 +468,7 @@
                     <li><a href="#sec-charging">Trailer-Friendly Charging Networks</a></li>
                     <li><a href="#sec-planning">Route Planning with a Trailer</a></li>
                     <li><a href="#sec-checklist">Your Pre-Holiday Checklist</a></li>
+					<li><a href="#faq">Frequently Asked Questions</a></li>
                 </ol>
             </nav>
 
@@ -503,6 +583,41 @@
                 </ul>
                 <p>Towing with an EV requires more planning than an equivalent petrol trip, but the experience of arriving at a campsite or holiday park having spent a fraction of the fuel cost — and with no petrol smell in the caravan — is one that converts most people quickly. For making sure you're also getting the best value from your charging subscriptions day-to-day, use the <a href="index.html" style="color: var(--accent); font-weight: 600;">EV Subs Compare calculator</a> to compare network costs before you sign up.</p>
             </div>
+
+			<section id="faq" class="about-wrap" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
+			    <div class="about-card">
+			        <h2 style="opacity: 0.99;">Frequently Asked Questions</h2>
+				<ol class="custom-list">
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How much does towing affect the range of an electric car?</p>
+			            <p>Towing typically cuts an EV's usable range by 30% to 50% due to increased aerodynamic drag and weight. For planning purposes, a good rule of thumb is to halve your car's official WLTP range and plan for charging stops every 80–100 miles.</p>
+			        </article></li>
+			
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Are all electric vehicles allowed to tow a caravan or trailer?</p>
+			            <p>"No. Not all EVs are type-approved for towing. You must check your vehicle's VIN plate (located in the engine bay or door frame); if the train weight is zero or blank, the car is not legally allowed to tow. Retrofitting a towbar to a non-approved vehicle is illegal and invalidates your insurance.</p>
+			        </article></li>
+	
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Can I use standard public chargers while towing a trailer?</p>
+			            <p>Most standard charging bays are too small for car-and-trailer combinations. You should specifically seek out 'pull-through' bays provided by networks like GRIDSERVE and Osprey. If these aren't available, you may need to unhitch your trailer in a safe area before charging.</p>
+			        </article></li>
+					
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Does towing a caravan affect EV insurance in the UK?</p>
+			            <p>Most comprehensive policies cover towing, but you must verify that your car is type-approved for the load. Towing with a vehicle not rated for it will invalidate your insurance. It is also recommended to check if your policy covers the caravan's contents while in transit.</p>
+			        </article></li>
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How can I improve my EV's range while towing?</p>
+			            <p>Reducing your motorway speed from 70 mph to 60 mph can extend your range by 15–20% by decreasing aerodynamic drag. Additionally, pre-conditioning your battery before reaching a rapid charger ensures faster charging speeds, especially in cooler weather.</p>
+			        </article></li>
+			
+				</ol>
+			    </div>
+			</section>
 
         </div>
     </div>
