@@ -20,6 +20,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+		ol.custom-list {
+		  list-style-type: none;
+		  counter-reset: my-counter;
+		  padding-left: 0;
+		}
+		
+		/* 2. Use Flexbox on the LI to align items */
+		ol.custom-list > li {
+		  counter-increment: my-counter;
+		  display: flex;
+		  align-items: flex-start; /* Aligns the number and the text container at the top */
+		  margin-bottom: 1.5rem;
+		}
+		
+		/* 3. Style the number to match your 1.3rem "heading" */
+		ol.custom-list li::before {
+		  content: counter(my-counter) ".";
+		  font-size: 1.1rem; /* Matches your heading p size */
+		  font-weight: bold;
+		  margin-right: 0.5rem;
+		  line-height: 1.2; /* Match the line-height of the paragraph */
+		  flex-shrink: 0;   /* Prevents the number from squishing */
+		}
+		
+		/* 4. Remove the margin from the first paragraph so it doesn't push down */
+		ol.custom-list li p:first-child {
+		  margin-top: 0;
+		  font-weight: bold;
+		  line-height: 1.2;
+		}
+		
         /* ── Page reset ── */
         body {
             padding: 0 !important;
@@ -311,6 +342,54 @@
             if (theme === 'light') document.documentElement.classList.add('light-mode');
         })();
     </script>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "FAQPage",
+	  "mainEntity": [
+	    {
+	      "@type": "Question",
+	      "name": "How do I check the battery health of a used electric car?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "You should request a State of Health (SOH) certificate from the dealer or an EV inspection service. For private sales, you can use an OBDII dongle with apps like LeafSpy or EVNotify to read real-time cell degradation data directly from the car."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "What is a good State of Health (SOH) for a used EV?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "For an electric car under 5 years old, you should aim for a State of Health (SOH) of 90% or higher. This ensures the battery still retains the vast majority of its original energy capacity."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "What charging cables should be included with a used EV?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "A used EV should ideally come with a Type 2 to Type 2 cable for public fast charging and a 3-pin 'Granny' cable for emergency home charging. Replacing these can cost between £200 and £400 if they are missing."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "What is the difference between a leased and owned battery?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "On older EVs like the Renault Zoe, the battery was often leased separately. This means you may have to pay a monthly rental fee even after buying the car. Always check the V5C and ask the seller for proof of battery ownership before purchasing."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Does an electric car battery have a separate warranty?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Yes. Most manufacturers provide a separate battery and drivetrain warranty, typically lasting 8 years or 100,000 miles. This usually guarantees the battery will maintain at least 70% of its original capacity."
+	      }
+	    }
+	  ]
+	}
+	</script>
 </head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
 <script>
@@ -353,6 +432,7 @@
                     <li><a href="#sec-ownership">Battery Ownership vs. Lease</a></li>
                     <li><a href="#sec-warranty">Warranty Transfers</a></li>
                     <li><a href="#sec-benchmarks">Market Price Benchmarks</a></li>
+					<li><a href="#faq">Frequently Asked Questions</a></li>
                 </ol>
             </nav>
 
@@ -429,6 +509,44 @@
                 <p>Used EV prices can be volatile. Before committing, cross-reference the asking price with the <strong><a href="https://www.autotrader.co.uk/cars/electric" target="_blank" style="color: var(--accent); font-weight: 600;">AutoTrader EV section</a></strong>. This provides a reliable benchmark for current UK market values and helps you identify if a deal is suspiciously cheap (potential battery lease) or overpriced. For a complete breakdown of ownership costs, see our <a href="tco.html" style="color: var(--accent); font-weight: 600; text-decoration: underline;">total cost of ownership</a> guide.</p>
                 <p>Once you've found the right car, don't forget to use our <a href="index.html" style="color: var(--accent); font-weight: 600;">Subscription Calculator</a> to find the best public charging rates for your new "green" miles.</p>
             </div>
+
+			<section id="faq" class="about-wrap" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
+			    <div class="about-card">
+			        <h2 style="opacity: 0.99;">Frequently Asked Questions</h2>
+				<ol class="custom-list">
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How do I check the battery health of a used electric car?</p>
+			            <p>You should request a State of Health (SOH) certificate from the dealer or an EV inspection service. For private sales, you can use an OBDII dongle with apps like LeafSpy or EVNotify to read real-time cell degradation data directly from the car.</p>
+			        </article></li>
+			
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">What is a good State of Health (SOH) for a used EV?</p>
+			            <p>For an electric car under 5 years old, you should aim for a State of Health (SOH) of 90% or higher. This ensures the battery still retains the vast majority of its original energy capacity.</p>
+			        </article></li>
+			
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">What charging cables should be included with a used EV?</p>
+			            <p>A used EV should ideally come with a Type 2 to Type 2 cable for public fast charging and a 3-pin 'Granny' cable for emergency home charging. Replacing these can cost between £200 and £400 if they are missing.</p>
+			        </article></li>
+			
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">What is the difference between a leased and owned battery?</p>
+			            <p>On older EVs like the Renault Zoe, the battery was often leased separately. This means you may have to pay a monthly rental fee even after buying the car. Always check the V5C and ask the seller for proof of battery ownership before purchasing.</p>
+			        </article></li>
+			
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Does an electric car battery have a separate warranty?</p>
+			            <p>Yes. Most manufacturers provide a separate battery and drivetrain warranty, typically lasting 8 years or 100,000 miles. This usually guarantees the battery will maintain at least 70% of its original capacity.</p>
+			        </article></li>
+			
+				</ol>
+			    </div>
+			</section>			
 
         </div>
     </div>
