@@ -20,6 +20,37 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
+		ol.custom-list {
+		  list-style-type: none;
+		  counter-reset: my-counter;
+		  padding-left: 0;
+		}
+		
+		/* 2. Use Flexbox on the LI to align items */
+		ol.custom-list > li {
+		  counter-increment: my-counter;
+		  display: flex;
+		  align-items: flex-start; /* Aligns the number and the text container at the top */
+		  margin-bottom: 1.5rem;
+		}
+		
+		/* 3. Style the number to match your 1.3rem "heading" */
+		ol.custom-list li::before {
+		  content: counter(my-counter) ".";
+		  font-size: 1.1rem; /* Matches your heading p size */
+		  font-weight: bold;
+		  margin-right: 0.5rem;
+		  line-height: 1.2; /* Match the line-height of the paragraph */
+		  flex-shrink: 0;   /* Prevents the number from squishing */
+		}
+		
+		/* 4. Remove the margin from the first paragraph so it doesn't push down */
+		ol.custom-list li p:first-child {
+		  margin-top: 0;
+		  font-weight: bold;
+		  line-height: 1.2;
+		}
+		
         /* ── Page reset ── */
         body {
             padding: 0 !important;
@@ -311,6 +342,46 @@
             if (theme === 'light') document.documentElement.classList.add('light-mode');
         })();
     </script>
+	<script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "FAQPage",
+	  "mainEntity": [
+	    {
+	      "@type": "Question",
+	      "name": "How much can I save on fuel costs by switching to an EV?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "The savings are significant: while petrol/diesel costs roughly 15p-20p per mile, an EV charged at home on a smart off-peak tariff can cost as little as 2p per mile. For a driver doing 10,000 miles a year, this can save over £1,500 annually."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Why are EV maintenance costs lower than petrol or diesel cars?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Electric vehicles have far fewer moving parts; they require no oil changes, spark plugs, filters, or timing belts. Additionally, regenerative braking means brake pads and discs typically last two to three times longer than on traditional cars."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "What is the Benefit-in-Kind (BiK) rate for electric company cars in the UK?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "The BiK rate for pure electric vehicles is currently set at just 2%. This rate is fixed until April 2025, after which it will rise by 1% annually. This is significantly lower than the 25-35% rates often seen on petrol vehicles."
+	      }
+	    },
+	    {
+	      "@type": "Question",
+	      "name": "Is an EV really cheaper to own in the long run despite the higher upfront price?",
+	      "acceptedAnswer": {
+	        "@type": "Answer",
+	        "text": "Yes, when looking at the Total Cost of Ownership (TCO). Lower fuel costs (2p/mile off-peak), reduced maintenance bills, and massive tax perks like the 2% BiK rate often mean the 'all-in' monthly cost is lower than a comparable petrol vehicle."
+	      }
+	    }
+	  ]
+	}
+	</script>
 </head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6B2B03YZ17"></script>
 <script>
@@ -352,6 +423,7 @@
                     <li><a href="#sec-maintenance">Maintenance: The 'Moving Parts' Advantage</a></li>
                     <li><a href="#sec-tax">Tax Perks &amp; 2% BiK</a></li>
                     <li><a href="#sec-calc">Calculate Your Savings</a></li>
+					<li><a href="#faq">Frequently Asked Questions</a></li>
                 </ol>
             </nav>
 
@@ -419,6 +491,36 @@
             <div class="guide-section">
                 <p>Ready to see how public charging costs stack up against your potential savings? Head back to the <a href="index.html" style="color: var(--accent); font-weight: 600;">Subscription Calculator</a> to find the best deals on electrons.</p>
             </div>
+
+			<section id="faq" class="about-wrap" style="margin-top: 0; padding-top: 0; font-size: 0.8rem; opacity: 0.8;">
+			    <div class="about-card">
+			        <h2 style="opacity: 0.99;">Frequently Asked Questions</h2>
+				<ol class="custom-list">
+
+			        <li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">How much can I save on fuel costs by switching to an EV?</p>
+			            <p>The savings are significant: while petrol/diesel costs roughly 15p-20p per mile, an EV charged at home on a smart off-peak tariff can cost as little as 2p per mile. For a driver doing 10,000 miles a year, this can save over £1,500 annually.</p>
+			        </article></li>
+					
+					<li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Why are EV maintenance costs lower than petrol or diesel cars?</p>
+			            <p>Electric vehicles have far fewer moving parts; they require no oil changes, spark plugs, filters, or timing belts. Additionally, regenerative braking means brake pads and discs typically last two to three times longer than on traditional cars.</p>
+			        </article></li>
+					
+					<li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">What is the Benefit-in-Kind (BiK) rate for electric company cars in 2026?</p>
+			            <p>For the 2026/27 tax year, the BiK rate for pure electric vehicles is 4%. This is set to rise by 1% annually, reaching 5% in 2027/28. Even with these incremental rises, it remains significantly lower than the 25-37% rates typical for petrol and diesel vehicles.</p>
+			        </article></li>
+
+					<li><article class="about-section">
+			            <p style="font-weight: 700; font-size: 1.1rem">Is an EV really cheaper to own in the long run despite the higher upfront price?</p>
+			            <p>"Yes, when looking at the Total Cost of Ownership (TCO). Lower fuel costs (2p/mile off-peak), reduced maintenance bills, and massive tax perks like the 4% BiK rate often mean the 'all-in' monthly cost is lower than a comparable petrol vehicle.</p>
+			        </article></li>
+			
+				</ol>
+			    </div>
+			</section>
+			
 
         </div>
     </div>
