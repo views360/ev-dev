@@ -293,13 +293,14 @@ function initSearch() {
       .then(data => {
         const fuse = new Fuse(data, { 
             keys: [
-                { name: 'title', weight: 0.7 }, // Give titles more importance
+                { name: 'title', weight: 0.7 },
                 { name: 'content', weight: 0.3 }
             ], 
-            threshold: 0.3,          // Lower = stricter. 0.3 is usually the "sweet spot"
-            ignoreLocation: true,    // Matches anywhere in the text, not just the start
-            findAllMatches: true,    // Continue searching after first match
-            minMatchCharLength: 2    // Allows 2-letter searches (like "ev")
+            threshold: 0.3,
+            ignoreLocation: true,
+            findAllMatches: true,
+            includeMatches: true, // Required to get the location of matched text
+            minMatchCharLength: 2
         });
 
         const input = document.getElementById('search-input');
@@ -312,11 +313,24 @@ function initSearch() {
           if (input.value.length > 0) {
             list.style.display = 'block';
             
-            // Cleanly map only the search results without appending extra rows
-            list.innerHTML = results.map(r => 
-              `<li><a href="${r.item.url}">${r.item.title}</a></li>`
-            ).join('');
-            
+            list.innerHTML = results.map(r => {
+              // Helper to find the snippet in the 'content' field
+              const match = r.matches.find(m => m.key === 'content');
+              let snippet = "";
+              
+              if (match) {
+                const start = Math.max(0, match.indices[0][0] - 40);
+                const end = Math.min(match.value.length, match.indices[0][1] + 40);
+                snippet = `<div class="search-snippet">...${match.value.substring(start, end)}...</div>`;
+              }
+
+              return `<li>
+                <a href="${r.item.url}">
+                  <div class="search-title">${r.item.title}</div>
+                  ${snippet}
+                </a>
+              </li>`;
+            }).join('');
           } else {
             list.style.display = 'none';
           }
