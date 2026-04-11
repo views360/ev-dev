@@ -118,11 +118,6 @@ function resetAll() {
 }
 </script>
 
-<section class="search-container">
-  <input type="text" id="search-input" placeholder="Search the site...">
-  <ul id="results-list"></ul>
-</section>
-
 <div id="sideMenu" class="chrome-style-menu">
     <div class="menu-content">
 
@@ -264,24 +259,25 @@ function resetAll() {
     </div>
 </div>
 
+<div style="margin-top: 10px;">
+  <input type="text" id="search-input" placeholder="Search pages...">
+  <ul id="results-list"></ul>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 <script>
-  fetch('{{ "/search.json" | relative_url }}')
-    .then(response => response.json())
+  fetch("{{ '/search.json' | relative_url }}")
+    .then(res => res.json())
     .then(data => {
-      const fuse = new Fuse(data, {
-        keys: ['title', 'content'],
-        threshold: 0.3
-      });
-
+      const fuse = new Fuse(data, { keys: ['title'], threshold: 0.3 });
       const input = document.getElementById('search-input');
-      const resultsList = document.getElementById('results-list');
+      const list = document.getElementById('results-list');
 
-      input.addEventListener('input', () => {
+      input.oninput = () => {
         const results = fuse.search(input.value);
-        resultsList.innerHTML = results
-          .map(result => `<li><a href="${result.item.url}">${result.item.title}</a></li>`)
-          .join('');
-      });
+        list.innerHTML = results.map(r => 
+          `<li><a href="${r.item.url}">${r.item.title}</a></li>`
+        ).join('');
+      };
     });
 </script>
