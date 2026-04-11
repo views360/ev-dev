@@ -1,5 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
+#results-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    max-height: 300px;
+    overflow-y: auto;
+    border-top: 1px solid var(--border);
+}
+
+#results-list li {
+    border-bottom: 1px solid var(--border);
+}
+
+#results-list li:last-child {
+    border-bottom: none;
+}
+
+#results-list li a {
+    display: block;
+    padding: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+}
+
+#results-list li a:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
 .search-slide-container {
     position: fixed;
     right: -105px; /* Hidden by default */
@@ -39,10 +70,10 @@
 
 .search-footer {
     margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
     font-size: 0.8rem;
     color: var(--muted);
-    border-top: 1px solid var(--border);
-    padding-top: 10px;
 }
 
 .search-footer a {
