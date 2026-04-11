@@ -3,8 +3,8 @@
 .search-slide-container {
     position: fixed;
     right: -265px; /* Hidden by default */
-    top: 100px;    /* Positioned higher than the robot */
-    width: 300px;
+    top: 60px;    /* Positioned higher than the robot */
+    width: 400px;
     display: flex;
     align-items: flex-start;
     transition: right 0.3s ease-in-out;
