@@ -300,12 +300,19 @@ function resetAll() {
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    fetch("{{ '/search.json' | relative_url }}")
-      .then(res => res.json())
+(function() {
+    // 1. HARDCODE the path. 
+    // If your site is at username.github.io/reponame/, use '/reponame/search.json'
+    const jsonPath = 'ev-dev/search.json'; 
+
+    fetch(jsonPath)
+      .then(res => {
+        if (!res.ok) throw new Error("Search index not found at " + jsonPath);
+        return res.json();
+      })
       .then(data => {
         const fuse = new Fuse(data, { 
-          keys: ['title', 'content'], 
+          keys: ['title', 'content'], // Now searching both!
           threshold: 0.4 
         });
 
@@ -314,7 +321,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         input.oninput = () => {
           const results = fuse.search(input.value);
-          
           if (input.value.length > 0 && results.length > 0) {
             list.style.display = 'block';
             list.innerHTML = results.map(r => 
@@ -324,11 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
             list.style.display = 'none';
           }
         };
-
-        // Hide list when clicking outside
-        document.addEventListener('click', (e) => {
-          if (!input.contains(e.target)) list.style.display = 'none';
-        });
-      });
-});
+      })
+      .catch(err => console.error("Search setup failed:", err));
+})();
 </script>
