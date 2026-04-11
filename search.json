@@ -10,6 +10,7 @@ layout: none
       {
         "title": {{ item.title | jsonify }},
         "url": {{ item.url | relative_url | jsonify }},
+        {%- assign content_parts = item.content | split: '' -%}
         {%- comment -%} Strip HTML, remove the site title, and remove the specific page title from the body text {%- endcomment -%}
         {%- assign clean_content = item.content | strip_html | strip_newlines | remove: "EV Subs UK | " | remove: item.title -%}
         "content": {{ clean_content | jsonify }}
