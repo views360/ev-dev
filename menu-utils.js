@@ -286,8 +286,7 @@ async function loadMenu() {
 
 function initSearch() {
     const isGitHub = window.location.hostname.includes('github.io');
-    // Change 'reponame' to your actual repo name
-    const jsonPath = isGitHub ? '/reponame/search.json' : '/search.json';
+    const jsonPath = isGitHub ? '/ev-dev/search.json' : '/search.json';
 
     console.log("Searching for database at:", jsonPath);
 
