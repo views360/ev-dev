@@ -1,36 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
 #results-list {
+    background-color: var(--panel-alt) !important; /* Forces the dark background */
+    color: var(--text) !important;               /* Forces the light gray text */
     list-style: none;
     padding: 0;
     margin: 10px 0 0 0;
-    background-color: var(--panel-alt); /* Matches your dark panel background */
     border: 1px solid var(--border);
     border-radius: 4px;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-#results-list li {
-    border-bottom: 1px solid var(--border);
 }
 
 #results-list li:last-child {
     border-bottom: none;
 }
 
+#results-list li {
+    border-bottom: 1px solid var(--border);
+    background-color: transparent; 
+}
+
 #results-list li a {
     display: block;
     padding: 10px 12px;
-    color: var(--text); /* Matches your site's light-colored text */
+    color: var(--text) !important; /* Ensures links aren't default blue/black */
     text-decoration: none;
     font-size: 0.9rem;
-    transition: background 0.2s ease;
 }
 
 #results-list li a:hover {
-    background-color: var(--accent-soft); /* Uses your accent blue highlight */
-    color: var(--accent);
+    background-color: var(--accent-soft); /* Highlight on hover */
+    color: var(--accent) !important;      /* Changes text to accent blue on hover */
 }
 
 /* Scrollbar styling for the results list */
