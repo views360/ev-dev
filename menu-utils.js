@@ -298,10 +298,10 @@ function initSearch() {
             ],
             includeMatches: true,
             findAllMatches: true,
-            threshold: 0.2,            // Slightly relaxed to allow for spaces in phrases
+            threshold: 0.3,            // Slightly more relaxed to allow fuzzy "type2"
             useExtendedSearch: true,
-            ignoreLocation: true,      // Essential so it searches the whole page equally
-            minMatchCharLength: 3      // Prevents single character noise
+            ignoreLocation: true,
+            minMatchCharLength: 3
         };
 
         const fuse = new Fuse(data, options);
@@ -312,52 +312,41 @@ function initSearch() {
             const rawQuery = input.value;
             const lowerQuery = rawQuery.toLowerCase().trim();
             
-            // 1. Only search if 3 or more characters
             if (lowerQuery.length < 3) {
                 list.style.display = 'none';
                 list.innerHTML = '';
                 return;
             }
 
-            // 2. Phrase Fix: If there is a space, wrap in quotes for Fuse
-            // This forces Fuse to look for "type 2" as one unit
-            const fuseQuery = lowerQuery.includes(' ') ? `"${lowerQuery}"` : lowerQuery;
+            // EXTENDED SEARCH FIX:
+            // Using ' (single quote prefix) tells Fuse to include the term 
+            // but keeps it fuzzy enough to find variations like type-2.
+            const fuseQuery = `'${lowerQuery}`;
 
-            // 3. Search and then filter results to ensure the phrase actually exists
-            // This prevents "fuzzy ghost matches" on pages without the term
-            const results = fuse.search(fuseQuery).filter(r => {
-                const inTitle = r.item.title.toLowerCase().includes(lowerQuery);
-                const inContent = (r.item.content || "").toLowerCase().includes(lowerQuery);
-                
-                // If it's a fuzzy match (like "type2" vs "type 2"), 
-                // Fuse will find it even if this strict filter doesn't.
-                // We keep it strict here to prioritize the exact phrase.
-                return inTitle || inContent || lowerQuery.replace(/\s/g, '') === "";
-            });
+            const results = fuse.search(fuseQuery);
 
             list.style.display = 'block';
             list.innerHTML = results.map(r => {
                 const text = r.item.content || "";
                 const textLower = text.toLowerCase();
                 
-                // 4. SMART SNIPPET JUMP:
-                // Try finding the exact phrase first. 
+                // 1. Try finding the exact user input (e.g., "type 2")
                 let index = textLower.indexOf(lowerQuery);
                 
-                // Fallback: If exact phrase not found, try finding a version without spaces
-                if (index === -1 && lowerQuery.includes(' ')) {
-                    const collapsedQuery = lowerQuery.replace(/\s/g, '');
-                    index = textLower.replace(/\s/g, '').indexOf(collapsedQuery);
+                // 2. If not found, look for "type2" or "type-2" variations
+                if (index === -1) {
+                    const fuzzyTerm = lowerQuery.replace(/[^a-z0-9]/g, '');
+                    // Find the first word of the query to at least jump to the right section
+                    const firstWord = lowerQuery.split(' ')[0];
+                    index = textLower.indexOf(firstWord);
                 }
                 
                 let snippet = "";
                 if (index !== -1) {
-                    // Create window around the found term (50 chars before, 100 after)
                     const start = Math.max(0, index - 50);
                     const end = Math.min(text.length, index + 100);
                     let chunk = text.substring(start, end);
 
-                    // Clean up partial words at the edges of the snippet
                     const firstSpace = chunk.indexOf(' ');
                     const lastSpace = chunk.lastIndexOf(' ');
                     if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
@@ -365,7 +354,6 @@ function initSearch() {
                     
                     snippet = `<div class="search-snippet">${chunk}</div>`;
                 } else {
-                    // Final fallback: show the beginning of the page
                     snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                 }
 
