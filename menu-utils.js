@@ -314,22 +314,21 @@ function initSearch() {
             list.style.display = 'block';
             
             list.innerHTML = results.map(r => {
-              // Find the match in the 'content' field
-              const match = r.matches.find(m => m.key === 'content');
+              // 1. Prioritize finding a match in 'content' for the snippet
+              const contentMatch = r.matches.find(m => m.key === 'content');
               let snippet = "";
               
-              if (match) {
-                const text = match.value;
-                const index = match.indices[0][0];
+              if (contentMatch) {
+                const text = contentMatch.value;
+                const index = contentMatch.indices[0][0];
                 
-                // Define a window around the match (e.g., 80 characters)
-                const start = Math.max(0, index - 40);
-                const end = Math.min(text.length, index + 80);
+                // 2. Create a wider window (e.g., 150 characters)
+                const start = Math.max(0, index - 50);
+                const end = Math.min(text.length, index + 100);
                 
-                // Extract the raw chunk
                 let chunk = text.substring(start, end);
                 
-                // Clean up the chunk so it doesn't start or end with half-words
+                // 3. Clean up leading/trailing partial words
                 const firstSpace = chunk.indexOf(' ');
                 const lastSpace = chunk.lastIndexOf(' ');
                 
@@ -339,8 +338,10 @@ function initSearch() {
                 if (lastSpace !== -1 && end !== text.length) {
                     chunk = chunk.substring(0, lastSpace).trim() + "...";
                 }
-        
                 snippet = `<div class="search-snippet">${chunk}</div>`;
+              } else if (r.item.content) {
+                // Fallback: If title matched but content didn't, show the start of the content
+                snippet = `<div class="search-snippet">${r.item.content.substring(0, 100)}...</div>`;
               }
         
               return `<li>
