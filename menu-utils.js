@@ -291,36 +291,40 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        // We keep Fuse very simple here
         const fuse = new Fuse(data, {
             keys: ['title', 'content'],
             threshold: 0.4, 
-            ignoreLocation: true 
+            ignoreLocation: true,
+            useExtendedSearch: true 
         });
 
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
 
         input.oninput = () => {
-            const query = input.value.toLowerCase().trim();
-            if (query.length < 3) {
+            const rawQuery = input.value.trim();
+            const lowerQuery = rawQuery.toLowerCase();
+            
+            if (lowerQuery.length < 3) {
                 list.style.display = 'none';
+                list.innerHTML = '';
                 return;
             }
 
-            // Step 1: Get broad results from Fuse
-            let results = fuse.search(query);
+            // Create variations to catch "type 2", "type-2", and "type2"
+            const hyphenated = lowerQuery.replace(/\s+/g, '-');
+            const collapsed = lowerQuery.replace(/\s+/g, '');
+            
+            // Search for any of these variations using the OR (|) operator
+            const extendedQuery = `${lowerQuery} | ${hyphenated} | ${collapsed}`;
+            let results = fuse.search(extendedQuery);
 
-            // Step 2: STRICT FILTERING
-            // We only keep results that actually contain the words typed
+            // Filter results to ensure a version of the query exists in title or content
             results = results.filter(r => {
-                const title = r.item.title.toLowerCase();
-                const content = r.item.content.toLowerCase();
-                // Check for exact phrase, or hyphenated, or collapsed
-                return title.includes(query) || 
-                       content.includes(query) || 
-                       content.includes(query.replace(/\s/g, '-')) || 
-                       content.includes(query.replace(/\s/g, ''));
+                const c = (r.item.content || "").toLowerCase();
+                const t = r.item.title.toLowerCase();
+                return t.includes(lowerQuery) || c.includes(lowerQuery) || 
+                       c.includes(hyphenated) || c.includes(collapsed);
             });
 
             if (results.length > 0) {
@@ -329,10 +333,10 @@ function initSearch() {
                     const text = r.item.content || "";
                     const textLower = text.toLowerCase();
                     
-                    // Step 3: MANUAL SNIPPET JUMP
-                    let index = textLower.indexOf(query);
-                    if (index === -1) index = textLower.indexOf(query.replace(/\s/g, '-'));
-                    if (index === -1) index = textLower.indexOf(query.replace(/\s/g, ''));
+                    // Find the best anchor for the snippet
+                    let index = textLower.indexOf(lowerQuery);
+                    if (index === -1) index = textLower.indexOf(hyphenated);
+                    if (index === -1) index = textLower.indexOf(collapsed);
 
                     let snippet = "";
                     if (index !== -1) {
@@ -340,7 +344,6 @@ function initSearch() {
                         const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
                         
-                        // Clean edges
                         const firstSpace = chunk.indexOf(' ');
                         const lastSpace = chunk.lastIndexOf(' ');
                         if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
@@ -348,7 +351,7 @@ function initSearch() {
                         
                         snippet = `<div class="search-snippet">${chunk}</div>`;
                     } else {
-                        snippet = `<div class="search-snippet">${text.substring(0, 100)}...</div>`;
+                        snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                     }
 
                     return `<li>
