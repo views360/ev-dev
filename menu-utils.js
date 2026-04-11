@@ -293,9 +293,8 @@ function initSearch() {
       .then(data => {
         const fuse = new Fuse(data, {
             keys: ['title', 'content'],
-            threshold: 0.4, 
-            ignoreLocation: true,
-            useExtendedSearch: true 
+            threshold: 0.4,
+            ignoreLocation: true
         });
 
         const input = document.getElementById('search-input');
@@ -311,20 +310,25 @@ function initSearch() {
                 return;
             }
 
-            // Create variations to catch "type 2", "type-2", and "type2"
+            // Create variations: "type 2", "type-2", "type2"
             const hyphenated = lowerQuery.replace(/\s+/g, '-');
             const collapsed = lowerQuery.replace(/\s+/g, '');
-            
-            // Search for any of these variations using the OR (|) operator
-            const extendedQuery = `${lowerQuery} | ${hyphenated} | ${collapsed}`;
-            let results = fuse.search(extendedQuery);
 
-            // Filter results to ensure a version of the query exists in title or content
-            results = results.filter(r => {
-                const c = (r.item.content || "").toLowerCase();
-                const t = r.item.title.toLowerCase();
-                return t.includes(lowerQuery) || c.includes(lowerQuery) || 
-                       c.includes(hyphenated) || c.includes(collapsed);
+            // 1. Get fuzzy results from Fuse
+            let results = fuse.search(lowerQuery);
+
+            // 2. Manual Injection: Add items that strictly contain the variations
+            const manualMatches = data.filter(item => {
+                const c = (item.content || "").toLowerCase();
+                const t = item.title.toLowerCase();
+                return c.includes(lowerQuery) || c.includes(hyphenated) || c.includes(collapsed) ||
+                       t.includes(lowerQuery) || t.includes(hyphenated) || t.includes(collapsed);
+            });
+
+            manualMatches.forEach(item => {
+                if (!results.find(r => r.item.url === item.url)) {
+                    results.push({ item: item });
+                }
             });
 
             if (results.length > 0) {
@@ -333,7 +337,7 @@ function initSearch() {
                     const text = r.item.content || "";
                     const textLower = text.toLowerCase();
                     
-                    // Find the best anchor for the snippet
+                    // Center snippet on whatever we found
                     let index = textLower.indexOf(lowerQuery);
                     if (index === -1) index = textLower.indexOf(hyphenated);
                     if (index === -1) index = textLower.indexOf(collapsed);
@@ -343,12 +347,10 @@ function initSearch() {
                         const start = Math.max(0, index - 50);
                         const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
-                        
                         const firstSpace = chunk.indexOf(' ');
                         const lastSpace = chunk.lastIndexOf(' ');
                         if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
                         if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
-                        
                         snippet = `<div class="search-snippet">${chunk}</div>`;
                     } else {
                         snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
