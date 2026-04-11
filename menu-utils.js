@@ -288,33 +288,43 @@ function initSearch() {
     const isGitHub = window.location.hostname.includes('github.io');
     const jsonPath = isGitHub ? '/ev-dev/search.json' : '/search.json';
 
-    console.log("Searching for database at:", jsonPath);
-
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        console.log("Search database loaded! Total pages:", data.length);
-        
         const fuse = new Fuse(data, { 
-            keys: ['title', 'content'], 
-            threshold: 0.4 
+            keys: [
+                { name: 'title', weight: 0.7 }, // Give titles more importance
+                { name: 'content', weight: 0.3 }
+            ], 
+            threshold: 0.3,          // Lower = stricter. 0.3 is usually the "sweet spot"
+            ignoreLocation: true,    // Matches anywhere in the text, not just the start
+            findAllMatches: true,    // Continue searching after first match
+            minMatchCharLength: 2    // Allows 2-letter searches (like "ev")
         });
 
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
 
-        if (!input) {
-            console.error("Search input not found in the menu!");
-            return;
-        }
+        if (!input) return;
 
         input.oninput = () => {
           const results = fuse.search(input.value);
-          if (input.value.length > 0 && results.length > 0) {
+          if (input.value.length > 0) {
             list.style.display = 'block';
-            list.innerHTML = results.map(r => 
+            
+            // Build the dynamic results list
+            let html = results.map(r => 
               `<li><a href="${r.item.url}">${r.item.title}</a></li>`
             ).join('');
+
+            // Add your requested footer link at the end of every search result set
+            html += `
+              <li class="search-footer-link">
+                Can't find what you're searching for? 
+                <a href='assistant.html'>Chat with AI</a>
+              </li>`;
+            
+            list.innerHTML = html;
           } else {
             list.style.display = 'none';
           }
