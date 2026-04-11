@@ -292,15 +292,11 @@ function initSearch() {
       .then(res => res.json())
       .then(data => {
         const options = {
-            keys: [
-                { name: 'title', weight: 0.7 },
-                { name: 'content', weight: 0.3 }
-            ],
-            includeMatches: true,
-            findAllMatches: true,
-            threshold: 0.4,            // Balanced threshold for fuzzy matching
-            useExtendedSearch: true,
-            ignoreLocation: true,
+            keys: ['title', 'content'],
+            includeMatches: true,      // Tells Fuse to tell us exactly where the word is
+            threshold: 0.4,            // Allows for fuzzy matches like type2 or type-2
+            location: 0,
+            distance: 10000,           // Look through the whole page
             minMatchCharLength: 3
         };
 
@@ -309,68 +305,51 @@ function initSearch() {
         const list = document.getElementById('results-list');
 
         input.oninput = () => {
-            const rawQuery = input.value;
-            const lowerQuery = rawQuery.toLowerCase().trim();
+            const query = input.value.trim();
             
-            if (lowerQuery.length < 3) {
+            if (query.length < 3) {
                 list.style.display = 'none';
-                list.innerHTML = '';
                 return;
             }
 
-            // Standard search allows Fuse to find type 2, type-2, and type2
-            const results = fuse.search(lowerQuery);
+            const results = fuse.search(query);
 
-            list.style.display = 'block';
-            list.innerHTML = results.map(r => {
-                const text = r.item.content || "";
-                const textLower = text.toLowerCase();
-                
-                // --- SNIPPET ANCHOR LOGIC ---
-                // We look for the best possible match to center our snippet
-                let index = textLower.indexOf(lowerQuery); // Try "type 2"
-                
-                if (index === -1) {
-                    // Try hyphenated "type-2"
-                    const hyphenated = lowerQuery.replace(/\s+/g, '-');
-                    index = textLower.indexOf(hyphenated);
-                }
-                
-                if (index === -1) {
-                    // Try collapsed "type2"
-                    const collapsed = lowerQuery.replace(/\s+/g, '');
-                    index = textLower.indexOf(collapsed);
-                }
+            if (results.length > 0) {
+                list.style.display = 'block';
+                list.innerHTML = results.map(r => {
+                    let snippet = "";
+                    const text = r.item.content || "";
 
-                if (index === -1) {
-                    // Fallback: just find the first word (e.g., "type")
-                    const firstWord = lowerQuery.split(' ')[0];
-                    index = textLower.indexOf(firstWord);
-                }
-                
-                let snippet = "";
-                if (index !== -1) {
-                    const start = Math.max(0, index - 50);
-                    const end = Math.min(text.length, index + 100);
-                    let chunk = text.substring(start, end);
-
-                    const firstSpace = chunk.indexOf(' ');
-                    const lastSpace = chunk.lastIndexOf(' ');
-                    if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
-                    if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
+                    // Use Fuse's internal match data to find the snippet
+                    const contentMatch = r.matches.find(m => m.key === "content");
                     
-                    snippet = `<div class="search-snippet">${chunk}</div>`;
-                } else {
-                    snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
-                }
+                    if (contentMatch && contentMatch.indices.length > 0) {
+                        // Use the first match Fuse found, regardless of where it is
+                        const [startIdx, endIdx] = contentMatch.indices[0];
+                        const start = Math.max(0, startIdx - 50);
+                        const end = Math.min(text.length, endIdx + 100);
+                        
+                        let chunk = text.substring(start, end);
+                        
+                        // Clean up the snippet edges
+                        if (start !== 0) chunk = "..." + chunk.substring(chunk.indexOf(' ') + 1);
+                        if (end !== text.length) chunk = chunk.substring(0, chunk.lastIndexOf(' ')) + "...";
+                        
+                        snippet = `<div class="search-snippet">${chunk}</div>`;
+                    } else {
+                        snippet = `<div class="search-snippet">${text.substring(0, 100)}...</div>`;
+                    }
 
-                return `<li>
-                    <a href="${r.item.url}">
-                        <div class="search-title">${r.item.title}</div>
-                        ${snippet}
-                    </a>
-                </li>`;
-            }).join('');
+                    return `<li>
+                        <a href="${r.item.url}">
+                            <div class="search-title">${r.item.title}</div>
+                            ${snippet}
+                        </a>
+                    </li>`;
+                }).join('');
+            } else {
+                list.style.display = 'none';
+            }
         };
       });
 }
