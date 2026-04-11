@@ -291,49 +291,60 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        const options = {
+        // We keep Fuse very simple here
+        const fuse = new Fuse(data, {
             keys: ['title', 'content'],
-            includeMatches: true,      // Tells Fuse to tell us exactly where the word is
-            threshold: 0.4,            // Allows for fuzzy matches like type2 or type-2
-            location: 0,
-            distance: 10000,           // Look through the whole page
-            minMatchCharLength: 3
-        };
+            threshold: 0.4, 
+            ignoreLocation: true 
+        });
 
-        const fuse = new Fuse(data, options);
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
 
         input.oninput = () => {
-            const query = input.value.trim();
-            
+            const query = input.value.toLowerCase().trim();
             if (query.length < 3) {
                 list.style.display = 'none';
                 return;
             }
 
-            const results = fuse.search(query);
+            // Step 1: Get broad results from Fuse
+            let results = fuse.search(query);
+
+            // Step 2: STRICT FILTERING
+            // We only keep results that actually contain the words typed
+            results = results.filter(r => {
+                const title = r.item.title.toLowerCase();
+                const content = r.item.content.toLowerCase();
+                // Check for exact phrase, or hyphenated, or collapsed
+                return title.includes(query) || 
+                       content.includes(query) || 
+                       content.includes(query.replace(/\s/g, '-')) || 
+                       content.includes(query.replace(/\s/g, ''));
+            });
 
             if (results.length > 0) {
                 list.style.display = 'block';
                 list.innerHTML = results.map(r => {
-                    let snippet = "";
                     const text = r.item.content || "";
-
-                    // Use Fuse's internal match data to find the snippet
-                    const contentMatch = r.matches.find(m => m.key === "content");
+                    const textLower = text.toLowerCase();
                     
-                    if (contentMatch && contentMatch.indices.length > 0) {
-                        // Use the first match Fuse found, regardless of where it is
-                        const [startIdx, endIdx] = contentMatch.indices[0];
-                        const start = Math.max(0, startIdx - 50);
-                        const end = Math.min(text.length, endIdx + 100);
-                        
+                    // Step 3: MANUAL SNIPPET JUMP
+                    let index = textLower.indexOf(query);
+                    if (index === -1) index = textLower.indexOf(query.replace(/\s/g, '-'));
+                    if (index === -1) index = textLower.indexOf(query.replace(/\s/g, ''));
+
+                    let snippet = "";
+                    if (index !== -1) {
+                        const start = Math.max(0, index - 50);
+                        const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
                         
-                        // Clean up the snippet edges
-                        if (start !== 0) chunk = "..." + chunk.substring(chunk.indexOf(' ') + 1);
-                        if (end !== text.length) chunk = chunk.substring(0, chunk.lastIndexOf(' ')) + "...";
+                        // Clean edges
+                        const firstSpace = chunk.indexOf(' ');
+                        const lastSpace = chunk.lastIndexOf(' ');
+                        if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
+                        if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
                         
                         snippet = `<div class="search-snippet">${chunk}</div>`;
                     } else {
