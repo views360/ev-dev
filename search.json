@@ -10,13 +10,20 @@ layout: none
       {
         "title": {{ item.title | jsonify }},
         "url": {{ item.url | relative_url | jsonify }},
-        {%- comment -%} 1. Split by the comment marker {%- endcomment -%}
+        
+        {%- comment -%} 
+           We use 'remove: "    "' or just make the split match your HTML exactly.
+           The safest way is to ensure the split string matches exactly what is in your HTML.
+        {%- endcomment -%}
         {%- assign content_parts = item.content | split: '' -%}
         
-        {%- comment -%} 2. Take the .last part and then clean it {%- endcomment -%}
-        {%- assign clean_content = content_parts.last | strip_html | strip_newlines | remove: "EV Subs UK | " | remove: item.title -%}
-        
-        "content": {{ clean_content | jsonify }}
+        {%- if content_parts.size > 1 -%}
+          {%- assign raw_content = content_parts.last -%}
+        {%- else -%}
+          {%- assign raw_content = item.content -%}
+        {%- endif -%}
+
+        "content": {{ raw_content | strip_html | strip_newlines | remove: "EV Subs UK | " | remove: item.title | jsonify }}
       }
       {%- assign first_item = false -%}
     {%- endif -%}
