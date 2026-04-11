@@ -293,14 +293,12 @@ function initSearch() {
       .then(data => {
         const fuse = new Fuse(data, { 
             keys: [
-                { name: 'title', weight: 0.7 },
-                { name: 'content', weight: 0.3 }
+                { name: 'title', weight: 0.7 }, // High weight: Titles are very important
+                { name: 'content', weight: 0.3 }  // Lower weight: Content provides context
             ], 
             threshold: 0.3,
-            ignoreLocation: true,
-            findAllMatches: true,
-            includeMatches: true, // Required to get the location of matched text
-            minMatchCharLength: 2
+            includeMatches: true, 
+            ignoreLocation: true 
         });
 
         const input = document.getElementById('search-input');
@@ -312,35 +310,28 @@ function initSearch() {
           const results = fuse.search(input.value);
           if (input.value.length > 0) {
             list.style.display = 'block';
-            
             list.innerHTML = results.map(r => {
-              // 1. Prioritize finding a match in 'content' for the snippet
+              // ALWAYS look for a content match for the snippet, 
+              // even if the title was the reason the page was found.
               const contentMatch = r.matches.find(m => m.key === 'content');
               let snippet = "";
-              
+        
               if (contentMatch) {
                 const text = contentMatch.value;
                 const index = contentMatch.indices[0][0];
-                
-                // 2. Create a wider window (e.g., 150 characters)
-                const start = Math.max(0, index - 50);
-                const end = Math.min(text.length, index + 100);
-                
+                const start = Math.max(0, index - 40);
+                const end = Math.min(text.length, index + 80);
                 let chunk = text.substring(start, end);
                 
-                // 3. Clean up leading/trailing partial words
+                // Clean up partial words
                 const firstSpace = chunk.indexOf(' ');
                 const lastSpace = chunk.lastIndexOf(' ');
+                if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
+                if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
                 
-                if (firstSpace !== -1 && start !== 0) {
-                    chunk = "..." + chunk.substring(firstSpace).trim();
-                }
-                if (lastSpace !== -1 && end !== text.length) {
-                    chunk = chunk.substring(0, lastSpace).trim() + "...";
-                }
                 snippet = `<div class="search-snippet">${chunk}</div>`;
-              } else if (r.item.content) {
-                // Fallback: If title matched but content didn't, show the start of the content
+              } else {
+                // Fallback: Just show the first 100 chars of content if only the title matched
                 snippet = `<div class="search-snippet">${r.item.content.substring(0, 100)}...</div>`;
               }
         
