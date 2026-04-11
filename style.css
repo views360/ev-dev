@@ -28,8 +28,13 @@
 }
 
 #results-list li a:hover {
-    background-color: var(--accent-soft); /* Highlight on hover */
-    color: var(--accent) !important;      /* Changes text to accent blue on hover */
+    background-color: #334155 !important; /* A distinct dark grey (Slate 700) */
+    color: var(--accent) !important;      /* Keep the title blue */
+    text-decoration: none;
+}
+
+#results-list li a:hover .search-snippet {
+    color: #cbd5e1 !important; /* Light grey (Slate 300) to keep it readable */
 }
 
 /* Scrollbar styling for the results list */
@@ -43,18 +48,17 @@
 }
 
 .search-title {
-    font-weight: bold;
-    color: var(--accent); /* Uses your site's accent blue */
-    margin-bottom: 4px;
+    font-weight: 700;
+    color: var(--accent); /* Your theme's blue */
+    font-size: 0.95rem;
 }
 
 .search-snippet {
-    font-size: 0.8rem; /* Slightly larger for readability */
-    color: var(--muted);
+    font-size: 0.8rem;
+    color: var(--muted); /* Default muted grey */
     line-height: 1.4;
-    display: block;    /* Remove the 2-line clamp to show the full context */
     margin-top: 4px;
-    word-wrap: break-word;
+    display: block;
 }
 
 #results-list li a {
