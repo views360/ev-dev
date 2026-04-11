@@ -7,7 +7,7 @@ layout: none
     {
       "title": {{ page.title | jsonify }},
       "url": {{ page.url | relative_url | jsonify }},
-      "content": {{ page.content | strip_html | strip_newlines | truncatewords: 50 | jsonify }}
+      "content": {{ page.content | strip_html | strip_newlines | jsonify }}
     }{% unless forloop.last %},{% endunless %}
     {% endif %}
   {% endfor %}
