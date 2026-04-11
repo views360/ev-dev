@@ -4,9 +4,11 @@
     list-style: none;
     padding: 0;
     margin: 10px 0 0 0;
+    background-color: var(--panel-alt); /* Matches your dark panel background */
+    border: 1px solid var(--border);
+    border-radius: 4px;
     max-height: 300px;
     overflow-y: auto;
-    border-top: 1px solid var(--border);
 }
 
 #results-list li {
@@ -19,16 +21,26 @@
 
 #results-list li a {
     display: block;
-    padding: 10px;
-    color: var(--text);
+    padding: 10px 12px;
+    color: var(--text); /* Matches your site's light-colored text */
     text-decoration: none;
     font-size: 0.9rem;
     transition: background 0.2s ease;
 }
 
 #results-list li a:hover {
-    background: var(--accent-soft);
+    background-color: var(--accent-soft); /* Uses your accent blue highlight */
     color: var(--accent);
+}
+
+/* Scrollbar styling for the results list */
+#results-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#results-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
 }
 
 .search-slide-container {
