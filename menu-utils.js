@@ -292,7 +292,10 @@ function initSearch() {
       .then(res => res.json())
       .then(data => {
         const options = {
-            keys: ['title', 'content'],
+            keys: [
+                { name: 'title', weight: 0.7 },
+                { name: 'content', weight: 0.3 }
+            ],
             includeMatches: true,
             findAllMatches: true,
             threshold: 0.2,            // Slightly relaxed to allow for spaces in phrases
@@ -320,27 +323,41 @@ function initSearch() {
             // This forces Fuse to look for "type 2" as one unit
             const fuseQuery = lowerQuery.includes(' ') ? `"${lowerQuery}"` : lowerQuery;
 
-            // 3. Filter results to ensure the phrase actually exists
+            // 3. Search and then filter results to ensure the phrase actually exists
+            // This prevents "fuzzy ghost matches" on pages without the term
             const results = fuse.search(fuseQuery).filter(r => {
                 const inTitle = r.item.title.toLowerCase().includes(lowerQuery);
-                const inContent = r.item.content.toLowerCase().includes(lowerQuery);
-                return inTitle || inContent;
+                const inContent = (r.item.content || "").toLowerCase().includes(lowerQuery);
+                
+                // If it's a fuzzy match (like "type2" vs "type 2"), 
+                // Fuse will find it even if this strict filter doesn't.
+                // We keep it strict here to prioritize the exact phrase.
+                return inTitle || inContent || lowerQuery.replace(/\s/g, '') === "";
             });
 
             list.style.display = 'block';
             list.innerHTML = results.map(r => {
                 const text = r.item.content || "";
-                // Find exact position of the search term
-                const index = text.toLowerCase().indexOf(lowerQuery);
+                const textLower = text.toLowerCase();
+                
+                // 4. SMART SNIPPET JUMP:
+                // Try finding the exact phrase first. 
+                let index = textLower.indexOf(lowerQuery);
+                
+                // Fallback: If exact phrase not found, try finding a version without spaces
+                if (index === -1 && lowerQuery.includes(' ')) {
+                    const collapsedQuery = lowerQuery.replace(/\s/g, '');
+                    index = textLower.replace(/\s/g, '').indexOf(collapsedQuery);
+                }
                 
                 let snippet = "";
                 if (index !== -1) {
-                    // Create window around the found term
+                    // Create window around the found term (50 chars before, 100 after)
                     const start = Math.max(0, index - 50);
                     const end = Math.min(text.length, index + 100);
                     let chunk = text.substring(start, end);
 
-                    // Clean up edges of the snippet
+                    // Clean up partial words at the edges of the snippet
                     const firstSpace = chunk.indexOf(' ');
                     const lastSpace = chunk.lastIndexOf(' ');
                     if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
@@ -348,7 +365,7 @@ function initSearch() {
                     
                     snippet = `<div class="search-snippet">${chunk}</div>`;
                 } else {
-                    // Fallback to start of page if match was in Title only
+                    // Final fallback: show the beginning of the page
                     snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                 }
 
