@@ -42,6 +42,26 @@
     border-radius: 3px;
 }
 
+.search-title {
+    font-weight: bold;
+    color: var(--accent); /* Uses your site's accent blue */
+    margin-bottom: 4px;
+}
+
+.search-snippet {
+    font-size: 0.75rem;
+    color: var(--muted); /* Uses your site's muted gray */
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits snippet to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+#results-list li a:hover .search-snippet {
+    color: var(--text); /* Brightens text on hover */
+}
+
 .search-slide-container {
     position: fixed;
     right: -105px; /* Hidden by default */
