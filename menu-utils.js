@@ -291,17 +291,22 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        const fuse = new Fuse(data, { 
+        // --- Your suggested options block ---
+        const options = {
             keys: [
                 { name: 'title', weight: 0.7 },
                 { name: 'content', weight: 0.3 }
-            ], 
-            threshold: 0.3,
-            includeMatches: true, 
-            ignoreLocation: false, // Changed to false to track keyword position
+            ],
+            includeMatches: true,      // Essential for finding where the word is
             findAllMatches: true,
-            distance: 1000         // Allows Fuse to look further into long pages
-        });
+            threshold: 0.3,            // Adjust for "fuzziness"
+            useExtendedSearch: true,
+            ignoreLocation: false,     // Tell Fuse to care about WHERE the word is
+            distance: 10000            // Set to 10000 so it finds keywords deep in your guides
+        };
+
+        const fuse = new Fuse(data, options);
+        // ------------------------------------
 
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
@@ -312,13 +317,13 @@ function initSearch() {
             list.style.display = 'block';
             
             list.innerHTML = results.map(r => {
-              // Look for the match within the 'content' field
+              // Logic to find the specific match inside the content
               const contentMatch = r.matches.find(m => m.key === 'content');
               let snippet = "";
 
               if (contentMatch && contentMatch.indices.length > 0) {
                 const text = contentMatch.value;
-                // indices[0][0] is the start position of your keyword (like "type 2")
+                // Use the first index found by Fuse to center the snippet
                 const index = contentMatch.indices[0][0];
                 
                 const start = Math.max(0, index - 50);
@@ -334,7 +339,7 @@ function initSearch() {
                 
                 snippet = `<div class="search-snippet">${chunk}</div>`;
               } else if (r.item.content) {
-                // Fallback: show start of page if only title matched
+                // Fallback if match is in Title only
                 snippet = `<div class="search-snippet">${r.item.content.substring(0, 100).trim()}...</div>`;
               }
 
