@@ -1,5 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
+.search-slide-container {
+    position: fixed;
+    right: -260px; /* Hidden by default */
+    top: 100px;    /* Positioned higher than the robot */
+    width: 300px;
+    display: flex;
+    align-items: flex-start;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.search-slide-container.active {
+    right: 0;
+}
+
+.search-trigger {
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    color: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px 0 0 8px;
+    cursor: pointer;
+    box-shadow: var(--glow);
+}
+
+.search-wrapper {
+    width: 260px;
+    background: var(--panel-alt);
+    padding: 15px;
+    border-left: 1px solid var(--accent);
+    border-radius: 0 0 0 8px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+}
+
+.search-footer {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+}
+
+.search-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .collapsible-section {
     background: var(--panel);
     border: 1px solid var(--border);
