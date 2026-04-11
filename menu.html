@@ -29,46 +29,6 @@
 </style>
 
 
-<div class="search-wrapper">
-  <input type="text" id="search-input" placeholder="Search pages..." autocomplete="off">
-  <ul id="results-list"></ul>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    fetch("{{ '/search.json' | relative_url }}")
-      .then(res => res.json())
-      .then(data => {
-        const fuse = new Fuse(data, { 
-          keys: ['title'], 
-          threshold: 0.4 
-        });
-
-        const input = document.getElementById('search-input');
-        const list = document.getElementById('results-list');
-
-        input.oninput = () => {
-          const results = fuse.search(input.value);
-          
-          if (input.value.length > 0 && results.length > 0) {
-            list.style.display = 'block';
-            list.innerHTML = results.map(r => 
-              `<li><a href="${r.item.url}">${r.item.title}</a></li>`
-            ).join('');
-          } else {
-            list.style.display = 'none';
-          }
-        };
-
-        // Hide list when clicking outside
-        document.addEventListener('click', (e) => {
-          if (!input.contains(e.target)) list.style.display = 'none';
-        });
-      });
-});
-</script>
-
 
 
 <style>
@@ -338,40 +298,6 @@ function resetAll() {
   <input type="text" id="search-input" placeholder="Search pages...">
   <ul id="results-list"></ul>
 </div>
-
-<script>
-  // 1. Wait for the browser to load the menu
-  document.addEventListener('DOMContentLoaded', function() {
-    
-    // 2. Fetch the "database" file
-    fetch("{{ '/search.json' | relative_url }}")
-      .then(res => res.json())
-      .then(data => {
-
-        // --- THIS IS WHERE THE CODE GOES ---
-        const fuse = new Fuse(data, { 
-          keys: ['title'], 
-          threshold: 0.4,
-          ignoreLocation: true
-        });
-        // -----------------------------------
-
-        const input = document.getElementById('search-input');
-        const list = document.getElementById('results-list');
-
-        // 3. Listen for typing
-        input.oninput = () => {
-          const results = fuse.search(input.value);
-          
-          // 4. Update the HTML list with results
-          list.innerHTML = results.map(r => 
-            `<li><a href="${r.item.url}">${r.item.title}</a></li>`
-          ).join('');
-        };
-
-      });
-  });
-</script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
