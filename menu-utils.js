@@ -269,6 +269,7 @@ async function loadMenu() {
         
         if (placeholder) {
             placeholder.innerHTML = menuHtml;
+            initSearch();
         }
         
         // Use a safety check before calling this
@@ -281,6 +282,46 @@ async function loadMenu() {
     } catch (error) {
         console.error('Menu load failed:', error);
     }
+}
+
+function initSearch() {
+    const isGitHub = window.location.hostname.includes('github.io');
+    // Change 'reponame' to your actual repo name
+    const jsonPath = isGitHub ? '/reponame/search.json' : '/search.json';
+
+    console.log("Searching for database at:", jsonPath);
+
+    fetch(jsonPath)
+      .then(res => res.json())
+      .then(data => {
+        console.log("Search database loaded! Total pages:", data.length);
+        
+        const fuse = new Fuse(data, { 
+            keys: ['title', 'content'], 
+            threshold: 0.4 
+        });
+
+        const input = document.getElementById('search-input');
+        const list = document.getElementById('results-list');
+
+        if (!input) {
+            console.error("Search input not found in the menu!");
+            return;
+        }
+
+        input.oninput = () => {
+          const results = fuse.search(input.value);
+          if (input.value.length > 0 && results.length > 0) {
+            list.style.display = 'block';
+            list.innerHTML = results.map(r => 
+              `<li><a href="${r.item.url}">${r.item.title}</a></li>`
+            ).join('');
+          } else {
+            list.style.display = 'none';
+          }
+        };
+      })
+      .catch(err => console.error("Search fetch failed:", err));
 }
 
 function toggleMenu() {
