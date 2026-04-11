@@ -295,9 +295,9 @@ function initSearch() {
             keys: ['title', 'content'],
             includeMatches: true,
             findAllMatches: true,
-            threshold: 0.1,            // Tighter threshold to prevent "fuzzy" character matching
+            threshold: 0.1,            // Much stricter matching
             useExtendedSearch: true,
-            ignoreLocation: true       // Stops Fuse from prioritizing the start of the page
+            ignoreLocation: true       // Searches the whole document equally
         };
 
         const fuse = new Fuse(data, options);
@@ -306,43 +306,47 @@ function initSearch() {
 
         input.oninput = () => {
             const query = input.value.toLowerCase();
-            const results = fuse.search(query);
-
-            if (query.length > 0) {
-                list.style.display = 'block';
-                list.innerHTML = results.map(r => {
-                    const text = r.item.content || "";
-                    // MANUALLY find the search term in the text to ensure the snippet jumps
-                    const index = text.toLowerCase().indexOf(query);
-                    
-                    let snippet = "";
-                    if (index !== -1) {
-                        const start = Math.max(0, index - 50);
-                        const end = Math.min(text.length, index + 100);
-                        let chunk = text.substring(start, end);
-
-                        // Clean up snippet edges
-                        const firstSpace = chunk.indexOf(' ');
-                        const lastSpace = chunk.lastIndexOf(' ');
-                        if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
-                        if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
-                        
-                        snippet = `<div class="search-snippet">${chunk}</div>`;
-                    } else {
-                        // Fallback to start of page if term isn't in content (e.g. title match)
-                        snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
-                    }
-
-                    return `<li>
-                        <a href="${r.item.url}">
-                            <div class="search-title">${r.item.title}</div>
-                            ${snippet}
-                        </a>
-                    </li>`;
-                }).join('');
-            } else {
+            if (query.length === 0) {
                 list.style.display = 'none';
+                return;
             }
+
+            // Search and then filter out fuzzy "ghost" matches
+            const results = fuse.search(query).filter(r => {
+                const inTitle = r.item.title.toLowerCase().includes(query);
+                const inContent = r.item.content.toLowerCase().includes(query);
+                return inTitle || inContent;
+            });
+
+            list.style.display = 'block';
+            list.innerHTML = results.map(r => {
+                const text = r.item.content || "";
+                const index = text.toLowerCase().indexOf(query); // Find exact jump point
+                
+                let snippet = "";
+                if (index !== -1) {
+                    const start = Math.max(0, index - 50);
+                    const end = Math.min(text.length, index + 100);
+                    let chunk = text.substring(start, end);
+
+                    const firstSpace = chunk.indexOf(' ');
+                    const lastSpace = chunk.lastIndexOf(' ');
+                    if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
+                    if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
+                    
+                    snippet = `<div class="search-snippet">${chunk}</div>`;
+                } else {
+                    // Start of page fallback for Title-only matches
+                    snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
+                }
+
+                return `<li>
+                    <a href="${r.item.url}">
+                        <div class="search-title">${r.item.title}</div>
+                        ${snippet}
+                    </a>
+                </li>`;
+            }).join('');
         };
       });
 }
