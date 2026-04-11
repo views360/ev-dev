@@ -291,22 +291,21 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        // --- Your suggested options block ---
+        // 1. YOUR OPTIONS BLOCK
         const options = {
             keys: [
                 { name: 'title', weight: 0.7 },
                 { name: 'content', weight: 0.3 }
             ],
-            includeMatches: true,      // Essential for finding where the word is
+            includeMatches: true,      
             findAllMatches: true,
-            threshold: 0.3,            // Adjust for "fuzziness"
+            threshold: 0.3,            
             useExtendedSearch: true,
-            ignoreLocation: false,     // Tell Fuse to care about WHERE the word is
-            distance: 10000            // Set to 10000 so it finds keywords deep in your guides
+            ignoreLocation: false,     
+            distance: 10000            // Set to 10000 so it finds terms deep in your guides
         };
 
         const fuse = new Fuse(data, options);
-        // ------------------------------------
 
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
@@ -317,20 +316,22 @@ function initSearch() {
             list.style.display = 'block';
             
             list.innerHTML = results.map(r => {
-              // Logic to find the specific match inside the content
+              // 2. THE JUMP-TO-KEYWORD LOGIC
+              // This finds the specific match location provided by Fuse
               const contentMatch = r.matches.find(m => m.key === 'content');
               let snippet = "";
 
               if (contentMatch && contentMatch.indices.length > 0) {
                 const text = contentMatch.value;
-                // Use the first index found by Fuse to center the snippet
+                // Get the character index of the first match
                 const index = contentMatch.indices[0][0];
                 
+                // Create a window: 50 characters before, 100 after
                 const start = Math.max(0, index - 50);
                 const end = Math.min(text.length, index + 100);
                 let chunk = text.substring(start, end);
                 
-                // Clean up partial words at edges
+                // Clean up partial words at the edges
                 const firstSpace = chunk.indexOf(' ');
                 const lastSpace = chunk.lastIndexOf(' ');
                 
@@ -339,7 +340,7 @@ function initSearch() {
                 
                 snippet = `<div class="search-snippet">${chunk}</div>`;
               } else if (r.item.content) {
-                // Fallback if match is in Title only
+                // Fallback if the match is in the title, not the body
                 snippet = `<div class="search-snippet">${r.item.content.substring(0, 100).trim()}...</div>`;
               }
 
