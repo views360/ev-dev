@@ -301,9 +301,8 @@ function resetAll() {
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 <script>
 (function() {
-    // 1. HARDCODE the path. 
-    // If your site is at username.github.io/reponame/, use '/reponame/search.json'
-    const jsonPath = 'ev-dev/search.json'; 
+    const isGitHub = window.location.hostname.includes('github.io');
+    const jsonPath = isGitHub ? '/ev-dev/search.json' : '/search.json';
 
     fetch(jsonPath)
       .then(res => {
