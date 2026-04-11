@@ -2,7 +2,7 @@
 
 .search-slide-container {
     position: fixed;
-    right: -265px; /* Hidden by default */
+    right: -105px; /* Hidden by default */
     top: 75px;    /* Positioned higher than the robot */
     width: 300px;
     display: flex;
@@ -12,7 +12,7 @@
 }
 
 .search-slide-container.active {
-    right: 0;
+    right: 160px;
 }
 
 .search-trigger {
@@ -1656,7 +1656,22 @@ footer p {
 
 /* MOBILE */
 @media (max-width: 700px) { 
-
+    
+    .search-slide-container {
+        position: fixed;
+        right: -265px; /* Hidden by default */
+        top: 75px;    /* Positioned higher than the robot */
+        width: 300px;
+        display: flex;
+        align-items: flex-start;
+        transition: right 0.3s ease-in-out;
+        z-index: 1000;
+    }
+    
+    .search-slide-container.active {
+        right: 0;
+    }
+    
     footer {
         margin-bottom: 100px !important;
     }
