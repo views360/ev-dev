@@ -28,6 +28,7 @@
   #results-list li a:hover { background-color: #f0f0f0; }
 </style>
 
+
 <div class="search-wrapper">
   <input type="text" id="search-input" placeholder="Search pages..." autocomplete="off">
   <ul id="results-list"></ul>
@@ -370,4 +371,37 @@ function resetAll() {
 
       });
   });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch("{{ '/search.json' | relative_url }}")
+      .then(res => {
+          if (!res.ok) throw new Error("Could not find search.json");
+          return res.json();
+      })
+      .then(data => {
+        console.log("Database loaded!", data); // Check if data shows up in F12
+
+        const fuse = new Fuse(data, { 
+          keys: ['title'], 
+          threshold: 0.4,
+          ignoreLocation: true
+        });
+
+        const input = document.getElementById('search-input');
+        const list = document.getElementById('results-list');
+
+        input.oninput = () => {
+          const results = fuse.search(input.value);
+          console.log("Search Query:", input.value);
+          console.log("Found:", results.length, "matches");
+
+          list.innerHTML = results.map(r => 
+            `<li><a href="${r.item.url}">${r.item.title}</a></li>`
+          ).join('');
+        };
+      })
+      .catch(err => console.error("Search Error:", err));
+});
 </script>
