@@ -49,13 +49,16 @@
 }
 
 .search-snippet {
-    font-size: 0.75rem;
-    color: var(--muted); /* Uses your site's muted gray */
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limits snippet to 2 lines */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 0.8rem; /* Slightly larger for readability */
+    color: var(--muted);
+    line-height: 1.4;
+    display: block;    /* Remove the 2-line clamp to show the full context */
+    margin-top: 4px;
+    word-wrap: break-word;
+}
+
+#results-list li a {
+    padding: 12px 15px; /* Add more padding between results */
 }
 
 #results-list li a:hover .search-snippet {
