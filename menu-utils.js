@@ -293,18 +293,18 @@ function initSearch() {
       .then(data => {
         const fuse = new Fuse(data, { 
             keys: [
-                { name: 'title', weight: 0.7 }, // High weight: Titles are very important
-                { name: 'content', weight: 0.3 }  // Lower weight: Content provides context
+                { name: 'title', weight: 0.7 },
+                { name: 'content', weight: 0.3 }
             ], 
             threshold: 0.3,
             includeMatches: true, 
-            ignoreLocation: true 
+            ignoreLocation: false, // Changed to false to track keyword position
+            findAllMatches: true,
+            distance: 1000         // Allows Fuse to look further into long pages
         });
 
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
-
-        if (!input) return;
 
         input.oninput = () => {
           const results = fuse.search(input.value);
@@ -312,30 +312,32 @@ function initSearch() {
             list.style.display = 'block';
             
             list.innerHTML = results.map(r => {
-              // 1. Try to find the exact match in the content for a dynamic snippet
+              // Look for the match within the 'content' field
               const contentMatch = r.matches.find(m => m.key === 'content');
               let snippet = "";
-        
-              if (contentMatch) {
+
+              if (contentMatch && contentMatch.indices.length > 0) {
                 const text = contentMatch.value;
+                // indices[0][0] is the start position of your keyword (like "type 2")
                 const index = contentMatch.indices[0][0];
+                
                 const start = Math.max(0, index - 50);
                 const end = Math.min(text.length, index + 100);
                 let chunk = text.substring(start, end);
                 
-                // Clean up partial words at start/end
+                // Clean up partial words at edges
                 const firstSpace = chunk.indexOf(' ');
                 const lastSpace = chunk.lastIndexOf(' ');
+                
                 if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
                 if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
                 
                 snippet = `<div class="search-snippet">${chunk}</div>`;
               } else if (r.item.content) {
-                // 2. Fallback: If only title matched, show the first ~100 chars of cleaned content
-                // We trim() to ensure we don't start with a bunch of whitespace
+                // Fallback: show start of page if only title matched
                 snippet = `<div class="search-snippet">${r.item.content.substring(0, 100).trim()}...</div>`;
               }
-        
+
               return `<li>
                 <a href="${r.item.url}">
                   <div class="search-title">${r.item.title}</div>
@@ -347,9 +349,7 @@ function initSearch() {
             list.style.display = 'none';
           }
         };
-        
-      })
-      .catch(err => console.error("Search fetch failed:", err));
+      });
 }
 
 function toggleMenu() {
