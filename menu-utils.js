@@ -312,19 +312,11 @@ function initSearch() {
           if (input.value.length > 0) {
             list.style.display = 'block';
             
-            // Build the dynamic results list
-            let html = results.map(r => 
+            // Cleanly map only the search results without appending extra rows
+            list.innerHTML = results.map(r => 
               `<li><a href="${r.item.url}">${r.item.title}</a></li>`
             ).join('');
-
-            // Add your requested footer link at the end of every search result set
-            html += `
-              <li class="search-footer-link">
-                Can't find what you're searching for? 
-                <a href='assistant.html'>Chat with AI</a>
-              </li>`;
             
-            list.innerHTML = html;
           } else {
             list.style.display = 'none';
           }
