@@ -298,7 +298,7 @@ function initSearch() {
             ],
             includeMatches: true,
             findAllMatches: true,
-            threshold: 0.3,            // Slightly more relaxed to allow fuzzy "type2"
+            threshold: 0.4,            // Balanced threshold for fuzzy matching
             useExtendedSearch: true,
             ignoreLocation: true,
             minMatchCharLength: 3
@@ -318,25 +318,32 @@ function initSearch() {
                 return;
             }
 
-            // EXTENDED SEARCH FIX:
-            // Using ' (single quote prefix) tells Fuse to include the term 
-            // but keeps it fuzzy enough to find variations like type-2.
-            const fuseQuery = `'${lowerQuery}`;
-
-            const results = fuse.search(fuseQuery);
+            // Standard search allows Fuse to find type 2, type-2, and type2
+            const results = fuse.search(lowerQuery);
 
             list.style.display = 'block';
             list.innerHTML = results.map(r => {
                 const text = r.item.content || "";
                 const textLower = text.toLowerCase();
                 
-                // 1. Try finding the exact user input (e.g., "type 2")
-                let index = textLower.indexOf(lowerQuery);
+                // --- SNIPPET ANCHOR LOGIC ---
+                // We look for the best possible match to center our snippet
+                let index = textLower.indexOf(lowerQuery); // Try "type 2"
                 
-                // 2. If not found, look for "type2" or "type-2" variations
                 if (index === -1) {
-                    const fuzzyTerm = lowerQuery.replace(/[^a-z0-9]/g, '');
-                    // Find the first word of the query to at least jump to the right section
+                    // Try hyphenated "type-2"
+                    const hyphenated = lowerQuery.replace(/\s+/g, '-');
+                    index = textLower.indexOf(hyphenated);
+                }
+                
+                if (index === -1) {
+                    // Try collapsed "type2"
+                    const collapsed = lowerQuery.replace(/\s+/g, '');
+                    index = textLower.indexOf(collapsed);
+                }
+
+                if (index === -1) {
+                    // Fallback: just find the first word (e.g., "type")
                     const firstWord = lowerQuery.split(' ')[0];
                     index = textLower.indexOf(firstWord);
                 }
