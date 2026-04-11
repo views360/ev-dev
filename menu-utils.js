@@ -295,9 +295,10 @@ function initSearch() {
             keys: ['title', 'content'],
             includeMatches: true,
             findAllMatches: true,
-            threshold: 0.1,            // Much stricter matching
+            threshold: 0.1, 
             useExtendedSearch: true,
-            ignoreLocation: true       // Searches the whole document equally
+            ignoreLocation: true,
+            minMatchCharLength: 3   // <--- TELLS FUSE TO IGNORE 1-2 CHARACTER MATCHES
         };
 
         const fuse = new Fuse(data, options);
@@ -306,12 +307,14 @@ function initSearch() {
 
         input.oninput = () => {
             const query = input.value.toLowerCase();
-            if (query.length === 0) {
+            
+            // PREVENT SEARCHING ENTIRELY FOR SHORT STRINGS
+            if (query.length < 3) {
                 list.style.display = 'none';
+                list.innerHTML = '';
                 return;
             }
 
-            // Search and then filter out fuzzy "ghost" matches
             const results = fuse.search(query).filter(r => {
                 const inTitle = r.item.title.toLowerCase().includes(query);
                 const inContent = r.item.content.toLowerCase().includes(query);
@@ -321,7 +324,7 @@ function initSearch() {
             list.style.display = 'block';
             list.innerHTML = results.map(r => {
                 const text = r.item.content || "";
-                const index = text.toLowerCase().indexOf(query); // Find exact jump point
+                const index = text.toLowerCase().indexOf(query);
                 
                 let snippet = "";
                 if (index !== -1) {
@@ -336,7 +339,6 @@ function initSearch() {
                     
                     snippet = `<div class="search-snippet">${chunk}</div>`;
                 } else {
-                    // Start of page fallback for Title-only matches
                     snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                 }
 
