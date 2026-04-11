@@ -350,3 +350,21 @@ function toggleMenuSection(toggleId, itemsId) {
         items.classList.toggle('open');
     }
 }
+
+function toggleSearch() {
+    const container = document.getElementById('searchSlideContainer');
+    if (container) {
+        container.classList.toggle('active');
+        if (container.classList.contains('active')) {
+            document.getElementById('search-input').focus();
+        }
+    }
+}
+
+// Optional: Close when clicking outside
+document.addEventListener('click', (e) => {
+    const container = document.getElementById('searchSlideContainer');
+    if (container && !container.contains(e.target) && container.classList.contains('active')) {
+        container.classList.remove('active');
+    }
+});
