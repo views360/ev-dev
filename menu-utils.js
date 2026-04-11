@@ -292,16 +292,12 @@ function initSearch() {
       .then(res => res.json())
       .then(data => {
         const options = {
-            keys: [
-                { name: 'title', weight: 0.7 },
-                { name: 'content', weight: 0.3 }
-            ],
+            keys: ['title', 'content'],
             includeMatches: true,
             findAllMatches: true,
-            threshold: 0.3,
+            threshold: 0.1,            // Tighter threshold to prevent "fuzzy" character matching
             useExtendedSearch: true,
-            ignoreLocation: false, 
-            distance: 10000 
+            ignoreLocation: true       // Stops Fuse from prioritizing the start of the page
         };
 
         const fuse = new Fuse(data, options);
@@ -309,40 +305,31 @@ function initSearch() {
         const list = document.getElementById('results-list');
 
         input.oninput = () => {
-            const results = fuse.search(input.value);
-            console.log("Search Results:", results); // This will show you exactly what Fuse 'sees'
+            const query = input.value.toLowerCase();
+            const results = fuse.search(query);
 
-            if (input.value.length > 0) {
+            if (query.length > 0) {
                 list.style.display = 'block';
                 list.innerHTML = results.map(r => {
-                    let snippet = "";
                     const text = r.item.content || "";
+                    // MANUALLY find the search term in the text to ensure the snippet jumps
+                    const index = text.toLowerCase().indexOf(query);
                     
-                    // 1. Try to find the match using Fuse's indices
-                    const contentMatch = r.matches.find(m => m.key === 'content');
-                    
-                    let index = -1;
-                    if (contentMatch && contentMatch.indices.length > 0) {
-                        index = contentMatch.indices[0][0];
-                    } else {
-                        // 2. Backup: If Fuse didn't give indices, manually find the word in the content
-                        index = text.toLowerCase().indexOf(input.value.toLowerCase());
-                    }
-
+                    let snippet = "";
                     if (index !== -1) {
                         const start = Math.max(0, index - 50);
                         const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
 
+                        // Clean up snippet edges
                         const firstSpace = chunk.indexOf(' ');
                         const lastSpace = chunk.lastIndexOf(' ');
-
                         if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
                         if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
                         
                         snippet = `<div class="search-snippet">${chunk}</div>`;
                     } else {
-                        // 3. Last Resort: Just show the beginning
+                        // Fallback to start of page if term isn't in content (e.g. title match)
                         snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                     }
 
