@@ -3,7 +3,7 @@
 .search-slide-container {
     position: fixed;
     right: -105px; /* Hidden by default */
-    top: 75px;    /* Positioned higher than the robot */
+    top: 70px;    /* Positioned higher than the robot */
     width: 300px;
     display: flex;
     align-items: flex-start;
@@ -1658,14 +1658,7 @@ footer p {
 @media (max-width: 700px) { 
     
     .search-slide-container {
-        position: fixed;
         right: -265px; /* Hidden by default */
-        top: 75px;    /* Positioned higher than the robot */
-        width: 300px;
-        display: flex;
-        align-items: flex-start;
-        transition: right 0.3s ease-in-out;
-        z-index: 1000;
     }
     
     .search-slide-container.active {
