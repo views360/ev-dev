@@ -1,0 +1,14 @@
+---
+layout: none
+---
+[
+  {% for page in site.pages %}
+    {% if page.title and page.search != false %}
+    {
+      "title": {{ page.title | jsonify }},
+      "url": {{ page.url | relative_url | jsonify }},
+      "content": {{ page.content | strip_html | strip_newlines | truncatewords: 50 | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endif %}
+  {% endfor %}
+]
