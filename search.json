@@ -2,12 +2,16 @@
 layout: none
 ---
 [
-  {% for page in site.pages %}
-    {% if page.title %}
-    {
-      "title": {{ page.title | jsonify }},
-      "url": {{ page.url | relative_url | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
-    {% endif %}
-  {% endfor %}
+  {%- assign items = site.pages | concat: site.posts -%}
+  {%- assign first_item = true -%}
+  {%- for item in items -%}
+    {%- if item.title -%}
+      {%- unless first_item -%},{%- endunless -%}
+      {
+        "title": {{ item.title | jsonify }},
+        "url": {{ item.url | relative_url | jsonify }}
+      }
+      {%- assign first_item = false -%}
+    {%- endif -%}
+  {%- endfor -%}
 ]
