@@ -9,7 +9,8 @@ layout: none
       {%- unless first_item -%},{%- endunless -%}
       {
         "title": {{ item.title | jsonify }},
-        "url": {{ item.url | relative_url | jsonify }}
+        "url": {{ item.url | relative_url | jsonify }},
+        "content": {{ item.content | strip_html | strip_newlines | jsonify }}
       }
       {%- assign first_item = false -%}
     {%- endif -%}
