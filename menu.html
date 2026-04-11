@@ -3,56 +3,6 @@
   <ul id="results-list"></ul>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
-
-<script>
-(function() {
-    // 1. Path Logic
-    const isGitHub = window.location.hostname.includes('github.io');
-    const jsonPath = isGitHub ? '/reponame/search.json' : '/search.json'; // REMEMBER: change 'reponame' to yours
-    
-    console.log("Checking for search index at:", jsonPath);
-
-    fetch(jsonPath)
-      .then(res => {
-        if (!res.ok) throw new Error("Search index not found (404)");
-        return res.json();
-      })
-      .then(data => {
-        console.log("Database successfully loaded! Total pages found:", data.length);
-        console.log("Sample entry from database:", data[0]);
-
-        const fuse = new Fuse(data, { 
-          keys: ['title', 'content'], 
-          threshold: 0.4 
-        });
-
-        const input = document.getElementById('search-input');
-        const list = document.getElementById('results-list');
-
-        if (!input) console.error("Could not find element with ID 'search-input'");
-        if (!list) console.error("Could not find element with ID 'results-list'");
-
-        input.oninput = () => {
-          console.log("User is typing:", input.value);
-          const results = fuse.search(input.value);
-          console.log("Search results for '" + input.value + "':", results);
-          
-          if (input.value.length > 0 && results.length > 0) {
-            list.style.display = 'block';
-            list.innerHTML = results.map(r => 
-              `<li><a href="${r.item.url}">${r.item.title}</a></li>`
-            ).join('');
-          } else {
-            console.log("No results to display or input is empty.");
-            list.style.display = 'none';
-          }
-        };
-      })
-      .catch(err => console.error("Search Setup Error:", err));
-})();
-</script>
-
 <style>
     /* Further reduced vertical spacing */
     .menu-item-clean {
