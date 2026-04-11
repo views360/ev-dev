@@ -2,7 +2,7 @@
 
 .search-slide-container {
     position: fixed;
-    right: -260px; /* Hidden by default */
+    right: -265px; /* Hidden by default */
     top: 100px;    /* Positioned higher than the robot */
     width: 300px;
     display: flex;
