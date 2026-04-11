@@ -1423,7 +1423,7 @@ body {
 /* Rotated tab on the left edge of the desktop sidebar */
 .ad-tab-vertical {
     position: absolute;
-    top: 185px;
+    top: 200px;
     left: 48px;
     background: var(--panel-alt);
     color: var(--muted);
