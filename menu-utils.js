@@ -291,9 +291,10 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
+        // Strict threshold (0.1) to ensure results are very close to the query
         const fuse = new Fuse(data, {
             keys: ['title', 'content'],
-            threshold: 0.4,
+            threshold: 0.1, 
             ignoreLocation: true
         });
 
@@ -304,31 +305,19 @@ function initSearch() {
             const rawQuery = input.value.trim();
             const lowerQuery = rawQuery.toLowerCase();
             
+            // 1. Prevent single or double character noise
             if (lowerQuery.length < 3) {
                 list.style.display = 'none';
                 list.innerHTML = '';
                 return;
             }
 
-            // Create variations: "type 2", "type-2", "type2"
-            const hyphenated = lowerQuery.replace(/\s+/g, '-');
-            const collapsed = lowerQuery.replace(/\s+/g, '');
-
-            // 1. Get fuzzy results from Fuse
-            let results = fuse.search(lowerQuery);
-
-            // 2. Manual Injection: Add items that strictly contain the variations
-            const manualMatches = data.filter(item => {
-                const c = (item.content || "").toLowerCase();
-                const t = item.title.toLowerCase();
-                return c.includes(lowerQuery) || c.includes(hyphenated) || c.includes(collapsed) ||
-                       t.includes(lowerQuery) || t.includes(hyphenated) || t.includes(collapsed);
-            });
-
-            manualMatches.forEach(item => {
-                if (!results.find(r => r.item.url === item.url)) {
-                    results.push({ item: item });
-                }
+            // 2. Search and then Filter Strictly
+            // This ensures "type 2" only shows pages containing that exact string
+            const results = fuse.search(lowerQuery).filter(r => {
+                const title = r.item.title.toLowerCase();
+                const content = (r.item.content || "").toLowerCase();
+                return title.includes(lowerQuery) || content.includes(lowerQuery);
             });
 
             if (results.length > 0) {
@@ -336,23 +325,22 @@ function initSearch() {
                 list.innerHTML = results.map(r => {
                     const text = r.item.content || "";
                     const textLower = text.toLowerCase();
+                    const index = textLower.indexOf(lowerQuery);
                     
-                    // Center snippet on whatever we found
-                    let index = textLower.indexOf(lowerQuery);
-                    if (index === -1) index = textLower.indexOf(hyphenated);
-                    if (index === -1) index = textLower.indexOf(collapsed);
-
                     let snippet = "";
                     if (index !== -1) {
                         const start = Math.max(0, index - 50);
                         const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
+
                         const firstSpace = chunk.indexOf(' ');
                         const lastSpace = chunk.lastIndexOf(' ');
                         if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
                         if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
+                        
                         snippet = `<div class="search-snippet">${chunk}</div>`;
                     } else {
+                        // Fallback if match is in title only
                         snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                     }
 
