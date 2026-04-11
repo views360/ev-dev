@@ -307,48 +307,46 @@ function initSearch() {
         if (!input) return;
 
         input.oninput = () => {
-  const results = fuse.search(input.value);
-  if (input.value.length > 0) {
-    list.style.display = 'block';
-    list.innerHTML = results.map(r => {
-      // Prioritize the 'content' field for the snippet
-      const contentMatch = r.matches.find(m => m.key === 'content');
-      let snippet = "";
-
-      if (contentMatch) {
-        const text = contentMatch.value;
-        const index = contentMatch.indices[0][0];
-        const start = Math.max(0, index - 60); // Increased window for better context
-        const end = Math.min(text.length, index + 100);
-        let chunk = text.substring(start, end);
+          const results = fuse.search(input.value);
+          if (input.value.length > 0) {
+            list.style.display = 'block';
+            
+            list.innerHTML = results.map(r => {
+              // 1. Try to find the exact match in the content for a dynamic snippet
+              const contentMatch = r.matches.find(m => m.key === 'content');
+              let snippet = "";
         
-        // Ensure we aren't cutting off words
-        const firstSpace = chunk.indexOf(' ');
-        const lastSpace = chunk.lastIndexOf(' ');
-        if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
-        if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
+              if (contentMatch) {
+                const text = contentMatch.value;
+                const index = contentMatch.indices[0][0];
+                const start = Math.max(0, index - 50);
+                const end = Math.min(text.length, index + 100);
+                let chunk = text.substring(start, end);
+                
+                // Clean up partial words at start/end
+                const firstSpace = chunk.indexOf(' ');
+                const lastSpace = chunk.lastIndexOf(' ');
+                if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
+                if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
+                
+                snippet = `<div class="search-snippet">${chunk}</div>`;
+              } else if (r.item.content) {
+                // 2. Fallback: If only title matched, show the first ~100 chars of cleaned content
+                // We trim() to ensure we don't start with a bunch of whitespace
+                snippet = `<div class="search-snippet">${r.item.content.substring(0, 100).trim()}...</div>`;
+              }
         
-        snippet = `<div class="search-snippet">${chunk}</div>`;
-      } else if (r.item.content) {
-        // Fallback: Show actual content, and verify it's not identical to the title
-        let fallbackText = r.item.content.substring(0, 120);
-        if (fallbackText === r.item.title) {
-            fallbackText = "View this page to learn more about " + r.item.title;
-        }
-        snippet = `<div class="search-snippet">${fallbackText}...</div>`;
-      }
-
-      return `<li>
-        <a href="${r.item.url}">
-          <div class="search-title">${r.item.title}</div>
-          ${snippet}
-        </a>
-      </li>`;
-    }).join('');
-  } else {
-    list.style.display = 'none';
-  }
-};
+              return `<li>
+                <a href="${r.item.url}">
+                  <div class="search-title">${r.item.title}</div>
+                  ${snippet}
+                </a>
+              </li>`;
+            }).join('');
+          } else {
+            list.style.display = 'none';
+          }
+        };
         
       })
       .catch(err => console.error("Search fetch failed:", err));
