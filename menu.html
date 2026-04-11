@@ -1,4 +1,76 @@
 <style>
+  /* This ensures your results don't push your page content down */
+  .search-wrapper { position: relative; display: inline-block; }
+  
+  #results-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    background: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+  }
+
+  #results-list li { border-bottom: 1px solid #eee; }
+  #results-list li a { 
+    display: block; 
+    padding: 10px; 
+    text-decoration: none; 
+    color: #333; 
+  }
+  #results-list li a:hover { background-color: #f0f0f0; }
+</style>
+
+<div class="search-wrapper">
+  <input type="text" id="search-input" placeholder="Search pages..." autocomplete="off">
+  <ul id="results-list"></ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    fetch("{{ '/search.json' | relative_url }}")
+      .then(res => res.json())
+      .then(data => {
+        const fuse = new Fuse(data, { 
+          keys: ['title'], 
+          threshold: 0.4 
+        });
+
+        const input = document.getElementById('search-input');
+        const list = document.getElementById('results-list');
+
+        input.oninput = () => {
+          const results = fuse.search(input.value);
+          
+          if (input.value.length > 0 && results.length > 0) {
+            list.style.display = 'block';
+            list.innerHTML = results.map(r => 
+              `<li><a href="${r.item.url}">${r.item.title}</a></li>`
+            ).join('');
+          } else {
+            list.style.display = 'none';
+          }
+        };
+
+        // Hide list when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!input.contains(e.target)) list.style.display = 'none';
+        });
+      });
+});
+</script>
+
+
+
+<style>
     /* Further reduced vertical spacing */
     .menu-item-clean {
         padding: 6px 16px; /* Reduced from 10px to 6px */
