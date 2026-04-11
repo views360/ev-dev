@@ -314,16 +314,35 @@ function initSearch() {
             list.style.display = 'block';
             
             list.innerHTML = results.map(r => {
-              // Helper to find the snippet in the 'content' field
+              // Find the match in the 'content' field
               const match = r.matches.find(m => m.key === 'content');
               let snippet = "";
               
               if (match) {
-                const start = Math.max(0, match.indices[0][0] - 40);
-                const end = Math.min(match.value.length, match.indices[0][1] + 40);
-                snippet = `<div class="search-snippet">...${match.value.substring(start, end)}...</div>`;
+                const text = match.value;
+                const index = match.indices[0][0];
+                
+                // Define a window around the match (e.g., 80 characters)
+                const start = Math.max(0, index - 40);
+                const end = Math.min(text.length, index + 80);
+                
+                // Extract the raw chunk
+                let chunk = text.substring(start, end);
+                
+                // Clean up the chunk so it doesn't start or end with half-words
+                const firstSpace = chunk.indexOf(' ');
+                const lastSpace = chunk.lastIndexOf(' ');
+                
+                if (firstSpace !== -1 && start !== 0) {
+                    chunk = "..." + chunk.substring(firstSpace).trim();
+                }
+                if (lastSpace !== -1 && end !== text.length) {
+                    chunk = chunk.substring(0, lastSpace).trim() + "...";
+                }
+        
+                snippet = `<div class="search-snippet">${chunk}</div>`;
               }
-
+        
               return `<li>
                 <a href="${r.item.url}">
                   <div class="search-title">${r.item.title}</div>
@@ -335,6 +354,7 @@ function initSearch() {
             list.style.display = 'none';
           }
         };
+        
       })
       .catch(err => console.error("Search fetch failed:", err));
 }
