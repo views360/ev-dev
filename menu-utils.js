@@ -295,10 +295,10 @@ function initSearch() {
             keys: ['title', 'content'],
             includeMatches: true,
             findAllMatches: true,
-            threshold: 0.1, 
+            threshold: 0.2,            // Slightly relaxed to allow for spaces in phrases
             useExtendedSearch: true,
-            ignoreLocation: true,
-            minMatchCharLength: 3   // <--- TELLS FUSE TO IGNORE 1-2 CHARACTER MATCHES
+            ignoreLocation: true,      // Essential so it searches the whole page equally
+            minMatchCharLength: 3      // Prevents single character noise
         };
 
         const fuse = new Fuse(data, options);
@@ -306,32 +306,41 @@ function initSearch() {
         const list = document.getElementById('results-list');
 
         input.oninput = () => {
-            const query = input.value.toLowerCase();
+            const rawQuery = input.value;
+            const lowerQuery = rawQuery.toLowerCase().trim();
             
-            // PREVENT SEARCHING ENTIRELY FOR SHORT STRINGS
-            if (query.length < 3) {
+            // 1. Only search if 3 or more characters
+            if (lowerQuery.length < 3) {
                 list.style.display = 'none';
                 list.innerHTML = '';
                 return;
             }
 
-            const results = fuse.search(query).filter(r => {
-                const inTitle = r.item.title.toLowerCase().includes(query);
-                const inContent = r.item.content.toLowerCase().includes(query);
+            // 2. Phrase Fix: If there is a space, wrap in quotes for Fuse
+            // This forces Fuse to look for "type 2" as one unit
+            const fuseQuery = lowerQuery.includes(' ') ? `"${lowerQuery}"` : lowerQuery;
+
+            // 3. Filter results to ensure the phrase actually exists
+            const results = fuse.search(fuseQuery).filter(r => {
+                const inTitle = r.item.title.toLowerCase().includes(lowerQuery);
+                const inContent = r.item.content.toLowerCase().includes(lowerQuery);
                 return inTitle || inContent;
             });
 
             list.style.display = 'block';
             list.innerHTML = results.map(r => {
                 const text = r.item.content || "";
-                const index = text.toLowerCase().indexOf(query);
+                // Find exact position of the search term
+                const index = text.toLowerCase().indexOf(lowerQuery);
                 
                 let snippet = "";
                 if (index !== -1) {
+                    // Create window around the found term
                     const start = Math.max(0, index - 50);
                     const end = Math.min(text.length, index + 100);
                     let chunk = text.substring(start, end);
 
+                    // Clean up edges of the snippet
                     const firstSpace = chunk.indexOf(' ');
                     const lastSpace = chunk.lastIndexOf(' ');
                     if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
@@ -339,6 +348,7 @@ function initSearch() {
                     
                     snippet = `<div class="search-snippet">${chunk}</div>`;
                 } else {
+                    // Fallback to start of page if match was in Title only
                     snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                 }
 
