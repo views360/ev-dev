@@ -291,69 +291,71 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        // 1. YOUR OPTIONS BLOCK
         const options = {
             keys: [
                 { name: 'title', weight: 0.7 },
                 { name: 'content', weight: 0.3 }
             ],
-            includeMatches: true,      
+            includeMatches: true,
             findAllMatches: true,
-            threshold: 0.3,            
+            threshold: 0.3,
             useExtendedSearch: true,
-            ignoreLocation: false,     
-            distance: 10000            // Set to 10000 so it finds terms deep in your guides
+            ignoreLocation: false, 
+            distance: 10000 
         };
 
         const fuse = new Fuse(data, options);
-
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
 
         input.oninput = () => {
-          const results = fuse.search(input.value);
-          if (input.value.length > 0) {
-            list.style.display = 'block';
-            
-            list.innerHTML = results.map(r => {
-              // 2. THE JUMP-TO-KEYWORD LOGIC
-              // This finds the specific match location provided by Fuse
-              const contentMatch = r.matches.find(m => m.key === 'content');
-              let snippet = "";
+            const results = fuse.search(input.value);
+            console.log("Search Results:", results); // This will show you exactly what Fuse 'sees'
 
-              if (contentMatch && contentMatch.indices.length > 0) {
-                const text = contentMatch.value;
-                // Get the character index of the first match
-                const index = contentMatch.indices[0][0];
-                
-                // Create a window: 50 characters before, 100 after
-                const start = Math.max(0, index - 50);
-                const end = Math.min(text.length, index + 100);
-                let chunk = text.substring(start, end);
-                
-                // Clean up partial words at the edges
-                const firstSpace = chunk.indexOf(' ');
-                const lastSpace = chunk.lastIndexOf(' ');
-                
-                if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
-                if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
-                
-                snippet = `<div class="search-snippet">${chunk}</div>`;
-              } else if (r.item.content) {
-                // Fallback if the match is in the title, not the body
-                snippet = `<div class="search-snippet">${r.item.content.substring(0, 100).trim()}...</div>`;
-              }
+            if (input.value.length > 0) {
+                list.style.display = 'block';
+                list.innerHTML = results.map(r => {
+                    let snippet = "";
+                    const text = r.item.content || "";
+                    
+                    // 1. Try to find the match using Fuse's indices
+                    const contentMatch = r.matches.find(m => m.key === 'content');
+                    
+                    let index = -1;
+                    if (contentMatch && contentMatch.indices.length > 0) {
+                        index = contentMatch.indices[0][0];
+                    } else {
+                        // 2. Backup: If Fuse didn't give indices, manually find the word in the content
+                        index = text.toLowerCase().indexOf(input.value.toLowerCase());
+                    }
 
-              return `<li>
-                <a href="${r.item.url}">
-                  <div class="search-title">${r.item.title}</div>
-                  ${snippet}
-                </a>
-              </li>`;
-            }).join('');
-          } else {
-            list.style.display = 'none';
-          }
+                    if (index !== -1) {
+                        const start = Math.max(0, index - 50);
+                        const end = Math.min(text.length, index + 100);
+                        let chunk = text.substring(start, end);
+
+                        const firstSpace = chunk.indexOf(' ');
+                        const lastSpace = chunk.lastIndexOf(' ');
+
+                        if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
+                        if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
+                        
+                        snippet = `<div class="search-snippet">${chunk}</div>`;
+                    } else {
+                        // 3. Last Resort: Just show the beginning
+                        snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
+                    }
+
+                    return `<li>
+                        <a href="${r.item.url}">
+                            <div class="search-title">${r.item.title}</div>
+                            ${snippet}
+                        </a>
+                    </li>`;
+                }).join('');
+            } else {
+                list.style.display = 'none';
+            }
         };
       });
 }
