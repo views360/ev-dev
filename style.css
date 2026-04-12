@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
+.search-footer > a {
+    color: var(--neon-green);
+}
+
 .neon-rosette-animated {
     height: 1.3em;         /* Keeps it small and inline with H1 text */
     width: auto;
