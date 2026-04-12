@@ -3,8 +3,10 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "to.be.filled.by.bubblewrap",
-      "sha256_cert_fingerprints": ["TO_BE_FILLED_AFTER_BUBBLEWRAP_INIT"]
+      "package_name": "uk.evsubs.app",
+      "sha256_cert_fingerprints": [
+        "1E:5E:44:50:80:94:E9:A7:16:0C:14:B0:06:6F:C5:67:EA:89:9E:26:B6:66:F7:CE:21:91:FD:D0:85:53:3E:DC"
+      ]
     }
   }
 ]
