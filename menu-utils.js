@@ -291,8 +291,8 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        // Threshold 0.2: The "sweet spot" for technical docs.
-        // It allows "charg" to match "charger" but keeps "type 2" strict.
+        // Threshold 0.2: Allows "charg" to find "charger" 
+        // but keeps "type 2" from matching just "type".
         const fuse = new Fuse(data, {
             keys: ['title', 'content'],
             threshold: 0.2, 
@@ -302,7 +302,7 @@ function initSearch() {
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
 
-        // 1. Add simple CSS for the highlight
+        // Add highlight styling
         if (!document.getElementById('search-highlight-style')) {
             const style = document.createElement('style');
             style.id = 'search-highlight-style';
@@ -328,6 +328,7 @@ function initSearch() {
                 return;
             }
 
+            // Perform fuzzy search
             const results = fuse.search(lowerQuery);
 
             if (results.length > 0) {
@@ -343,11 +344,11 @@ function initSearch() {
                         const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
 
-                        // 2. Highlighting Logic
+                        // Wrap matches in <mark> tags
                         const regex = new RegExp(`(${lowerQuery})`, 'gi');
                         const highlighted = chunk.replace(regex, '<mark>$1</mark>');
 
-                        // 3. Clean edges at spaces
+                        // Clean snippet edges
                         const firstSpace = highlighted.indexOf(' ');
                         const lastSpace = highlighted.lastIndexOf(' ');
                         let finalChunk = highlighted;
@@ -357,6 +358,7 @@ function initSearch() {
                         
                         snippet = `<div class="search-snippet">${finalChunk}</div>`;
                     } else {
+                        // Match might be in title only, show beginning of content
                         snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                     }
 
