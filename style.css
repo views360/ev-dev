@@ -72,7 +72,7 @@
 .search-slide-container {
     position: fixed;
     right: -105px; /* Hidden by default */
-    top: 100px;    /* Positioned higher than the robot */
+    top: 95px;    /* Positioned higher than the robot */
     width: 300px;
     display: flex;
     align-items: flex-start;
