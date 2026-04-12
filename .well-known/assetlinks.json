@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "to.be.filled.by.bubblewrap",
+      "sha256_cert_fingerprints": ["TO_BE_FILLED_AFTER_BUBBLEWRAP_INIT"]
+    }
+  }
+]
