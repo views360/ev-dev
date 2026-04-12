@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
-.search-footer > a {
+div.search-footer a {
     color: var(--neon-green);
 }
 
