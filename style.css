@@ -72,7 +72,7 @@
 .search-slide-container {
     position: fixed;
     right: -105px; /* Hidden by default */
-    top: 70px;    /* Positioned higher than the robot */
+    top: 100px;    /* Positioned higher than the robot */
     width: 300px;
     display: flex;
     align-items: flex-start;
@@ -1492,7 +1492,7 @@ body {
 /* Rotated tab on the left edge of the desktop sidebar */
 .ad-tab-vertical {
     position: absolute;
-    top: 200px;
+    top: 250px;
     left: 48px;
     background: var(--panel-alt);
     color: var(--muted);
