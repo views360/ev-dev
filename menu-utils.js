@@ -291,11 +291,10 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        // Threshold 0.2: Allows "charg" to find "charger" 
-        // but keeps "type 2" from matching just "type".
+        // threshold 0.1 is extremely strict to prevent ghost matches
         const fuse = new Fuse(data, {
             keys: ['title', 'content'],
-            threshold: 0.2, 
+            threshold: 0.1, 
             ignoreLocation: true
         });
 
@@ -328,8 +327,12 @@ function initSearch() {
                 return;
             }
 
-            // Perform fuzzy search
-            const results = fuse.search(lowerQuery);
+            // Perform search and manually filter to ensure 100% accuracy
+            const results = fuse.search(lowerQuery).filter(r => {
+                const title = r.item.title.toLowerCase();
+                const content = (r.item.content || "").toLowerCase();
+                return title.includes(lowerQuery) || content.includes(lowerQuery);
+            });
 
             if (results.length > 0) {
                 list.style.display = 'block';
@@ -344,11 +347,11 @@ function initSearch() {
                         const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
 
-                        // Wrap matches in <mark> tags
-                        const regex = new RegExp(`(${lowerQuery})`, 'gi');
+                        // Highlight the term
+                        const regex = new RegExp(`(${lowerQuery.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
                         const highlighted = chunk.replace(regex, '<mark>$1</mark>');
 
-                        // Clean snippet edges
+                        // Clean up spaces at the edges
                         const firstSpace = highlighted.indexOf(' ');
                         const lastSpace = highlighted.lastIndexOf(' ');
                         let finalChunk = highlighted;
@@ -358,7 +361,6 @@ function initSearch() {
                         
                         snippet = `<div class="search-snippet">${finalChunk}</div>`;
                     } else {
-                        // Match might be in title only, show beginning of content
                         snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                     }
 
