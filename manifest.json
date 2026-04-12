@@ -1,0 +1,22 @@
+{
+  "name": "EV Subs UK",
+  "short_name": "EVSubsUK",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "description": "EV Subs UK — Fast, simple, electric vehicle subscription vs PAYG charging comparison and EV ownership guidance.",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
