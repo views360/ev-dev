@@ -1,5 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&display=swap');
 
+.neon-rosette {
+    height: 0.85em;         /* Perfectly proportioned to H1 text */
+    width: auto;
+    vertical-align: -0.12em; /* Aligns circle with text baseline */
+    margin: 0 0.05em;       /* Tight spacing for a professional look */
+    color: var(--accent);   /* Uses your #38bdf8 blue */
+    filter: drop-shadow(var(--glow)); /* Matches your site's neon glow */
+    display: inline-block;
+}
+
+/* Match your site's existing neon pulse logic */
+.neon-rosette {
+    animation: rosetteGlow 2s infinite ease-in-out;
+}
+
+@keyframes rosetteGlow {
+    0%, 100% { filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4)); }
+    50% { filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.7)); }
+}
+
 #results-list {
     background-color: var(--panel-alt) !important; /* Forces the dark background */
     color: var(--text) !important;               /* Forces the light gray text */
