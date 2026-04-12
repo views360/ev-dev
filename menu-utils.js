@@ -291,34 +291,44 @@ function initSearch() {
     fetch(jsonPath)
       .then(res => res.json())
       .then(data => {
-        // Strict threshold (0.1) to ensure results are very close to the query
+        // Threshold 0.2: The "sweet spot" for technical docs.
+        // It allows "charg" to match "charger" but keeps "type 2" strict.
         const fuse = new Fuse(data, {
             keys: ['title', 'content'],
-            threshold: 0.1, 
+            threshold: 0.2, 
             ignoreLocation: true
         });
 
         const input = document.getElementById('search-input');
         const list = document.getElementById('results-list');
 
+        // 1. Add simple CSS for the highlight
+        if (!document.getElementById('search-highlight-style')) {
+            const style = document.createElement('style');
+            style.id = 'search-highlight-style';
+            style.innerHTML = `
+                .search-snippet mark { 
+                    background: #fff3bf; 
+                    color: #000; 
+                    font-weight: bold; 
+                    padding: 0 2px; 
+                    border-radius: 2px;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
         input.oninput = () => {
             const rawQuery = input.value.trim();
             const lowerQuery = rawQuery.toLowerCase();
             
-            // 1. Prevent single or double character noise
             if (lowerQuery.length < 3) {
                 list.style.display = 'none';
                 list.innerHTML = '';
                 return;
             }
 
-            // 2. Search and then Filter Strictly
-            // This ensures "type 2" only shows pages containing that exact string
-            const results = fuse.search(lowerQuery).filter(r => {
-                const title = r.item.title.toLowerCase();
-                const content = (r.item.content || "").toLowerCase();
-                return title.includes(lowerQuery) || content.includes(lowerQuery);
-            });
+            const results = fuse.search(lowerQuery);
 
             if (results.length > 0) {
                 list.style.display = 'block';
@@ -333,14 +343,20 @@ function initSearch() {
                         const end = Math.min(text.length, index + 100);
                         let chunk = text.substring(start, end);
 
-                        const firstSpace = chunk.indexOf(' ');
-                        const lastSpace = chunk.lastIndexOf(' ');
-                        if (firstSpace !== -1 && start !== 0) chunk = "..." + chunk.substring(firstSpace).trim();
-                        if (lastSpace !== -1 && end !== text.length) chunk = chunk.substring(0, lastSpace).trim() + "...";
+                        // 2. Highlighting Logic
+                        const regex = new RegExp(`(${lowerQuery})`, 'gi');
+                        const highlighted = chunk.replace(regex, '<mark>$1</mark>');
+
+                        // 3. Clean edges at spaces
+                        const firstSpace = highlighted.indexOf(' ');
+                        const lastSpace = highlighted.lastIndexOf(' ');
+                        let finalChunk = highlighted;
                         
-                        snippet = `<div class="search-snippet">${chunk}</div>`;
+                        if (firstSpace !== -1 && start !== 0) finalChunk = "..." + highlighted.substring(firstSpace).trim();
+                        if (lastSpace !== -1 && end !== text.length) finalChunk = finalChunk.substring(0, finalChunk.lastIndexOf(' ')) + "...";
+                        
+                        snippet = `<div class="search-snippet">${finalChunk}</div>`;
                     } else {
-                        // Fallback if match is in title only
                         snippet = `<div class="search-snippet">${text.substring(0, 100).trim()}...</div>`;
                     }
 
