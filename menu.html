@@ -1,55 +1,290 @@
 <style>
-.menu-item-clean{padding:6px 16px;display:flex;align-items:center;color:inherit;text-decoration:none;border-left:3px solid transparent;transition:all .2s ease}.menu-item-clean.active-page{background-color:var(--accent-soft);border-left-color:var(--accent);color:var(--accent)}.menu-item-clean.active-page .menu-icon-svg{stroke:var(--accent)}.menu-section-toggle{display:flex;align-items:center;justify-content:space-between;margin:4px 16px 2px;padding-top:0!important;cursor:pointer;user-select:none;color:var(--muted)}.menu-section-toggle span{font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-left:4px}.menu-section-toggle .menu-chevron{width:12px;height:12px;stroke:var(--muted);fill:none;transition:transform .2s ease;flex-shrink:0;margin-right:4px}.menu-section-toggle.open .menu-chevron{transform:rotate(180deg)}.menu-section-items{overflow:hidden;max-height:0;transition:max-height .25s ease;border-bottom:solid 1px var(--muted)!important}.menu-section-items.open{max-height:400px}.menu-content{display:flex!important;flex-direction:column!important;gap:2px!important}#lightdarkmode{padding-bottom:10px!important;border-bottom:1px solid var(--muted)!important}#day2Toggle,#guidesToggle,#readingToggle{padding-top:5px!important}#day2Items,#guidesItems,#readingItems{padding-bottom:7px!important}.chrome-style-menu.active #sideMenu{display:block!important}
-</style><script>
-function resetAll(){localStorage.clear();var t=document.cookie.split(";");for(let e=0;e<t.length;e++){const r=t[e];var o=r.indexOf("="),o=-1<o?r.substr(0,o):r;document.cookie=o+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/"}const e=document.querySelectorAll("input");e.forEach(e=>{"number"!==e.type&&"text"!==e.type||(e.value="")});const n=document.getElementById("providers");n&&(n.innerHTML=""),window.location.href="index.html"}
-</script><div class=chrome-style-menu id=sideMenu><div class=menu-content><a class=menu-item-clean href=index.html><img class=menu-icon-svg 
-src=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMyA5bDktN2w5IDd2MTFhMiAyIDAgMCAxLTIgMmgtNHYtNGgtNHY0SDVhMiAyIDAgMCAxLTItMlY5eiIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+>
- <span>Home</span> </a><a class=menu-item-clean href=calculator.html><svg class=menu-icon-svg stroke-linecap=round stroke-linejoin=round stroke-width=2 viewBox="0 0 24 24"fill=none height=24 
-stroke=#94a3b8 width=24><rect height=20 rx=2 width=16 x=4 y=2></rect><line x1=8 x2=16 y1=6 y2=6></line><line x1=16 x2=16 y1=14 y2=14></line><line x1=12 x2=12 y1=14 y2=14></line><line x1=8 x2=8 y1=14 
-y2=14></line><line x1=16 x2=16 y1=18 y2=18></line><line x1=12 x2=12 y1=18 y2=18></line><line x1=8 x2=8 y1=18 y2=18></line><line x1=8 x2=16 y1=10 y2=10></line></svg> <span>Calculator</span> </a><a 
-class=menu-item-clean href=assistant.html data-page=assistant><svg class=menu-icon-svg stroke-linecap=round stroke-linejoin=round stroke-width=2 viewBox="0 0 24 24"fill=none height=24 stroke=#94a3b8 
-width=24><rect height=10 rx=2 width=18 x=3 y=11></rect><circle cx=12 cy=5 r=2></circle><path d="M12 7v4"></path><line x1=8 x2=8 y1=16 y2=16></line><line x1=16 x2=16 y1=16 y2=16></line></svg> <span>
-AI Assistant</span> </a><a class=menu-item-clean href=about.html data-page=about><img class=menu-icon-svg 
-src=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNMTIgMTZWMTEiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjEiIGZpbGw9IiM5NGEzYjgiLz4KPC9zdmc+ 
-alt="About Icon"> <span>About This Tool</span> </a><a class=menu-item-clean href=contact.html data-page=contact><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8'/%3E%3C/svg%3E">
- <span>Contact</span> </a><a class=menu-item-clean href=privacy.html data-page=privacy><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E">
- <span>Privacy</span> </a><a class=menu-item-clean onclick=resetAll()><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/%3E%3Cpath d='M21 3v5h-5'/%3E%3Cpath d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/%3E%3Cpath d='M3 21v-5h5'/%3E%3C/svg%3E">
- <span>Reset All<span class=tooltip-container> <span class=info-icon onclick=toggleTooltip(this)>ℹ️<span class=tooltip-box>Clear cookies and empty all input fields to begin again from scratch.</span>
-</span></span></a><div class=menu-section-toggle id=guidesToggle onclick='toggleMenuSection("guidesToggle","guidesItems")'><span>EV Guides</span> <svg class=menu-chevron stroke-linecap=round 
-stroke-linejoin=round stroke-width=2.5 viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class=menu-section-items id=guidesItems><a class=menu-item-clean href=apps.html 
-data-page=apps><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='2' width='14' height='20' rx='2'/%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'/%3E%3C/svg%3E">
- <span>App Toolkit</span> </a><a class=menu-item-clean href=etiquette.html data-page=etiquette><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M23 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E">
- <span>Etiquette</span> </a><a class=menu-item-clean href=jargon.html data-page=jargon><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3C/svg%3E">
- <span>Jargon Buster</span> </a><a class=menu-item-clean href=mastery.html data-page=mastery><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='6'/%3E%3Cpath d='M8.21 13.89L7 23l5-3 5 3-1.21-9.12'/%3E%3C/svg%3E">
- <span>Mastery</span> </a><a class=menu-item-clean href=winter.html data-page=winter><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='2' x2='12' y2='22'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cline x1='4.93' y1='4.93' x2='19.07' y2='19.07'/%3E%3Cline x1='19.07' y1='4.93' x2='4.93' y2='19.07'/%3E%3Cpath d='M12 6l-2-2 2-2'/%3E%3Cpath d='M12 6l2-2-2-2'/%3E%3Cpath d='M12 18l-2 2 2 2'/%3E%3Cpath d='M12 18l2 2-2 2'/%3E%3Cpath d='M6 12l-2-2-2 2'/%3E%3Cpath d='M6 12l-2 2-2-2'/%3E%3Cpath d='M18 12l2-2 2 2'/%3E%3Cpath d='M18 12l2 2 2-2'/%3E%3C/svg%3E">
- <span>Winter Range</span></a></div><div class=menu-section-toggle id=day2Toggle onclick='toggleMenuSection("day2Toggle","day2Items")'><span>Day 2 Issues</span> <svg class=menu-chevron 
-stroke-linecap=round stroke-linejoin=round stroke-width=2.5 viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class=menu-section-items id=day2Items><a class=menu-item-clean 
-href=battery.html data-page=battery><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='16' height='10' rx='1'/%3E%3Cpath d='M22 11v2'/%3E%3Cline x1='6' y1='12' x2='14' y2='12'/%3E%3C/svg%3E">
- <span>Battery Health</span> </a><a class=menu-item-clean href=insurance.html data-page=insurance><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E">
- <span>Insurance</span> </a><a class=menu-item-clean href=towing.html data-page=towing><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='1' y='3' width='15' height='13' rx='2'/%3E%3Cpath d='M16 8h4l3 5v3h-7V8z'/%3E%3Ccircle cx='5.5' cy='18.5' r='2.5'/%3E%3Ccircle cx='18.5' cy='18.5' r='2.5'/%3E%3C/svg%3E">
- <span>Towing & Holidays</span></a></div><div class=menu-section-toggle id=readingToggle onclick='toggleMenuSection("readingToggle","readingItems")'><span>Further Reading</span> <svg 
-class=menu-chevron stroke-linecap=round stroke-linejoin=round stroke-width=2.5 viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class=menu-section-items id=readingItems><a 
-class=menu-item-clean href=home-charging.html data-page=home-charging><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 7V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v3'/%3E%3Cpath d='M6 11V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z'/%3E%3Cpath d='M10 13v4a2 2 0 0 0 4 0v-4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E">
- <span>Home Charging</span> </a><a class=menu-item-clean href=public-network.html data-page=public-network><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E">
- <span>Public Network</span> </a><a class=menu-item-clean href=tco.html data-page=tco><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M14.5 9a3.5 3.5 0 0 0-5 0A3.5 3.5 0 0 0 12 15h2.5'/%3E%3Cpath d='M8 15h6'/%3E%3Cpath d='M9 12h4'/%3E%3C/svg%3E">
- <span>Ownership Cost</span> </a><a class=menu-item-clean href=used.html data-page=used><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z'/%3E%3Cline x1='7' y1='7' x2='7.01' y2='7'/%3E%3C/svg%3E">
- <span>Buying Used</span> </a><a class=menu-item-clean href=myths.html data-page=myths><img class=menu-icon-svg 
-src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 4 2 2'/%3E%3Cpath d='m19 8 2 2'/%3E%3Cpath d='M20 2v2'/%3E%3Cpath d='M22 4h-2'/%3E%3Cpath d='M8 22 2 16'/%3E%3Cpath d='m18 12-7 7-6-6 7-7c2-2 5-2 7 0s2 5 0 7Z'/%3E%3C/svg%3E">
- <span>EV Myths</span></a></div><div class=menu-footer>Subscription Data<br>Last Updated<br><strong>09 March 26</strong></div></div></div><style>
-.search-wrapper{position:relative;display:inline-block}#results-list{position:absolute;top:100%;left:0;z-index:1000;background:#fff;list-style:none;padding:0;margin:0;border:1px solid #ccc;width:100%;max-height:200px;overflow-y:auto;display:none}#results-list li{border-bottom:1px solid #eee}#results-list li a{display:block;padding:10px;text-decoration:none;color:#333}#results-list li a:hover{background-color:#f0f0f0}
+    /* Further reduced vertical spacing */
+    .menu-item-clean {
+        padding: 6px 16px; /* Reduced from 10px to 6px */
+        display: flex;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    /* Highlight active page in menu */
+    .menu-item-clean.active-page {
+        background-color: var(--accent-soft);
+        border-left-color: var(--accent);
+        color: var(--accent);
+    }
+
+    .menu-item-clean.active-page .menu-icon-svg {
+        stroke: var(--accent);
+    }
+    
+    /* ── Collapsible menu section ── */
+    .menu-section-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 4px 16px 2px;
+        padding-top: 0px !important;
+        cursor: pointer;
+        user-select: none;
+        color: var(--muted);
+    }
+
+    .menu-section-toggle span {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding-left: 4px;
+    }
+
+    .menu-section-toggle .menu-chevron {
+        width: 12px;
+        height: 12px;
+        stroke: var(--muted);
+        fill: none;
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+        margin-right: 4px;
+    }
+
+    .menu-section-toggle.open .menu-chevron {
+        transform: rotate(180deg);
+    }
+
+    .menu-section-items {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.25s ease;
+        border-bottom: solid 1px var(--muted) !important;
+    }
+
+    .menu-section-items.open {
+        max-height: 400px;
+    }
+
+    .menu-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important; /* Adds a tiny bit of breathing room without the bulk */
+    }
+
+    #lightdarkmode {
+        padding-bottom: 10px !important;
+        border-bottom: 1px solid var(--muted) !important;
+    }
+
+    #guidesToggle, #day2Toggle, #readingToggle {
+        padding-top: 5px !important;
+    }
+
+    #day2Items, #guidesItems, #readingItems {
+        padding-bottom: 7px !important;
+    }
+    
+    /* Ensure menu is visible when active */
+    .chrome-style-menu.active #sideMenu {
+        display: block !important;
+    }
+</style>
+<script>
+function resetAll() {
+    localStorage.clear();
+
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+    }
+
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        if (input.type === 'number' || input.type === 'text') {
+            input.value = '';
+        }
+    });
+
+    const providersContainer = document.getElementById("providers");
+    if (providersContainer) {
+        providersContainer.innerHTML = "";
+    }
+    window.location.href = "index.html";
+}
+</script>
+
+<div id="sideMenu" class="chrome-style-menu">
+    <div class="menu-content">
+
+        <a class="menu-item-clean" href="index.html">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNMyA5bDktN2w5IDd2MTFhMiAyIDAgMCAxLTIgMmgtNHYtNGgtNHY0SDVhMiAyIDAgMCAxLTItMlY5eiIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+" class="menu-icon-svg">
+            <span>Home</span>
+        </a>
+        <a class="menu-item-clean" href="calculator.html">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon-svg">
+                <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+                <line x1="8" y1="6" x2="16" y2="6"></line>
+                <line x1="16" y1="14" x2="16" y2="14"></line>
+                <line x1="12" y1="14" x2="12" y2="14"></line>
+                <line x1="8" y1="14" x2="8" y2="14"></line>
+                <line x1="16" y1="18" x2="16" y2="18"></line>
+                <line x1="12" y1="18" x2="12" y2="18"></line>
+                <line x1="8" y1="18" x2="8" y2="18"></line>
+                <line x1="8" y1="10" x2="16" y2="10"></line>
+            </svg>
+            <span>Calculator</span>
+        </a>
+        <a class="menu-item-clean" data-page="assistant" href="assistant.html">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon-svg">
+                <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                <circle cx="12" cy="5" r="2"></circle>
+                <path d="M12 7v4"></path>
+                <line x1="8" y1="16" x2="8" y2="16"></line>
+                <line x1="16" y1="16" x2="16" y2="16"></line>
+            </svg>
+            <span>AI Assistant</span>
+        </a>
+        <a class="menu-item-clean" data-page="about" href="about.html">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBkPSJNMTIgMTZWMTEiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjgiIHI9IjEiIGZpbGw9IiM5NGEzYjgiLz4KPC9zdmc+" class="menu-icon-svg" alt="About Icon">
+            <span>About This Tool</span>
+        </a>
+        <a class="menu-item-clean" data-page="contact" href="contact.html">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8'/%3E%3C/svg%3E" class="menu-icon-svg">
+            <span>Contact</span>
+        </a>
+        <a class="menu-item-clean" data-page="privacy" href="privacy.html">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E" class="menu-icon-svg">
+            <span>Privacy</span>
+        </a>
+        <a class="menu-item-clean" onclick="resetAll()">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'/%3E%3Cpath d='M21 3v5h-5'/%3E%3Cpath d='M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'/%3E%3Cpath d='M3 21v-5h5'/%3E%3C/svg%3E" class="menu-icon-svg">
+            <span>Reset All<span class="tooltip-container">
+            <span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">Clear cookies and empty all input fields to begin again from scratch.</span>
+            </span></span>
+        </a>
+        <!--a class="menu-item-clean" id="lightdarkmode" onclick="toggleTheme(); toggleMenu(); event.stopPropagation();">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z'/%3E%3C/svg%3E" class="menu-icon-svg">
+            <span>Light/Dark Mode</span>
+        </a-->
+
+        <div class="menu-section-toggle" id="guidesToggle" onclick="toggleMenuSection('guidesToggle', 'guidesItems')">
+            <span>EV Guides</span>
+            <svg class="menu-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+            </svg>
+        </div>
+
+        <div class="menu-section-items" id="guidesItems">
+            <a class="menu-item-clean" data-page="apps" href="apps.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='2' width='14' height='20' rx='2'/%3E%3Cline x1='12' y1='18' x2='12.01' y2='18'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>App Toolkit</span>
+            </a>
+            <a class="menu-item-clean" data-page="etiquette" href="etiquette.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2'/%3E%3Ccircle cx='9' cy='7' r='4'/%3E%3Cpath d='M23 21v-2a4 4 0 0 0-3-3.87'/%3E%3Cpath d='M16 3.13a4 4 0 0 1 0 7.75'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Etiquette</span>
+            </a>
+            <a class="menu-item-clean" data-page="jargon" href="jargon.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Jargon Buster</span>
+            </a>
+            <a class="menu-item-clean" data-page="mastery" href="mastery.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='6'/%3E%3Cpath d='M8.21 13.89L7 23l5-3 5 3-1.21-9.12'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Mastery</span>
+            </a>
+            <a class="menu-item-clean" data-page="winter" href="winter.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='2' x2='12' y2='22'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cline x1='4.93' y1='4.93' x2='19.07' y2='19.07'/%3E%3Cline x1='19.07' y1='4.93' x2='4.93' y2='19.07'/%3E%3Cpath d='M12 6l-2-2 2-2'/%3E%3Cpath d='M12 6l2-2-2-2'/%3E%3Cpath d='M12 18l-2 2 2 2'/%3E%3Cpath d='M12 18l2 2-2 2'/%3E%3Cpath d='M6 12l-2-2-2 2'/%3E%3Cpath d='M6 12l-2 2-2-2'/%3E%3Cpath d='M18 12l2-2 2 2'/%3E%3Cpath d='M18 12l2 2 2-2'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Winter Range</span>
+            </a>
+        </div>
+
+        <div class="menu-section-toggle" id="day2Toggle" onclick="toggleMenuSection('day2Toggle', 'day2Items')">
+            <span>Day 2 Issues</span>
+            <svg class="menu-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+            </svg>
+        </div>
+        <div class="menu-section-items" id="day2Items">
+            <a class="menu-item-clean" data-page="battery" href="battery.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='7' width='16' height='10' rx='1'/%3E%3Cpath d='M22 11v2'/%3E%3Cline x1='6' y1='12' x2='14' y2='12'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Battery Health</span>
+            </a>
+            <a class="menu-item-clean" data-page="insurance" href="insurance.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Insurance</span>
+            </a>
+            <a class="menu-item-clean" data-page="towing" href="towing.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='1' y='3' width='15' height='13' rx='2'/%3E%3Cpath d='M16 8h4l3 5v3h-7V8z'/%3E%3Ccircle cx='5.5' cy='18.5' r='2.5'/%3E%3Ccircle cx='18.5' cy='18.5' r='2.5'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Towing &amp; Holidays</span>
+            </a>
+        </div>
+
+        <div class="menu-section-toggle" id="readingToggle" onclick="toggleMenuSection('readingToggle', 'readingItems')">
+            <span>Further Reading</span>
+            <svg class="menu-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+            </svg>
+        </div>
+        <div class="menu-section-items" id="readingItems">
+            <a class="menu-item-clean" data-page="home-charging" href="home-charging.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 7V4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v3'/%3E%3Cpath d='M6 11V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z'/%3E%3Cpath d='M10 13v4a2 2 0 0 0 4 0v-4'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Home Charging</span>
+            </a>
+            <a class="menu-item-clean" data-page="public-network" href="public-network.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Public Network</span>
+            </a>
+            <a class="menu-item-clean" data-page="tco" href="tco.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M14.5 9a3.5 3.5 0 0 0-5 0A3.5 3.5 0 0 0 12 15h2.5'/%3E%3Cpath d='M8 15h6'/%3E%3Cpath d='M9 12h4'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Ownership Cost</span>
+            </a>
+            <a class="menu-item-clean" data-page="used" href="used.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z'/%3E%3Cline x1='7' y1='7' x2='7.01' y2='7'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>Buying Used</span>
+            </a>
+            <a class="menu-item-clean" data-page="myths" href="myths.html">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 4 2 2'/%3E%3Cpath d='m19 8 2 2'/%3E%3Cpath d='M20 2v2'/%3E%3Cpath d='M22 4h-2'/%3E%3Cpath d='M8 22 2 16'/%3E%3Cpath d='m18 12-7 7-6-6 7-7c2-2 5-2 7 0s2 5 0 7Z'/%3E%3C/svg%3E" class="menu-icon-svg">
+                <span>EV Myths</span>
+             </a>
+        </div>
+
+        <div class="menu-footer">
+            Subscription Data<br />Last Updated<br /><strong>09 March 26</strong>
+        </div>
+
+    </div>
+</div>
+
+<style>
+  /* This ensures your results don't push your page content down */
+  .search-wrapper { position: relative; display: inline-block; }
+  
+  #results-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    background: white;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none; /* Hidden by default */
+  }
+
+  #results-list li { border-bottom: 1px solid #eee; }
+  #results-list li a { 
+    display: block; 
+    padding: 10px; 
+    text-decoration: none; 
+    color: #333; 
+  }
+  #results-list li a:hover { background-color: #f0f0f0; }
 </style>
