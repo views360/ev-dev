@@ -1,1 +1,813 @@
-const a3_0x179940=a3_0x136f;(function(_0x378b56,_0x4c8015){const _0x558a4c=a3_0x136f,_0x9ab46=_0x378b56();while(!![]){try{const _0x433732=-parseInt(_0x558a4c(0x26f))/0x1+-parseInt(_0x558a4c(0x248))/0x2+parseInt(_0x558a4c(0x278))/0x3+-parseInt(_0x558a4c(0x20f))/0x4+-parseInt(_0x558a4c(0x268))/0x5*(parseInt(_0x558a4c(0x1f1))/0x6)+-parseInt(_0x558a4c(0x25d))/0x7*(parseInt(_0x558a4c(0x216))/0x8)+-parseInt(_0x558a4c(0x23d))/0x9*(-parseInt(_0x558a4c(0x21d))/0xa);if(_0x433732===_0x4c8015)break;else _0x9ab46['push'](_0x9ab46['shift']());}catch(_0x5398fe){_0x9ab46['push'](_0x9ab46['shift']());}}}(a3_0x5cf5,0xeb1b1));function drawGraph(_0x51eac5,_0x4a9da7){const _0x456065=a3_0x136f,_0x184e49=document[_0x456065(0x1d4)]('costChart');if(chart)chart[_0x456065(0x1e3)]();const _0x44158b=document[_0x456065(0x266)](_0x456065(0x1c3)),_0x532c9c=_0x44158b&&_0x44158b[_0x456065(0x209)][_0x456065(0x1da)]()==='Cost\x20Reduction',_0x1df45e=Math[_0x456065(0x25a)](_0x51eac5[_0x456065(0x252)]*1.5,0x1f4),_0x256c72=Array[_0x456065(0x1ee)]({'length':0xb},(_0x38469d,_0x505faa)=>Math['round'](_0x1df45e*_0x505faa/0xa)),_0x4bbcb2=_0x51eac5[_0x456065(0x277)]/0x64*_0x51eac5[_0x456065(0x1e2)]*_0x51eac5[_0x456065(0x1b2)],_0x2c1890=(_0x7a7fad,_0x155879,_0x24b73f)=>{const _0x654a81=_0x456065;if(!_0x532c9c)return _0x155879+_0x7a7fad/_0x51eac5[_0x654a81(0x1b2)]*(_0x24b73f/0x64);else{const _0xb8886c=Math[_0x654a81(0x25a)](0x0,(_0x51eac5[_0x654a81(0x277)]-_0x51eac5['prechargesoc'])/0x64)*_0x51eac5[_0x654a81(0x1e2)],_0x50032e=_0xb8886c*(_0x51eac5[_0x654a81(0x256)]/0x64),_0x489f53=Math[_0x654a81(0x25a)](0x0,_0x7a7fad-_0x4bbcb2),_0x38f4ff=_0x489f53/_0x51eac5[_0x654a81(0x1b2)]*(_0x24b73f/0x64);return _0x155879+_0x50032e+_0x38f4ff;}},_0x24daa7=_0x256c72[_0x456065(0x1f3)](_0x398cfb=>_0x2c1890(_0x398cfb,0x0,_0x51eac5[_0x456065(0x1ce)])),_0x21a637=[{'label':_0x456065(0x1cb),'data':_0x24daa7,'borderColor':_0x456065(0x258),'borderWidth':0x3,'pointRadius':0x0,'fill':![],'order':0x2}];_0x532c9c&&_0x4bbcb2>0x0&&_0x4bbcb2<=_0x1df45e&&_0x21a637['push']({'label':'Battery\x20Exhausted','data':[{'x':_0x4bbcb2,'y':_0x2c1890(_0x4bbcb2,0x0,_0x51eac5[_0x456065(0x1ce)])}],'pointBackgroundColor':_0x456065(0x258),'pointBorderColor':_0x456065(0x1dc),'pointBorderWidth':0x2,'pointRadius':0x6,'showLine':![],'type':_0x456065(0x1ef),'order':0x1}),_0x4a9da7[_0x456065(0x1ac)]((_0x3707d0,_0x418842)=>{const _0x4ef149=_0x456065,_0x2c94ba=getProviderColor(_0x3707d0[_0x4ef149(0x238)],_0x418842),_0x33b84d=parseFloat(_0x3707d0['subCost']),_0xa37f71=_0x256c72[_0x4ef149(0x1f3)](_0x17ff4e=>_0x2c1890(_0x17ff4e,_0x33b84d,_0x3707d0[_0x4ef149(0x1ff)]));_0x21a637[_0x4ef149(0x23c)]({'label':_0x3707d0['name'],'data':_0xa37f71,'borderColor':_0x2c94ba,'borderWidth':0x2,'pointRadius':0x0,'fill':![],'order':0x2});const _0x4bf72e=(_0x51eac5[_0x4ef149(0x1ce)]-_0x3707d0[_0x4ef149(0x1ff)])/0x64;if(_0x4bf72e>0x0){let _0x463f3b;!_0x532c9c?_0x463f3b=_0x33b84d*_0x51eac5[_0x4ef149(0x1b2)]/_0x4bf72e:_0x463f3b=_0x4bbcb2+_0x33b84d*_0x51eac5[_0x4ef149(0x1b2)]/_0x4bf72e,_0x463f3b<=_0x1df45e&&_0x21a637['push']({'label':_0x3707d0['name']+_0x4ef149(0x1e5),'data':[{'x':_0x463f3b,'y':_0x2c1890(_0x463f3b,0x0,_0x51eac5['adhoc'])}],'pointBackgroundColor':_0x4ef149(0x1dc),'pointBorderColor':_0x2c94ba,'pointBorderWidth':0x2,'pointRadius':0x6,'showLine':![],'type':_0x4ef149(0x1ef),'order':0x1});}}),chart=new Chart(_0x184e49,{'type':_0x456065(0x23e),'data':{'labels':_0x256c72,'datasets':_0x21a637},'options':{'responsive':!![],'maintainAspectRatio':![],'scales':{'y':{'title':{'display':!![],'text':_0x532c9c?'Total\x20Journey\x20Cost\x20(£)':'Total\x20Monthly\x20Cost\x20(£)'},'beginAtZero':!![]},'x':{'type':_0x456065(0x1f8),'title':{'display':!![],'text':'Distance\x20(Miles)'},'min':0x0,'max':_0x1df45e}},'plugins':{'legend':{'position':_0x456065(0x1fd),'labels':{'boxWidth':0xc,'filter':_0x11ded0=>!['Break-Even','Exhausted'][_0x456065(0x1b6)](_0x265530=>_0x11ded0[_0x456065(0x1bc)]['includes'](_0x265530))}},'tooltip':{'callbacks':{'label':_0xcaacff=>{const _0x21d710=_0x456065,_0x4481b2=_0xcaacff[_0x21d710(0x1d7)]['label']||'',_0x393e1e=_0xcaacff[_0x21d710(0x241)]['x']['toFixed'](0x0),_0x5b4bc6=_0xcaacff[_0x21d710(0x241)]['y'][_0x21d710(0x253)](0x2);if(_0x4481b2[_0x21d710(0x1b1)](_0x21d710(0x237)))return _0x21d710(0x226)+_0x393e1e+_0x21d710(0x1c2);if(_0x4481b2[_0x21d710(0x1b1)](_0x21d710(0x220)))return _0x4481b2[_0x21d710(0x1ab)]('\x20Break-Even','')+_0x21d710(0x206)+_0x393e1e+_0x21d710(0x1c8)+_0x5b4bc6+')';return _0x4481b2+':\x20£'+_0x5b4bc6;}}}}}});}function getProviderColor(_0x1a3676,_0xcfd12f){const _0x2baac4=a3_0x136f,_0x47cc3b={'Be.EV':_0x2baac4(0x1cc),'Tesla':'#e81010','BP\x20Pulse':'#00a14b','Shell\x20Recharge':_0x2baac4(0x1e7),'Osprey':'#f97316'};if(_0x47cc3b[_0x1a3676])return _0x47cc3b[_0x1a3676];const _0x3fe8fd=[_0x2baac4(0x26e),_0x2baac4(0x1fa),_0x2baac4(0x255),'#ec4899',_0x2baac4(0x233)];return _0x3fe8fd[_0xcfd12f%_0x3fe8fd[_0x2baac4(0x1ca)]];}function setToggle(_0x44c593,_0x431f55){const _0x73a4e9=a3_0x136f;document[_0x73a4e9(0x1eb)](_0x73a4e9(0x22c))[_0x73a4e9(0x1ac)](_0x1f0ac3=>_0x1f0ac3[_0x73a4e9(0x22d)]['remove'](_0x73a4e9(0x1d9))),_0x431f55[_0x73a4e9(0x22d)]['add'](_0x73a4e9(0x1d9)),setCookie(_0x73a4e9(0x1b3),_0x44c593),setCookie('comparisonMode',_0x44c593),calculate();}function init(){const _0x1339e0=a3_0x136f,_0x55d153=getCookie(_0x1339e0(0x1d5)),_0x6d56a6=new URLSearchParams(window[_0x1339e0(0x212)][_0x1339e0(0x1be)]),_0x7f4def=document[_0x1339e0(0x1d4)](_0x1339e0(0x26b));_0x7f4def&&_0x7f4def[_0x1339e0(0x22a)](_0x1339e0(0x265),calculate),fetch(_0x1339e0(0x21a))[_0x1339e0(0x219)](_0xb55ac4=>_0xb55ac4['json']())[_0x1339e0(0x219)](_0x11bc1d=>{const _0x2bed0f=_0x1339e0;PRESETS=_0x11bc1d[_0x2bed0f(0x275)];const _0x10f284=[_0x2bed0f(0x252),_0x2bed0f(0x1e2),_0x2bed0f(0x1e9),_0x2bed0f(0x277),_0x2bed0f(0x1b2),_0x2bed0f(0x1ce),_0x2bed0f(0x256),_0x2bed0f(0x1dd),_0x2bed0f(0x1d1),_0x2bed0f(0x26b)];_0x10f284[_0x2bed0f(0x1ac)](_0x54f761=>{const _0x8445b3=_0x2bed0f,_0x9100d2=document['getElementById'](_0x54f761);if(!_0x9100d2)return;if(_0x6d56a6[_0x8445b3(0x1e4)](_0x54f761))_0x9100d2[_0x8445b3(0x201)]=_0x6d56a6[_0x8445b3(0x21b)](_0x54f761);else _0x55d153&&_0x55d153[_0x54f761]!==undefined&&(_0x9100d2[_0x8445b3(0x201)]=_0x55d153[_0x54f761]);_0x9100d2['addEventListener'](_0x8445b3(0x25f),()=>{const _0x288206=_0x8445b3;_0x54f761==='minSpeed'&&document[_0x288206(0x1eb)](_0x288206(0x20b))['forEach'](_0x26a4bb=>{const _0x2f1d94=_0x288206,_0x1d57f6=_0x26a4bb[_0x2f1d94(0x1d7)]['id'],_0x2afeff=document[_0x2f1d94(0x1d4)](_0x2f1d94(0x225)+_0x1d57f6);_0x2afeff&&_0x2afeff['value']!==_0x2f1d94(0x1f9)&&updateProviderFields(_0x1d57f6);}),calculate();});});const _0x34c629=document[_0x2bed0f(0x1d4)](_0x2bed0f(0x1b2)),_0x49922a=document['getElementById'](_0x2bed0f(0x1d2)),_0x88addb=document['getElementById'](_0x2bed0f(0x1ce)),_0x5019ed=document[_0x2bed0f(0x1d4)]('adhocBE'),_0x86e48f=(_0xef0861,_0x3f8a7a)=>{_0xef0861['addEventListener']('input',()=>{const _0x88cda6=a3_0x136f;_0x3f8a7a['value']=_0xef0861[_0x88cda6(0x201)],calculate();});};_0x34c629&&_0x49922a&&(_0x49922a[_0x2bed0f(0x201)]=_0x34c629[_0x2bed0f(0x201)],_0x86e48f(_0x34c629,_0x49922a),_0x86e48f(_0x49922a,_0x34c629));_0x88addb&&_0x5019ed&&(_0x5019ed[_0x2bed0f(0x201)]=_0x88addb['value'],_0x86e48f(_0x88addb,_0x5019ed),_0x86e48f(_0x5019ed,_0x88addb));if(_0x6d56a6[_0x2bed0f(0x1e4)]('p'))try{const _0x54b8d2=JSON['parse'](_0x6d56a6[_0x2bed0f(0x21b)]('p'));document[_0x2bed0f(0x1d4)](_0x2bed0f(0x275))[_0x2bed0f(0x232)]='',_0x54b8d2[_0x2bed0f(0x1ac)](_0x29ac27=>{const _0x5edbfa=_0x2bed0f;createProviderBox();const _0x266961=providerCount;document[_0x5edbfa(0x1d4)](_0x5edbfa(0x238)+_0x266961)[_0x5edbfa(0x201)]=_0x29ac27[_0x5edbfa(0x238)],document[_0x5edbfa(0x1d4)]('subCost'+_0x266961)[_0x5edbfa(0x201)]=_0x29ac27[_0x5edbfa(0x260)],document[_0x5edbfa(0x1d4)](_0x5edbfa(0x1ff)+_0x266961)[_0x5edbfa(0x201)]=_0x29ac27[_0x5edbfa(0x1ff)],document[_0x5edbfa(0x1d4)](_0x5edbfa(0x225)+_0x266961)['value']=_0x29ac27[_0x5edbfa(0x225)],_0x29ac27[_0x5edbfa(0x225)]!=='Custom'&&(updateProviderFields(_0x266961),document[_0x5edbfa(0x1d4)](_0x5edbfa(0x1ff)+_0x266961)[_0x5edbfa(0x201)]=_0x29ac27[_0x5edbfa(0x1ff)]);});}catch(_0x39992c){console[_0x2bed0f(0x22e)](_0x2bed0f(0x239),_0x39992c);}const _0x311580=_0x6d56a6['get']('mode');if(_0x311580==='trip-savings'){const _0x612173=document['querySelector'](_0x2bed0f(0x236));if(_0x612173)setToggle(_0x2bed0f(0x1fe),_0x612173);}else{const _0x5894aa=document[_0x2bed0f(0x266)]('.calc-tab.active'),_0x1e39b9=_0x5894aa[_0x2bed0f(0x209)]['trim']()===_0x2bed0f(0x1d8)?'trip-savings':_0x2bed0f(0x274);setToggle(_0x1e39b9,_0x5894aa);}const _0x5695ab=document[_0x2bed0f(0x1d4)](_0x2bed0f(0x1c9));_0x5695ab&&_0x55d153&&_0x55d153[_0x2bed0f(0x1c9)]&&(_0x5695ab[_0x2bed0f(0x201)]=_0x55d153[_0x2bed0f(0x1c9)]);updateProviderInfo(),calculate();const _0x5031c2=getCookie(_0x2bed0f(0x203))===!![],_0x2be7e9=document['getElementById'](_0x2bed0f(0x275));if(_0x5031c2&&_0x2be7e9&&_0x2be7e9[_0x2bed0f(0x20a)][_0x2bed0f(0x1ca)]>0x0){const _0x307d12=document[_0x2bed0f(0x1d4)]('providerControls'),_0x29afe0=document[_0x2bed0f(0x1d4)]('collapsibleProviders'),_0x5c41f5=document[_0x2bed0f(0x1d4)](_0x2bed0f(0x214)),_0xd0319a=document['getElementById'](_0x2bed0f(0x204));if(_0x307d12)_0x307d12[_0x2bed0f(0x1b8)][_0x2bed0f(0x1fc)]=_0x2bed0f(0x1c5);if(_0x29afe0)_0x29afe0[_0x2bed0f(0x1b8)][_0x2bed0f(0x1fc)]=_0x2bed0f(0x1c5);if(_0x5c41f5)_0x5c41f5[_0x2bed0f(0x1b8)]['display']=_0x2bed0f(0x1c6);if(_0xd0319a)_0xd0319a[_0x2bed0f(0x209)]=_0x2bed0f(0x1bb);}});}function exportPdf(){const _0x5d786c=a3_0x136f,_0xf53e7=document[_0x5d786c(0x1d4)](_0x5d786c(0x208));if(!_0xf53e7)return;const _0xc39dcd=document[_0x5d786c(0x266)](_0x5d786c(0x20c)),_0x1ac4ad=document[_0x5d786c(0x266)](_0x5d786c(0x254)),_0x3e5910=document[_0x5d786c(0x1d4)](_0x5d786c(0x1de)),_0x582360=document['querySelector'](_0x5d786c(0x23b)),_0x4d9806=document[_0x5d786c(0x1eb)](_0x5d786c(0x259));if(!_0xc39dcd)return;const _0x77baf8=_0xf53e7['textContent'];_0xf53e7[_0x5d786c(0x209)]=_0x5d786c(0x1db),_0xf53e7[_0x5d786c(0x1b8)][_0x5d786c(0x1f5)]=_0x5d786c(0x1c5),_0xf53e7[_0x5d786c(0x1b8)][_0x5d786c(0x1e0)]=_0x5d786c(0x257);const _0x2b75e1=document[_0x5d786c(0x245)]('div');_0x2b75e1['id']=_0x5d786c(0x24f),_0x2b75e1[_0x5d786c(0x1b8)]['cssText']=_0x5d786c(0x264);let _0x387fb5='\x0a\x20\x20\x20\x20<style>\x0a\x20\x20\x20\x20\x20\x20\x20\x20#pdf-render-area,\x20#pdf-render-area\x20*\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20color:\x20#000\x20!important;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#fff\x20!important;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20-webkit-text-fill-color:\x20#000\x20!important;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20filter:\x20grayscale(100%);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20-webkit-filter:\x20grayscale(100%);\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pdf-header\x20{\x20text-align:\x20center;\x20margin-bottom:\x2010px;\x20}\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pdf-section-title\x20{\x20font-size:\x2022px;\x20margin-top:\x2020px;\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pdf-table\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20width:\x20100%;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-collapse:\x20collapse;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20font-size:\x2012px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-top:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-bottom:\x2030px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pdf-table\x20th,\x20.pdf-table\x20td\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20#000;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x208px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20text-align:\x20left;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pdf-table\x20th\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#eaeaea\x20!important;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20.pdf-conclusion-wrapper\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20background:\x20#f4f4f4\x20!important;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20padding:\x2010px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border:\x201px\x20solid\x20#000;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20border-radius:\x206px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20margin-top:\x2020px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20</style>\x0a\x0a\x20\x20\x20\x20<div\x20class=\x22pdf-header\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<strong\x20style=\x22font-size:24px;\x22>EV\x20SUBSCRIPTIONS\x20COMPARISON\x20REPORT</strong>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<p>Generated\x20on\x20'+new Date()[_0x5d786c(0x25b)](_0x5d786c(0x1c1))+_0x5d786c(0x217)+(_0x1ac4ad?_0x1ac4ad[_0x5d786c(0x232)]:'')+_0x5d786c(0x207);_0x2b75e1[_0x5d786c(0x232)]=_0x387fb5;const _0xd7342c=_0xc39dcd[_0x5d786c(0x222)](!![]);_0xd7342c['classList'][_0x5d786c(0x1b9)](_0x5d786c(0x1f2)),_0xd7342c[_0x5d786c(0x1eb)](_0x5d786c(0x246))['forEach'](_0x46fead=>_0x46fead[_0x5d786c(0x1b0)]()),_0x2b75e1['appendChild'](_0xd7342c);const _0x3c9b46=document[_0x5d786c(0x245)](_0x5d786c(0x244));_0x3c9b46[_0x5d786c(0x232)]=_0x5d786c(0x26d);if(_0x582360){const _0x49c0d3=_0x582360[_0x5d786c(0x222)](!![]);_0x49c0d3[_0x5d786c(0x22d)]['add'](_0x5d786c(0x1f2)),_0x49c0d3[_0x5d786c(0x1eb)](_0x5d786c(0x246))[_0x5d786c(0x1ac)](_0x2ce111=>_0x2ce111[_0x5d786c(0x1b0)]()),_0x49c0d3['querySelectorAll']('[style]')[_0x5d786c(0x1ac)](_0x591880=>_0x591880['removeAttribute']('style')),_0x3c9b46['appendChild'](_0x49c0d3);}else _0x3c9b46['innerHTML']+='<p>No\x20charging\x20duration\x20data\x20available.</p>';_0x2b75e1[_0x5d786c(0x200)](_0x3c9b46);const _0x43a039=document['createElement']('div');_0x43a039[_0x5d786c(0x232)]='<h2\x20class=\x22pdf-section-title\x22>Real-World\x20Charging\x20Itinerary</h2>',_0x4d9806[_0x5d786c(0x1ac)]((_0x306bc8,_0x2cd655)=>{const _0x220742=_0x5d786c,_0x4a660=document[_0x220742(0x245)]('h3');_0x4a660['textContent']=_0x220742(0x213)+(_0x2cd655+0x1),_0x4a660[_0x220742(0x1b8)]['marginTop']=_0x220742(0x272),_0x4a660[_0x220742(0x1b8)][_0x220742(0x21e)]=_0x220742(0x1e6),_0x43a039[_0x220742(0x200)](_0x4a660);const _0x129c2d=_0x306bc8[_0x220742(0x222)](!![]);_0x129c2d['removeAttribute'](_0x220742(0x1b8)),_0x129c2d[_0x220742(0x1eb)]('[style]')[_0x220742(0x1ac)](_0x32dec3=>_0x32dec3[_0x220742(0x1e1)](_0x220742(0x1b8))),_0x129c2d[_0x220742(0x1eb)]('.info-icon,\x20.tooltip-container')[_0x220742(0x1ac)](_0x12e1c3=>_0x12e1c3[_0x220742(0x1b0)]());const _0x5687a6=_0x129c2d['querySelector'](_0x220742(0x1f0));_0x5687a6?(_0x5687a6[_0x220742(0x22d)][_0x220742(0x1b9)](_0x220742(0x1f2)),_0x43a039['appendChild'](_0x5687a6)):_0x43a039[_0x220742(0x232)]+=_0x220742(0x1ea)+(_0x2cd655+0x1)+_0x220742(0x23a);}),_0x2b75e1['appendChild'](_0x43a039);const _0x43a807=document['createElement']('div');_0x43a807['innerHTML']='<h2\x20class=\x22pdf-section-title\x22>Analysis\x20Conclusion</h2>';const _0x5c88b1=document[_0x5d786c(0x245)](_0x5d786c(0x244));_0x5c88b1[_0x5d786c(0x1c4)]='pdf-conclusion-wrapper',_0x5c88b1[_0x5d786c(0x232)]=_0x3e5910?_0x3e5910[_0x5d786c(0x232)]:'',_0x43a807[_0x5d786c(0x200)](_0x5c88b1),_0x2b75e1['appendChild'](_0x43a807);const _0x40b2e4=_0x2b75e1[_0x5d786c(0x266)](_0x5d786c(0x1c7));_0x40b2e4&&(_0x40b2e4['style']['removeProperty'](_0x5d786c(0x247)),_0x40b2e4['style']['setProperty'](_0x5d786c(0x247),_0x5d786c(0x210),_0x5d786c(0x242)),_0x40b2e4[_0x5d786c(0x1b8)][_0x5d786c(0x26c)](_0x5d786c(0x263),_0x5d786c(0x210),_0x5d786c(0x242)));const _0x573e54=document[_0x5d786c(0x245)](_0x5d786c(0x244));_0x573e54[_0x5d786c(0x1b8)][_0x5d786c(0x1d3)]=_0x5d786c(0x1f7),_0x573e54['style']['textAlign']=_0x5d786c(0x1d0),_0x573e54[_0x5d786c(0x1b8)][_0x5d786c(0x21e)]='12px',_0x573e54[_0x5d786c(0x1b8)][_0x5d786c(0x1e0)]=_0x5d786c(0x257),_0x573e54[_0x5d786c(0x1b8)][_0x5d786c(0x24e)]=_0x5d786c(0x262),_0x573e54[_0x5d786c(0x1b8)][_0x5d786c(0x1bf)]=_0x5d786c(0x271),_0x573e54['innerHTML']=_0x5d786c(0x215),_0x2b75e1[_0x5d786c(0x200)](_0x573e54),_0x2b75e1[_0x5d786c(0x1eb)]('.info-icon,\x20.jump-btn-pulse,\x20.mobile-only-text')[_0x5d786c(0x1ac)](_0x993d3f=>_0x993d3f[_0x5d786c(0x1b0)]()),document[_0x5d786c(0x26a)][_0x5d786c(0x200)](_0x2b75e1),_0x2b75e1[_0x5d786c(0x1eb)]('*')['forEach'](_0x214884=>{const _0xc42d2d=_0x5d786c;_0x214884[_0xc42d2d(0x1b8)]['color']=_0xc42d2d(0x210),_0x214884[_0xc42d2d(0x1b8)][_0xc42d2d(0x26c)](_0xc42d2d(0x263),'#000',_0xc42d2d(0x242));}),html2canvas(_0x2b75e1,{'scale':0x3,'useCORS':!![],'backgroundColor':_0x5d786c(0x1f6)})[_0x5d786c(0x219)](_0x55d35b=>{const _0xa054f0=_0x5d786c,{jsPDF:_0x394aee}=window[_0xa054f0(0x235)],_0x456025=new _0x394aee('p','mm','a4'),_0x1cf737=_0x456025['internal'][_0xa054f0(0x1a9)][_0xa054f0(0x21f)](),_0x349c54=_0x456025[_0xa054f0(0x1ed)][_0xa054f0(0x1a9)][_0xa054f0(0x22f)](),_0x45b84b=_0x1cf737-0x14,_0x226271=_0x55d35b[_0xa054f0(0x249)]*_0x45b84b/_0x55d35b[_0xa054f0(0x25e)],_0x3d6f6d=_0x349c54-0x1e;if(_0x226271<=_0x3d6f6d)_0x456025[_0xa054f0(0x261)](_0x55d35b[_0xa054f0(0x270)]('image/png'),_0xa054f0(0x243),0xa,0xf,_0x45b84b,_0x226271);else{let _0x506792=_0x55d35b['height'],_0x48d20d=0x0;while(_0x506792>0x0){const _0x831123=Math[_0xa054f0(0x251)](_0x506792,_0x3d6f6d*_0x55d35b['width']/_0x45b84b),_0xb8b071=document[_0xa054f0(0x245)](_0xa054f0(0x21c));_0xb8b071[_0xa054f0(0x25e)]=_0x55d35b[_0xa054f0(0x25e)],_0xb8b071['height']=_0x831123;const _0x7bde55=_0xb8b071[_0xa054f0(0x20d)]('2d');_0x7bde55[_0xa054f0(0x24b)](_0x55d35b,0x0,_0x48d20d,_0x55d35b[_0xa054f0(0x25e)],_0x831123,0x0,0x0,_0x55d35b['width'],_0x831123);const _0x35d185=_0x831123*_0x45b84b/_0x55d35b[_0xa054f0(0x25e)];_0x456025[_0xa054f0(0x261)](_0xb8b071[_0xa054f0(0x270)]('image/png'),_0xa054f0(0x243),0xa,0xf,_0x45b84b,_0x35d185),_0x506792-=_0x831123,_0x48d20d+=_0x831123;if(_0x506792>0x0)_0x456025[_0xa054f0(0x223)]();}}_0x456025[_0xa054f0(0x218)]('EV-Journey-Analysis.pdf'),document['body'][_0xa054f0(0x1ec)](_0x2b75e1),_0xf53e7[_0xa054f0(0x209)]=_0x77baf8,_0xf53e7[_0xa054f0(0x1b8)][_0xa054f0(0x1f5)]=_0xa054f0(0x234),_0xf53e7[_0xa054f0(0x1b8)]['opacity']='1';});}window[a3_0x179940(0x22a)](a3_0x179940(0x20e),init);function a3_0x5cf5(){const _0xc795e0=['add','.android-dots-trigger','Expand\x20Providers\x20List','text','additionalJourneysContainer','search','paddingTop','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22display:\x20flex;\x20justify-content:\x20space-between;\x20align-items:\x20center;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h4>Additional\x20Journey</h4>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22remove-btn\x22\x20onclick=\x22this.closest(\x27.additional-journey-box\x27).remove();\x20reindexJourneys();\x20calculate();\x22>×</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<p\x20style=\x22font-size:\x200.8rem\x22>Enter\x20or\x20adjust\x20the\x20following\x20details\x20for\x20this\x20additional\x20journey,\x20which\x20may\x20differ\x20from\x20the\x20first.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-row\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label><span\x20class=\x22tooltip-container\x22><span\x20class=\x22info-icon\x22\x20onclick=\x22toggleTooltip(this)\x22>ℹ️<span\x20class=\x22tooltip-box\x22>The\x20is\x20the\x20total\x20distance\x20for\x20this\x20additional\x20journey,\x20start\x20to\x20finish.</span></span></span>Journey\x20Distance\x20(Miles)</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22number\x22\x20class=\x22extra-journey-miles\x22\x20placeholder=\x22e.g.\x20150\x22\x20oninput=\x22calculate()\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label><span\x20class=\x22tooltip-container\x22><span\x20class=\x22info-icon\x22\x20onclick=\x22toggleTooltip(this)\x22>ℹ️<span\x20class=\x22tooltip-box\x22>While\x20it\x20is\x20to\x20be\x20expected\x20that\x20you\x20will\x20depart\x20from\x20your\x20usual\x20place\x20(e.g.,\x20home)\x20and\x20charge\x20at\x20your\x20usual\x20rate,\x20you\x20may\x20have\x20other\x20plans\x20—\x20so\x20this\x20allows\x20the\x20results\x20to\x20take\x20that\x20into\x20account.</span></span></span>Pre-Charge\x20Rate\x20(p/kWh)</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22number\x22\x20class=\x22extra-journey-rate\x22\x20placeholder=\x22e.g.\x207.5\x22\x20value=\x22','en-GB','\x20miles','.calc-tab.active','className','none','block','#conclusionsBox\x20p[style*=\x27var(--neon-green)\x27]','\x20miles\x20(£','provider','length','Standard\x20PAYG','#00d1ff','cookiesAccepted','adhoc','providerControls','center','rechargeAt','efficiencyBE','marginTop','getElementById','ev_trip_values','1px\x20solid\x20var(--accent)','dataset','Cost\x20Reduction','active','trim','Generating...','#fff','maxChargingSpeed','conclusionsBox','cookiesAccepted=true;expires=','opacity','removeAttribute','batteryKwh','destroy','has','\x20Break-Even','18px','#ffda00','\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20','prechargesoc','<p>No\x20table\x20found\x20for\x20Journey\x20','querySelectorAll','removeChild','internal','from','scatter','table','7460082aleTgU','pdf-table','map','isArray','pointerEvents','#ffffff','40px','linear','Custom','#22c55e','15px','display','bottom','trip-savings','rate','appendChild','value','Additional\x20Journey\x20#','providers_collapsed','toggleProvidersBtn','transform','\x20Break-Even:\x20','\x0a\x20\x20\x20\x20</div>\x0a\x0a\x20\x20\x20\x20<h2\x20class=\x22pdf-section-title\x22>Comparison\x20Results</h2>\x0a\x20\x20\x20\x20','pdfBtn','textContent','children','.provider-box','#providerResults\x20table','getContext','DOMContentLoaded','2736140BMaQlo','#000','sideMenu','location','Journey\x20','providersHiddenMsg','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div>Report\x20generated\x20by\x20<strong>EV\x20Subs\x20UK</strong></div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div>www.evsubs.uk</div>\x0a\x20\x20\x20\x20','7226536zHzhhq','</p>\x0a\x20\x20\x20\x20</div>\x0a\x0a\x20\x20\x20\x20<div\x20class=\x22calc-lines\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','save','then','providers.json','get','canvas','20YzEdFW','fontSize','getWidth','Break-Even','beReminderOverlay','cloneNode','addPage','cookie','preset','Initial\x20Battery\x20Range:\x20','.additional-journey-box','cookieBanner','offsetWidth','addEventListener','empty-pulse','.calc-tab','classList','error','getHeight','target','helpSlides','innerHTML','#eab308','auto','jspdf','.calc-tab:nth-child(2)','Exhausted','name','Error\x20parsing\x20shared\x20providers:','</p>','#chargingDurations\x20.speed-comparison-container\x20table','push','19376775VpOCdG','line','.help-slide','.calc-tab[onclick*=\x22','parsed','important','PNG','div','createElement','.info-icon,\x20.tooltip-container','color','2726704QMHZAM','height','collapsibleProviders','drawImage','flex','helpOverlay','borderTop','pdf-render-area','click','min','journeyMiles','toFixed','.calc-lines','#a855f7','startChargeRate','0.7','#f97316','#realWorldAssessment\x20.itinerary-tab-panel','max','toLocaleDateString','setTime','7CKCQiz','width','input','subCost','addImage','1px\x20solid\x20#000','-webkit-text-fill-color','\x0a\x20\x20\x20\x20\x20\x20\x20\x20position:absolute;\x0a\x20\x20\x20\x20\x20\x20\x20\x20left:-9999px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20width:800px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20padding:40px;\x0a\x20\x20\x20\x20\x20\x20\x20\x20background:#fff;\x0a\x20\x20\x20\x20\x20\x20\x20\x20color:#000;\x0a\x20\x20\x20\x20\x20\x20\x20\x20font-family:Arial,\x20sans-serif;\x0a\x20\x20\x20\x20','change','querySelector','intro-animation','5CrNSTg','contains','body','minSpeed','setProperty','<h2\x20class=\x22pdf-section-title\x22>Estimated\x20Total\x20Public\x20Charging\x20Duration\x20Required</h2>','#38bdf8','713744lHOKyW','toDataURL','10px','20px','\x22\x20oninput=\x22calculate()\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-row\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x09<div\x20class=\x22input-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label\x20for=\x22prechargesoc\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<span\x20class=\x22tooltip-container\x22><span\x20class=\x22info-icon\x22\x20onclick=\x22toggleTooltip(this)\x22>ℹ️<span\x20class=\x22tooltip-box\x22>The\x20battery\x20percentage\x20you\x20expect\x20your\x20car\x20to\x20be\x20at\x20before\x20you\x20top\x20up\x20to\x20your\x20departure\x20battery\x20level.\x20Used\x20for\x20calculating\x20the\x20cost\x20of\x20pre‑charging\x20before\x20the\x20journey.</span></span></span>Pre‑Charge\x20Battery\x20Level\x20(%)</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22number\x22class=\x22extra-journey-prechargesoc\x22\x20oninput=\x22calculate()\x22\x20placeholder=\x22e.g.,\x2020\x22\x20value=\x22','break-even','providers','transition','soc','4694514UnuRga','Collapse\x20Providers\x20List','pageSize','ev_providers','replace','forEach','toUTCString','toggle','speed','remove','includes','efficiency','calcMode','opacity\x200.4s\x20ease,\x20transform\x200.4s\x20ease','animationend','some','getTime','style'];a3_0x5cf5=function(){return _0xc795e0;};return a3_0x5cf5();}let currentSlide=0x0;function moveSlide(_0xcdcf6e){const _0x57281b=a3_0x179940,_0x588157=document[_0x57281b(0x1d4)](_0x57281b(0x231)),_0x3cbed0=document['querySelectorAll'](_0x57281b(0x23f)),_0x14f6fe=_0x3cbed0[_0x57281b(0x1ca)];currentSlide+=_0xcdcf6e;if(currentSlide<0x0)currentSlide=0x0;if(currentSlide>=_0x14f6fe)currentSlide=_0x14f6fe-0x1;const _0x3d6286=0x64/_0x14f6fe,_0x57a9bd=currentSlide*-_0x3d6286;_0x588157['style'][_0x57281b(0x205)]='translateX('+_0x57a9bd+'%)';}function closeHelp(){const _0x3bef5b=a3_0x179940,_0x3265d3=document[_0x3bef5b(0x1d4)](_0x3bef5b(0x24d));_0x3265d3&&(_0x3265d3['style'][_0x3bef5b(0x1e0)]='0',_0x3265d3[_0x3bef5b(0x1b8)]['transition']='opacity\x200.3s\x20ease',setTimeout(()=>{const _0x3a988f=_0x3bef5b;_0x3265d3[_0x3a988f(0x1b8)][_0x3a988f(0x1fc)]=_0x3a988f(0x1c5);},0x12c));}function toggleProviders(){const _0x44c799=a3_0x179940,_0x47f6b6=document['getElementById'](_0x44c799(0x24a)),_0x38e542=document[_0x44c799(0x1d4)](_0x44c799(0x1cf)),_0x3d8b81=document[_0x44c799(0x1d4)](_0x44c799(0x204)),_0x2a9230=document[_0x44c799(0x1d4)](_0x44c799(0x214));if(_0x47f6b6[_0x44c799(0x1b8)][_0x44c799(0x1fc)]===_0x44c799(0x1c5)){_0x47f6b6[_0x44c799(0x1b8)][_0x44c799(0x1fc)]=_0x44c799(0x1c6);if(_0x38e542)_0x38e542[_0x44c799(0x1b8)][_0x44c799(0x1fc)]='block';_0x3d8b81[_0x44c799(0x209)]=_0x44c799(0x1a8),_0x2a9230[_0x44c799(0x1b8)][_0x44c799(0x1fc)]=_0x44c799(0x1c5),setCookie(_0x44c799(0x203),![]);}else{_0x47f6b6['style'][_0x44c799(0x1fc)]='none';if(_0x38e542)_0x38e542[_0x44c799(0x1b8)][_0x44c799(0x1fc)]=_0x44c799(0x1c5);_0x3d8b81['textContent']=_0x44c799(0x1bb),_0x2a9230['style'][_0x44c799(0x1fc)]=_0x44c799(0x1c6),setCookie(_0x44c799(0x203),!![]);}_0x3d8b81['classList'][_0x44c799(0x1b0)](_0x44c799(0x22b));}document['addEventListener'](a3_0x179940(0x20e),()=>{const _0x41e802=a3_0x179940,_0x1675a1=document[_0x41e802(0x1d4)]('helpSlides');_0x1675a1&&(_0x1675a1[_0x41e802(0x22d)][_0x41e802(0x1b9)]('intro-animation'),_0x1675a1['addEventListener'](_0x41e802(0x1b5),()=>{const _0x555837=_0x41e802;_0x1675a1[_0x555837(0x22d)][_0x555837(0x1b0)](_0x555837(0x267)),_0x1675a1[_0x555837(0x1b8)][_0x555837(0x205)]='translateX(-25%)',currentSlide=0x2;}));const _0x4b4543=getCookie(_0x41e802(0x1b3));if(_0x4b4543){const _0x5b1bf0=document[_0x41e802(0x266)](_0x41e802(0x240)+_0x4b4543+'\x22]');_0x5b1bf0&&_0x5b1bf0[_0x41e802(0x250)]();const _0x1cbd41=document[_0x41e802(0x1d4)](_0x41e802(0x24d));_0x1cbd41&&(_0x1cbd41[_0x41e802(0x1b8)]['display']='none');const _0x353dbd=document[_0x41e802(0x1d4)]('cookieBanner');_0x353dbd&&(_0x353dbd[_0x41e802(0x1b8)]['display']=_0x41e802(0x1c5));}else!getCookie(_0x41e802(0x1cd))&&setTimeout(function(){const _0x5c3694=_0x41e802,_0x58e807=document[_0x5c3694(0x1d4)](_0x5c3694(0x228));if(_0x58e807)_0x58e807[_0x5c3694(0x1b8)][_0x5c3694(0x1fc)]=_0x5c3694(0x1c6);},0xfa0);});function acceptCookies(){const _0x406038=a3_0x179940,_0x4cc24e=new Date();_0x4cc24e[_0x406038(0x25c)](_0x4cc24e[_0x406038(0x1b7)]()+0x16d*0x18*0x3c*0x3c*0x3e8),document[_0x406038(0x224)]=_0x406038(0x1df)+_0x4cc24e[_0x406038(0x1ad)]()+';path=/;SameSite=Lax',closeCookieBanner();}function closeCookieBanner(){const _0x55b670=a3_0x179940,_0x5688a3=document[_0x55b670(0x1d4)](_0x55b670(0x228));_0x5688a3['style'][_0x55b670(0x276)]=_0x55b670(0x1b4),_0x5688a3[_0x55b670(0x1b8)]['opacity']='0',_0x5688a3[_0x55b670(0x1b8)][_0x55b670(0x205)]='translateX(-50%)\x20translateY(20px)',setTimeout(()=>_0x5688a3['style'][_0x55b670(0x1fc)]=_0x55b670(0x1c5),0x190);}function a3_0x136f(_0x113e5b,_0xf2c3ba){_0x113e5b=_0x113e5b-0x1a8;const _0x5cf57b=a3_0x5cf5();let _0x136f44=_0x5cf57b[_0x113e5b];return _0x136f44;}function toggleMenu(){const _0x24548a=a3_0x179940,_0x51b266=document[_0x24548a(0x1d4)](_0x24548a(0x211));_0x51b266&&(_0x51b266[_0x24548a(0x22d)][_0x24548a(0x1ae)]('active'),_0x51b266[_0x24548a(0x22d)]['contains'](_0x24548a(0x1d9))&&expandActiveSections());}document[a3_0x179940(0x22a)]('DOMContentLoaded',()=>{expandActiveSections(),loadProviderState(),setTimeout(loadProvidersFromCookie,0x64);}),document[a3_0x179940(0x22a)](a3_0x179940(0x250),_0x598105=>{const _0x4f3448=a3_0x179940,_0x1156e0=document['getElementById'](_0x4f3448(0x211)),_0x3d8d10=document[_0x4f3448(0x266)](_0x4f3448(0x1ba));_0x1156e0&&_0x1156e0[_0x4f3448(0x22d)]['contains'](_0x4f3448(0x1d9))&&(!_0x1156e0['contains'](_0x598105['target'])&&(!_0x3d8d10||!_0x3d8d10[_0x4f3448(0x269)](_0x598105[_0x4f3448(0x230)]))&&_0x1156e0[_0x4f3448(0x22d)][_0x4f3448(0x1b0)](_0x4f3448(0x1d9)));});let beReminderShown=![];function showBeReminder(){const _0x27d80e=a3_0x179940,_0x189bc1=document['getElementById'](_0x27d80e(0x221));_0x189bc1&&(_0x189bc1[_0x27d80e(0x1b8)][_0x27d80e(0x1fc)]=_0x27d80e(0x24c),void _0x189bc1[_0x27d80e(0x229)],_0x189bc1[_0x27d80e(0x22d)][_0x27d80e(0x1b9)](_0x27d80e(0x1d9)),_0x189bc1[_0x27d80e(0x1b8)][_0x27d80e(0x1e0)]='1');}function closeBeReminder(){const _0x352283=a3_0x179940,_0x2c3d41=document['getElementById']('beReminderOverlay');_0x2c3d41&&(_0x2c3d41[_0x352283(0x22d)][_0x352283(0x1b0)](_0x352283(0x1d9)),_0x2c3d41[_0x352283(0x1b8)][_0x352283(0x1e0)]='0',setTimeout(()=>{const _0x2a6e73=_0x352283;_0x2c3d41[_0x2a6e73(0x1b8)]['display']=_0x2a6e73(0x1c5);},0x190));}function saveProvidersToCookie(){const _0x3becc1=a3_0x179940,_0x34aa8e=[];document[_0x3becc1(0x1eb)](_0x3becc1(0x20b))[_0x3becc1(0x1ac)](_0x4be55a=>{const _0x39065f=_0x3becc1,_0x3543b1=_0x4be55a['dataset']['id'];_0x34aa8e[_0x39065f(0x23c)]({'name':document['getElementById'](_0x39065f(0x238)+_0x3543b1)[_0x39065f(0x201)],'subCost':document[_0x39065f(0x1d4)](_0x39065f(0x260)+_0x3543b1)[_0x39065f(0x201)],'rate':document[_0x39065f(0x1d4)]('rate'+_0x3543b1)[_0x39065f(0x201)],'preset':document['getElementById'](_0x39065f(0x225)+_0x3543b1)[_0x39065f(0x201)],'speed':document['getElementById'](_0x39065f(0x1af)+_0x3543b1)?document[_0x39065f(0x1d4)](_0x39065f(0x1af)+_0x3543b1)[_0x39065f(0x201)]:null});}),setCookie(_0x3becc1(0x1aa),_0x34aa8e);}function loadProvidersFromCookie(){const _0x44cf43=a3_0x179940,_0x17eb3d=getCookie(_0x44cf43(0x1aa));_0x17eb3d&&Array[_0x44cf43(0x1f4)](_0x17eb3d)&&(document[_0x44cf43(0x1d4)](_0x44cf43(0x275))['innerHTML']='',_0x17eb3d[_0x44cf43(0x1ac)](_0x3e1e11=>{const _0x41cc6f=_0x44cf43;createProviderBox();const _0x507df7=providerCount;document[_0x41cc6f(0x1d4)]('name'+_0x507df7)[_0x41cc6f(0x201)]=_0x3e1e11['name'],document[_0x41cc6f(0x1d4)](_0x41cc6f(0x260)+_0x507df7)['value']=_0x3e1e11[_0x41cc6f(0x260)],document['getElementById'](_0x41cc6f(0x1ff)+_0x507df7)[_0x41cc6f(0x201)]=_0x3e1e11[_0x41cc6f(0x1ff)],document[_0x41cc6f(0x1d4)]('preset'+_0x507df7)[_0x41cc6f(0x201)]=_0x3e1e11[_0x41cc6f(0x225)],_0x3e1e11[_0x41cc6f(0x1af)]&&document[_0x41cc6f(0x1d4)](_0x41cc6f(0x1af)+_0x507df7)&&(updateProviderFields(_0x507df7),document[_0x41cc6f(0x1d4)](_0x41cc6f(0x1af)+_0x507df7)['value']=_0x3e1e11[_0x41cc6f(0x1af)]);}),calculate());}function loadProviderState(){const _0x2b79f1=a3_0x179940,_0x585ec8=getCookie('providers_collapsed'),_0x4e7b2e=document[_0x2b79f1(0x1d4)](_0x2b79f1(0x24a)),_0x4582b4=document[_0x2b79f1(0x1d4)](_0x2b79f1(0x1cf)),_0x5585d4=document[_0x2b79f1(0x1d4)](_0x2b79f1(0x204)),_0x4bcf16=document[_0x2b79f1(0x1d4)](_0x2b79f1(0x214));if(_0x585ec8===!![]&&_0x4e7b2e&&_0x5585d4){_0x4e7b2e[_0x2b79f1(0x1b8)][_0x2b79f1(0x1fc)]='none';if(_0x4582b4)_0x4582b4[_0x2b79f1(0x1b8)]['display']='none';_0x5585d4['textContent']=_0x2b79f1(0x1bb);if(_0x4bcf16)_0x4bcf16[_0x2b79f1(0x1b8)][_0x2b79f1(0x1fc)]=_0x2b79f1(0x1c6);_0x5585d4[_0x2b79f1(0x22d)][_0x2b79f1(0x1b0)]('empty-pulse');}}let journeyCount=0x0;function reindexJourneys(){const _0x3a342a=a3_0x179940,_0xf8b3c4=document['getElementById'](_0x3a342a(0x1bd)),_0x54da98=_0xf8b3c4['querySelectorAll'](_0x3a342a(0x227));_0x54da98[_0x3a342a(0x1ac)]((_0x54228d,_0x2fff5d)=>{const _0x2ada96=_0x3a342a,_0x74dde7=_0x54228d['querySelector']('h4');_0x74dde7&&(_0x74dde7[_0x2ada96(0x209)]=_0x2ada96(0x202)+(_0x2fff5d+0x1));});}function addJourneyField(){const _0xbfe5cc=a3_0x179940,_0x3fdf61=document['getElementById'](_0xbfe5cc(0x1bd)),_0x25a1fd=document[_0xbfe5cc(0x1d4)](_0xbfe5cc(0x277))[_0xbfe5cc(0x201)]||'',_0x5f2237=document[_0xbfe5cc(0x1d4)]('startChargeRate')['value']||'',_0x266dbc=document[_0xbfe5cc(0x1d4)](_0xbfe5cc(0x1e9))[_0xbfe5cc(0x201)]||'',_0x256306=document['createElement'](_0xbfe5cc(0x244));_0x256306[_0xbfe5cc(0x1c4)]='additional-journey-box',_0x256306[_0xbfe5cc(0x1b8)][_0xbfe5cc(0x24e)]=_0xbfe5cc(0x1d6),_0x256306[_0xbfe5cc(0x1b8)]['marginTop']=_0xbfe5cc(0x1fb),_0x256306[_0xbfe5cc(0x1b8)]['paddingTop']=_0xbfe5cc(0x271),_0x256306[_0xbfe5cc(0x232)]=_0xbfe5cc(0x1c0)+_0x5f2237+_0xbfe5cc(0x273)+_0x266dbc+'\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label><span\x20class=\x22tooltip-container\x22><span\x20class=\x22info-icon\x22\x20onclick=\x22toggleTooltip(this)\x22>ℹ️<span\x20class=\x22tooltip-box\x22>The\x20battery\x20percentage\x20your\x20car\x20will\x20be\x20at\x20when\x20you\x20begin\x20your\x20journey.\x20It\x20is\x20acceptable\x20to\x20slow\x20charge\x20up\x20to\x20100%\x20before\x20departing\x20on\x20a\x20long\x20journey.\x20It\x20defaults\x20to\x20the\x20departing\x20SOC\x20of\x20your\x20first\x20journey,\x20but\x20you\x20may\x20adjust\x20it\x20if\x20appropriate.</span></span></span>Departure\x20Battery\x20Level\x20(%)</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22number\x22\x20class=\x22extra-journey-soc\x22\x20placeholder=\x22e.g.\x20100\x22\x20oninput=\x22calculate()\x22\x20value=\x22'+_0x25a1fd+_0xbfe5cc(0x1e8),_0x3fdf61['appendChild'](_0x256306),reindexJourneys(),calculate();}
+function drawGraph(core, providers) {
+    const ctx = document.getElementById("costChart");
+    if (chart) chart.destroy();
+
+    // 1. Detect Mode
+    const activePill = document.querySelector('.calc-tab.active');
+    const isTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
+
+    // Define X-axis range
+    const maxMiles = Math.max(core.journeyMiles * 1.5, 500);
+    const labels = Array.from({ length: 11 }, (_, i) => Math.round((maxMiles * i) / 10));
+
+    // Helper: Initial range from starting SOC
+    const initialRange = (core.soc / 100) * core.batteryKwh * core.efficiency;
+
+    // Helper: Calculate cost based on mode
+    const calculateCost = (m, subFee, ratePerKwh) => {
+        if (!isTripMode) {
+            // BREAK-EVEN MODE: Linear
+            return subFee + ((m / core.efficiency) * (ratePerKwh / 100));
+        } else {
+            // COST REDUCTION MODE: Pre-Charge + Public after initial range
+            const preChargeKwh = Math.max(0, (core.soc - core.prechargesoc) / 100) * core.batteryKwh;
+            const preChargeCost = preChargeKwh * (core.startChargeRate / 100);
+
+            const publicMiles = Math.max(0, m - initialRange);
+            const publicCost = (publicMiles / core.efficiency) * (ratePerKwh / 100);
+
+            return subFee + preChargeCost + publicCost;
+        }
+    };
+
+    // 2. Standard PAYG Dataset
+    const adhocData = labels.map(m => calculateCost(m, 0, core.adhoc));
+    const datasets = [{
+        label: "Standard PAYG",
+        data: adhocData,
+        borderColor: "#f97316",
+        borderWidth: 3,
+        pointRadius: 0,
+        fill: false,
+        order: 2
+    }];
+
+    // 3. Battery Exhausted Marker (Cost-Reduction Mode only)
+    if (isTripMode && initialRange > 0 && initialRange <= maxMiles) {
+        datasets.push({
+            label: "Battery Exhausted",
+            data: [{ x: initialRange, y: calculateCost(initialRange, 0, core.adhoc) }],
+            pointBackgroundColor: "#f97316",
+            pointBorderColor: "#fff",
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            showLine: false,
+            type: 'scatter',
+            order: 1
+        });
+    }
+
+    // 4. Provider Datasets
+    providers.forEach((p, idx) => {
+        const color = getProviderColor(p.name, idx);
+        const subFee = parseFloat(p.subCost);
+        const data = labels.map(m => calculateCost(m, subFee, p.rate));
+
+        datasets.push({
+            label: p.name,
+            data: data,
+            borderColor: color,
+            borderWidth: 2,
+            pointRadius: 0,
+            fill: false,
+            order: 2
+        });
+
+        // 5. Break-Even Marker Logic (Calculated for both modes)
+        const rateDiff = (core.adhoc - p.rate) / 100;
+        if (rateDiff > 0) {
+            let beMiles;
+            if (!isTripMode) {
+                // Simple Break-Even Miles
+                beMiles = (subFee * core.efficiency) / rateDiff;
+            } else {
+                // Trip Mode Break-Even Miles (Relative to the point public charging starts)
+                beMiles = initialRange + ((subFee * core.efficiency) / rateDiff);
+            }
+
+            if (beMiles <= maxMiles) {
+                datasets.push({
+                    label: `${p.name} Break-Even`,
+                    data: [{ x: beMiles, y: calculateCost(beMiles, 0, core.adhoc) }],
+                    pointBackgroundColor: "#fff",
+                    pointBorderColor: color,
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    showLine: false,
+                    type: 'scatter',
+                    order: 1
+                });
+            }
+        }
+    });
+
+    chart = new Chart(ctx, {
+        type: "line",
+        data: { labels, datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { 
+                    title: { display: true, text: isTripMode ? 'Total Journey Cost (£)' : 'Total Monthly Cost (£)' },
+                    beginAtZero: true 
+                },
+                x: { 
+                    type: 'linear',
+                    title: { display: true, text: 'Distance (Miles)' },
+                    min: 0, 
+                    max: maxMiles 
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        boxWidth: 12,
+                        filter: (item) => !['Break-Even', 'Exhausted'].some(word => item.text.includes(word))
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: (context) => {
+                            const label = context.dataset.label || '';
+                            const x = context.parsed.x.toFixed(0);
+                            const y = context.parsed.y.toFixed(2);
+                            if (label.includes('Exhausted')) return `Initial Battery Range: ${x} miles`;
+                            if (label.includes('Break-Even')) return `${label.replace(' Break-Even', '')} Break-Even: ${x} miles (£${y})`;
+                            return `${label}: £${y}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function getProviderColor(name, index) {
+    const colors = { "Be.EV": "#00d1ff", "Tesla": "#e81010", "BP Pulse": "#00a14b", "Shell Recharge": "#ffda00", "Osprey": "#f97316" };
+    if (colors[name]) return colors[name];
+    const palette = ["#38bdf8", "#22c55e", "#a855f7", "#ec4899", "#eab308"];
+    return palette[index % palette.length];
+}
+
+function setToggle(mode, btn) {
+    document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    setCookie('calcMode', mode);
+    setCookie('comparisonMode', mode);
+    calculate();
+}
+
+function init() {
+    const savedValues = getCookie("ev_trip_values");
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    const speedTrip = document.getElementById("minSpeed");
+    
+    if (speedTrip) {
+        speedTrip.addEventListener('change', calculate);
+    }
+
+    fetch("providers.json").then(r => r.json()).then(data => {
+        PRESETS = data.providers;
+
+        const tripIds = ["journeyMiles", "batteryKwh", "prechargesoc", "soc", "efficiency", "adhoc", "startChargeRate", "maxChargingSpeed", "rechargeAt", "minSpeed"];        
+        tripIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+
+            if (urlParams.has(id)) {
+                el.value = urlParams.get(id);
+            } else if (savedValues && savedValues[id] !== undefined) {
+                el.value = savedValues[id];
+            }
+            el.addEventListener('input', () => {
+                // ADD THIS PART:
+                if (id === 'minSpeed') {
+                    // This forces every provider box to refresh its rates
+                    document.querySelectorAll(".provider-box").forEach(box => {
+                        const boxId = box.dataset.id;
+                        const presetSelect = document.getElementById(`preset${boxId}`);
+                        if (presetSelect && presetSelect.value !== 'Custom') {
+                            updateProviderFields(boxId); 
+                        }
+                    });
+                }
+                // Keep your original call here
+                calculate();
+            });
+        });
+
+        const effTrip = document.getElementById("efficiency");
+        const effBE = document.getElementById("efficiencyBE");
+        const adhocTrip = document.getElementById("adhoc");
+        const adhocBE = document.getElementById("adhocBE");
+        
+        const syncFields = (source, target) => {
+            source.addEventListener('input', () => {
+                target.value = source.value;
+                calculate();
+            });
+        };
+        
+        if (effTrip && effBE) {
+            effBE.value = effTrip.value; 
+            syncFields(effTrip, effBE);
+            syncFields(effBE, effTrip);
+        }
+        
+        if (adhocTrip && adhocBE) {
+            adhocBE.value = adhocTrip.value;
+            syncFields(adhocTrip, adhocBE);
+            syncFields(adhocBE, adhocTrip);
+        }
+
+        if (urlParams.has("p")) {
+            try {
+                const sharedProviders = JSON.parse(urlParams.get("p"));
+                document.getElementById("providers").innerHTML = ""; 
+                sharedProviders.forEach(p => {
+                    createProviderBox(); 
+                    const id = providerCount;
+                    document.getElementById(`name${id}`).value = p.name;
+                    document.getElementById(`subCost${id}`).value = p.subCost;
+                    document.getElementById(`rate${id}`).value = p.rate;
+                    document.getElementById(`preset${id}`).value = p.preset;
+                    if(p.preset !== 'Custom') {
+                        updateProviderFields(id);
+                        document.getElementById(`rate${id}`).value = p.rate;
+                    }
+                });
+            } catch (e) {
+                console.error("Error parsing shared providers:", e);
+            }
+        }
+
+        const modeParam = urlParams.get("mode");
+        if (modeParam === "trip-savings") {
+            const tripBtn = document.querySelector('.calc-tab:nth-child(2)'); 
+            if (tripBtn) setToggle('trip-savings', tripBtn);
+        } else {
+            const activeTab = document.querySelector('.calc-tab.active');
+            const currentMode = activeTab.textContent.trim() === "Cost Reduction" ? 'trip-savings' : 'break-even';
+            setToggle(currentMode, activeTab);
+        }
+
+        const provEl = document.getElementById("provider");
+        if (provEl && savedValues && savedValues.provider) {
+            provEl.value = savedValues.provider;
+        }
+
+        updateProviderInfo();
+        calculate();
+
+        // MOVE THE VISIBILITY CHECK HERE (Inside the .then block)
+        const isCollapsed = getCookie('providers_collapsed') === true;
+        const providersContainer = document.getElementById("providers");
+
+        if (isCollapsed && providersContainer && providersContainer.children.length > 0) {
+            const controls = document.getElementById("providerControls");
+            const collapsible = document.getElementById("collapsibleProviders");
+            const hiddenMsg = document.getElementById("providersHiddenMsg");
+            const toggleBtn = document.getElementById("toggleProvidersBtn");
+
+            if (controls) controls.style.display = "none";
+            if (collapsible) collapsible.style.display = "none";
+            if (hiddenMsg) hiddenMsg.style.display = "block";
+            if (toggleBtn) toggleBtn.textContent = "Expand Providers List";
+        }
+    });
+}
+
+function exportPdf() {
+
+    const pdfBtn = document.getElementById("pdfBtn");
+    if (!pdfBtn) return;
+
+    const providerTable = document.querySelector("#providerResults table");
+    const paygSummary = document.querySelector(".calc-lines");
+    const conclusion = document.getElementById("conclusionsBox");
+
+    const chargingTable = document.querySelector("#chargingDurations .speed-comparison-container table");
+
+    const journeyPanels = document.querySelectorAll("#realWorldAssessment .itinerary-tab-panel");
+
+    if (!providerTable) return;
+
+    const originalText = pdfBtn.textContent;
+    pdfBtn.textContent = "Generating...";
+    pdfBtn.style.pointerEvents = "none";
+    pdfBtn.style.opacity = "0.7";
+
+    const printContainer = document.createElement("div");
+    printContainer.id = "pdf-render-area";
+    printContainer.style.cssText = `
+        position:absolute;
+        left:-9999px;
+        width:800px;
+        padding:40px;
+        background:#fff;
+        color:#000;
+        font-family:Arial, sans-serif;
+    `;
+
+    let contentHtml = `
+    <style>
+        #pdf-render-area, #pdf-render-area * {
+            color: #000 !important;
+            background: #fff !important;
+            -webkit-text-fill-color: #000 !important;
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+        }
+
+        .pdf-header { text-align: center; margin-bottom: 10px; }
+        .pdf-section-title { font-size: 22px; margin-top: 20px; }
+
+        .pdf-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .pdf-table th, .pdf-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .pdf-table th {
+            background: #eaeaea !important;
+        }
+
+        .pdf-conclusion-wrapper {
+            background: #f4f4f4 !important;
+            padding: 10px;
+            border: 1px solid #000;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+    </style>
+
+    <div class="pdf-header">
+        <strong style="font-size:24px;">EV SUBSCRIPTIONS COMPARISON REPORT</strong>
+        <p>Generated on ${new Date().toLocaleDateString('en-GB')}</p>
+    </div>
+
+    <div class="calc-lines">
+        ${paygSummary ? paygSummary.innerHTML : ""}
+    </div>
+
+    <h2 class="pdf-section-title">Comparison Results</h2>
+    `;
+
+    printContainer.innerHTML = contentHtml;
+
+    // --- PROVIDER TABLE ---
+    const cleanProviderTable = providerTable.cloneNode(true);
+    cleanProviderTable.classList.add("pdf-table");
+    cleanProviderTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
+    printContainer.appendChild(cleanProviderTable);
+
+    // --- CHARGING DURATIONS TABLE ---
+    const cdSection = document.createElement("div");
+    cdSection.innerHTML = `<h2 class="pdf-section-title">Estimated Total Public Charging Duration Required</h2>`;
+
+    if (chargingTable) {
+        const cleanChargingTable = chargingTable.cloneNode(true);
+        cleanChargingTable.classList.add("pdf-table");
+
+        cleanChargingTable.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
+        cleanChargingTable.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
+
+        cdSection.appendChild(cleanChargingTable);
+    } else {
+        cdSection.innerHTML += `<p>No charging duration data available.</p>`;
+    }
+
+    printContainer.appendChild(cdSection);
+
+    // --- REAL-WORLD ITINERARY (ALL JOURNEYS) ---
+    const rwSection = document.createElement("div");
+    rwSection.innerHTML = `<h2 class="pdf-section-title">Real-World Charging Itinerary</h2>`;
+
+    journeyPanels.forEach((panel, index) => {
+
+        const journeyHeader = document.createElement("h3");
+        journeyHeader.textContent = `Journey ${index + 1}`;
+        journeyHeader.style.marginTop = "20px";
+        journeyHeader.style.fontSize = "18px";
+        rwSection.appendChild(journeyHeader);
+
+        const cleanPanel = panel.cloneNode(true);
+
+        cleanPanel.removeAttribute("style");
+
+        cleanPanel.querySelectorAll("[style]").forEach(el => el.removeAttribute("style"));
+
+        cleanPanel.querySelectorAll(".info-icon, .tooltip-container").forEach(el => el.remove());
+
+        const table = cleanPanel.querySelector("table");
+        if (table) {
+            table.classList.add("pdf-table");
+            rwSection.appendChild(table);
+        } else {
+            rwSection.innerHTML += `<p>No table found for Journey ${index + 1}</p>`;
+        }
+    });
+
+    printContainer.appendChild(rwSection);
+
+    // --- CONCLUSION ---
+    const conclusionSection = document.createElement("div");
+    conclusionSection.innerHTML = `<h2 class="pdf-section-title">Analysis Conclusion</h2>`;
+    const conclusionWrapper = document.createElement("div");
+    conclusionWrapper.className = "pdf-conclusion-wrapper";
+    conclusionWrapper.innerHTML = conclusion ? conclusion.innerHTML : "";
+    conclusionSection.appendChild(conclusionWrapper);
+    printContainer.appendChild(conclusionSection);
+
+    const conclusionNote = printContainer.querySelector("#conclusionsBox p[style*='var(--neon-green)']");
+    if (conclusionNote) {
+        conclusionNote.style.removeProperty("color");
+        conclusionNote.style.setProperty("color", "#000", "important");
+        conclusionNote.style.setProperty("-webkit-text-fill-color", "#000", "important");
+    }
+
+    // --- SIGNATURE / FOOTER ---
+    const signature = document.createElement("div");
+    signature.style.marginTop = "40px";
+    signature.style.textAlign = "center";
+    signature.style.fontSize = "12px";
+    signature.style.opacity = "0.7";
+    signature.style.borderTop = "1px solid #000";
+    signature.style.paddingTop = "10px";
+
+    signature.innerHTML = `
+        <div>Report generated by <strong>EV Subs UK</strong></div>
+        <div>www.evsubs.uk</div>
+    `;
+
+    printContainer.appendChild(signature);
+
+    // CLEANUP
+    printContainer.querySelectorAll(".info-icon, .jump-btn-pulse, .mobile-only-text")
+        .forEach(el => el.remove());
+
+    document.body.appendChild(printContainer);
+
+    printContainer.querySelectorAll("*").forEach(el => {
+        el.style.color = "#000";
+        el.style.setProperty("-webkit-text-fill-color", "#000", "important");
+    });
+
+    html2canvas(printContainer, {
+        scale: 3,
+        useCORS: true,
+        backgroundColor: "#ffffff"
+    }).then(canvas => {
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF("p", "mm", "a4");
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+
+        const imgWidth = pageWidth - 20;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        const pageHeightAvailable = pageHeight - 30;
+
+        if (imgHeight <= pageHeightAvailable) {
+            pdf.addImage(canvas.toDataURL("image/png"), "PNG", 10, 15, imgWidth, imgHeight);
+        } else {
+            let remainingHeight = canvas.height;
+            let yCanvasOffset = 0;
+
+            while (remainingHeight > 0) {
+                const canvasHeightThatFits = Math.min(
+                    remainingHeight,
+                    (pageHeightAvailable * canvas.width) / imgWidth
+                );
+
+                const tempCanvas = document.createElement("canvas");
+                tempCanvas.width = canvas.width;
+                tempCanvas.height = canvasHeightThatFits;
+
+                const tempCtx = tempCanvas.getContext("2d");
+                tempCtx.drawImage(
+                    canvas,
+                    0, yCanvasOffset,
+                    canvas.width, canvasHeightThatFits,
+                    0, 0,
+                    canvas.width, canvasHeightThatFits
+                );
+
+                const sectionImgHeight = (canvasHeightThatFits * imgWidth) / canvas.width;
+
+                pdf.addImage(tempCanvas.toDataURL("image/png"), "PNG", 10, 15, imgWidth, sectionImgHeight);
+
+                remainingHeight -= canvasHeightThatFits;
+                yCanvasOffset += canvasHeightThatFits;
+
+                if (remainingHeight > 0) pdf.addPage();
+            }
+        }
+
+        pdf.save("EV-Journey-Analysis.pdf");
+
+        document.body.removeChild(printContainer);
+        pdfBtn.textContent = originalText;
+        pdfBtn.style.pointerEvents = "auto";
+        pdfBtn.style.opacity = "1";
+    });
+}
+
+window.addEventListener("DOMContentLoaded", init);
+
+let currentSlide = 0;
+
+function moveSlide(step) {
+    const container = document.getElementById('helpSlides');
+    const slides = document.querySelectorAll('.help-slide'); 
+    const totalSlides = slides.length; 
+
+    currentSlide += step;
+    if (currentSlide < 0) currentSlide = 0;
+    if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+
+    const slideWidthPercent = 100 / totalSlides;
+    const offset = currentSlide * -slideWidthPercent;
+    container.style.transform = `translateX(${offset}%)`;
+}
+
+function closeHelp() {
+    const overlay = document.getElementById('helpOverlay');
+    if (overlay) {
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 300);
+    }
+}
+
+function toggleProviders() {
+    const container = document.getElementById("collapsibleProviders");
+    const controls = document.getElementById("providerControls"); 
+    const btn = document.getElementById("toggleProvidersBtn");
+    const hiddenMsg = document.getElementById("providersHiddenMsg"); 
+    
+    if (container.style.display === "none") {
+        container.style.display = "block";
+        if (controls) controls.style.display = "block"; 
+        btn.textContent = "Collapse Providers List";
+        hiddenMsg.style.display = "none";
+        setCookie('providers_collapsed', false);
+    } else {
+        container.style.display = "none";
+        if (controls) controls.style.display = "none"; 
+        btn.textContent = "Expand Providers List";
+        hiddenMsg.style.display = "block";
+        setCookie('providers_collapsed', true);
+    }
+
+    btn.classList.remove("empty-pulse");
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('helpSlides');
+    
+    // --- 1. YOUR REQUESTED ANIMATION SEQUENCE ---
+    if (track) {
+        // Start the automatic sequence
+        track.classList.add('intro-animation');
+
+        // When the 5-second animation finishes on Slide 3
+        track.addEventListener('animationend', () => {
+            track.classList.remove('intro-animation');
+            // Lock the position on Slide 3 (Index 2)
+            track.style.transform = `translateX(-25%)`;
+            // Sync the manual index so 'Next' starts from Slide 3
+            currentSlide = 2; 
+        });
+    }
+
+    // --- 2. YOUR ORIGINAL COOKIE/BANNER LOGIC ---
+    const savedMode = getCookie('calcMode');
+
+    if (savedMode) {
+        const modeBtn = document.querySelector(`.calc-tab[onclick*="${savedMode}"]`);
+        if (modeBtn) {
+            modeBtn.click();
+        }
+
+        const helpOverlay = document.getElementById('helpOverlay');
+        if (helpOverlay) {
+            helpOverlay.style.display = 'none';
+        }
+
+        const cookieBanner = document.getElementById('cookieBanner');
+        if (cookieBanner) {
+            cookieBanner.style.display = 'none';
+        }
+    } else {
+        if (!getCookie('cookiesAccepted')) {
+            setTimeout(function() {
+                const banner = document.getElementById('cookieBanner');
+                if (banner) banner.style.display = 'block';
+            }, 4000);
+        }
+    }
+});
+
+function acceptCookies() {
+    const date = new Date();
+    date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+    document.cookie = `cookiesAccepted=true;expires=${date.toUTCString()};path=/;SameSite=Lax`;
+    
+    closeCookieBanner();
+}
+
+function closeCookieBanner() {
+    const banner = document.getElementById('cookieBanner');
+    banner.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    banner.style.opacity = '0';
+    banner.style.transform = 'translateX(-50%) translateY(20px)';
+    setTimeout(() => banner.style.display = 'none', 400);
+}
+
+function toggleMenu() {
+    const menu = document.getElementById('sideMenu');
+    if (menu) {
+        menu.classList.toggle('active');
+        // When menu opens, expand sections containing the active page
+        if (menu.classList.contains('active')) {
+            expandActiveSections();
+        }
+    }
+}
+
+// Initialize page highlighting on load
+document.addEventListener('DOMContentLoaded', () => {
+    expandActiveSections();
+    loadProviderState();
+    setTimeout(loadProvidersFromCookie, 100);
+});
+
+document.addEventListener('click', (e) => {
+    const menu = document.getElementById('sideMenu');
+    const trigger = document.querySelector('.android-dots-trigger');
+    if (menu && menu.classList.contains('active')) {
+        if (!menu.contains(e.target) && (!trigger || !trigger.contains(e.target))) {
+            menu.classList.remove('active');
+        }
+    }
+});
+
+
+let beReminderShown = false;
+
+function showBeReminder() {
+    const overlay = document.getElementById('beReminderOverlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+        void overlay.offsetWidth; 
+        overlay.classList.add('active');
+        overlay.style.opacity = '1';
+    }
+}
+
+function closeBeReminder() {
+    const overlay = document.getElementById('beReminderOverlay');
+    if (overlay) {
+        overlay.classList.remove('active');
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 400); 
+    }
+}
+
+function saveProvidersToCookie() {
+    const providers = [];
+    document.querySelectorAll(".provider-box").forEach(box => {
+        const id = box.dataset.id;
+        providers.push({
+            name: document.getElementById(`name${id}`).value,
+            subCost: document.getElementById(`subCost${id}`).value,
+            rate: document.getElementById(`rate${id}`).value,
+            preset: document.getElementById(`preset${id}`).value,
+            speed: document.getElementById(`speed${id}`) ? document.getElementById(`speed${id}`).value : null
+        });
+    });
+    setCookie('ev_providers', providers); // Uses your existing setCookie function
+}
+
+function loadProvidersFromCookie() {
+    const saved = getCookie('ev_providers'); // Uses your existing getCookie function
+    if (saved && Array.isArray(saved)) {
+        // Clear any default or existing boxes first
+        document.getElementById("providers").innerHTML = "";
+        
+        saved.forEach(p => {
+            // Use your existing function to create the box structure
+            createProviderBox(); 
+            const id = providerCount;
+            
+            // Repopulate the fields
+            document.getElementById(`name${id}`).value = p.name;
+            document.getElementById(`subCost${id}`).value = p.subCost;
+            document.getElementById(`rate${id}`).value = p.rate;
+            document.getElementById(`preset${id}`).value = p.preset;
+            
+            // Handle speed dropdown if it exists for this preset
+            if (p.speed && document.getElementById(`speed${id}`)) {
+                updateProviderFields(id); // Rebuilds speed options
+                document.getElementById(`speed${id}`).value = p.speed;
+            }
+        });
+        calculate(); // Refresh the results
+    }
+}
+
+function loadProviderState() {
+    const isCollapsed = getCookie('providers_collapsed');
+    const container = document.getElementById("collapsibleProviders");
+    const controls = document.getElementById("providerControls");
+    const btn = document.getElementById("toggleProvidersBtn");
+    const hiddenMsg = document.getElementById("providersHiddenMsg");
+
+    // Only apply if the cookie explicitly says the list was collapsed
+    if (isCollapsed === true && container && btn) {
+        container.style.display = "none";
+        if (controls) controls.style.display = "none";
+        btn.textContent = "Expand Providers List";
+        if (hiddenMsg) hiddenMsg.style.display = "block";
+        btn.classList.remove("empty-pulse");
+    }
+}
+
+let journeyCount = 0;
+// Helper function to re-number all journey headings
+function reindexJourneys() {
+    const container = document.getElementById("additionalJourneysContainer");
+    const journeyBoxes = container.querySelectorAll(".additional-journey-box");
+    
+    journeyBoxes.forEach((box, index) => {
+        const title = box.querySelector("h4");
+        if (title) {
+            title.textContent = `Additional Journey #${index + 1}`;
+        }
+    });
+}
+
+function addJourneyField() {
+    const container = document.getElementById("additionalJourneysContainer");
+    const defaultSoc = document.getElementById("soc").value || "";
+    const defaultRate = document.getElementById("startChargeRate").value || "";
+    const defaultPreChargeSoc = document.getElementById("prechargesoc").value || "";
+    
+    const journeyDiv = document.createElement("div");
+    journeyDiv.className = "additional-journey-box";
+    journeyDiv.style.borderTop = "1px solid var(--accent)";
+    journeyDiv.style.marginTop = "15px";
+    journeyDiv.style.paddingTop = "10px";
+
+    // The removal logic now removes the element and then re-indexes the list
+    journeyDiv.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h4>Additional Journey</h4>
+            <button class="remove-btn" onclick="this.closest('.additional-journey-box').remove(); reindexJourneys(); calculate();">×</button>
+        </div>
+        <p style="font-size: 0.8rem">Enter or adjust the following details for this additional journey, which may differ from the first.</p>
+        <div class="input-row">
+            <div class="input-group">
+                <label><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">The is the total distance for this additional journey, start to finish.</span></span></span>Journey Distance (Miles)</label>
+                <input type="number" class="extra-journey-miles" placeholder="e.g. 150" oninput="calculate()">
+            </div>
+            <div class="input-group">
+                <label><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">While it is to be expected that you will depart from your usual place (e.g., home) and charge at your usual rate, you may have other plans — so this allows the results to take that into account.</span></span></span>Pre-Charge Rate (p/kWh)</label>
+                <input type="number" class="extra-journey-rate" placeholder="e.g. 7.5" value="${defaultRate}" oninput="calculate()">
+            </div>
+        </div>
+        <div class="input-row">
+        	<div class="input-group">
+                    <label for="prechargesoc">
+                        <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">The battery percentage you expect your car to be at before you top up to your departure battery level. Used for calculating the cost of pre‑charging before the journey.</span></span></span>Pre‑Charge Battery Level (%)</label>
+                    <input type="number"class="extra-journey-prechargesoc" oninput="calculate()" placeholder="e.g., 20" value="${defaultPreChargeSoc}">
+                </div>
+            <div class="input-group">
+                <label><span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">The battery percentage your car will be at when you begin your journey. It is acceptable to slow charge up to 100% before departing on a long journey. It defaults to the departing SOC of your first journey, but you may adjust it if appropriate.</span></span></span>Departure Battery Level (%)</label>
+                <input type="number" class="extra-journey-soc" placeholder="e.g. 100" oninput="calculate()" value="${defaultSoc}">
+            </div>
+        </div>
+    `;
+    
+    container.appendChild(journeyDiv);
+    reindexJourneys(); // Update numbers immediately after adding
+    calculate();
+}
