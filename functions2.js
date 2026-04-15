@@ -200,7 +200,7 @@ function handleInitialVisibilityAndMode(isTripMode, uiResults, uiPreText, conclu
 
     if (!isTripMode) {
         if (conclusionsBox) conclusionsBox.style.display = "none";
-        handleBreakEvenMode(uiPreText, uiResults);
+        uiPreText, uiResults);
         return true; // Indicates we should stop calculate() here
     }
 
@@ -709,33 +709,20 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     const contentsBox = document.getElementById("contentsBox");
     const sectionSummary = document.getElementById("sectionSummary");
     const sectionSubs = document.getElementById("sectionSubs");
-    const sectionConclusion = document.getElementById("sectionConclusion");
-    const sectionDurations = document.getElementById("sectionDurations");
-    const sectionRealWord = document.getElementById("sectionRealWord");
     const sectionGraph = document.getElementById("sectionGraph");
     
-    if (contentsBox) {
-        contentsBox.style.display = "none";
-        contentsBox.innerHTML = "";
-    }
-
+    // 1. Get user inputs
     const efficiency = parseFloat(document.getElementById("efficiencyBE").value);
     const adhocRate = parseFloat(document.getElementById("adhocBE").value) || 0;
     
-    // 1. Get the value from your new Break-Even specific speed dropdown
+    // 2. GET THE SPEED FILTER VALUE
     const minSpeedBE = document.getElementById('minspeedBE');
     const minSpeedSelection = minSpeedBE ? parseFloat(minSpeedBE.value) : 0;
 
+    // ... (Visibility logic remains same) ...
     if (isNaN(efficiency) || efficiency <= 0 || isNaN(adhocRate) || adhocRate <= 0) {
-        uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
         uiPreText.style.display = "block";
         uiResults.style.display = "none";
-        sectionSummary.style.display = "none";
-        sectionSubs.style.display = "none";
-        sectionConclusion.style.display = "none";
-        sectionDurations.style.display = "none";
-        sectionRealWorld.style.display = "none";
-        sectionGraph.style.display = "none";
         return;
     }
 
@@ -743,14 +730,8 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     uiResults.style.display = "block";
     sectionSubs.style.display = "block";
     sectionGraph.style.display = "block";
-    sectionSummary.style.display = "none";
-    sectionConclusion.style.display = "none";
-    sectionDurations.style.display = "none";
-    sectionRealWorld.style.display = "none";
-    
-    document.querySelector(".chart-wrapper").style.display = "block";
 
-    // 2. Use a Map to ensure unique providers and track the best rate
+    // 3. Map to store unique providers and their BEST (lowest break-even) qualifying rate
     let beDataMap = {};
 
     PRESETS.forEach(p => {
@@ -761,13 +742,17 @@ function handleBreakEvenMode(uiPreText, uiResults) {
         speedKeys.forEach(speed => {
             const numericSpeed = speed === 'default' ? 0 : parseFloat(speed);
             
-            // 3. Filter: Ignore tiers that are slower than the user's requirement
+            // 4. THE FILTER: Skip if speed is lower than selected minimum
+            // We ignore 'default' (usually AC) if a high speed is selected
             if (speed !== 'default' && numericSpeed < minSpeedSelection) {
                 return; 
             }
+            if (speed === 'default' && minSpeedSelection > 22) {
+                return; // Ignore slow/AC default rates if user wants DC speeds
+            }
 
             const rate = rates[speed];
-            const speedDisplay = speed === 'default' ? "Max. available" : `${speed}kW`;
+            const speedDisplay = speed === 'default' ? "Standard" : `${speed}kW`;
             
             let breakEvenMiles = Infinity; 
             let displayMiles = "";
@@ -779,14 +764,14 @@ function handleBreakEvenMode(uiPreText, uiResults) {
                 displayMiles = breakEvenMiles + " miles";
             } else if (subCost > 0) {
                 displayMiles = "Never (Rate ≥ PAYG)";
-                breakEvenMiles = 999999; // High value for sorting 'Never' to bottom
+                breakEvenMiles = 999999;
             } else {
                 breakEvenMiles = 0;
                 displayMiles = "0 (Free/No Sub)";
             }
 
-            // 4. Deduplication: Only store this tier if it's the first for this provider 
-            // OR if it has a lower break-even mileage than the tier we already saved.
+            // 5. DEDUPLICATION: Only store if it's the first entry for this provider
+            // OR if this tier's break-even point is lower than the one we already have.
             if (!beDataMap[p.name] || breakEvenMiles < beDataMap[p.name].miles) {
                 beDataMap[p.name] = {
                     name: p.name,
@@ -802,52 +787,15 @@ function handleBreakEvenMode(uiPreText, uiResults) {
         });
     });
 
-    // Convert Map back to an array for the table
+    // Convert back to array and sort
     let beData = Object.values(beDataMap);
+    beData.sort((a, b) => a.miles - b.miles);
 
-    // 5. Sort by miles (lowest mileage to break even comes first)
-    beData.sort((a, b) => {
-        if (a.miles !== b.miles) return a.miles - b.miles;
-        return a.name.localeCompare(b.name);
-    });
-
-    const providerResultsHtml = generateBreakEvenResultsHtml(beData);
-    document.getElementById("providerResults").innerHTML = providerResultsHtml;
-
-    document.querySelectorAll(".results-scroll").forEach(el => {
-        if (!el._ftScrollBound) { 
-            el._ftScrollBound = true; 
-            el.addEventListener("scroll", () => { if (typeof _ftActive !== 'undefined' && _ftActive) _ftHide(); }, { passive: true }); 
-        }
-    });
-
-    if (!beReminderShown) {
-        setTimeout(() => {
-            const activePill = document.querySelector('.calc-tab.active');
-            const currentIsTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
-            if (!currentIsTripMode) {
-                showBeReminder();
-                beReminderShown = true; 
-            }
-        }, 5000);
-    }
+    // Render the table
+    document.getElementById("providerResults").innerHTML = generateBreakEvenResultsHtml(beData);
     
-    const graphInputs = {
-        journeyMiles: 300, 
-        batteryKwh: parseFloat(document.getElementById("batteryKwh").value) || 60,
-        soc: 100,
-        efficiency: efficiency,
-        adhoc: adhocRate,
-        startChargeRate: 0 
-    };
-    
-    const graphProviders = beData.map(p => ({
-        name: p.name,
-        subCost: p.subCost,
-        rate: p.rate
-    }));
-    
-    drawGraph(graphInputs, graphProviders);
+    // Update graph
+    drawGraph({ efficiency, adhoc: adhocRate }, beData);
 }
 
 function calculate() {
