@@ -242,7 +242,7 @@ html, body {
     min-width: 100px; /* Added: Ensures it never drops below 100px */
     height: auto;    /* Changed from 100% to auto to maintain aspect ratio */
     object-fit: contain;
-}
+}	
 
 .home-wrap {
     width: 100%;
@@ -361,7 +361,13 @@ section.feature-section:first-of-type {
 
     .hero-home-text {
         width: calc(100% - 240px) !important;
-    }
+
+	    position: absolute;
+	    bottom: 50px;
+	    left: 40px; /* Aligns text to the left with a small inner padding */
+	    /*max-width: 900px;*/ 
+	    transform: none; /* Removed the 50% centering transform */
+	}
 	
    .feature-section {
         padding-right: 160px !important; /* Move content away from the ad sidebar */
@@ -450,15 +456,6 @@ section.feature-section:first-of-type {
             rgba(2,6,23,0.55),
             rgba(2,6,23,0.88)
         );
-}
-
-.hero-home-text {
-    position: absolute;
-    bottom: 50px;
-    left: 40px; /* Aligns text to the left with a small inner padding */
-    width: calc(100% - 80px); /* Ensures text doesn't hit the edges */
-    max-width: 900px; 
-    transform: none; /* Removed the 50% centering transform */
 }
 
 .hero-home h1 {
