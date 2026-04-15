@@ -713,7 +713,7 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     const sectionDurations = document.getElementById("sectionDurations");
     const sectionRealWord = document.getElementById("sectionRealWord");
     const sectionGraph = document.getElementById("sectionGraph");
-    
+
     if (contentsBox) {
         contentsBox.style.display = "none";
         contentsBox.innerHTML = "";
@@ -722,113 +722,98 @@ function handleBreakEvenMode(uiPreText, uiResults) {
     const efficiency = parseFloat(document.getElementById("efficiencyBE").value);
     const adhocRate = parseFloat(document.getElementById("adhocBE").value) || 0;
     
-    // Get the speed filter from your new dropdown
-    const minSpeedBE = document.getElementById('minspeedBE');
-    const minSpeedSelection = minSpeedBE ? parseFloat(minSpeedBE.value) : 0;
+    // Target the specific dropdown for the Break Even card
+    const minSpeedSelection = parseFloat(document.getElementById("minSpeedBE").value) || 0;
 
     if (isNaN(efficiency) || efficiency <= 0 || isNaN(adhocRate) || adhocRate <= 0) {
         uiPreText.innerHTML = "Please attend to all pulsing green fields, or use the navigation tabs at the top to switch between BREAK EVEN and COST REDUCTION calculation types.";
         uiPreText.style.display = "block";
         uiResults.style.display = "none";
-        sectionSummary.style.display = "none";
-        sectionSubs.style.display = "none";
-        sectionConclusion.style.display = "none";
-        sectionDurations.style.display = "none";
-        sectionRealWord.style.display = "none";
-        sectionGraph.style.display = "none";
+        if (sectionSummary) sectionSummary.style.display = "none";
+        if (sectionSubs) sectionSubs.style.display = "none";
+        if (sectionConclusion) sectionConclusion.style.display = "none";
+        if (sectionDurations) sectionDurations.style.display = "none";
+        if (sectionRealWorld) sectionRealWorld.style.display = "none";
+        if (sectionGraph) sectionGraph.style.display = "none";
         return;
     }
 
     uiPreText.style.display = "none";
     uiResults.style.display = "block";
-    sectionSubs.style.display = "block";
-    sectionGraph.style.display = "block";
+    if (sectionSubs) sectionSubs.style.display = "block";
+    if (sectionGraph) sectionGraph.style.display = "block";
     
     document.querySelector(".chart-wrapper").style.display = "block";
 
-    // Use a temporary object to deduplicate by provider name
-    let bestProviderRates = {};
+    let beData = [];
 
     PRESETS.forEach(p => {
         const subCost = p.subscription.subCost;
         const rates = p.rates;
         
-        Object.keys(rates).forEach(speedKey => {
-            const numericSpeed = speedKey === 'default' ? 0 : parseFloat(speedKey);
-            
-            // 1. FILTER: Only process if speed meets the dropdown requirement
-            if (speedKey !== 'default' && numericSpeed < minSpeedSelection) {
-                return; 
-            }
+        // Filter speeds to find the best match for the user's min speed requirement
+        const availableSpeeds = Object.keys(rates)
+            .filter(s => s !== 'default')
+            .map(s => parseFloat(s))
+            .sort((a, b) => a - b);
 
-            const rate = rates[speedKey];
-            let breakEvenMiles = Infinity; 
-            let displayMiles = "";
+        let selectedSpeed = null;
+        let rate = 0;
 
-            // Calculate break even
-            if (rate < adhocRate) {
-                const savingPerKwh = (adhocRate - rate) / 100;
-                const kwhNeeded = subCost / savingPerKwh;
-                breakEvenMiles = Math.round(kwhNeeded * efficiency);
-                displayMiles = breakEvenMiles + " miles";
-            } else if (subCost > 0) {
-                displayMiles = "Never (Rate ≥ PAYG)";
-                breakEvenMiles = 999999; 
-            } else {
-                breakEvenMiles = 0;
-                displayMiles = "0 (Free/No Sub)";
-            }
+        // Find the lowest available speed that is >= minSpeedSelection
+        const validSpeed = availableSpeeds.find(s => s >= minSpeedSelection);
 
-            // 2. DEDUPLICATE: If this is the first time we see this provider, 
-            // OR if this tier has a lower break-even mileage than the one we saved, update it.
-            if (!bestProviderRates[p.name] || breakEvenMiles < bestProviderRates[p.name].miles) {
-                bestProviderRates[p.name] = {
-                    name: p.name,
-                    url: p.subscription?.url,
-                    comments: p.subscription?.comments || "",
-                    subCost: subCost,
-                    rate: rate,
-                    miles: breakEvenMiles,
-                    displayText: displayMiles
-                };
-            }
+        if (validSpeed !== undefined) {
+            selectedSpeed = validSpeed;
+            rate = rates[validSpeed.toString()];
+        } else if (availableSpeeds.length > 0) {
+            // Fallback: pick the highest available if none meet the minimum
+            selectedSpeed = availableSpeeds[availableSpeeds.length - 1];
+            rate = rates[selectedSpeed.toString()];
+        } else {
+            rate = rates['default'] || 0;
+        }
+
+        const speedDisplay = selectedSpeed ? `${selectedSpeed}kW` : "Max. available";
+        let breakEvenMiles = null; 
+        let displayMiles = "";
+
+        if (rate < adhocRate) {
+            const savingPerKwh = (adhocRate - rate) / 100;
+            const kwhNeeded = subCost / savingPerKwh;
+            breakEvenMiles = Math.round(kwhNeeded * efficiency);
+            displayMiles = breakEvenMiles + " miles";
+        } else if (subCost > 0) {
+            displayMiles = "Never (Rate ≥ PAYG)";
+        } else {
+            breakEvenMiles = 0;
+            displayMiles = "0 (Free/No Sub)";
+        }
+
+        beData.push({
+            name: p.name,
+            url: p.subscription?.url,
+            comments: p.subscription?.comments || "",
+            speedDisplay: speedDisplay,
+            subCost: subCost,
+            rate: rate,
+            miles: breakEvenMiles,
+            displayText: displayMiles
         });
     });
 
-    // Convert the object back into a sorted array
-    let beData = Object.values(bestProviderRates);
-
     beData.sort((a, b) => {
-        if (a.miles !== b.miles) return a.miles - b.miles;
+        if (a.miles !== null && b.miles !== null) return a.miles - b.miles;
+        if (a.miles !== null) return -1;
+        if (b.miles !== null) return 1;
         return a.name.localeCompare(b.name);
     });
 
-    const providerResultsHtml = generateBreakEvenResultsHtml(beData);
-    document.getElementById("providerResults").innerHTML = providerResultsHtml;
+    document.getElementById("providerResults").innerHTML = generateBreakEvenResultsHtml(beData);
 
-    // Scroll binding logic...
-    document.querySelectorAll(".results-scroll").forEach(el => {
-        if (!el._ftScrollBound) { 
-            el._ftScrollBound = true; 
-            el.addEventListener("scroll", () => { if (typeof _ftActive !== 'undefined' && _ftActive) _ftHide(); }, { passive: true }); 
-        }
-    });
-
-    // Reminder logic...
-    if (!beReminderShown) {
-        setTimeout(() => {
-            const activePill = document.querySelector('.calc-tab.active');
-            const currentIsTripMode = activePill && activePill.textContent.trim() === "Cost Reduction";
-            if (!currentIsTripMode) {
-                showBeReminder();
-                beReminderShown = true; 
-            }
-        }, 5000);
-    }
-    
-    // Update the graph
+    // Refresh graph with the new filtered data
     const graphInputs = {
-        journeyMiles: 300, 
+        journeyMiles: 300,
         batteryKwh: parseFloat(document.getElementById("batteryKwh").value) || 60,
         soc: 100,
         efficiency: efficiency,
