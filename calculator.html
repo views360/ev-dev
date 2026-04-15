@@ -344,6 +344,19 @@ body {
 			or you can reset your journey counter and calculate it if your journey is imminent.</span></span></span>Vehicle efficiency (miles/kWh)</label>
         <input type="number" id="efficiencyBE" oninput="calculate()" placeholder="e.g., 3.5" step="0.1">
     </div>
+	<div class="input-group">
+		<label for="minSpeedBE">         
+		<span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">Two providers offer different discounted rates based on charging speed, which affects the break-even point. 
+			Select the SLOWEST charging speed you would consider using, which will apply the provider's cheapest available rate.</span></span></span>Minimum desired 
+		charging speed</label>
+		<select id="minSpeedBE">
+			<option value="7">7kW AC (fast)</option>
+			<option value="22">22kW AC (accelerated)</option>
+			<option value="50" selected>50kW DC (rapid)</option>
+			<option value="75">75kW DC(ultra rapid)</option>
+			<option value="150">150kW DC (high power)</option>
+		</select>
+	</div>
     <div class="input-group">
         <label for="adhocBE">
             <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">This is 
