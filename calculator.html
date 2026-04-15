@@ -349,7 +349,7 @@ body {
 		<span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)">ℹ️<span class="tooltip-box">The break-even point for two providers is affected by charging speed. 
 			Select the SLOWEST charging speed you would consider using, which will apply each provider's cheapest available rate.</span></span></span>Minimum desired 
 		charging speed</label>
-		<select id="minSpeedBE">
+		<select id="minSpeedBE" onchange="calculate()">
 			<option value="7">7kW AC (fast)</option>
 			<option value="22">22kW AC (accelerated)</option>
 			<option value="50" selected>50kW DC (rapid)</option>
@@ -405,7 +405,7 @@ body {
 						charging speeds from the results if you don't plan to use them during your journey, else they will 
 						skew the results because they are cheaper (e.g., setting the value to 50kW will filter out 7kW and 22kW).</span></span></span>Minimum desired 
 					charging speed</label>
-                <select id="minSpeed">
+                <select id="minSpeed" onchange="calculate()">
                     <option value="7">7kW AC (fast)</option>
                     <option value="22">22kW AC (accelerated)</option>
                     <option value="50" selected>50kW DC (rapid)</option>
