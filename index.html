@@ -399,7 +399,7 @@ section.feature-section:first-of-type {
 }
 
 @media (max-width: 699px) {
-.home-wrap {
+	.home-wrap {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
@@ -415,11 +415,18 @@ section.feature-section:first-of-type {
         left: 0;
     }
 
-.parallax-copy {
+	.parallax-copy {
         width: 100% !important;   /* Override the calc(100% - 160px) */
         margin-right: 0 !important; /* Remove the ad-space offset */
         padding: 0 20px;          /* Optional: adds a safety buffer so text doesn't touch screen edges */
         box-sizing: border-box;
+    }
+
+	.hero-home-text {
+        text-align: left !important;
+        left: 30px !important; /* Matches your 30px margin request */
+        width: calc(100% - 60px) !important; /* Total 60px (30 left + 30 right) */
+        transform: none !important;
     }
 
 }
@@ -493,17 +500,17 @@ section.feature-section:first-of-type {
     z-index: 1;
 }
 
-    ul.bolt-list, ul.day2-list, ul.further-list {
-        list-style: none;
-        padding-left: 20px;
-    }
+ul.bolt-list, ul.day2-list, ul.further-list {
+	list-style: none;
+	padding-left: 20px;
+}
 
-    ul.bolt-list li::before, ul.day2-list li::before, ul.further-list li::before {
-        content: "⚡";
-        display: inline-block;
-        width: 1.5em;
-        margin-left: -1.5em;
-    }
+ul.bolt-list li::before, ul.day2-list li::before, ul.further-list li::before {
+	content: "⚡";
+	display: inline-block;
+	width: 1.5em;
+	margin-left: -1.5em;
+}
 
 .home-wrap {
     position: relative;
