@@ -424,11 +424,12 @@ section.feature-section:first-of-type {
 
 	.hero-home-text {
         text-align: left !important;
-        left: 30px !important; /* Matches your 30px margin request */
-        width: calc(100% - 60px) !important; /* Total 60px (30 left + 30 right) */
+        left: 30px !important;
+        width: calc(100% - 60px) !important;
+        bottom: 40px; /* Explicitly anchor it to the bottom of the hero */
+        position: absolute; 
         transform: none !important;
     }
-
 }
 
 /* ---------- Hero ---------- */
