@@ -347,6 +347,9 @@ function generateProviderResultsHtml(providers, inputs) {
         const totalMilesText = p.rate < inputs.adhoc 
             ? `${p.totalWithBattery.toFixed(0)} miles` 
             : "N/A";
+        const percentage = p.totalJourneyCost > 0 ? (Math.abs(p.savings) / p.totalJourneyCost) * 100 : 0;
+        const percText = `(${percentage.toFixed(1)}%)`;
+
         html += `<tr class="${rowClass}">
             <td>
                 <span class="tooltip-container"><span class="info-icon" onclick="toggleTooltip(this)" style="font-size: 0.8rem;">ℹ️<span class="tooltip-box">${p.comments}</span>
@@ -355,7 +358,7 @@ function generateProviderResultsHtml(providers, inputs) {
             <td>£${p.subCost.toFixed(2)}</td>
             <td>${p.rate.toFixed(1)}p</td>
             <td><strong>£${p.totalJourneyCost.toFixed(2)}</strong></td>
-            <td>${p.savings > 0 ? 'Save £' : 'Cost £'}${Math.abs(p.savings).toFixed(2)}</td>
+            <td>${p.savings > 0 ? 'Save £' : 'Cost £'}${Math.abs(p.savings).toFixed(2)} ${percText}</td>
             <td><strong>${breakEvenText}</strong></td>
             <td><strong>${totalMilesText}</strong></td>
         </tr>`;
