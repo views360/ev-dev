@@ -82,6 +82,7 @@
         "999": 58
       }
     },
+    
     {
       "id": "ionity-power",
       "name": "IONITY (Power)",
@@ -95,6 +96,25 @@
         "999": 46
       }
     },
+
+        {
+      "id": "shell-recharge",
+      "name": "Shell Recharge",
+      "subscription": {
+        "hasSubscription": true,
+        "subCost": 9.99,
+        "url": "https://www.shell.co.uk/electric-vehicle-charging.html",
+        "comments": "30% off PAY prices. Prices vary by location. Motorway hubs are typically 85p-89p/kWh."
+      },
+      "rates": {
+        "7": 55,
+        "22": 55,
+        "50": 79,
+        "150": 85,
+        "350": 89
+      }
+    },
+    
     {
       "id": "tesla-member",
       "name": "Tesla (Non-Tesla Member)",
