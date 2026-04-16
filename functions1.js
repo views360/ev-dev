@@ -1,1 +1,422 @@
-(function(_0x1bb2f1,_0x3c0072){const _0x553450=a1_0x5966,_0x4e3ac8=_0x1bb2f1();while(!![]){try{const _0x3ef332=-parseInt(_0x553450(0x22e))/0x1+parseInt(_0x553450(0x214))/0x2+parseInt(_0x553450(0x242))/0x3+parseInt(_0x553450(0x239))/0x4+-parseInt(_0x553450(0x1f3))/0x5+-parseInt(_0x553450(0x233))/0x6+parseInt(_0x553450(0x261))/0x7*(parseInt(_0x553450(0x22c))/0x8);if(_0x3ef332===_0x3c0072)break;else _0x4e3ac8['push'](_0x4e3ac8['shift']());}catch(_0x1c5cea){_0x4e3ac8['push'](_0x4e3ac8['shift']());}}}(a1_0x2011,0x3fd39));let PRESETS=[],providerCount=0x0,chart=null;function toggleSection(_0x108136){const _0x281dd1=a1_0x5966,_0x49d335=_0x108136[_0x281dd1(0x21c)];_0x49d335[_0x281dd1(0x241)][_0x281dd1(0x258)](_0x281dd1(0x1f1));const _0x556d0b=_0x108136[_0x281dd1(0x21d)](_0x281dd1(0x25f));_0x556d0b&&(_0x556d0b[_0x281dd1(0x21b)]=_0x49d335[_0x281dd1(0x241)][_0x281dd1(0x1fe)](_0x281dd1(0x1f1))?'−':'+');}function updateProviderInfo(){}function a1_0x5966(_0x1055d8,_0x446930){_0x1055d8=_0x1055d8-0x1ec;const _0x201163=a1_0x2011();let _0x5966c8=_0x201163[_0x1055d8];return _0x5966c8;}function getInputs(){const _0x15dc6a=a1_0x5966,_0x3df49b=Array[_0x15dc6a(0x1fa)](document['querySelectorAll'](_0x15dc6a(0x219)))[_0x15dc6a(0x20e)](_0x5b0cc4=>parseFloat(_0x5b0cc4[_0x15dc6a(0x1fb)])||0x0),_0x5bffcd=Array[_0x15dc6a(0x1fa)](document[_0x15dc6a(0x260)](_0x15dc6a(0x22f)))[_0x15dc6a(0x20e)](_0x2608c5=>parseFloat(_0x2608c5[_0x15dc6a(0x1fb)])||0x0),_0x144223=Array[_0x15dc6a(0x1fa)](document[_0x15dc6a(0x260)]('.extra-journey-rate'))[_0x15dc6a(0x20e)](_0x3c39a5=>parseFloat(_0x3c39a5[_0x15dc6a(0x1fb)])||0x0),_0x5d7797=Array[_0x15dc6a(0x1fa)](document[_0x15dc6a(0x260)](_0x15dc6a(0x263)))[_0x15dc6a(0x20e)](_0x52a4f3=>parseFloat(_0x52a4f3[_0x15dc6a(0x1fb)])||0x0);return{'journeyMiles':parseFloat(document['getElementById']('journeyMiles')['value'])||0x0,'batteryKwh':parseFloat(document['getElementById']('batteryKwh')[_0x15dc6a(0x1fb)])||0x0,'prechargesoc':parseFloat(document[_0x15dc6a(0x1f7)](_0x15dc6a(0x25a))['value'])||0x0,'soc':parseFloat(document[_0x15dc6a(0x1f7)](_0x15dc6a(0x266))[_0x15dc6a(0x1fb)])||0x0,'efficiency':parseFloat(document[_0x15dc6a(0x1f7)]('efficiency')[_0x15dc6a(0x1fb)])||0x0,'adhoc':parseFloat(document[_0x15dc6a(0x1f7)](_0x15dc6a(0x223))['value'])||0x0,'startChargeRate':parseFloat(document['getElementById'](_0x15dc6a(0x255))[_0x15dc6a(0x1fb)])||0x0,'maxChargingSpeed':parseFloat(document['getElementById']('maxChargingSpeed')['value'])||0x0,'rechargeAt':parseFloat(document['getElementById']('rechargeAt')[_0x15dc6a(0x1fb)])||0x14,'minSpeed':parseFloat(document[_0x15dc6a(0x1f7)](_0x15dc6a(0x23a))[_0x15dc6a(0x1fb)])||0x0,'additionalJourneys':_0x3df49b[_0x15dc6a(0x20e)]((_0x569c18,_0x5c26a9)=>({'miles':_0x569c18,'soc':_0x5bffcd[_0x5c26a9],'rate':_0x144223[_0x5c26a9],'prechargesoc':_0x5d7797[_0x5c26a9]}))};}function shareLink(){const _0x170d58=a1_0x5966,_0x1aa4c2=new URLSearchParams();_0x1aa4c2['set'](_0x170d58(0x249),_0x170d58(0x25b));const _0x4b320e=[_0x170d58(0x228),_0x170d58(0x212),_0x170d58(0x266),_0x170d58(0x259),_0x170d58(0x223),_0x170d58(0x255),_0x170d58(0x20b),'rechargeAt',_0x170d58(0x23a)];_0x4b320e[_0x170d58(0x211)](_0x3f64b7=>{const _0x57f9b8=_0x170d58,_0x28a7af=document[_0x57f9b8(0x1f7)](_0x3f64b7);if(_0x28a7af)_0x1aa4c2[_0x57f9b8(0x254)](_0x3f64b7,_0x28a7af['value']);});const _0x2ec13a=[];document[_0x170d58(0x260)](_0x170d58(0x250))[_0x170d58(0x211)](_0x1ad700=>{const _0x5ddadf=_0x170d58,_0x251e57=_0x1ad700['dataset']['id'];_0x2ec13a[_0x5ddadf(0x24e)]({'name':document[_0x5ddadf(0x1f7)](_0x5ddadf(0x20c)+_0x251e57)[_0x5ddadf(0x1fb)],'subCost':document[_0x5ddadf(0x1f7)]('subCost'+_0x251e57)[_0x5ddadf(0x1fb)],'rate':document[_0x5ddadf(0x1f7)]('rate'+_0x251e57)[_0x5ddadf(0x1fb)],'preset':document['getElementById']('preset'+_0x251e57)['value']});}),_0x1aa4c2[_0x170d58(0x254)]('p',JSON[_0x170d58(0x236)](_0x2ec13a));const _0x38a07d=''+window[_0x170d58(0x205)][_0x170d58(0x265)]+window['location'][_0x170d58(0x252)]+'?'+_0x1aa4c2['toString']();navigator['clipboard'][_0x170d58(0x23c)](_0x38a07d)[_0x170d58(0x208)](()=>{const _0x5c2a60=_0x170d58,_0x5fd1e1=document['getElementById']('shareBtn'),_0x318c29=_0x5fd1e1[_0x5c2a60(0x21b)];_0x5fd1e1['textContent']=_0x5c2a60(0x1ef),_0x5fd1e1[_0x5c2a60(0x241)][_0x5c2a60(0x246)](_0x5c2a60(0x1fd)),setTimeout(()=>{const _0x604754=_0x5c2a60;_0x5fd1e1['textContent']=_0x318c29,_0x5fd1e1[_0x604754(0x241)][_0x604754(0x204)](_0x604754(0x1fd));},0x7d0);});}function createProviderBox(_0xfa66a6){const _0x489272=a1_0x5966;providerCount++;const _0x37bf43=providerCount,{minSpeed:_0x291298}=getInputs(),_0x323a08=getSortedPresets(_0x291298),_0x8f01b1=[_0x489272(0x22b),..._0x323a08['map'](_0x109ce1=>_0x109ce1['name'])][_0x489272(0x20e)](_0x47a53b=>'<option\x20value=\x22'+_0x47a53b+'\x22>'+_0x47a53b+_0x489272(0x25e))[_0x489272(0x207)](''),_0x431bb3=document[_0x489272(0x206)]('div');_0x431bb3[_0x489272(0x262)]=_0x489272(0x221),_0x431bb3['dataset']['id']=_0x37bf43,_0x431bb3['innerHTML']=_0x489272(0x227)+_0x37bf43+_0x489272(0x24b)+_0x37bf43+_0x489272(0x210)+_0x37bf43+_0x489272(0x22a)+_0x8f01b1+_0x489272(0x232)+_0x37bf43+_0x489272(0x21e)+_0x37bf43+'\x22\x20step=\x220.1\x22\x20value=\x220\x22\x20oninput=\x22calculate()\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-group\x22\x20id=\x22speedRow'+_0x37bf43+_0x489272(0x1f0)+_0x37bf43+'\x22\x20onchange=\x22updateRateFromSpeed('+_0x37bf43+')\x22></select>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20',document[_0x489272(0x1f7)]('providers')[_0x489272(0x230)](_0x431bb3),_0xfa66a6&&(document[_0x489272(0x1f7)](_0x489272(0x231)+_0x37bf43)['value']=_0xfa66a6[_0x489272(0x20c)],updateProviderFields(_0x37bf43)),calculate();}function addAllProviders(){const _0x13a391=a1_0x5966,{minSpeed:_0x599f0d}=getInputs(),_0xd7cb1c=document['getElementById'](_0x13a391(0x225)),_0x4ec719=document['getElementById']('addAllBtn'),_0x3ca8e5=document[_0x13a391(0x1f7)](_0x13a391(0x1f4));_0xd7cb1c[_0x13a391(0x247)]='',PRESETS['forEach'](_0x7d5697=>{const _0x15ba5e=_0x13a391,_0x40ceaa=_0x7d5697[_0x15ba5e(0x20f)]['default']||Object[_0x15ba5e(0x1f5)](_0x7d5697[_0x15ba5e(0x20f)])[_0x15ba5e(0x24d)](_0x1da9b3=>Number(_0x1da9b3)>=_0x599f0d);if(_0x40ceaa)createProviderBox(_0x7d5697);}),_0x4ec719&&_0x4ec719[_0x13a391(0x241)][_0x13a391(0x204)](_0x13a391(0x24a)),_0x3ca8e5&&_0x3ca8e5[_0x13a391(0x241)][_0x13a391(0x246)]('empty-pulse');}function updateProviderFields(_0x1cc783){const _0x176ce9=a1_0x5966,_0x3bc10f=document[_0x176ce9(0x1f7)](_0x176ce9(0x231)+_0x1cc783)['value'],_0x2c8882=PRESETS[_0x176ce9(0x25c)](_0x501eb0=>_0x501eb0[_0x176ce9(0x20c)]===_0x3bc10f),_0x1392fa=document[_0x176ce9(0x1f7)](_0x176ce9(0x203)+_0x1cc783);if(_0x3bc10f==='Custom'||!_0x2c8882){if(_0x1392fa)_0x1392fa['style']['display']=_0x176ce9(0x23b);calculate();return;}document[_0x176ce9(0x1f7)](_0x176ce9(0x20c)+_0x1cc783)[_0x176ce9(0x1fb)]=_0x2c8882[_0x176ce9(0x20c)],document[_0x176ce9(0x1f7)](_0x176ce9(0x24f)+_0x1cc783)[_0x176ce9(0x1fb)]=_0x2c8882['subscription']['subCost'];if(_0x2c8882[_0x176ce9(0x20f)]){const {minSpeed:_0x3f1576}=getInputs(),_0x25241e=Object[_0x176ce9(0x1f5)](_0x2c8882[_0x176ce9(0x20f)])[_0x176ce9(0x20e)](Number)[_0x176ce9(0x251)]((_0x1c4940,_0x26638c)=>_0x1c4940-_0x26638c),_0x305eaf=Math[_0x176ce9(0x213)](..._0x25241e);let _0x38f8ed;_0x3f1576>=_0x305eaf?_0x38f8ed=_0x305eaf:_0x38f8ed=_0x25241e['find'](_0x3ade85=>_0x3ade85>=_0x3f1576)||_0x25241e[0x0];const _0x5b5a17=Object[_0x176ce9(0x1f5)](_0x2c8882[_0x176ce9(0x20f)])[_0x176ce9(0x224)](_0x44cea3=>{const _0x24c294=parseFloat(_0x44cea3);return _0x24c294===0x0||_0x24c294>=_0x38f8ed;}),_0x298e20=document[_0x176ce9(0x1f7)]('speed'+_0x1cc783);_0x298e20&&(_0x298e20['innerHTML']=_0x5b5a17[_0x176ce9(0x20e)](_0xb9f7e0=>_0x176ce9(0x200)+_0xb9f7e0+'\x22>'+(parseFloat(_0xb9f7e0)===0x0?_0x176ce9(0x202):_0xb9f7e0+'kW')+_0x176ce9(0x25e))[_0x176ce9(0x207)](''),_0x298e20['value']=_0x38f8ed,document[_0x176ce9(0x1f7)]('rate'+_0x1cc783)[_0x176ce9(0x1fb)]=_0x2c8882['rates'][_0x38f8ed]),_0x1392fa&&(_0x1392fa[_0x176ce9(0x209)][_0x176ce9(0x21a)]=_0x5b5a17['length']===0x1&&parseFloat(_0x5b5a17[0x0])===0x0?_0x176ce9(0x23b):_0x176ce9(0x20d));}calculate();}function updateRateFromSpeed(_0x3268db){const _0x589e71=a1_0x5966,_0x58a4ae=document[_0x589e71(0x1f7)](_0x589e71(0x231)+_0x3268db)[_0x589e71(0x1fb)],_0x42be0a=document['getElementById'](_0x589e71(0x1f8)+_0x3268db)[_0x589e71(0x1fb)],_0x3dfc50=PRESETS['find'](_0x86ba76=>_0x86ba76[_0x589e71(0x20c)]===_0x58a4ae);if(_0x3dfc50?.[_0x589e71(0x20f)])document['getElementById'](_0x589e71(0x244)+_0x3268db)[_0x589e71(0x1fb)]=_0x3dfc50['rates'][_0x42be0a];calculate();}function getSortedPresets(_0x42c02c){const _0x42edb9=a1_0x5966;return PRESETS['filter'](_0x449d3d=>{const _0x63789b=a1_0x5966;if(_0x449d3d[_0x63789b(0x20f)]?.[_0x63789b(0x1ec)])return!![];return Object[_0x63789b(0x1f5)](_0x449d3d['rates'])[_0x63789b(0x24d)](_0xbb822b=>Number(_0xbb822b)>=_0x42c02c);})[_0x42edb9(0x251)]((_0x418a49,_0x291a11)=>{const _0x2e0531=_0x42edb9,_0x453bf7=_0x418a49['subscription']['hasSubscription'],_0x9d583c=_0x291a11[_0x2e0531(0x235)][_0x2e0531(0x264)];return _0x453bf7===_0x9d583c?_0x418a49[_0x2e0531(0x20c)][_0x2e0531(0x1f2)](_0x291a11['name']):_0x453bf7?-0x1:0x1;});}function enforceSpeedRules(){const _0x5a0855=a1_0x5966,{minSpeed:_0x3f930d}=getInputs(),_0x517e40=getSortedPresets(_0x3f930d);document[_0x5a0855(0x260)]('.provider-box')[_0x5a0855(0x211)](_0x165d31=>{const _0x33de14=_0x5a0855,_0x550b67=_0x165d31[_0x33de14(0x245)]['id'],_0x441d28=document[_0x33de14(0x1f7)](_0x33de14(0x231)+_0x550b67),_0x60401d=_0x441d28[_0x33de14(0x1fb)];_0x441d28[_0x33de14(0x247)]=[_0x33de14(0x22b),..._0x517e40[_0x33de14(0x20e)](_0x3bb086=>_0x3bb086[_0x33de14(0x20c)])][_0x33de14(0x20e)](_0x11054e=>'<option\x20value=\x22'+_0x11054e+'\x22>'+_0x11054e+_0x33de14(0x25e))[_0x33de14(0x207)](''),_0x441d28[_0x33de14(0x1fb)]=_0x517e40[_0x33de14(0x24d)](_0x556b11=>_0x556b11[_0x33de14(0x20c)]===_0x60401d)||_0x60401d===_0x33de14(0x22b)?_0x60401d:_0x33de14(0x22b),updateProviderFields(_0x550b67);});}function buildItineraryTable(_0x206430,_0x51dc7f){const _0x404f90=a1_0x5966;return _0x404f90(0x248)+document['getElementById']('maxChargingSpeed')[_0x404f90(0x1fb)]+_0x404f90(0x229)+document[_0x404f90(0x1f7)](_0x404f90(0x23a))[_0x404f90(0x1fb)]+'kW\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</th>\x0a\x0a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tbody>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'+(_0x206430||_0x404f90(0x25d))+_0x404f90(0x1ff);}function a1_0x2011(){const _0x11655b=['</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>','.extra-journey-miles','display','textContent','parentElement','querySelector','\x22\x20step=\x220.01\x22\x20value=\x220\x22\x20oninput=\x22calculate()\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>Rate\x20(p/kWh)</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22number\x22\x20id=\x22rate','%,\x20','\x20miles</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Recharge\x20','provider-box','\x22\x20onclick=\x22selectItineraryTab(','adhoc','filter','providers','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>0</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Begin\x20journey</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>0\x20miles</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Depart\x20with\x20','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22provider-header\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22text\x22\x20id=\x22name','journeyMiles','kW\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20🐢\x20Duration<br\x20/>',')\x22>','Custom','8ZkSYQL','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22itinerary-tab-panel\x22\x20id=\x22itinerary-panel-','120817IJVMNg','.extra-journey-soc','appendChild','preset','</select>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-row\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>Monthly\x20Sub\x20(£)</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<input\x20type=\x22number\x22\x20id=\x22subCost','3077088AcOdfN','%\x20battery</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>–</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>–</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20','subscription','stringify','</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Finish\x20journey</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>','736456xoeTor','minSpeed','none','writeText',')\x22>Journey\x20','.itinerary-tab-panel','<div\x20class=\x22itinerary-tab-btn\x20','</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','classList','434382CfDQBC','toFixed','rate','dataset','add','innerHTML','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22results-scroll\x22\x20style=\x22width:\x20fit-content;\x20max-width:\x20100%;\x20margin:\x200;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<table\x20style=\x22border-collapse:\x20collapse;\x20margin-top:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x20font-size:\x200.8rem;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<thead>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr\x20style=\x22background:\x20rgba(57,\x20255,\x2020,\x200.05);\x20color:\x20var(--text);\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Stop</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x20text-align:\x20left;\x22>Event</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Mile\x20Mark</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x20text-align:\x20left;\x22>Action</th>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<th\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20⚡\x20Duration<br\x20/>','mode','empty-pulse','\x22\x20placeholder=\x22Provider\x20Name\x22\x20oninput=\x22calculate()\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22display:\x20flex;\x20align-items:\x20center;\x20gap:\x2012px;\x20margin-left:\x208px;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<a\x20href=\x22#resultsHeader\x22\x20class=\x22jump-btn-pulse\x22\x20title=\x22Jump\x20to\x20results\x22>↓</a>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20class=\x22remove-btn\x22\x20onclick=\x22this.parentElement.parentElement.parentElement.remove();\x20calculate();\x22>×</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22input-group\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>Preset</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<select\x20id=\x22preset','\x20kWh\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>','some','push','subCost','.provider-box','sort','pathname','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20','set','startChargeRate','\x20miles</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Arrive\x20with\x20','\x22\x20style=\x22display:','toggle','efficiency','prechargesoc','trip-savings','find','<tr><td\x20colspan=\x225\x22\x20style=\x22padding:\x2020px;\x20text-align:\x20center;\x22>No\x20public\x20charging\x20stops\x20required\x20for\x20this\x20journey\x20distance.</td></tr>','</option>','.toggle-icon','querySelectorAll','3264422rALaaL','className','.extra-journey-prechargesoc','hasSubscription','origin','soc','default','Public\x20charge','round','Copied!','\x22\x20style=\x22display:none\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<label>Charging\x20Speed</label>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<select\x20id=\x22speed','active','localeCompare','604750nXHxhD','toggleProvidersBtn','keys','\x20mins','getElementById','speed','</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Finish\x20journey</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>','from','value','\x20miles</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>Arrive\x20with\x20','good','contains','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tbody>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</table>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20','<option\x20value=\x22','\x0a\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>','Standard','speedRow','remove','location','createElement','join','then','style','</div>','maxChargingSpeed','name','flex','map','rates','\x22\x20class=\x22preset-select-pulse\x22\x20onchange=\x22updateProviderFields(','forEach','batteryKwh','max','441588FjVBvw','</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22itinerary-tab-content\x22>','.itinerary-tab-btn','floor'];a1_0x2011=function(){return _0x11655b;};return a1_0x2011();}function buildTabbedItinerary(_0x75f401,_0x3220bb,_0x54b19a){const _0xb4569d=a1_0x5966;let _0x43c323='',_0x4b29aa='';return _0x75f401[_0xb4569d(0x211)]((_0x5ae12f,_0xcb6907)=>{const _0x66bd15=_0xb4569d,_0x3ca264=_0xcb6907===0x0?_0x66bd15(0x1f1):'';_0x43c323+=_0x66bd15(0x23f)+_0x3ca264+_0x66bd15(0x222)+_0xcb6907+_0x66bd15(0x23d)+(_0xcb6907+0x1)+_0x66bd15(0x20a),_0x4b29aa+=_0x66bd15(0x22d)+_0xcb6907+_0x66bd15(0x257)+(_0xcb6907===0x0?'block':_0x66bd15(0x23b))+';\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'+buildItineraryTable(_0x3220bb[_0xcb6907],_0x54b19a)+_0x66bd15(0x253);}),'\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22conclusion-white-border\x20guide-section\x22\x20id=\x22real-world-assessment\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20id=\x22itineraryTabs\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22itinerary-tab-buttons\x22>'+_0x43c323+_0xb4569d(0x215)+_0x4b29aa+'</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p\x20class=\x22itinerary-note\x22>Note:\x20the\x20final\x20charge\x20is\x20calculated\x20so\x20you\x20will\x20reach\x20your\x20destination\x20at\x20the\x20specified\x20journey\x20recharge\x20threshold.\x20Allow\x20+/-\x201\x20minute\x20for\x20rounding.</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20';}function selectItineraryTab(_0x5c876a){const _0x20d398=a1_0x5966;document['querySelectorAll'](_0x20d398(0x216))[_0x20d398(0x211)]((_0x1ba018,_0xc7ce95)=>{const _0xb315b3=_0x20d398;_0x1ba018[_0xb315b3(0x241)][_0xb315b3(0x258)]('active',_0xc7ce95===_0x5c876a);}),document[_0x20d398(0x260)](_0x20d398(0x23e))[_0x20d398(0x211)]((_0x3dbf64,_0x1048a3)=>{const _0x463436=_0x20d398;_0x3dbf64['style'][_0x463436(0x21a)]=_0x1048a3===_0x5c876a?'block':_0x463436(0x23b);});}function formatDuration(_0x2f9deb){const _0x2f39eb=a1_0x5966;if(_0x2f9deb<0x3c)return _0x2f9deb+_0x2f39eb(0x1f6);const _0x2ee12d=Math[_0x2f39eb(0x217)](_0x2f9deb/0x3c),_0x5647e8=_0x2f9deb%0x3c;return _0x2ee12d+'h\x20'+_0x5647e8+'m';}function buildStopsRowsForJourney(_0x274fbc,_0x5c1cae,_0x10cf1b,_0x41a3f3,_0x469455,_0xa6c626,_0x48cd33){const _0x221614=a1_0x5966;let _0x3bc686='',_0x540fa0=0x1,_0x252330=0x0,_0x5355c3=_0x5c1cae;const _0x102992=0x50,_0x557b50=(_0x102992-_0x10cf1b)/0x64*_0x469455,_0x30184f=_0x557b50*_0x41a3f3,_0x234123=(_0x5c1cae-_0x10cf1b)/0x64*_0x469455*_0x41a3f3;_0x3bc686+=_0x221614(0x226)+_0x5c1cae+_0x221614(0x234);if(_0x274fbc<=_0x234123){const _0x5e8705=_0x274fbc/_0x41a3f3,_0x5bfeeb=_0x5e8705/_0x469455*0x64;let _0x41889a=Math[_0x221614(0x213)](_0x10cf1b,Math['min'](0x64,_0x5c1cae-_0x5bfeeb));return _0x3bc686+=_0x221614(0x238)+_0x540fa0+_0x221614(0x1f9)+_0x274fbc+_0x221614(0x1fc)+_0x41889a[_0x221614(0x243)](0x0)+'%\x20battery</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>–</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>–</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20',_0x3bc686;}while(!![]){const _0x4e859b=(_0x5355c3-_0x10cf1b)/0x64*_0x469455*_0x41a3f3;if(_0x252330+_0x4e859b>=_0x274fbc)break;const _0x11ab0e=_0x252330+_0x4e859b,_0x11be9c=_0x274fbc-_0x11ab0e;let _0x24bea9,_0x43c24e,_0x4e2166;_0x11be9c<=_0x30184f?(_0x24bea9=_0x11be9c/_0x41a3f3,_0x43c24e=(_0x10cf1b+_0x24bea9/_0x469455*0x64)['toFixed'](0x0),_0x4e2166='Final\x20public\x20charge'):(_0x24bea9=_0x557b50,_0x43c24e=_0x102992,_0x4e2166=_0x540fa0===0x1?'First\x20public\x20charge':_0x221614(0x1ed));const _0x11f45f=formatDuration(Math[_0x221614(0x1ee)](_0x24bea9/_0xa6c626*0x3c)),_0x2a29a4=formatDuration(Math[_0x221614(0x1ee)](_0x24bea9/_0x48cd33*0x3c));_0x3bc686+='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<tr>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>'+_0x540fa0+'</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>'+_0x4e2166+'</td>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<td\x20style=\x22padding:\x2010px;\x20border:\x201px\x20solid\x20var(--border);\x22>'+Math[_0x221614(0x1ee)](_0x11ab0e)+_0x221614(0x220)+_0x10cf1b+'%→'+_0x43c24e+_0x221614(0x21f)+_0x24bea9['toFixed'](0x1)+_0x221614(0x24c)+_0x11f45f+_0x221614(0x218)+_0x2a29a4+_0x221614(0x240);if(_0x11be9c<=_0x30184f){_0x540fa0++;break;}_0x252330=_0x11ab0e,_0x5355c3=_0x102992,_0x540fa0++;}return _0x3bc686+=_0x221614(0x201)+_0x540fa0+_0x221614(0x237)+_0x274fbc+_0x221614(0x256)+_0x10cf1b+_0x221614(0x234),_0x3bc686;}
+let PRESETS = [];
+let providerCount = 0;
+let chart = null;
+
+function toggleSection(header) {
+    const section = header.parentElement;
+    section.classList.toggle('active');
+
+    const icon = header.querySelector('.toggle-icon');
+    if (icon) {
+        icon.textContent = section.classList.contains('active') ? '−' : '+';
+    }
+}
+
+// Stub function - called in init() but doesn't need to do anything
+// The calculate() function handles all necessary updates
+function updateProviderInfo() {
+    // Intentionally empty - this function is called but not needed
+}
+
+function getInputs() {
+    const extraMiles = Array.from(document.querySelectorAll(".extra-journey-miles")).map(el => parseFloat(el.value) || 0);
+    const extraSocs = Array.from(document.querySelectorAll(".extra-journey-soc")).map(el => parseFloat(el.value) || 0);
+    const extraRates = Array.from(document.querySelectorAll(".extra-journey-rate")).map(el => parseFloat(el.value) || 0);
+    const extraPreSocs = Array.from(document.querySelectorAll(".extra-journey-prechargesoc")).map(el => parseFloat(el.value) || 0);
+
+    return {
+        journeyMiles: parseFloat(document.getElementById("journeyMiles").value) || 0,
+        batteryKwh: parseFloat(document.getElementById("batteryKwh").value) || 0,
+        prechargesoc: parseFloat(document.getElementById("prechargesoc").value) || 0,
+        soc: parseFloat(document.getElementById("soc").value) || 0,
+        efficiency: parseFloat(document.getElementById("efficiency").value) || 0,
+        adhoc: parseFloat(document.getElementById("adhoc").value) || 0,
+        startChargeRate: parseFloat(document.getElementById("startChargeRate").value) || 0,
+        maxChargingSpeed: parseFloat(document.getElementById("maxChargingSpeed").value) || 0,
+        rechargeAt: parseFloat(document.getElementById("rechargeAt").value) || 20,
+        minSpeed: parseFloat(document.getElementById("minSpeed").value) || 0,
+        additionalJourneys: extraMiles.map((miles, i) => ({
+            miles: miles,
+            soc: extraSocs[i],
+            rate: extraRates[i],
+            prechargesoc: extraPreSocs[i]
+        }))
+    };
+}
+
+function shareLink() {
+    const params = new URLSearchParams();
+    params.set("mode", "trip-savings");
+
+    const tripIds = ["journeyMiles", "batteryKwh", "soc", "efficiency", "adhoc", "startChargeRate", "maxChargingSpeed", "rechargeAt", "minSpeed"];
+    
+    tripIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) params.set(id, el.value);
+    });
+
+    const providers = [];
+    document.querySelectorAll(".provider-box").forEach(box => {
+        const id = box.dataset.id;
+        providers.push({
+            name: document.getElementById(`name${id}`).value,
+            subCost: document.getElementById(`subCost${id}`).value,
+            rate: document.getElementById(`rate${id}`).value,
+            preset: document.getElementById(`preset${id}`).value
+        });
+    });
+    params.set("p", JSON.stringify(providers));
+
+    const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+    
+    navigator.clipboard.writeText(newUrl).then(() => {
+        const btn = document.getElementById("shareBtn");
+        const originalText = btn.textContent;
+        btn.textContent = "Copied!";
+        btn.classList.add("good");
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove("good");
+        }, 2000);
+    });
+}
+
+function createProviderBox(preset) {
+    providerCount++;
+    const id = providerCount;
+    const { minSpeed } = getInputs();
+    const sortedPresets = getSortedPresets(minSpeed);
+    const presetOptions = ['Custom', ...sortedPresets.map(p => p.name)]
+        .map(name => `<option value="${name}">${name}</option>`).join("");
+
+    const box = document.createElement("div");
+    box.className = "provider-box";
+    box.dataset.id = id;
+    box.innerHTML = `
+        <div class="provider-header">
+            <input type="text" id="name${id}" placeholder="Provider Name" oninput="calculate()">
+            <div style="display: flex; align-items: center; gap: 12px; margin-left: 8px;">
+                <a href="#resultsHeader" class="jump-btn-pulse" title="Jump to results">↓</a>
+                <button class="remove-btn" onclick="this.parentElement.parentElement.parentElement.remove(); calculate();">×</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <label>Preset</label>
+            <select id="preset${id}" class="preset-select-pulse" onchange="updateProviderFields(${id})">${presetOptions}</select>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <label>Monthly Sub (£)</label>
+                <input type="number" id="subCost${id}" step="0.01" value="0" oninput="calculate()">
+            </div>
+            <div class="input-group">
+                <label>Rate (p/kWh)</label>
+                <input type="number" id="rate${id}" step="0.1" value="0" oninput="calculate()">
+            </div>
+        </div>
+        <div class="input-group" id="speedRow${id}" style="display:none">
+            <label>Charging Speed</label>
+            <select id="speed${id}" onchange="updateRateFromSpeed(${id})"></select>
+        </div>
+    `;
+    document.getElementById("providers").appendChild(box);
+    if (preset) {
+        document.getElementById(`preset${id}`).value = preset.name;
+        updateProviderFields(id);
+    }
+    calculate();
+}
+
+function addAllProviders() {
+    const { minSpeed } = getInputs();
+    const providersContainer = document.getElementById("providers");
+    const addAllBtn = document.getElementById("addAllBtn"); 
+    const collapseBtn = document.getElementById("toggleProvidersBtn");
+
+    providersContainer.innerHTML = "";
+    PRESETS.forEach(p => {
+        const canSupport = p.rates.default || Object.keys(p.rates).some(s => Number(s) >= minSpeed);
+        if (canSupport) createProviderBox(p);
+    });
+
+    if (addAllBtn) {
+        addAllBtn.classList.remove("empty-pulse");
+    }
+    
+    if (collapseBtn) {
+        collapseBtn.classList.add("empty-pulse");
+    }
+}
+
+function updateProviderFields(id) {
+    const presetName = document.getElementById(`preset${id}`).value;
+    const p = PRESETS.find(x => x.name === presetName);
+    const speedRow = document.getElementById(`speedRow${id}`);
+    
+    if (presetName === 'Custom' || !p) {
+        if (speedRow) speedRow.style.display = "none";
+        calculate();
+        return;
+    }
+
+    document.getElementById(`name${id}`).value = p.name;
+    document.getElementById(`subCost${id}`).value = p.subscription.subCost;
+
+    if (p.rates) {
+        const { minSpeed } = getInputs();
+        const availableSpeeds = Object.keys(p.rates).map(Number).sort((a, b) => a - b);
+        
+        // 1. Determine the "Best Fit" speed
+        // If minSpeed is higher than the fastest offered, use the fastest (max).
+        // Otherwise, find the first speed that is >= minSpeed.
+        const maxProviderSpeed = Math.max(...availableSpeeds);
+        let bestFitSpeed;
+
+        if (minSpeed >= maxProviderSpeed) {
+            bestFitSpeed = maxProviderSpeed;
+        } else {
+            bestFitSpeed = availableSpeeds.find(s => s >= minSpeed) || availableSpeeds[0];
+        }
+
+        // 2. Filter the dropdown to only show sensible options (Standard or >= bestFit)
+        const validSpeeds = Object.keys(p.rates).filter(s => {
+            const sNum = parseFloat(s);
+            return sNum === 0 || sNum >= bestFitSpeed;
+        });
+
+        const speedSelect = document.getElementById(`speed${id}`);
+        if (speedSelect) {
+            speedSelect.innerHTML = validSpeeds.map(s => {
+                const sNum = parseFloat(s);
+                let label;
+                if (sNum === 999) {
+                    label = 'All available';
+                } else {
+                    label = s + 'kW';
+                }
+                return `<option value="${s}">${label}</option>`;
+            }).join("");
+        
+            // Set the value to our calculated best fit
+            speedSelect.value = bestFitSpeed;
+            document.getElementById(`rate${id}`).value = p.rates[bestFitSpeed];
+        }
+
+        if (speedRow) {
+            speedRow.style.display = (validSpeeds.length === 1 && parseFloat(validSpeeds[0]) === 0) ? "none" : "flex";
+        }
+    }
+    calculate();
+}
+
+function updateRateFromSpeed(id) {
+    const presetName = document.getElementById(`preset${id}`).value;
+    const speed = document.getElementById(`speed${id}`).value;
+    const p = PRESETS.find(x => x.name === presetName);
+    if (p?.rates) document.getElementById(`rate${id}`).value = p.rates[speed];
+    calculate();
+}
+
+function getSortedPresets(minSpeed) {
+    return PRESETS.filter(p => {
+        if (p.rates?.default) return true;
+        return Object.keys(p.rates).some(s => Number(s) >= minSpeed);
+    }).sort((a, b) => {
+        const aSub = a.subscription.hasSubscription;
+        const bSub = b.subscription.hasSubscription;
+        return (aSub === bSub) ? a.name.localeCompare(b.name) : aSub ? -1 : 1;
+    });
+}
+
+function enforceSpeedRules() {
+    const { minSpeed } = getInputs();
+    const sortedPresets = getSortedPresets(minSpeed);
+    document.querySelectorAll(".provider-box").forEach(box => {
+        const id = box.dataset.id;
+        const presetSelect = document.getElementById(`preset${id}`);
+        const current = presetSelect.value;
+        presetSelect.innerHTML = ['Custom', ...sortedPresets.map(p => p.name)].map(n => `<option value="${n}">${n}</option>`).join("");
+        presetSelect.value = (sortedPresets.some(p => p.name === current) || current === 'Custom') ? current : 'Custom';
+        updateProviderFields(id);
+    });
+}
+
+function buildItineraryTable(stopsRows, rechargethreshold) {
+    return `
+        <div class="results-scroll" style="width: fit-content; max-width: 100%; margin: 0;">
+            <table style="border-collapse: collapse; margin-top: 10px; border: 1px solid var(--border); font-size: 0.8rem;">
+                <thead>
+                    <tr style="background: rgba(57, 255, 20, 0.05); color: var(--text);">
+                        <th style="padding: 10px; border: 1px solid var(--border);">Stop</th>
+                        <th style="padding: 10px; border: 1px solid var(--border); text-align: left;">Event</th>
+                        <th style="padding: 10px; border: 1px solid var(--border);">Mile Mark</th>
+                        <th style="padding: 10px; border: 1px solid var(--border); text-align: left;">Action</th>
+                        <th style="padding: 10px; border: 1px solid var(--border);">
+                            ⚡ Duration<br />${document.getElementById("maxChargingSpeed").value}kW
+                        </th>
+                        <th style="padding: 10px; border: 1px solid var(--border);">
+                            🐢 Duration<br />${document.getElementById("minSpeed").value}kW
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    ${stopsRows || `<tr><td colspan="5" style="padding: 20px; text-align: center;">No public charging stops required for this journey distance.</td></tr>`}
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+function buildTabbedItinerary(journeys, itineraryRowsArray, rechargethreshold) {
+    let tabs = '';
+    let contents = '';
+
+    journeys.forEach((j, index) => {
+        const active = index === 0 ? 'active' : '';
+        tabs += `<div class="itinerary-tab-btn ${active}" onclick="selectItineraryTab(${index})">Journey ${index + 1}</div>`;
+
+        contents += `
+            <div class="itinerary-tab-panel" id="itinerary-panel-${index}" style="display:${index === 0 ? 'block' : 'none'};">
+                ${buildItineraryTable(itineraryRowsArray[index], rechargethreshold)}
+            </div>
+        `;
+    });
+
+    return `
+        <div class="conclusion-white-border guide-section" id="real-world-assessment">
+            <div id="itineraryTabs">
+                <div class="itinerary-tab-buttons">${tabs}</div>
+                <div class="itinerary-tab-content">${contents}</div>
+            </div>
+            <p class="itinerary-note">Note: the final charge is calculated so you will reach your destination at the specified journey recharge threshold. Allow +/- 1 minute for rounding.</p>
+        </div>
+    `;
+}
+
+function selectItineraryTab(index) {
+    document.querySelectorAll('.itinerary-tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+    });
+
+    document.querySelectorAll('.itinerary-tab-panel').forEach((panel, i) => {
+        panel.style.display = i === index ? 'block' : 'none';
+    });
+}
+
+function formatDuration(totalMinutes) {
+    if (totalMinutes < 60) {
+        return `${totalMinutes} mins`;
+    }
+    const h = Math.floor(totalMinutes / 60);
+    const m = totalMinutes % 60;
+    return `${h}h ${m}m`;
+}
+
+function buildStopsRowsForJourney(journeyMiles, startSoc, rechargeAt, efficiency, batteryKwh, maxChargingSpeed, minSpeed) {
+    let rows = "";
+    let stop = 1;
+    let distanceDriven = 0;
+    let currentSoc = startSoc;
+
+    const chargeToPercent = 80;
+    const kwhFullCharge = ((chargeToPercent - rechargeAt) / 100) * batteryKwh;
+    const maxRangeFromFullCharge = kwhFullCharge * efficiency;
+    const preChargedRange = ((startSoc - rechargeAt) / 100) * batteryKwh * efficiency;
+
+    // --- STOP 0: DEPART ---
+    rows += `
+        <tr>
+            <td style="padding: 10px; border: 1px solid var(--border);">0</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">Begin journey</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">0 miles</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">Depart with ${startSoc}% battery</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+        </tr>
+    `;
+
+    // --- CASE 1: No public charging required ---
+    if (journeyMiles <= preChargedRange) {
+        const kwhUsed = journeyMiles / efficiency;
+        const percentUsed = (kwhUsed / batteryKwh) * 100;
+        let arrivalSoc = Math.max(rechargeAt, Math.min(100, startSoc - percentUsed));
+
+        rows += `
+            <tr>
+                <td style="padding: 10px; border: 1px solid var(--border);">${stop}</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">Finish journey</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">${journeyMiles} miles</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">Arrive with ${arrivalSoc.toFixed(0)}% battery</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+            </tr>
+        `;
+        return rows;
+    }
+
+    // --- CASE 2: Journey requires public charging ---
+    while (true) {
+        const rangeOnCurrentCharge = ((currentSoc - rechargeAt) / 100) * batteryKwh * efficiency;
+
+        if (distanceDriven + rangeOnCurrentCharge >= journeyMiles) break;
+
+        const mileMarkAtRecharge = distanceDriven + rangeOnCurrentCharge;
+        const remainingMiles = journeyMiles - mileMarkAtRecharge;
+        
+        let chargeNeededKwh;
+        let targetSoc;
+        let eventLabel;
+
+        if (remainingMiles <= maxRangeFromFullCharge) {
+            chargeNeededKwh = (remainingMiles / efficiency);
+            targetSoc = (rechargeAt + (chargeNeededKwh / batteryKwh) * 100).toFixed(0);
+            eventLabel = "Final public charge";
+        } else {
+            chargeNeededKwh = kwhFullCharge;
+            targetSoc = chargeToPercent;
+            eventLabel = stop === 1 ? "First public charge" : "Public charge";
+        }
+
+        // Calculate durations for both speed columns
+        const durationMax = formatDuration(Math.round((chargeNeededKwh / maxChargingSpeed) * 60));
+        const durationMin = formatDuration(Math.round((chargeNeededKwh / minSpeed) * 60));
+
+        rows += `
+            <tr>
+                <td style="padding: 10px; border: 1px solid var(--border);">${stop}</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">${eventLabel}</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">${Math.round(mileMarkAtRecharge)} miles</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">
+                    Recharge ${rechargeAt}%→${targetSoc}%, ${chargeNeededKwh.toFixed(1)} kWh
+                </td>
+                <td style="padding: 10px; border: 1px solid var(--border);">${durationMax}</td>
+                <td style="padding: 10px; border: 1px solid var(--border);">${durationMin}</td>
+            </tr>
+        `;
+
+        if (remainingMiles <= maxRangeFromFullCharge) {
+            stop++;
+            break;
+        }
+
+        distanceDriven = mileMarkAtRecharge;
+        currentSoc = chargeToPercent;
+        stop++;
+    }
+
+    // --- FINAL ROW: DESTINATION ---
+    rows += `
+        <tr>
+            <td style="padding: 10px; border: 1px solid var(--border);">${stop}</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">Finish journey</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">${journeyMiles} miles</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">Arrive with ${rechargeAt}% battery</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+            <td style="padding: 10px; border: 1px solid var(--border);">–</td>
+        </tr>
+    `;
+
+    return rows;
+}
